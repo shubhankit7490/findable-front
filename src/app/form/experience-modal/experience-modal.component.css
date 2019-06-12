@@ -1,0 +1,245 @@
+:host form {
+    display: block;
+}
+
+:host .exp-popup-lg {
+    height: 582px;
+}
+
+:host >>> .form-group {
+    display: block;
+    padding: 12px 0;
+}
+.position-active{
+    width:100%;
+}
+.position-list > li {
+    width:100%;
+}
+.width-max{
+    width:150px;
+}
+:host >>> .full-height{
+    min-height:550px;
+    direction: rtl;
+}
+:host >>> .checkbox label {
+    font-size: 15px !important;
+    padding-top: 38px;
+    padding-left: 0px !important;
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+.datepickerFrom{
+    position: absolute;
+    top: 194px;
+    left: 14px;
+    z-index: 2;
+}
+.datepickerTo{
+    position: absolute;
+    top: 194px;
+    left: 64px;
+    z-index: 2;
+}
+.click{
+    cursor: pointer;
+}
+.button-custom-done{
+    bottom: -20px;
+}
+.button-custom-done > button{
+    position: fixed;
+}
+button.datePickerAnchor {
+    background: white;
+    border: 0;
+    margin-left: 138px;
+    position: relative;
+    top: -40px;
+}
+
+button.datePickerAnchor i {
+    font-size: 24px;
+    color: #A1A6C2;
+}
+.checkbox{
+    position: relative;
+    margin-top:-20px;
+    padding-bottom: 0px;
+}
+:host select, :host options {
+    text-transform: capitalize;
+}
+:host select, :host options, :host input {
+    font-family: 'Roboto', arial;
+    font-size: 15px;
+}
+
+:host >>> ::-webkit-input-placeholder {
+    font-family: 'Roboto', arial;
+    font-size: 15px;
+}
+:host >>> ::-moz-placeholder {
+    font-family: 'Roboto', arial;
+    font-size: 15px;
+}
+:host >>> :-ms-input-placeholder {
+    font-family: 'Roboto', arial;
+    font-size: 15px;
+}
+:host >>> :-moz-placeholder {
+    font-family: 'Roboto', arial;
+    font-size: 15px;
+}
+
+li small {
+    font-size: 13px;
+}
+
+li .btn-link {
+    color: #164572;
+    padding: 3px 0;
+}
+
+li h5 {
+    margin-bottom: 6px;
+}
+
+form > .col-md-9 {
+    padding: 25px 15px 0 15px;
+}
+
+ul.position-list li {
+    cursor: pointer;
+}
+
+.period-height-fixed {
+    overflow: hidden;
+    height: 52px;
+}
+
+.btn-lg:focus {
+    color: #d3d3d3 !important;
+}
+
+.block-date {
+    margin: 0 !important;
+}
+
+.clear-padding-left{
+    padding-left:0px;
+}
+.separator{
+    font-size: 20px;
+    padding-top: 3px;
+    width: 20px !important;
+    position: relative;
+    top: 7px;
+}
+.left{
+    float:left;
+}
+
+month-picker, year-picker {
+    width: 44%;
+}
+
+:host >>> .block-date select {
+    width: 90%;
+}
+
+:host >>> .date-block-wrap {
+    padding-top: 0px;
+}
+
+:host >>> .date-block-wrap:nth-child(2) {
+    position: relative;
+    left: 10px;
+}
+
+:host >>> .popup-padding {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+:host >>> .select-list-dropdown:disabled {
+    color: #e3e4ed;
+    background-color: #e3e4ed;
+}
+
+:host .form-control, :host >>> .form-control {
+    height: 50px;
+}
+
+.error i {
+    margin: 0 5px 0 0;
+}
+
+.error {
+    color: red;
+    height: 0 !important;
+    display: block;
+}
+
+.global-message {
+    display: inline-block;
+    position: absolute;
+    right: 120px;
+    text-align: right;
+    bottom: 36px;
+    font-size: 17px;
+}
+
+/* Auto complete component style */
+:host >>> .ui-autocomplete {
+    width: 100%;
+}
+:host >>> .ui-autocomplete-input {
+    border: 1px solid #c5c8d3 !important;
+    width: 100%;
+    font-size: 15px !important;
+    padding-right: 20px;
+}
+:host >>> .ui-autocomplete-list-item {
+    font-size: 14px;
+}
+:host >>> .auto-complete-spinner {
+    position: relative;
+    z-index: 999;
+    float: right;
+    margin-top: -32px;
+    margin-right: 10px;
+}
+
+/* app-spinning-loader: */
+:host >>> .load-page i {
+    font-size: 340%;
+    top: 43%;
+    left: -1%;
+}
+
+ul.position-list {
+    height: 485px;
+}
+#add-exp-wrapper, .position-list {
+    direction: ltr;
+}
+
+:host .fnd-block-right:before {
+    bottom: 10px;
+}
+
+:host .margin-bottom-error {
+    margin-bottom: 30px;
+}
+
+:host .fnd-form-submit-container {
+    display: inline-block;
+    right: 73px;
+}
+
+:host .position-list .btn.btn-remove:focus {
+    outline: 0;
+}

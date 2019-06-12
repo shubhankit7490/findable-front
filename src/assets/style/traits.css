@@ -1,0 +1,39 @@
+.trait {
+    background: url('../images/traits.png') no-repeat;
+    display: inline-block;
+    width: 30px !important;
+}
+
+.trait-diplomatic { background-position: -0px -0px; width: 31px; height: 20px; }
+.trait-discrete { background-position: -0px -20px; width: 30px; height: 20px; }
+.trait-organized { background-position: -0px -40px; width: 27px; height: 20px; }
+.trait-articulate { background-position: -0px -60px; width: 24px; height: 20px; }
+.trait-sensitive { background-position: -0px -80px; width: 23px; height: 20px; }
+.trait-adaptable { background-position: -0px -100px; width: 22px !important; height: 22px; margin-right: 8px;}
+.trait-responsible { background-position: -0px -122px; width: 21px; height: 20px; }
+.trait-analytical { background-position: -0px -142px; width: 20px; height: 20px; }
+.trait-creative { background-position: -0px -162px; width: 20px; height: 20px; }
+.trait-decisive { background-position: -0px -182px; width: 20px; height: 18px; }
+.trait-focused { background-position: -0px -200px; width: 20px; height: 20px; }
+.trait-friendly { background-position: -0px -220px; width: 20px; height: 20px; }
+.trait-genuine { background-position: -0px -240px; width: 20px; height: 20px; }
+.trait-practicle { background-position: -0px -260px; width: 20px; height: 20px; }
+.trait-sociable { background-position: -0px -280px; width: 20px; height: 20px; }
+.trait-broad-minded { background-position: -0px -300px; width: 19px; height: 20px; }
+.trait-charismatic { background-position: -0px -320px; width: 19px; height: 20px; }
+.trait-competitive { background-position: -0px -340px; width: 19px; height: 20px; }
+.trait-enthusiastic { background-position: -0px -360px; width: 19px; height: 20px; }
+.trait-active { background-position: -0px -380px; width: 18px; height: 20px; }
+.trait-cautious { background-position: -0px -400px; width: 18px; height: 17px; }
+.trait-hardworking { background-position: -0px -417px; width: 18px; height: 17px; }
+.trait-leader { background-position: -0px -434px; width: 18px; height: 20px; }
+.trait-passionate { background-position: -0px -454px; width: 18px; height: 20px; }
+.trait-strong { background-position: -0px -474px; width: 18px; height: 19px; }
+.trait-big-picture { background-position: -0px -493px; width: 17px !important; height: 20px; margin-right: 13px !important;}
+.trait-honest { background-position: -0px -513px; width: 17px; height: 20px; }
+.trait-independent { background-position: -0px -533px; width: 17px; height: 20px; }
+.trait-reliable { background-position: -0px -553px; width: 17px; height: 20px; }
+.trait-confident { background-position: -0px -573px; width: 16px; height: 20px; }
+.trait-disciplined { background-position: -0px -593px; width: 16px; height: 19px; }
+.trait-loyal { background-position: -17px -493px; width: 14px; height: 20px; }
+.trait-ambitious { background-position: -22px -100px; width: 9px; height: 20px; }

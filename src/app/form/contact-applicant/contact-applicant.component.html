@@ -1,0 +1,38 @@
+<div class="popup popup-lg">
+    <app-spinning-loader [showLoader]="isSubmitting"></app-spinning-loader>
+    
+    <div class="row1" id="contact_applicant_form_popup">
+        <form [formGroup]="contactApplicantForm" (submit)="onSubmit($event)" class="form-wrapper" spellcheck="false" autocomplete="off" novalidate>
+            <div class="form-group">
+                <label class="sr-only" for="fullname">Full name</label>
+                <input class="form-control" type="text" id="fullname" formControlName="fullname" value="{{ fullname }}" placeholder="Full name (Required)">
+                <p class="error">{{ controls.messages.fullname }}</p>
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="company">Company name</label>
+                <input class="form-control" type="text" id="company" formControlName="company" value="{{ businessName }}" placeholder="Company (Required)">
+                <p class="error">{{ controls.messages.company }}</p>
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="email">Email address</label>
+                <input class="form-control" type="email" id="email" formControlName="email" value="{{ email }}" placeholder="Email (Required)">
+                <p class="error">{{ controls.messages.email }}</p>
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="phone">Phone</label>
+                <input class="form-control" type="tel" id="phone" formControlName="phone" value="{{ phone }}" placeholder="Phone">
+                <p class="error">{{ controls.messages.phone }}</p>
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="message">Message:</label>
+                <textarea class="form-control" id="message" name="message" formControlName="message" maxlength="150" placeholder="Message"></textarea>
+                <p class="error">{{ controls.messages.message }}</p>
+            </div>
+            <div class="form-group fnd-form-submit-container button-custom-done">
+                <button type="submit" class="btn btn-success">
+                    Send
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

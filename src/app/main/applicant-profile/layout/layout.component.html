@@ -1,0 +1,45 @@
+<app-purchase-applicant *ngIf="purchaseVisible" #purchaseApplicantBlock 
+    [applicants]="applicantsToPurchase"
+    (onPurchase)="onPurchase($event)"
+    (onCancel)="closePurchase()"
+></app-purchase-applicant>
+
+<header>
+	<app-logo-main size="medium"></app-logo-main>
+
+    <div class="signup-links" *ngIf="!authService.currentUser">
+        <a routerLink="/business/signup">Business Signup</a> |
+        <a routerLink="/user/signup">Applicant Signup</a>
+    </div>
+</header>
+<article>
+    <div class="top-bar" *ngIf="authService.isLoggedIn && (authService.currentUser.role == 'manager' || authService.currentUser.role == 'recruiter')">
+        <div class="top-bar-status-selector top-bar-item">
+            <app-status-selector
+                [userId]="userId"
+                [selectedItem]="userObject?.status"
+                placeholderText="Choose status"
+            ></app-status-selector>
+        </div>
+        <div class="top-bar-report top-bar-item">
+            <button (click)="reportOpened = !reportOpened; note.close();" class="bar-item bar-img report"><img src="../../../assets/images/search/hand.png"></button>
+
+            <app-report-component #report *ngIf="reportOpened"
+            [userId]="userId"
+            arrowDirection="up"
+            [arrowOffsetLeft]="240"
+            (onClose)="reportOpened = false"
+            ></app-report-component>
+
+        </div>
+        <div class="top-bar-note top-bar-item">
+            <app-note #note
+                [userId]="userId"
+                (onBeforeOpen)="reportOpened = false;"
+            ></app-note>
+        </div>
+
+    </div>
+	<app-details-section [userId]="userId"></app-details-section>
+	<app-charts-section [userId]="userId"></app-charts-section>
+</article>

@@ -1,0 +1,11 @@
+<li>
+	<div *ngIf="hasColor" class="color-oval fnd_color_{{index}}"></div>
+	<div *ngIf="hasDrag" class="drag-handle">
+		<i class="glyphicon glyphicon-menu-hamburger"></i>
+	</div>
+	<span *ngIf="hasIcon" class="trait contact-item-icon" [ngClass]="item?.icon"></span>
+	<span class="">{{ item?.name }}</span>
+	<span class="" *ngIf="hasLevel">{{ item?.level }}</span>
+	<i class="glyphicon glyphicon-remove" (click)="onDelete()"></i>
+	<div class="fld-vertical-divider"></div>
+</li>

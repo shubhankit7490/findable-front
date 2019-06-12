@@ -1,0 +1,138 @@
+:host {
+    width: 340px;
+}
+
+div.whoami {
+    display: flex;
+    flex-direction: column;
+}
+
+div.name-and-image {
+    display: flex;
+    flex-direction: row;
+    padding-top: 20px;
+    border-bottom: solid 1px #EFEEEE;
+}
+
+.no-border-bottom {
+    border-bottom: 0 !important;
+}
+
+div.profile-name-container {
+    display: flex;
+    flex-direction: column;
+}
+
+div.profile-image img {
+    margin: 5px;
+}
+
+div.profile-image {
+    position: relative;
+    padding: 15px;
+}
+
+img.profile-avatar {
+    width: 160px;
+    height: 160px;
+}
+
+div.profile-image-edit {
+    /* Rectangle 3: */
+    opacity: 0.59;
+    background: #FFFFFF url("/assets/images/edit.png") center no-repeat;
+    border-radius: 3px;
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    width: 23px;
+    height: 23px;
+    cursor: pointer;
+}
+
+div.whoami h1.profile-name {
+    margin-bottom: 31px;
+}
+
+div.whoami h1.profile-name.anon {
+    margin-bottom: 19px;
+}
+
+.profile-updated-icon {
+    position: relative;
+    top: -1px;
+    color: #13345F;
+}
+
+div.profile-location {
+    margin-bottom: 14px;
+}
+
+div.about-me {
+    padding: 7px 30px;
+}
+
+div.about-me p {
+    height: 60px;
+    overflow: hidden;
+}
+
+h1.profile-name {
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.profile-updated {
+    color: #687d94;
+    font-size: 13px;
+}
+
+.about-me h2 {
+    margin: 12px 0 5px 0;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.about-me a {
+    cursor: pointer;
+}
+
+.profile-image img {
+    max-width: 161px;
+}
+
+.profile-updated-eye {
+    margin: 10px 0 0 0;
+}
+
+.contact-button {
+    border: none;
+    width: 162px;
+    font-size: 16px;
+    background: #3afbcf;
+    color: #13345f;
+    border-radius: 5px;
+    padding: 10px 0;
+    margin: 20px 0 0 0;
+}
+
+:host >>> .download-resume-container {
+    margin-top: auto;
+    display: flex;
+    width: 100%;
+    padding-bottom: 15px;
+}
+
+:host >>> .download-resume {
+    border: 1px solid #000;
+    border-radius: 2px;
+    background: #39FBCF none no-repeat top left;
+    color: #002351;
+    text-shadow: none;
+    height: 28px;
+    font-weight: bold;
+    border-color: #ccc;
+    font-size: 12px;
+    padding: 0px 20px;
+    outline: 0;
+}

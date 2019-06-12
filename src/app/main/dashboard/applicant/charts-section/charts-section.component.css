@@ -1,0 +1,108 @@
+.chart-header {
+    height: 60px;
+    background-color: #F8F8FC;
+    display: flex;
+    align-items: center;
+    padding-left: 45px;
+}
+
+.chart-header h2 {
+    margin: 0 16px 0 0;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+#fnd-skill-chart-fix {
+    display: flex;
+    justify-content: space-between;
+    margin: -20px 30px 48px 80px;
+}
+
+:host >>> div.edit-section .edit-link {
+    cursor: pointer;
+    color: #39FBCF;
+}
+
+:host .chart-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 450px;
+
+    background-size: 90px 90px;
+    background-image: linear-gradient(to right, rgba(140, 160, 179, 0.17) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(140, 160, 179, 0.17) 1px, transparent 1px);
+    background-color: rgba(248, 248, 252, 0.32);
+}
+
+:host .add-experience-icon {
+    height: 54px;
+    width: 97px;
+    background: url('../../../../../assets/images/dashboard_chart_add_experience.png') no-repeat;
+    cursor: pointer;
+}
+
+:host .add-education-icon {
+    height: 56px;
+    width: 104px;
+    background: url('../../../../../assets/images/dashboard_chart_add_education.png') no-repeat;
+    cursor: pointer;
+}
+
+:host .add-skills-icon {
+    height: 74px;
+    width: 97px;
+    background: url('../../../../../assets/images/dashboard_chart_add_skills.png') no-repeat;
+    cursor: pointer;
+}
+
+:host .add-experience-text,
+:host .add-education-text,
+:host .add-skills-text {
+    font-size: 48px;
+    color: #A1A6BE;
+    font-weight: lighter;
+    cursor: pointer;
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+:host >>> .modal-dialog.floated .modal-body{
+    padding:0px 0px;
+}
+
+:host .toggle-additional-info {
+    font-size: 16px;
+    padding: 8px 0 0 47px;
+    cursor: pointer;
+}
+
+:host span.chart-info-eye {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: transparent url('../../../../../assets/images/toggle-additional-info.png') no-repeat scroll 0px 7px;
+}
+
+:host span.chart-info-eye.hideInfo {
+    background-position: 0 -10px !important;
+}
+
+:host >>> .chart-education .vis-time-axis .vis-text {
+    visibility: hidden;
+}
+
+:host >>> .chart-education .vis-major {
+    color: #fff !important;
+}
+
+:host >>> .vis-minor {
+    padding: 0px !important;
+}
+
+:host >>> .vis-labelset .vis-label .vis-inner {
+    float: left;
+}

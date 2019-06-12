@@ -1,0 +1,138 @@
+
+<div class="login center-block">
+    <div class="row">
+        <div class="col-xs-offset-right-1 col-xs-offset-left-1 left-block block-inline signup-wrap">
+            <form autocomplete="off" [formGroup]="signUpFields">
+                <div class="form-group clearfix">
+                    <div class="col-xs-6 form-pad">
+                        <label class="sr-only" for="firstname">First Name</label>
+                        <input
+                            (input)="shouldDisplayRequired(['firstname'])"
+                            formControlName="firstname"
+                            autocomplete="smartystreets"
+                            placeholder="First Name"
+                            class="form-control"
+                            autocomplete="off"
+                            maxlength="150"
+                            id="firstname"
+                            type="text"
+                            >
+                        <!-- <span *ngIf="shouldDisplayRequired(['firstname'])" class="error"><i class="glyphicon glyphicon-remove border-radius"></i>First Name is required</span> -->
+                        <span *ngIf="formErrors.fname" class="error">
+                            <i class="glyphicon glyphicon-remove border-radius"></i>
+                            {{formErrors.fname}}
+                        </span>
+                    </div>
+                    <div class="col-xs-6 form-pad">
+                        <label class="sr-only" for="lastname">Last Name</label>
+                        <input
+                            (input)="shouldDisplayRequired(['lastname'])"
+                            autocomplete="smartystreets"
+                            formControlName="lastname"
+                            placeholder="Last Name"
+                            class="form-control"
+                            autocomplete="off" 
+                            maxlength="150"
+                            id="lastname"
+                            type="text"
+                            >
+                        <span *ngIf="shouldDisplayRequired(['lastname'])" class="error">
+                            <i class="glyphicon glyphicon-remove border-radius"></i>
+                            <!-- Last Name is required -->
+                        </span>
+                        <span *ngIf="formErrors.lname" class="error">
+                            <i class="glyphicon glyphicon-remove border-radius"></i>
+                            {{formErrors.lname}}
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <div class="col-xs-12 form-pad">
+                        <label class="sr-only" for="email">Email</label>
+                        <input
+                            (input)="shouldDisplayRequired(['email']); shouldDisplayEmailValidation(['email'],'invalidEmail')"
+                            autocomplete="smartystreets"
+                            formControlName="email"
+                            class="form-control"
+                            placeholder="Email"
+                            autocomplete="off"
+                            maxlength="255"
+                            type="text"
+                            id="email"
+                            >
+                        <!-- <span [errorHandler] [errorData]="formErrorObject" error-type="email" class="error"><i class="glyphicon glyphicon-remove border-radius"></i>{{ serverError }}</span> -->
+                        <span *ngIf="formErrors.email" class="error">
+                            <i class="glyphicon glyphicon-remove border-radius"></i>
+                            {{formErrors.email}}
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <div class="col-xs-12 form-pad">
+                        <label class="sr-only" for="pass">Password</label>
+                        <input
+                            (input)="shouldDisplayRequired(['password'])"
+                            autocomplete="smartystreets"
+                            formControlName="password"
+                            placeholder="Password"
+                            class="form-control"
+                            autocomplete="off"
+                            type="password"
+                            maxlength="60"
+                            id="pass"
+                            >
+                        <!-- <span *ngIf="shouldDisplayRequired(['password'])" class="error"><i class="glyphicon glyphicon-remove border-radius"></i>Password is required</span> -->
+                        <span *ngIf="formErrors.password" class="error">
+                            <i class="glyphicon glyphicon-remove border-radius"></i>
+                            {{formErrors.password}}
+                        </span>
+                    </div>
+                </div>
+                <p *ngIf="formErrors.global" class="global-error">{{ formErrors.global }}</p>
+                <div class="form-group checkbox text-left">
+                    <label>
+                        <input #agreeTerms
+                            (change)="validateField($event, signUpFields)"
+                            formControlName="terms"
+                            type="checkbox"
+                            >
+                        <span tabindex="0" (keyup)="toggleTermsAgreement($event)" class="cr">
+                            <i class="cr-icon glyphicon glyphicon-ok"></i>
+                        </span>
+                        I Accept the <a href="http://findable-system.appspot.com.storage.googleapis.com/Findable-Terms-of-Use.docx">Terms and Conditions</a>
+                        and <a href="http://findable-system.appspot.com.storage.googleapis.com/Findable-Privacy-Policy.docx">Privacy Policy</a>
+                    </label>
+                    <span *ngIf="formErrors.terms" class="error">
+                        <i class="glyphicon glyphicon-remove border-radius"></i>
+                         Please accept the Terms and Conditions and Privacy Policy
+                    </span>
+                </div>
+                <input type="hidden" [value]="inviteCode" formControlName="invite">
+                <input type="hidden" [value]="role" formControlName="role">
+                <button
+                    [disabled]="!signUpFields.valid || showLoader || !termsError"
+                    class="btn fnd-btn-primary fnd-btn-large text-left"
+                    (click)="signUp(signUpFields)"
+                    (focus)="true"
+                    type="submit"
+                    >
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                    Create Account
+                    <i *ngIf="showLoader" class="glyphicon glyphicon-refresh glyphicon-refresh-animate loading-icon"></i>
+                </button>
+                <span class="block signup-link text-left terms-padding">
+                    Already have an account?
+                    <a [routerLink]="['/user/login']" preserveQueryParams>Click here to sign in</a>
+                </span>
+                <span *ngIf="userType == 'user'" class="block signup-link text-left terms-padding">
+                    Looking to open a Business Account?
+                    <a [routerLink]="['/business/signup']">Click here</a>
+                </span>
+                <span *ngIf="userType == 'business'" class="block signup-link text-left terms-padding">
+                    Looking to open an Applicant Account?
+                    <a [routerLink]="['/user/signup']" preserveQueryParams>Click here</a>
+                </span>
+            </form>
+        </div>
+    </div>
+</div>

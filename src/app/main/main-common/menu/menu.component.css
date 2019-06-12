@@ -1,0 +1,53 @@
+:host {
+    display: inline-block;
+}
+
+:host >>> .container-fluid {
+    padding-left: 0px !important;
+}
+
+:host >>> .navbar-collapse {
+    padding-left: 0px !important;
+}
+
+nav {
+
+}
+
+nav.fnd-navbar-default {
+    color: white;
+    margin-bottom: 0;
+}
+
+.nav > li > a:hover,
+.nav > li > a:focus,
+.nav > li.active > a {
+    text-decoration: none;
+    background-color: #31517A;
+    text-decoration: none;
+    color: #3bf9d8;
+}
+
+:host >>> .navbar-nav > li > a {
+    line-height: 43px;
+    cursor: pointer;
+}
+
+.forline li:first-child .linespan{
+    position: absolute;
+    top: 16px;
+    right: 0;
+    background: #fff;
+    width: 1px;
+    z-index: 1;
+    height: 38px;
+}
+.forline li:second-child .linespan{
+    position: absolute;
+    top: 16px;
+    right: 0;
+    background: #fff;
+    width: 1px;
+    z-index: 1;
+    height: 38px;
+}

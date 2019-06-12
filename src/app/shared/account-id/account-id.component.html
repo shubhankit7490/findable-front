@@ -1,0 +1,8 @@
+<div class="account-id-input">
+    <input 
+        type="text"
+        (keyup)="triggerOnKeyUp($event)"
+        (blur)="triggerOnBlur($event)"
+        [(ngModel)]="accountId">
+    <p class="error">{{ error }}</p>
+</div>

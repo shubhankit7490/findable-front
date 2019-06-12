@@ -1,0 +1,112 @@
+<header>
+    <app-logo-main size="medium"></app-logo-main>
+    <app-menu-main role="{{authService.currentUser.role}}"></app-menu-main>
+    <app-user-main></app-user-main>
+</header>
+
+<div class="applicants-stats-container">
+    <div class="applicants-stats-sections">
+        <div class="col-md-12 business-general-stats">
+            <div class="col-md-2">&nbsp;</div>
+            <div class="col-md-2 stats-stat">
+                <div class="stat-wrapper stats-applied">
+                    <span class="stat-quantity">{{stats.applied}}</span><br>
+                    <span class="stat-label">Directly Applied</span>
+                </div>
+            </div>
+
+            <div class="col-md-2 stats-stat">
+                <div class="stat-wrapper stats-purchased">
+                    <span class="stat-quantity">{{stats.purchased}}</span><br>
+                    <span class="stat-label">Purchased Candidates</span>
+                </div>
+            </div>
+
+            <div class="col-md-2 stats-stat">
+                <div class="stat-wrapper stats-short">
+                    <span class="stat-quantity">{{stats.short_listed}}</span><br>
+                    <span class="stat-label">Short listed</span>
+                </div>
+            </div>
+
+
+            <div class="col-md-2 stats-stat">
+                <div class="stat-wrapper stats-hired">
+                    <span class="stat-quantity">{{stats.hired}}</span><br>
+                    <span class="stat-label">Hired</span>
+                </div>
+            </div>
+
+            <div class="col-md-2">&nbsp;</div>
+        </div>
+
+        <div class="col-md-12 saved-search-controlls" *ngIf="authService.currentUser.role == 'manager'">
+            <div class="col-md-6 pull-left saved-search-date-picker">
+                <span class="pull-left date-picker-label">Select range</span>
+                <day-picker selectClass="select-list-dropdown pull-left" class="left" [data]="from" (day)="setDayDateFrom($event)"> </day-picker>
+                <month-picker selectClass="select-list-dropdown pull-left" class="left" [data]="from" (month)="setMonthDateFrom($event)"> </month-picker>
+                <year-picker selectClass="select-list-dropdown pull-left" class="left" [data]="from" (year)="setYearDateFrom($event)"> </year-picker>
+                <span class="pull-left divider"> --- </span>
+                <day-picker selectClass="select-list-dropdown pull-left" class="left" [data]="to" (day)="setDayDateTo($event)"> </day-picker>
+                <month-picker selectClass="select-list-dropdown pull-left" class="left" [data]="to" (month)="setMonthDateTo($event)"> </month-picker>
+                <year-picker selectClass="select-list-dropdown pull-left" class="left" [data]="to" (year)="setYearDateTo($event)"> </year-picker>
+
+                <a href="javascript:void(0)" class="btn fnd-btn" (click)="getBusinessSearches($event)">
+                    <i *ngIf="loading === true" [class.glyphicon-refresh-animate]="loading === true" class="glyphicon glyphicon-refresh loading-icon-small"></i>
+                    Apply
+                </a>
+            </div>
+            <div class="col-md-2 pull-right saved-search-download">
+                <a href="javascript:void(0)" class="btn fnd-btn pull-right" (click)="dt.exportCSV()">
+                    <i class="glyphicon glyphicon-download-alt"></i>
+                    Download Report
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-12 saved-search-datatable">
+            <p-dataTable #dt [value]="searches" [tableStyleClass]="'searches-datatable-element'" [rowHover]="true" [exportFilename]="'Findable'">
+                <p-column [styleClass]="'delete-column'">
+                    <template let-search="rowData" pTemplate="body">
+                        <a href="javascript:void(0)" class="pull-right" (click)="delete_search($event, search.id)">
+                            <i *ngIf="!deleters[search.id]" class="glyphicon glyphicon-remove"></i>
+                            <i *ngIf="deleters[search.id] === true" [class.glyphicon-refresh-animate]="deleters[search.id] === true" class="glyphicon glyphicon-refresh loading-icon-loaded"></i>
+                        </a>
+                    </template>
+                </p-column>
+                <p-column field="name" header="Name" [styleClass]="'name-column'"></p-column>
+                <p-column field="creator.name" header="Creator"></p-column>
+                <p-column field="applied" header="Applied"></p-column>
+                <p-column field="purchased" header="Purchased"></p-column>
+                <p-column field="initial_contact" header="Initial contact"></p-column>
+                <p-column field="interviewing" header="Interviewed"></p-column>
+                <p-column field="short" header="Short listed"></p-column>
+                <p-column field="rejected" header="Rejected"></p-column>
+                <p-column field="hired" header="Hired"></p-column>
+                <p-column field="created" header="Created"></p-column>
+                <p-column [styleClass]="'status-column'" header="Status">
+                    <template let-search="rowData" pTemplate="body">
+                        <select [value]="search.status" (change)="set_status($event, search.id)" class="search-status-select">
+                            <option value="in progress">In Progress</option>
+                            <option value="closed">Closed</option>
+                        </select>
+                    </template>
+                </p-column>
+                <p-column [styleClass]="'report-loader-column'" header="Report">
+                    <template let-search="rowData" pTemplate="body">
+                        <a href="javascript:void(0)" (click)="load_stats($event, search.id)">
+                            <i *ngIf="!loaders[search.id] && !search.loaded" class="glyphicon glyphicon-import"></i>
+                            <i *ngIf="search.loaded === true && !loaders[search.id]" class="glyphicon glyphicon-transfer loading-icon-loaded"></i>
+                            <i *ngIf="loaders[search.id] === true" [class.glyphicon-refresh-animate]="loaders[search.id] === true" class="glyphicon glyphicon-refresh loading-icon"></i>
+                            <br *ngIf="loaders[search.id] === true">
+                            <span *ngIf="!search.loaded && !loaders[search.id]">Load Report</span>
+                            <span *ngIf="search.loaded === true && !loaders[search.id]">Reload Data</span>
+                            <span *ngIf="loaders[search.id] === true">Loading</span>
+                        </a>
+                    </template>
+                </p-column>
+            </p-dataTable>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,95 @@
+<div class="whoami">
+	<div class="name-and-image" [class.no-border-bottom]="seeFullDetails">
+		<div class="profile-image">
+
+			<h1 class="profile-name anon" *ngIf="!seeFullDetails">#{{ userId }}</h1>
+			<div class="profile-location" *ngIf="!seeFullDetails">
+				{{ ( profile | async )?.location?.city_name }}
+				{{ ( profile | async )?.location?.state_short_name }}
+				{{ ( profile | async )?.location?.country_short_name_alpha_2 }}
+			</div>
+
+			<div class="profile-updated" *ngIf="!seeFullDetails">
+				<img class="profile-updated-icon" src="../../../../../../assets/images/profile-update-icon.png">
+				<span>Updated - {{ ( profile | async )?.updated | datex: 'MMM D YY' }}</span>
+			</div>
+
+			<div *ngIf="seeFullDetails">
+				<img *ngIf="( profile | async )?.image?.url == null" src="/assets/images/dashboard_profile_avatar.png" class="profile-avatar"/>
+				<img *ngIf="( profile | async )?.image?.url !== null" [src]="( profile | async )?.image?.url " />
+				<div *ngIf="( profile | async )?.image?.url !== null" class="profile-image-edit"></div>
+			</div>
+
+			<button *ngIf="!seeFullDetails"
+				class="contact-button no-print pointer"
+				(click)="onContactClick($event)"
+				>
+				Contact Applicant
+			</button>
+
+			<a class="contact-button no-print pointer" (click)="redirect('/user/' + userId, true)">Full Profile</a>
+		</div>
+		<div class="profile-name-container">
+			<div class="profile-name-container-top">
+				<h1 class="profile-name" *ngIf="seeFullDetails">{{ ( profile | async )?.firstname }} {{  ( profile | async )?.lastname }} (#{{userId}})</h1>
+				
+				<div class="profile-location" *ngIf="seeFullDetails">
+					{{ ( profile | async )?.location?.city_name }}
+					{{ ( profile | async )?.location?.state_short_name }}
+					{{ ( profile | async )?.location?.country_short_name_alpha_2 }}
+				</div>
+
+				<div class="profile-updated" *ngIf="seeFullDetails">
+					<img class="profile-updated-icon" src="../../../../../../assets/images/profile-update-icon.png">
+					<span>Updated - {{ ( profile | async )?.updated | datex: 'MMM D YY' }}</span>
+				</div>
+				<div class="profile-updated-eye" *ngIf="seeFullDetails">
+					<img src="../../../../../../assets/images/about-me-eye.png">
+				</div>
+			</div>
+
+			<div class="profile-name-container-bottom">
+				<div class="about-me">
+					<h2>About Me</h2>
+					<p #aboutContentContainer>{{profileSubscribe?.about || ''}} </p>
+					<a
+						(click)="showAbout($event, aboutContentContainer)"
+						*ngIf="( profile | async )?.about !== null"
+						[hidden]="(aboutMeLength > 126)"
+						>
+						{{ aboutShown ? 'Read less' : 'Read more...' }}
+					</a>
+					<div style="position:relative;padding-left:30px;" *ngIf="subscription && subscription.status =='active'">
+						<span style="position:absolute;top:0;left:0"><img src="assets/images/star.png" alt="image"></span>
+						<p style="height:120px;">
+							This job wishes to remain anonymous,but will receive your message
+						</p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+<modal #contactApplicant title="Contact Applicant"
+       cancelButtonLabel="cancel"
+       submitButtonLabel="submit"
+       modalClass="modal-sm fnd-contact-modal"
+       [hideCloseButton]="false"
+       [closeOnEscape]="true"
+       [closeOnOutsideClick]="true"
+       (onOpen)="actionOnOpen()"
+       (onClose)="actionOnClose()"
+       (onSubmit)="actionOnSubmit()">
+
+    <modal-header></modal-header>
+
+    <modal-content>
+        <app-contact-applicant [userId]="userId" [fullname]="fullname" [businessName]="businessName" (onUpdate)="onApplicantContact($event)"></app-contact-applicant>
+    </modal-content>
+
+    <modal-footer></modal-footer>
+
+</modal>

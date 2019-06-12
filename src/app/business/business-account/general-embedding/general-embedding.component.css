@@ -1,0 +1,54 @@
+:host {
+    height: 100%;
+    background: transparent url(../../../../assets/images/general-embedding-bg.png) no-repeat bottom right;
+}
+
+:host h3 {
+    padding-top: 40px;
+    padding-bottom: 0px;
+    color: #13345F;
+    font-size: 16px;
+    font-weight: 700;
+    padding-left: 20px;
+}
+
+:host .monthsLabel {
+    font-size: 15px;
+}
+
+:host textarea {
+    width: 50%;
+    min-height: 200px;
+    font-size: 12px;
+}
+
+:host >>> pre {
+    padding: 10px;
+    margin: 0px;
+    background-color: #fff;
+}
+
+:host code {
+    background: #fff;
+    word-break: break-word;
+}
+
+:host .aligner {
+    margin-left: 17px;
+}
+
+:host >>> ui-switch {
+    position: relative;
+    top: 5px;
+    margin-left: 17px;
+}
+
+:host .title-aligner {
+    margin-top: 60px;
+    margin-bottom: 20px;
+}
+
+:host .general-embedding-snippet {
+    width: 50%;
+    margin-bottom: 30px;
+}

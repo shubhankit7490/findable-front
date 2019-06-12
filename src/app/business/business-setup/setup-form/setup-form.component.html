@@ -1,0 +1,277 @@
+<div class="container container-aligner container-limiter">
+
+  
+  <form [formGroup]="companySetupForm" novalidate autocomplete="off">
+    <div class="row flex">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="form-group col-md-6">
+            <h3>Your Profile</h3>
+          </div>
+        </div>
+        <div class="row">
+          <!-- FIRST NAME -->
+          <div class="form-group col-md-3">
+            <label class="fnd-req"></label>
+            <input
+              type="text"
+              maxlength="150"
+              name="firstname"
+              class="form-control"
+              (blur)='setState("firstname", $event)'
+              formControlName="firstname"
+              placeholder="First Name">
+          </div>
+          <!-- LAST NAME -->
+          <div class="form-group col-md-3">
+            <label class="fnd-req"></label>
+            <input
+              type="text"
+              name="lastname"
+              maxlength="150"
+              class="form-control"
+              formControlName="lastname"
+              (blur)='setState("lastname", $event)'
+              placeholder="Last Name">
+          </div>
+
+          <p class="col-md-12 error">
+            <span *ngIf="controls.messages.firstname" class="error firstname-error">{{ controls.messages.firstname }}</span>
+            <span *ngIf="controls.messages.lastname" class="error lastname-error">{{ controls.messages.lastname }}</span>
+          </p>
+        </div><!-- END row-->
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label class="fnd-req"></label>
+            <input
+              type="tel"
+              name="phone"
+              maxlength="16"
+              class="form-control"
+              formControlName="phone"
+              (blur)='setState("phone", $event)'
+              placeholder="Phone Number">
+            <p class="error">{{ controls.messages.phone }}</p>
+          </div>
+        </div><!-- END row-->
+
+        <!-- EMAIL -->
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label class="fnd-req"></label>
+            <input email
+              type="email"
+              name="email"
+              maxlength="255"
+              class="form-control"
+              (blur)='setState("email", $event)'
+              formControlName="email"
+              placeholder="Email">
+            <p class="error">{{ controls.messages.email }}</p>
+          </div>
+        </div>
+
+        <!-- Company Name -->
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label class="fnd-req"></label>
+            <input
+              id="name"
+              type="text"
+              name="name"
+              maxlength="150"
+              class="form-control"
+              formControlName="name"
+              (blur)='setState("name", $event)'
+              placeholder="Company Name">
+            <p class="error">{{ controls.messages.name }}</p>
+          </div>
+        </div><!-- END row-->
+
+        <!-- COMPANY SIZE -->
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label class="fnd-req"></label>
+            <select id="companySize" class="form-control" formControlName="size"
+              (change)='setState("size", $event)'>
+              <option class="company-size-disabled-option" disabled [selected]="!companySetupForm.value.size">Company Size</option>
+              <option *ngFor="let size of companySizes; let i = index" [value]="size.value"
+                [selected]="companySetupForm.value.size == size.value">{{ size.text }}
+              </option>
+            </select>
+            <p class="error">{{ controls.messages.size }}</p>
+          </div>
+        </div><!-- END row-->
+
+        <!-- INDUSTRY -->
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label class="fnd-req"></label>
+            <p-autoComplete
+              #industrySelector
+              (completeMethod)='searchIndustry($event)'
+              (updateModel)='setState("industry", $event)'
+              (onSelect)='onSelectIndustry($event)'
+              [suggestions]='industries'
+              formControlName='industry'
+              [maxlength]=150
+              placeholder='Industry'
+              [minLength]=1
+              dataKey='id'
+              [delay]=500
+              dataKey='id'
+              field='name'
+            ></p-autoComplete>
+            <app-input-loader [loading]="requestingIndustry">
+            </app-input-loader>
+            <p class="error">{{ controls.messages.industry }}</p>
+          </div>
+        </div><!-- END row-->
+
+        <!-- ADDRESS 1 -->
+        <div class="row" *ngIf="mode==='create'">
+          <div class="form-group col-md-6">
+            <label class="fnd-req"></label>
+            <input
+              type="text"
+              maxlength="16"
+              name="address_line1"
+              maxlength="150"
+              class="form-control"
+              (blur)="setState('address_line1', $event)"
+              formControlName="address_line1"
+              placeholder="Address 1">
+            <p class="error">{{ controls.messages.address_line1 }}</p>
+          </div>
+        </div><!-- END row-->
+
+        <!-- ADDRESS 2 -->
+        <div class="row" *ngIf="mode==='create'">
+          <div class="form-group col-md-6">
+            <input
+              type="text"
+              maxlength="16"
+              name="address_line2"
+              maxlength="150"
+              class="form-control"
+              (blur)="setState('address_line2', $event)"
+              formControlName="address_line2"
+              placeholder="Address 2">
+            <p class="error">{{ controls.messages.address_line2 }}</p>
+          </div>
+        </div><!-- END row-->
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label class="fnd-req"></label>
+            <input
+              id="city"
+              type="text"
+              autocomplete="false"
+              class="form-control"
+              formControlName="location"
+              placeholder="Enter company location">
+            <p class="error">{{ controls.messages.location }}</p>
+          </div>
+        </div><!-- END row-->
+
+        <!-- ZIP CODE -->
+        <div class="row" *ngIf="mode==='create'">
+          <div class="form-group col-md-6">
+            <label class="fnd-req"></label>
+            <input
+              type="tel"
+              maxlength="16"
+              name="address_zip"
+              (blur)="setState('address_zip', $event)"
+              formControlName="address_zip"
+              class="form-control"
+              placeholder="Zip">
+            <p class="error">{{ controls.messages.address_zip }}</p>
+          </div>
+        </div><!-- END row-->
+
+        <!-- WEBSITE ADDRESS -->
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label class="fnd-req"></label>
+            <input
+              type="text"
+              maxlength="150"
+              name="web_address"
+              (blur)="setState('web_address', $event)"
+              (keyup)="checkSiteText($event)"
+              formControlName="web_address"
+              class="form-control">
+            <p class="error">{{ controls.messages.web_address }}</p>
+          </div>
+        </div><!-- END row-->
+
+        <!-- COMPANY LOGO -->
+        <div class="row">
+          <div class="col-md-6">
+            <label>Company logo</label>
+            <div class="image-upload-wrap">
+
+              <div class="form-group">
+                <div class="image-upload-pic-wrap">
+                  <div class="my-drop-zone image-upload-bottom">
+                    <p-fileUpload
+                        #file
+                        name="file"
+                        url="{{UPLOAD_PATH}}"
+                        (onBeforeSend)="onBeforeSend($event)"
+                        (onSelect)="onSelect($event, file)"
+                        (onError)="uploadError($event)"
+                        (onUpload)="onUpload($event)"
+                        (onClear)="onClear()"
+                        styleClass="business-setup-file-upload"
+                        uploadLabel="Upload"
+                        chooseLabel="Choose"
+                        cancelLabel="Cancel"
+                        accept="image/*"
+                        maxFileSize="10000000"
+                        >
+                        <template pTemplate="content">
+                          <img #businessLogo id="business-image" src="{{ businessLogoPath }}">
+                        </template>
+                    </p-fileUpload>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+      
+            <button *ngIf="mode === 'create'" (click)="onSubmit($event)" type="submit"
+              [disabled]="submitting || !companySetupForm.valid || companySetupForm.value.location.city_name === null || uploadingImage"
+              class="company-setup-submit btn fnd-btn-primary col-md-12">
+              <div *ngIf="!uploadingImage">
+                <i class="glyphicon glyphicon-ok" *ngIf="submissionAccomplished"></i>
+                <span *ngIf="!submissionAccomplished">
+                  Done
+                </span>
+              </div>
+              <div *ngIf="uploadingImage">Uploading Image, please wait...</div>
+            </button>
+
+              <button *ngIf="mode === 'update'" (click)="onSubmit($event)" type="submit" 
+                [disabled]="submitting || !companySetupForm.valid || companySetupForm.value.location.city_name === null  || uploadingImage"
+                class="company-setup-submit btn fnd-btn-primary col-md-12">
+                <div *ngIf="!uploadingImage">
+                  <img *ngIf="!submissionAccomplished && submitting" [class.glyphicon-refresh-animate]="submitting" src="../../../../assets/images/reload-icon.png">
+                  <span *ngIf="!submissionAccomplished">
+                    Update
+                  </span>
+                  <i class="glyphicon glyphicon-ok" *ngIf="submissionAccomplished"></i>
+                </div>
+                <div *ngIf="uploadingImage">Uploading Image, please wait...</div>
+              </button>
+      
+            </div>
+          </div><!-- END row-->
+
+        </div><!-- END col-md-8-->
+    </div> <!-- END row flex-->
+  </form>
+</div><!-- END container-->

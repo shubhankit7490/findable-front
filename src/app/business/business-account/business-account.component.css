@@ -1,0 +1,363 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 1091px;
+    height: 100%;
+    position: relative;
+}
+
+header {
+    background: #13345F;
+    color: white;
+    height: 80px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+:host >>> .business-account-container {
+    display:flex;
+    flex-direction:row;
+    width:100%;
+    height:100%;
+}
+
+:host .image-upload-wrap {
+    text-align: center;
+}
+
+:host .image-upload-bottom {
+    overflow: hidden;
+}
+
+:host .image-upload-top {
+    /*border-bottom: 1px solid #c5c8d3;*/
+    padding: 0;
+    margin-bottom: 0;
+}
+
+:host .image-upload-bottom > div:first-child {
+    border-right: 1px solid #c5c8d3;
+}
+
+:host .image-upload-wrap > .form-group {
+    margin: 0;
+}
+
+:host .image-upload-bottom > div {
+    padding: 17px 0;
+}
+
+:host .col-xs-1, :host .col-sm-1, :host .col-md-1, :host .col-lg-1, :host .col-xs-2, :host .col-sm-2, :host .col-md-2, :host .col-lg-2, :host .col-xs-3, :host .col-sm-3, :host .col-md-3, :host .col-lg-3, :host .col-xs-4, :host .col-sm-4, :host .col-md-4, :host .col-lg-4, :host .col-xs-5, :host .col-sm-5, :host .col-md-5, :host .col-lg-5, :host .col-xs-6, :host .col-sm-6, :host .col-md-6, :host .col-lg-6, :host .col-xs-7, :host .col-sm-7, :host .col-md-7, :host .col-lg-7, :host .col-xs-8, :host .col-sm-8, :host .col-md-8, :host .col-lg-8, :host .col-xs-9, :host .col-sm-9, :host .col-md-9, :host .col-lg-9, :host .col-xs-10, :host .col-sm-10, :host .col-md-10, :host .col-lg-10, :host .col-xs-11, :host .col-sm-11, :host .col-md-11, :host .col-lg-11, :host .col-xs-12, :host .col-sm-12, :host .col-md-12, :host .col-lg-12 {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+:host .personal-details-wrap > ul {
+    background: transparent;
+    margin: 20px 0 0 0;
+}
+
+:host .personal-details-wrap > ul > li {
+    padding: 22px 30px;
+    font-size: 18px;
+    background-color: #13345f;
+    color: #96a5b8;
+    padding-left: 72px;
+}
+
+:host .personal-details-wrap > ul > li.selected {
+    background-color: #fff;
+    color: #13345f;
+}
+
+:host .my-account-icon {
+    background: #13345f url('./../../../assets/images/company-information-icon.png') no-repeat 38px center;
+}
+
+:host .my-account-icon.selected {
+    background: #fff url('./../../../assets/images/company-information-icon-selected.png') no-repeat 38px center;
+}
+
+:host .personal-details {
+     background: #13345f url('./../../../assets/images/personal-details-icon.png') no-repeat 30px center;
+ }
+
+:host .personal-details.selected {
+    background: #fff url('./../../../assets/images/personal-details-icon-selected.png') no-repeat 30px center;
+}
+
+:host .choose-package {
+    background: #13345f url('./../../../assets/images/choose-package-icon.png') no-repeat 30px center;
+}
+
+:host .choose-package.selected {
+    background: #fff url('./../../../assets/images/choose-package-icon-selected.png') no-repeat 30px center;
+}
+
+:host .payment {
+    background: #13345f url('./../../../assets/images/payment-icon.png') no-repeat 30px center;
+}
+
+:host .payment.selected {
+    background: #fff url('./../../../assets/images/payment-icon-selected.png') no-repeat 30px center;
+}
+
+:host .account-users {
+    background: #13345f url('./../../../assets/images/account-users-icon.png') no-repeat 30px center;
+}
+
+:host .account-users.selected {
+    background: #fff url('./../../../assets/images/account-users-icon-selected.png') no-repeat 30px center;
+}
+
+:host .current-package {
+    background: #13345f url('./../../../assets/images/current-package-icon.png') no-repeat 30px center;
+}
+
+:host .current-package.selected {
+    background: #fff url('./../../../assets/images/current-package-icon-selected.png') no-repeat 30px center;
+}
+
+:host .purchase-history {
+    background: #13345f url('./../../../assets/images/purchase-history-icon.png') no-repeat 30px center;
+}
+
+:host .purchase-history.selected {
+    background: #fff url('./../../../assets/images/purchase-history-icon-selected.png') no-repeat 30px center;
+}
+
+:host .general-embedding {
+    background: #13345f url('./../../../assets/images/general-embedding-icon.png') no-repeat 30px center;
+}
+
+:host .general-embedding.selected {
+    background: #fff url('./../../../assets/images/general-embedding-icon-selected.png') no-repeat 30px center;
+}
+
+:host p.error, :host >>> p.error {
+    margin: 0 0 0 0;
+    color: red;
+    min-height: 20px;
+    padding: 0px;
+}
+
+:host .personal-details-submit {
+    padding: 18px 0;
+    margin: 70px 0 0 0;
+    height: 100%;
+}
+
+:host .personal-details-wrap {
+    width: 304px;
+    background: #13345F;
+    position:relative;
+    height: 100%;
+    min-width: 304px;
+    padding-top: 20px;
+}
+
+:host .row-fluid {
+    height: 100%;
+    padding-top: 80px;
+}
+
+:host .form-wrap {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding-left: 31px;
+    min-width: 784px;
+}
+
+:host >>> .container-aligner {
+    margin-left: 17px;
+}
+
+:host >>> .container-limiter {
+    max-width: 950px;
+}
+
+:host form .form-group {
+    padding: auto;
+    margin: auto;
+}
+
+:host .datepicker {
+    position: absolute;
+    top: 97px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 305px;
+    z-index: 100;
+}
+
+:host >>> input, :host >>> select, :host >>> options {
+    font-family: 'Roboto', arial;
+    font-size: 15px;
+}
+
+:host input.upload-btn {
+    display: none;
+}
+
+:host p.global-success {
+    clear: both;
+    text-align: center;
+    position: relative;
+    top: 10px;
+    font-size: 20px;
+}
+:host p.global-error {
+    clear: both;
+    text-align: center;
+    position: relative;
+    top: 10px;
+    font-size: 20px;
+    color: red;
+}
+
+:host .name-errors {
+    margin: 0 0 0 0;
+}
+
+:host .name-errors p {
+    margin: 0 !important;
+}
+
+:host .reset-password-wrap {
+    text-align: right;
+}
+
+.glyphicon-refresh-animate {
+    animation: spin .7s infinite linear;
+    -webkit-animation: spin .7s infinite linear;
+}
+
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from {
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+h3 {
+    padding-top: 40px;
+    padding-bottom: 30px;
+    color: #13345F;
+    font-size: 14px;
+    font-weight: 700;
+    padding-left: 30px;
+}
+
+.block-date {
+    display: inline-block;
+    width: 32%;
+}
+
+:host >>> .block-date select {
+    width: 100%;
+}
+
+:host >>> [icon="fa-close"] {
+    font-size: 0 !important;
+    background: transparent url('/assets/images/image-upload-remove-icon.png') no-repeat scroll center !important;
+}
+
+:host >>> .ui-fileupload .ui-fileupload-content {
+    padding: 0;
+}
+
+:host >>> .ui-fileupload-buttonbar.ui-widget-header.ui-corner-top {
+    padding: 0;
+}
+
+:host >>> .personal-details-file-upload {
+    border: 0 !important;
+}
+
+:host >>> button.ui-fileupload-choose {
+    padding: 0 !important;
+}
+
+:host >>> .ui-fileupload-choose:hover {
+    background: transparent !important;
+}
+
+:host >>> .ui-fileupload .ui-fileupload-buttonbar {
+    background: #fff;
+}
+
+/* Spinner animation */
+:host >>> .glyphicon-refresh-animate {
+    animation: spin .7s infinite linear;
+    -webkit-animation: spin .7s infinite linear;
+}
+
+ @-webkit-keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    from {
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+/* Auto complete component style */
+:host >>> .ui-autocomplete {
+    width: 100%;
+}
+:host >>> .ui-autocomplete-input {
+    border: 1px solid #c5c8d3 !important;
+    width: 100%;
+    font-size: 15px !important;
+    padding-right: 20px;
+}
+:host >>> .ui-autocomplete-list-item {
+    font-size: 14px;
+}
+:host >>> .auto-complete-spinner {
+    position: relative;
+    z-index: 999;
+    float: right;
+    margin-top: -32px;
+    margin-right: 10px;
+}
+
+:host .as-sidebar-item {
+    cursor: pointer;
+}

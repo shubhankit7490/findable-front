@@ -1,0 +1,15 @@
+<div class="company-name-input">
+    <app-spinning-loader [showLoader]="submitting"></app-spinning-loader>
+    <app-array-selector
+    [selectedItem]="itemsArray.indexOf(selectedItem?.toLowerCase())"
+    [arrayItems]="itemsArray"
+    [arrayLabels]="itemsLabels"
+    [disabled]="submitting"
+    [disablePlaceholder]="true"
+    key_id="id"
+    key_name="name"
+    [placeholderText]="placeholderText"
+    (onSelect)="onSelectChange($event)"
+    ></app-array-selector>
+</div>
+<p *ngIf="error" class="error">{{ error }}</p>

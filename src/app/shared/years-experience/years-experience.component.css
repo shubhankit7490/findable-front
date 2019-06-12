@@ -1,0 +1,39 @@
+:host {
+    display: block;
+    clear: both;
+}
+
+.years-split > div {
+    display: inline-flex;
+}
+
+.years-split {
+    display: flex;
+    justify-content: space-between;
+}
+
+:host >>> span.irs-bar {
+    background: #3afbcf;
+}
+
+:host >>> span.irs-slider.from, :host >>> span.irs-slider.to {
+    background: #13345f;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+
+:host >>> .irs-from, :host >>> .irs-to, :host >>> .irs-single {
+    background: #13345f;
+}
+
+:host >>> .irs-from:after, :host >>> .irs-to:after, :host >>> .irs-single:after {border-top-color: #13345f;}
+
+h5 {
+    color: #13345f;
+    margin-bottom: 5px;
+}
+
+h5.sumYears {
+    margin: 0 0 12px 9px;
+}

@@ -1,0 +1,23 @@
+<h1 class="h1">Frequently Asked Questions</h1>
+<div class="remove-padding-left">
+	<div class="col-xs-6 remove-padding-left">
+		<accordion>
+			<accordion-group #group>
+				<div accordion-heading>
+					<span class="title-faq">I can have markup, too!</span>
+					<i class="pull-left float-xs-left glyphicon glyphicon-remove-circle"
+					   [ngClass]="{'usual': group?.isOpen, 'revert': !group?.isOpen}"></i>
+				</div>
+				This is just some content to illustrate fancy headings.
+			</accordion-group>
+			<accordion-group #group1>
+				<div accordion-heading>
+					<span class="title-faq">I can have markup, too!</span>
+					<i class="pull-left float-xs-left glyphicon glyphicon-remove-circle"
+					   [ngClass]="{'usual': group1?.isOpen, 'revert': !group1?.isOpen}"></i>
+				</div>
+				This is just some content to illustrate fancy headings.
+			</accordion-group>
+		</accordion>
+	</div>
+</div>

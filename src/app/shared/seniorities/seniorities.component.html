@@ -1,0 +1,11 @@
+<div class="company-name-input">
+    <app-array-selector
+    [selectedItem]="selectedItem"
+    [arrayItems]="itemsArray"
+    key_id="id"
+    key_name="name"
+    [placeholderText]="placeholderText"
+    (onSelect)="onSelectChange($event)"
+    ></app-array-selector>
+</div>
+<p class="error">{{ error }}</p>

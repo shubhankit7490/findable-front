@@ -1,0 +1,3 @@
+<a class="logo-wrapper" routerLink="{{ (authService.currentUser && authService.currentUser.role === 'applicant') ? '/' : '/business/search' }}" routerLinkActive="active">
+	<img class="{{_logoSize}}" src="/assets/images/logo.png" />
+</a>

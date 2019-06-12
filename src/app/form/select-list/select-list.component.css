@@ -1,0 +1,79 @@
+:host ul {
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+:host >>> .form-group {
+    display: block;
+}
+
+:host typeahead-container.dropdown {
+    width: 280px;
+}
+
+:host typeahead-container.dropdown ul {
+    width: 100%;
+}
+
+:host >>> .btn-li:focus {
+    outline: 0;
+}
+
+div.tip-text {
+    font-size: 13px;
+    margin: 7px 0;
+}
+.wrapper-traits{
+    padding:10px;
+}
+.padding-left{
+    padding-left:10px;
+}
+.margin-left{
+    margin-left:30px;
+}
+
+/* Auto complete component style */
+:host >>> .ui-autocomplete {
+    width: 100%;
+}
+:host >>> .ui-autocomplete-input {
+    border: 1px solid #c5c8d3 !important;
+    width: 100%;
+    font-size: 15px !important;
+    padding-right: 20px;
+}
+:host >>> .ui-autocomplete-list-item {
+    font-size: 14px;
+}
+:host >>> .auto-complete-spinner {
+    position: relative;
+    z-index: 999;
+    float: right;
+    margin-top: -32px;
+    margin-right: 10px;
+}
+
+/* app-spinning-loader: */
+:host >>> .load-page i {
+    font-size: 340%;
+    top: 40%;
+    left: 0%;
+    right: 0%;
+}
+
+p.form-messages {
+    clear: both;
+    text-align: center;
+    width: 90%;
+    margin: 0 auto;
+}
+
+:host select.traits-search-input {
+    font-size: 15px !important;
+    height: 50px;
+}
+
+:host .traits-remaining {
+    font-size: 13px;
+}

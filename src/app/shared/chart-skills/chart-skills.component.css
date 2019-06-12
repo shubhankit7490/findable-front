@@ -1,0 +1,66 @@
+.toggle-additional-info {
+    font-size: 16px;
+    padding: 8px 0 0 47px;
+    cursor: pointer;
+}
+
+span.chart-info-eye {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: transparent url('../../../assets/images/toggle-additional-info.png') no-repeat scroll 0px 7px;
+}
+
+span.chart-info-eye.hideInfo {
+    background-position: 0 -10px !important;
+}
+
+h3 {
+    background: #13345f;
+    margin: 0;
+    padding: 10px 10px;
+    color: #3afbcf;
+    border-top: 1px solid #fff;
+    font-size: 18px;
+}
+
+:host >>> h3 app-spinning-loader {
+    position: relative;
+    display: inline-block;
+    top: -14px;
+    left: 10px;
+}
+
+:host >>> h3 app-spinning-loader
+ .load-page i {
+    font-size: 18px !important;
+}
+
+.fnd-skill-chart-fix {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.chart-placeholder {
+    font-size: 50px;
+    text-align: center;
+    color: #d9d9d9;
+    padding: 140px 0;
+    position: relative;
+}
+
+:host >>> .load-page {
+    position: relative !important;
+    display: inline-block;
+}
+
+:host >>> app-spinning-loader {
+    display: inline-block;
+    position: relative;
+    top: 5px;
+}
+
+:host >>> .loading-icon {
+    color: #d9d9d9 !important;
+}

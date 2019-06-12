@@ -1,0 +1,82 @@
+<h3 class="container-aligner" *ngIf="!packageMode && !confirmMode">Your Balance</h3>
+
+<div class="container container-aligner container-limiter" *ngIf="!packageMode && !confirmMode">
+    <div class="row">
+        <div class="col-md-8">
+            <table class="table table-condensed table-bordered balance-table">
+                <thead>
+                <tr>
+                    <th>Credits left</th>
+                    <th>Credits spent</th>
+                    <th>Credits earned</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{credits.left}}</td>
+                    <td>{{credits.spent}}</td>
+                    <td>{{credits.earned}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-8">
+            <button type="button" class="auto-reload-submit btn fnd-btn-primary col-md-2" (click)="selectPackageMode($event)">
+                Add Package
+            </button>
+        </div>
+    </div>
+</div>
+
+<h3 class="container-aligner" *ngIf="!packageMode && !confirmMode">Auto Renew</h3>
+
+<div class="container container-aligner container-limiter" *ngIf="!packageMode && !confirmMode">
+    <div class="row">
+        <div class="col-md-8">
+            <form [formGroup]="paymentSettingsFormGroup" (ngSubmit)="onSubmit($event)" novalidate autocomplete="off" class="form-inline">
+                <div class="form-group col-md-8 renew-enable-disable">
+                    <ui-switch
+                        [(ngModel)]="autoRenewEnabled"
+                        [ngModelOptions]="{standalone: true}"
+                        (change)="onAutoRenewChange($event)"
+                        size="small"
+                        color="#fff"
+                        [switchColor]="switchColor">
+                    </ui-switch>
+                    <label *ngIf="autoRenewEnabled === false">Enable Package Auto Renew</label>
+                    <label *ngIf="autoRenewEnabled === true">Disable Package Auto Renew</label>
+                </div>
+                <div class="form-group col-md-8 renew-package">
+                    <label>Choose Package:</label>
+                    <select class="form-control" formControlName="autoRenewPackage">
+                        <option value="">Choose Package</option>
+                        <!-- <option *ngFor="let package of packages" [ngValue]="package.id" [selected]="package.id === credits.reload_package_id">{{package.name}}</option> -->
+                        <option *ngFor="let $package of packages">{{$package.name}}</option>
+                    </select>
+                    <small>* This package will be automatically purchased once my credit balance reaches zero</small>
+                </div>
+                <div class="form-group col-md-3 auto-reload-submit-container">
+                    <button [disabled]="submitting || (!paymentSettingsFormGroup.valid && !!autoRenewEnabled) || (!autoRenewEnabled && paymentSettingsFormGroup.valid)" type="submit" class="auto-reload-submit btn fnd-btn-primary col-md-12">
+                        <img [class.glyphicon-refresh-animate]="submitting" src="../../../../assets/images/reload-icon.png">
+                        Update
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container-limiter" *ngIf="packageMode === true && !confirmMode">
+    <app-package-selector *ngIf="packageMode === true" (onSelect)="purchasePackage($event)"></app-package-selector>
+</div>
+
+<app-confirm-dialog #PurchaseConfirmDialog *ngIf="confirmMode === true"
+    [title]="'Confirm Purchase'"
+    [subTitle]="'you choose the package:'"
+    [icon] = "packageIcon"
+    [description]="packageDescription"
+    [iconClass]="'purchasePackageIcon'"
+    [(submitting)]="submitting"
+    (onCancel)="closeDialog($event)"
+    (onConfirm)="confirmPurchase($event)">
+</app-confirm-dialog>

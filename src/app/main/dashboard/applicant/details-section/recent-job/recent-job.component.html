@@ -1,0 +1,51 @@
+<div>
+  <h3>Most Recent Job</h3>
+  <ul>
+    <li>
+      <span class="item-label">Job Title</span>
+      <span class="item-value">{{ recentJob?.job_title?.name }}</span>
+    </li>
+    <li *ngIf="recentJob?.seniority?.name">
+      <span class="item-label">Seniority</span>
+      <span class="item-value">{{ recentJob?.seniority?.name }}</span>
+    </li>
+    <li *ngIf="recentJob?.industry?.name">
+      <span class="item-label">Industry</span>
+      <span class="item-value">{{ recentJob?.industry?.name }}</span>
+    </li>
+    <li>
+      <span class="item-label">Company</span>
+      <span class="item-value">{{ recentJob?.company?.name }}</span>
+    </li>
+  </ul>
+</div>
+<div *ngIf="authService.currentUser && authService.getUserId() == userId" class="edit-section">
+    <button id="recent_job_edit_link" type="button" class="btn btn-success pull-left edit-link-button" (click)="tourService.initSection($event); openPopup()">
+        Edit Section
+    </button>
+</div>
+
+<modal #experienceModal
+  title="Experience"
+  cancelButtonLabel="cancel"
+  submitButtonLabel="submit"
+  modalClass="modal-lg floated fnd-exp-modal"
+  [hideCloseButton]="false"
+  [closeOnEscape]="true"
+  [closeOnOutsideClick]="true"
+  (onClose)="actionOnClose()">
+
+  <modal-header></modal-header>
+
+  <modal-content>
+    <app-experience-modal
+      [enumAllData]="enumAllData"
+      [experienceClear]="experienceClear"
+      (updateExperience)="onUpdateExperience($event)"
+      (onClose)="actionOnClose()"
+    ></app-experience-modal>
+  </modal-content>
+
+  <modal-footer></modal-footer>
+
+</modal>

@@ -1,0 +1,87 @@
+<div *ngIf="currentUser?.status == authPending" class="container-fluid n-p-r unverified-stripe-container">
+    <div class="row full-width n-m unverified-stripe">
+        <i class="glyphicon glyphicon-info-sign"></i> You have not confirmed your email address, <a href="#" (click)="openConfirmDialog($event)">click here to confirm</a>
+    </div>
+</div>
+<header class="container-fluid n-p-r n-p-l">
+    <div class="row full-width n-m">
+        <div class="col-md-2">
+            <app-logo-main size="medium"></app-logo-main>
+        </div>
+        <div class="col-md-10 n-p-r n-p-l">
+            <app-menu-main role="{{ role }}"></app-menu-main>
+             <app-share-section (openUploadResume)="openUploadResume()" (onShareResume)="openConfirmDialog($event)" id="appShareSection" *ngIf="role=='applicant'"></app-share-section>
+            <app-user-main></app-user-main>
+        </div>
+    </div>
+</header>
+<div class="faq-container-container">
+    <div class="row full-width n-m">
+        <block-companies-form class="col-md-2"></block-companies-form>
+        <block-companies class="col-md-10"></block-companies>
+    </div>
+</div>
+
+<modal #activationModal title="Confirm Address"
+       cancelButtonLabel="cancel"
+       submitButtonLabel="submit"
+       modalClass="modal-lg modal-sm fnd-confirm-modal"
+       [hideCloseButton]="false"
+       [closeOnEscape]="true"
+       [closeOnOutsideClick]="true"
+       (onOpen)="actionOnOpen()"
+       (onClose)="actionOnClose()"
+       (onSubmit)="actionOnSubmit()">
+
+    <modal-header></modal-header>
+
+    <modal-content>
+        <app-confirm-modal (confirmSent)="modal.close()"></app-confirm-modal>
+    </modal-content>
+
+    <modal-footer></modal-footer>
+
+</modal>
+<modal #upload_resume
+    title="Upload Resume"
+    cancelButtonLabel="cancel"
+    modalClass="modal-lg modal-sm fnd-confirm-modal"
+    [hideCloseButton]="false"
+    [closeOnEscape]="true"
+    [closeOnOutsideClick]="true"
+    (onOpen)="openUploadResumeModal()"
+    (onClose)="closeUploadResumeModal()">
+
+    <modal-content>
+        <div>
+        <modal-header>
+            <h2 class="upload-resume-header">
+            Upload to <span style="color: #31517A;">Findable</span>
+            </h2>
+        </modal-header>
+        
+        <div class="upload-resume-wrapper">
+            <p>
+            supported files: doc, docx, pdf
+            </p>
+            <button class="upload-button" (click)="openFileInput(upload_resume_input)">
+                <div class="upload-resume-main-btn">
+                    <i *ngIf="!uploadingResume" class="glyphicon glyphicon-arrow-up"></i>
+                    <i *ngIf="uploadingResume" class="glyphicon glyphicon-spinner glyphicon-refresh"></i>
+                    {{ resume_status }}
+                </div>
+                <form>
+                    <input #upload_resume_input id="upload_resume" [multiple]="false" name="file" type="file" (change)="onSelect($event)">
+                </form>
+            </button>
+            <button
+                (click)="closeUploadResumeModal()"
+                class="upload-resume-decline-btn"
+                >
+                I don't want to upload
+            </button>    
+        </div>
+            
+        </div>
+    </modal-content>
+</modal>

@@ -1,0 +1,70 @@
+:host form {
+    display: block;
+}
+
+:host .popup-lg {
+    padding: 0px 20px;
+    height: auto;
+}
+
+:host >>> .form-group {
+    display: block;
+    padding: 0px;
+    padding-top: 12px;
+}
+
+:host textarea.form-control {
+    min-height: 90px;
+}
+
+:host form input[type="text"].form-control,
+:host form input[type="email"].form-control,
+:host form input[type="password"].form-control,
+:host form input[type="number"].form-control,
+:host form input[type="tel"].form-control {
+    height: 42px;
+}
+
+.error {
+    color: red;
+    padding-top: 0px;
+    display: block;
+    margin-top: 5px;
+    clear: both;
+    width: 300px;
+}
+
+:host select, :host options, :host input {
+    font-family: 'Roboto', arial;
+    font-size: 15px;
+}
+:host button:focus {
+    outline: 0;
+}
+:host >>> ::-webkit-input-placeholder {
+    font-family: 'Roboto', arial;
+    font-size: 15px;
+}
+:host >>> ::-moz-placeholder {
+    font-family: 'Roboto', arial;
+    font-size: 15px;
+}
+:host >>> :-ms-input-placeholder {
+    font-family: 'Roboto', arial;
+    font-size: 15px;
+}
+:host >>> :-moz-placeholder {
+    font-family: 'Roboto', arial;
+    font-size: 15px;
+}
+
+:host .fnd-form-submit-container {
+    position: static !important;
+    bottom: auto !important;
+}
+
+:host .btn-success, :host .btn-success:hover {
+    border: 0px solid transparent;
+    width: 100%;
+    margin-bottom: 10px;
+}

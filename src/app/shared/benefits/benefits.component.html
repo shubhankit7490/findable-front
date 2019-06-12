@@ -1,0 +1,11 @@
+<div class="benefits-input">
+    <app-array-selector
+        [selectedItem]="selectedItem"
+        [arrayItems]="benefits"
+        [placeholderText]="placeholderText"
+        (onSelect)="onSelected($event)"
+        key_id="key"
+        key_name="name"
+    ></app-array-selector>
+    <p class="error">{{ error }}</p>
+</div>

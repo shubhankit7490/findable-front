@@ -1,0 +1,41 @@
+<div class="report-wrap">
+    <button class="close-btn" *ngIf="closeBtn" (click)="close($event)"><i class="glyphicon glyphicon-remove"></i></button>
+
+    <h3>Report A User</h3>
+
+    <form (submit)="onSubmit($event)">
+        <div class="form-group radio">
+            <label>
+                <input class="form-control" name="reason" [(ngModel)]="reportReason" #gross type="radio" value="gross">
+                <span tabindex="0" class="cr"><i class="cr-icon glyphicon" [class.glyphicon-ok]="gross.checked"></i></span>
+                Gross Misinformation
+            </label>
+        </div>
+
+        <div class="form-group radio">
+            <label>
+                <input class="form-control" name="reason" [(ngModel)]="reportReason" #other type="radio" value="other">
+                <span tabindex="0" class="cr"><i class="cr-icon glyphicon" [class.glyphicon-ok]="other.checked"></i></span>
+                Other
+            </label>
+        </div>
+
+        <div class="form-group">
+            <textarea class="form-control" #textarea [(ngModel)]="reportText" [disabled]="gross.checked || submitting" maxlength="250" name="text" noresize [placeholder]="placeholder"></textarea>
+        </div>
+
+        <div class="form-group">
+            <button [disabled]="(other.checked && !textarea.value.length) || submitting" class="form-control submit" type="submit">
+                <i class="glyphicon glyphicon-thumbs-down"></i>Report
+                <app-spinning-loader [showLoader]="submitting"></app-spinning-loader>
+            </button>
+        </div>
+
+        <p class="error">{{ formErrors.global }}</p>
+    </form>
+
+    <div [ngStyle]="{ top: arrowOffsetTop + 'px', bottom: arrowOffsetBottom + 'px', left: arrowOffsetLeft + 'px' }" *ngIf="arrowDirection === 'up'" class="arrow-up"></div>
+    <div [ngStyle]="{ top: arrowOffsetTop + 'px', bottom: arrowOffsetBottom + 'px', left: arrowOffsetLeft + 'px' }" *ngIf="arrowDirection === 'down'" class="arrow-down"></div>
+    <div [ngStyle]="{ top: arrowOffsetTop + 'px', bottom: arrowOffsetBottom + 'px', left: arrowOffsetLeft + 'px' }" *ngIf="arrowDirection === 'left'" class="arrow-left"></div>
+    <div [ngStyle]="{ top: arrowOffsetTop + 'px', bottom: arrowOffsetBottom + 'px', left: arrowOffsetLeft + 'px' }" *ngIf="arrowDirection === 'right'" class="arrow-right"></div>
+</div>

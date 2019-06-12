@@ -1,0 +1,69 @@
+<div>
+	<h3>Languages</h3>
+	<div class="language-level-container" *ngIf="langUi[3].length > 0">
+		<div class="language-level-label">Pro</div>
+		<div class="clearfix">
+			<ul class="pull-left">
+				<li *ngFor="let language of langUi[3]; let i = index">
+					<template [ngIf]="i < 20">
+						<span [ngClass]="'flag-' + language.flag" class="item-flag flag"></span>
+						<span class="item-value">{{ language.name }}</span>
+					</template>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="language-level-container" *ngIf="langUi[2].length > 0">
+		<div class="language-level-label">Average</div>
+		<div class="clearfix">
+			<ul class="pull-left">
+				<li *ngFor="let language of langUi[2]; let i = index">
+					<template [ngIf]="i < 20">
+						<span [ngClass]="'flag-' + language.flag" class="item-flag flag"></span>
+						<span class="item-value">{{ language.name }}</span>
+					</template>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="language-level-container" *ngIf="langUi[1].length > 0">
+		<div class="language-level-label">Basic</div>
+		<div class="clearfix">
+			<ul class="pull-left">
+				<li *ngFor="let language of langUi[1]; let i = index">
+					<template [ngIf]="i < 20">
+						<span *ngIf="!!language.flag" [ngClass]="'flag-' + language.flag" class="item-flag flag"></span>
+                        <i *ngIf="!language.flag" class="item-flag click glyphicon glyphicon-globe"></i>
+						<span class="item-value">{{ language.name }}</span>
+					</template>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div *ngIf="authService.currentUser && authService.getUserId() == userId" class="edit-section">
+    <button id="tour-step-seven" type="button" class="btn btn-success pull-left edit-link-button" (click)="tourService.initSection($event); languageModal.open();">
+        Edit Section
+    </button>
+</div>
+
+<modal #languageModal title="Languages"
+	   cancelButtonLabel="cancel"
+	   submitButtonLabel="submit"
+	   modalClass="modal-sm fnd-languages-modal"
+	   [hideCloseButton]="false"
+	   [closeOnEscape]="true"
+	   [closeOnOutsideClick]="true"
+	   (onOpen)="actionOnOpen()"
+	   (onClose)="actionOnClose()"
+	   (onSubmit)="actionOnSubmit()">
+
+	<modal-header></modal-header>
+
+	<modal-content>
+		<app-languages-modal [errors]="errorObject" [isSubmitting]="loading" [languagesModel]="langFullModal" (deleteLanguage)="onDeleteLanguage($event)" (updateLanguage)="onUpdateLanguage($event)" (onClose)="actionOnClose()"></app-languages-modal>
+	</modal-content>
+
+	<modal-footer></modal-footer>
+
+</modal>

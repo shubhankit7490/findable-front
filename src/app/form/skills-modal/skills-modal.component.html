@@ -1,0 +1,79 @@
+<div class="popup" id="skills_edit_form_popup">
+    <app-spinning-loader [showLoader]="isSubmitting"></app-spinning-loader>
+
+    <form [formGroup]="skillsGroup" (ngSubmit)="onSubmit($event)" class="form-wrapper" autocomplete="off" novalidate>
+        <div class="form-group">
+            <div class="col-xs-12">
+                <p-autoComplete
+                    maxlength="150"
+                    #skillsAutocomplete
+                    [(ngModel)]='searchTerm'
+                    [suggestions]='results'
+                    [minLength]=1
+                    [delay]=500
+                    dataKey='id'
+                    placeholder='Enter skill name ..'
+                    (completeMethod)='search($event)'
+                    (onSelect)='onSelectAutoComplete($event)'
+                    (updateModel)='updateSkillsForm($event)'
+                    formControlName='skills'
+                    field='name'
+                ></p-autoComplete>
+                <app-input-loader [loading]="requesting"></app-input-loader>
+            </div>
+        </div>
+
+        <ion-range-slider #rangeSlider
+          type="single"
+          min="1"
+          max="100"
+          from="1"
+          step="1"
+          hide_min_max="true"
+          hide_from_to="true"
+          prettify-enabled="true"
+          prettify-separator=","
+          (onFinish)="sliderOnFinish($event)"
+        ></ion-range-slider>
+
+        <div class="skill-labels-wrap">
+            <span class="basic" (click)="setLevel($event, 5)">Basic</span>
+            <span class="good" (click)="setLevel($event, 50)">Pretty good</span>
+            <span class="expert" (click)="setLevel($event, 100)">Expert</span>
+        </div>
+
+        <div class="form-group">
+             <div class="col-xs-12">
+                
+                <button type="submit"
+                    id="skills_edit_save_button" 
+                    [disabled]="!skillsGroup.dirty"
+                    class="pull-right btn success-btn btn-lg">
+                    <i class="glyphicon glyphicon-refresh"></i>
+                    UPDATE
+                </button>
+                
+                <br>
+                
+                <p class="form-messages"
+                  [class.success]="messageObject.success"
+                  [class.error]="!messageObject.success"
+                >
+                  {{ messageObject.message }}
+              </p>
+             </div>
+        </div>
+        <div class="list-wrapper">
+            <ul class="fnd-peronal-traits ul-sortable">
+                <li *ngFor="let item of techSkillsClear; let i = index;" >
+                    <span class="fnd-block click fnd_color_{{i}}" (click)="updateSkill(item)">{{item.name}}</span>
+                    <span class="btn-li btn-right text-width click" (click)="updateSkill(item)">{{int2Label(item.level)}}</span>
+                    <button type="button" class="btn-li btn-right click" (click)="onDelete(item)"><i class="glyphicon glyphicon-remove"></i></button>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>
+<div id="fnd-form-submit-container-id" class="fnd-form-submit-container">
+    <button id="fnd-skills-dialog-done-button" type="button" class="btn btn-success" (click)="done($event)">Done</button>
+</div>

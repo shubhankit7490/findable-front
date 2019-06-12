@@ -1,0 +1,35 @@
+section.profile-details-section {
+    border-top: solid 1px #EFEEEE;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+:host >>> .profile-details-section h3 {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+app-profile,
+app-contact-info,
+app-status-prefs,
+app-recent-job,
+app-languages,
+app-traits {
+    border-right: solid 1px #EFEEEE;
+    flex-grow: 1;
+}
+
+/* This aligns the item vertically to bottom on flex box display */
+:host >>> div.edit-section {
+    margin-top: auto;
+}
+:host >>> div.edit-section .edit-link {
+    cursor: pointer;
+    color: #39FBCF;
+}
+
+:host >>> h3 {
+    padding-left: 26px;
+    margin-bottom: 40px;
+}

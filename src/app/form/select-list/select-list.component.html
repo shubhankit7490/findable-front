@@ -1,0 +1,33 @@
+<div class="wrapper-traits popup" id="traits_edit_form">
+	<app-spinning-loader [showLoader]="isSubmitting"></app-spinning-loader>
+
+    <form [formGroup]="traitsGroup" id="traits-dialog-form" (ngSubmit)="onSubmit($event)" class="form-wrapper" autocomplete="off" novalidate>
+        <div class="form-group">
+            <select formControlName="traits" class="form-control traits-search-input" (change)="onSelectAutoComplete($event.target.value)">
+                <option [value]="null" disabled [selected]="sendModel.name === null">Select trait</option>
+                <option *ngFor="let trait of traitsPool" [selected]="sendModel.name !== null" [value]="trait.id">{{trait.name}}</option>
+            </select>
+        </div>
+        <div class="row margin-top-bottom1">
+            <div class="col-xs-11">
+                <small>Drag and rearrange order of traits according to what describes you the best. You have {{traitsLeft}} Personal Traits left</small>
+            </div>
+            <p class="form-messages" [class.success]="messageObject.success" [class.error]="!messageObject.success">{{ messageObject.message }}</p>
+        </div>
+        <div class="list-wrapper">
+        <ul dnd-sortable-container [sortableData]="tempTraitsData">
+            <li *ngFor="let item of tempTraitsData;let i = index" dnd-sortable [sortableIndex]="i" (onDropSuccess)="makeDirty($event)">
+                <button class="btn-li btn-left" type="button"><i class="glyphicon glyphicon-menu-hamburger"></i></button>
+                <span class="margin-left contact-item-icon trait trait-{{item.name.toLowerCase().replace(' ', '-')}}"></span>
+                <span class="padding-left">{{item.name}}</span>
+                <button class="btn-li btn-right" type="button" (click)="delete(item.id, $event)"><i class="glyphicon glyphicon-remove"></i></button>
+            </li>
+        </ul>
+        </div>
+        <div id="fnd-traits-submit-container-id" class="fnd-form-submit-container">
+            <button id="traits_edit_save_button" type="submit" [disabled]="!traitsGroup.valid && !traitsGroup.dirty && !sendEnabled" class="btn btn-success">
+                Done
+            </button>
+        </div>
+    </form>
+</div>

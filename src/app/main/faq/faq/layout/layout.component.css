@@ -1,0 +1,181 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /*width: 100%;*/
+    padding-left: 31px;
+    min-width: 784px;
+    background: transparent url(./../../../../../assets/images/accout_faq_figure.png) no-repeat bottom right;
+}
+.panel-heading [data-toggle="collapse"]:after {
+    font-family: 'Glyphicons Halflings';
+    content: "e072"; /* "play" icon */
+    float: right;
+    color: #F58723;
+    font-size: 18px;
+    line-height: 22px;
+    /* rotate "play" icon from > (right arrow) to down arrow */
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+.revert{
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.usual{
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+.glyphicon-remove-circle{
+    font-size:20px;
+    color:#13345F;
+}
+:host >>> .panel{
+    box-shadow: none;
+    border:1px solid transparent;
+}
+:host >>> .panel-open{
+    border:none;
+    box-shadow: none;
+    background-color: #EBEBF7;
+    background-image: none;
+    color:#13345F;
+}
+:host >>> .panel-default > .panel-heading + .panel-collapse > .panel-body{
+    border:none;
+    box-shadow: none;
+    background-color: #EBEBF7;
+    background-image: none;
+    color:#13345F;
+    padding-left:44px;
+}
+:host >>> .panel-open .panel-default > .panel-heading{
+    border:none;
+    box-shadow: none;
+    background-color: #EBEBF7;
+    background-image: none;
+    color:#13345F;
+}
+:host >>> .panel-default > .panel-heading{
+    background-color: #F8F7FC;
+    background-image: none;
+    border-top:none;
+    border-bottom: 1px solid #fff;
+    border-right: none;
+    border-left: none;
+    color:#13345F;
+    font-size:16px;
+}
+.title-faq {
+    padding-left:10px;
+    font-size: 15px;
+}
+.panel-open .title-faq {
+    font-weight: 700;
+}
+
+.remove-padding-left{
+    padding-left: 0px;
+}
+.h1{
+    padding-top: 40px;
+    padding-bottom: 30px;
+    color: #13345F;
+    font-size: 18px;
+    font-weight: 700;
+}
+.panel-heading [data-toggle="collapse"].collapsed:after {
+    /* rotate "play" icon from > (right arrow) to ^ (up arrow) */
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+    color: #454444;
+}
+.img-container img {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width:441px;
+}
+.icon-center-faq{
+    margin:0 auto;
+    width:51px;
+    display: block;
+    padding-top:40px;
+}
+.text-form-faq{
+    color:#fff;
+    text-align: center;
+    font-size:16px;
+    padding-top:20px;
+    padding-bottom: 20px;
+}
+.icon-faq{
+    background-image: url("./../../../../../assets/images/buttons/btn_send_icon.png");
+    width:21px;
+    height:25px;
+    display: block;
+    float: left;
+    left: 10px;
+    position: relative;
+    line-height: 40px;
+}
+form button[type="submit"].fnd-btn-large{
+    width:120px;
+    height:40px;
+    line-height: 23px;
+    float:right;
+    margin-right:15px;
+}
+.form-control{
+    height: 53px;
+}
+.form-textarea{
+    height: 200px;
+}
+.error{
+    padding-top:5px;
+    color:red;
+    display: block;
+    text-align: left;
+}
+.border-radius{
+    border:1px solid red;
+    padding:2px;
+    border-radius: 2px;
+    margin-right:5px;
+}
+.load-page{
+    position: fixed;
+    left: 30px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background-color: #fff;
+    opacity: 0.8;
+}
+.loading-icon{
+    color:#50E3C2;
+    font-size:50px;
+    margin:0 auto;
+    top:40%;
+    opacity: 1;
+}
+.padding-remove{
+    padding:0px;
+}
+.display{
+    display: block;
+}

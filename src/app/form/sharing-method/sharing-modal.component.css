@@ -1,0 +1,167 @@
+:host >>> .form-group, :host >>> .form-control {
+    display: block;
+}
+
+:host >>> .form-group {
+    margin: 5px 0px;
+}
+
+:host >>> .sharing-popup {
+    padding: 15px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.sharing-popup .row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.sharing-popup form {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.sharing-popup .border-right {
+    border-right: 1px solid #dce1e7;
+}
+
+.sharing-popup input, .sharing-popup textarea {
+    color: #002351;
+}
+
+.sharing-popup textarea {
+    min-height: 250px;
+}
+
+.sharing-popup .form-control {
+    font-size: 16px;
+    padding: 10px;
+}
+
+.social-links h4 {
+    width: 100%;
+    text-align: center;
+    color: #003164;
+}
+
+.social-networks {
+    width: 275px;
+    margin: 0px auto;
+    margin-top: 50px;
+}
+
+.social-networks img {
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.personal-link {
+    padding-left: 50px;
+    padding-right: 50px;
+    margin:0px auto;
+}
+
+.personal-link h5 {
+    width: 250px;
+    margin: 0px auto;
+    margin-top: 50px;
+    color: #003164;
+}
+
+.personal-link .form-group {
+    margin-top: 20px;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+.personal-link .form-group input[type="text"] {
+    color: #687d94;
+}
+
+.icon-envelope{
+    background: transparent url("/assets/images/envelope_button.png") no-repeat 0px 0px;
+    width: 21px;
+    height: 35px;
+    display: block;
+    float: left;
+    left: 20px;
+    position: relative;
+    line-height: 40px;
+}
+
+.sharing-popup button[type="submit"].fnd-btn-large {
+    width: 150px;
+    height: 40px;
+    padding-top: 10px;
+}
+
+.sharing-popup button[type="submit"]:focus {
+    outline: 0;
+}
+
+:host #sharing-error-global {
+    height: auto;
+    text-align: center;
+    font-size: 16px;
+    display: block;
+    clear: both;
+    float: right;
+}
+
+.load-page{
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background-color: #fff;
+    opacity: 0.8;
+}
+.loading-icon{
+    color:#50E3C2;
+    font-size:50px;
+    margin:0 auto;
+    top:40%;
+    opacity: 1;
+}
+
+.glyphicon-refresh-animate {
+    animation: spin .7s infinite linear;
+    -webkit-animation: spin .7s infinite linear;
+}
+
+@-webkit-keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    from {
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+:host h4.padded-title {
+    padding-left: 30px;
+    padding-right: 30px;
+}

@@ -1,0 +1,57 @@
+<div id="status-and-preferences-section">
+	<h3>Status & Preferences</h3>
+	<ul>
+		<li>
+			<span class="item-label">Job Status</span>
+			<span class="item-value">{{ ( preferences$ | async )?.employment_status }}</span>
+		</li>
+		<li>
+			<span class="item-label">Job Type</span>
+			<span class="item-value">{{ ( preferences$ | async )?.employment_type }}</span>
+		</li>
+		<li>
+			<span class="item-label">Availability</span>
+			<span class="item-value">{{ ( preferences$ | async )?.available }}</span>
+		</li>
+		<li *ngIf="!!toNumber((preferences$|async)?.desired_salary)">
+			<span class="item-label">Expected Salary</span>
+			<span class="item-value">
+				{{ ((preferences$ | async)?.desired_salary) ? '$' : '' }}{{ ( preferences$ | async )?.desired_salary }}
+				{{ ( preferences$ | async )?.desired_salary_period_readable }}
+			</span>
+		</li>
+	</ul>
+</div>
+<div *ngIf="authService.currentUser && authService.getUserId() == userId" class="edit-section">
+	<button id="preferences_edit_section_link" type="button" class="btn btn-success pull-left edit-link-button" (click)="tourService.initSection($event); preferencesModal.open()">
+		Edit Section
+	</button>
+</div>
+
+
+
+<modal #preferencesModal
+	title="Status and Preferences"
+	cancelButtonLabel="cancel"
+	submitButtonLabel="submit"
+	modalClass="modal-lg modal-sm fnd-pref-modal"
+	[hideCloseButton]="false"
+	[closeOnEscape]="true"
+	[closeOnOutsideClick]="true"
+	(onOpen)="actionOnOpen()"
+	(onClose)="actionOnClose()"
+	(onSubmit)="actionOnSubmit()">
+
+	<modal-header></modal-header>
+
+	<modal-content>
+		<app-preferences-form
+			#preferencesModalForm
+			[(preferences)]="preferences$"
+			(onSuccessfulUpdate)="closeStatusModal($event)"
+		></app-preferences-form>
+	</modal-content>
+
+	<modal-footer></modal-footer>
+
+</modal>

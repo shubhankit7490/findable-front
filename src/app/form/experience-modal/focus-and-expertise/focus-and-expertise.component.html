@@ -1,0 +1,47 @@
+<form [formGroup]="areasForm" (ngSubmit)="onSubmitFields($event)" class="form-wrapper">
+    <div class="form-group">
+        <label>Responsibilities</label>
+        <p-autoComplete
+            #responsibilitiesComponent
+            [(ngModel)]='searchTerm'
+            [suggestions]='results'
+            [minLength]=1
+            [maxlength]="150"
+            [delay]=500
+            dataKey='id'
+            placeholder='Enter Responsibility ...'
+            (completeMethod)='search($event)'
+            (onSelect)='onSelectAutoComplete($event)'
+            (updateModel)='updateResponsibilityForm($event)'
+            (onBlur)='closeAutocomplete($event)'
+            formControlName='area'
+            field='name'
+        ></p-autoComplete>
+
+        <app-input-loader [loading]="requesting"></app-input-loader>
+        <!-- <i *ngIf="requesting" class="glyphicon glyphicon-refresh glyphicon-spinner auto-complete-spinner"
+           aria-hidden="true"></i> -->
+        <small>{{charsLeft}} characters left</small>
+        <small>You are only allowed 5 for each position</small>
+        <div class="row">
+            <div class="col-xs-12">
+                <button type="button" (click)="addNewValue()" [disabled]="!areasForm.dirty"
+                        class="pull-right btn success-btn btn-lg">
+                    <i class="glyphicon glyphicon-refresh"></i>
+                    UPDATE
+                </button>
+            </div>
+            <p class="form-messages">{{ errorMessage }}</p>
+        </div>
+        <div class="list-wrapper">
+            <ul class="fnd-location-of-interest">
+                <li *ngFor="let field of areasOfFocus; let g = index;">
+                    <span class="fnd-block fnd-purple fnd_color_{{g}}">{{field.name}}</span>
+                    <button type="button" class="btn-li btn-right" (click)="deleteField(field)">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</form>

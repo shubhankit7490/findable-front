@@ -1,0 +1,232 @@
+<div *ngIf="currentUser?.status == authPending" class="container-fluid n-p-r unverified-stripe-container">
+    <div class="row full-width n-m unverified-stripe">
+        <i class="glyphicon glyphicon-info-sign"></i> You have not confirmed your email address, <a href="#" (click)="openConfirmDialog($event)">click here to confirm</a>
+    </div>
+</div>
+<header>
+    <app-logo-main size="medium"></app-logo-main>
+    <app-menu-main role="{{ role }}"></app-menu-main>
+    <app-share-section (openUploadResume)="openUploadResume()" (onShareResume)="openConfirmDialog($event)" id="appShareSection" *ngIf="role=='applicant'"></app-share-section>
+	<app-user-main></app-user-main>
+</header>
+
+<div class="row-fluid">
+
+    <div class="col-md-12 personal-details-wrap">
+
+        <div class="as-sidebar col-md-2">
+
+            <ul>
+                <li class="as-sidebar-item">
+                    <img src="../../../../assets/images/my-account-icon.jpg">
+                    My Account
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="col-md-10 form-wrap">
+            <h3>My Personal Details</h3>
+
+            <form [formGroup]="detailsForm" autocomplete="off" novalidate spellcheck="false">
+                    <div class="col-md-4">
+                        <div class="form-group col-md-6">
+                            <label class="fnd-req">First Name</label>
+                            <input maxlength="150" (blur)="validate('firstname')" name="firstname" formControlName="firstname" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label class="fnd-req">Last Name</label>
+                            <input maxlength="150" (blur)="validate('lastname')" name="lastname" formControlName="lastname" type="text" class="form-control">
+                        </div>
+
+                        <p class="col-md-12 error">
+                            <span *ngIf="formErrors.firstname.error" class="error">{{ formErrors.firstname.error }}</span>
+                            <span *ngIf="formErrors.lastname.error" class="error">{{ formErrors.lastname.error }}</span>
+                        </p>
+
+                        <div class="form-group col-md-12 tour-step tour-step-three">
+                            <label class="fnd-req">Phone Number</label>
+                            <input maxlength="16" (blur)="validate('phone')" name="phone" formControlName="phone" maxlength="15" type="tel" class="form-control">
+                            <p class="error">{{ formErrors.phone.error }}</p>
+                        </div>
+
+                    <div class="form-group">
+                        <div class="form-group">
+                            <div class="form-group col-md-12" id="personal-details-location">
+                                <label class="fnd-req">Location</label>
+                                <input id="city" class="form-control" formControlName="city" placeholder="Enter your address" type="text" autocomplete="new-password">
+                                <p class="error">{{ formErrors.city.error }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <label>Skype</label>
+                        <input maxlength="255" name="skype" formControlName="skype" type="tel" class="form-control">
+                        <p class="error">{{ formErrors.skype.error }}</p>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <label>Website</label>
+                        <input maxlength="255" name="website" formControlName="website" type="tel" class="form-control">
+                        <p class="error">{{ formErrors.website.error }}</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="form-group col-md-12">
+                        <label>Birthday</label><br>
+                        <div class="block-date block-left">
+                            <year-picker class="left clear-padding-left" selectClass="form-control" [data]="userBirthday" [maxYears]="18" (year)="setYear($event)"></year-picker>
+                        </div>
+                        <div class="block-date block-left">
+                            <month-picker class="left clear-padding-left" selectClass="form-control" [data]="userBirthday" (month)="setMonth($event)"></month-picker>
+                        </div>
+                        <div class="block-date block-left">
+                            <day-picker class="left clear-padding-left" selectClass="form-control" [data]="userBirthday" (day)="setDay($event)"></day-picker>
+                        </div>
+                        <p class="error">{{ formErrors.birthday.error }}</p>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>Gender</label>
+                        <select name="gender" formControlName="gender" class="form-control" (blur)="validate('gender')">
+                            <option value="M" [selected]="userDetails.gender == 'M'">Male</option>
+                            <option value="F" [selected]="userDetails.gender == 'F'">Female</option>
+                        </select>
+                        <p class="error">{{ formErrors.gender.error }}</p>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <label class="fnd-req">Email</label>
+                        <input maxlength="255" email (blur)="validate('email')" name="email" formControlName="email" type="email" class="form-control">
+                        <p class="error">{{ formErrors.email.error }}</p>
+                    </div>
+
+                    <div class="reset-password-wrap form-group col-md-12">
+                        <a routerLink="/user/password/forgot">Reset password</a>
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+                    <label>Profile Picture</label>
+                    <div class="image-upload-wrap">
+
+                        <div class="form-group">
+                            <div class="image-upload-pic-wrap">
+                                <div class="my-drop-zone image-upload-top">
+                                    <p-fileUpload
+                                        #file
+                                        name="file"
+                                        url="{{UPLOAD_PATH}}"
+                                        (onBeforeSend)="onBeforeSend($event)"
+                                        (onUpload)="onUpload($event)"
+                                        (onClear)="onClear()"
+                                        (onError)="uploadError($event)"
+                                        (onSelect)="onSelect($event, file)"
+                                        styleClass="personal-details-file-upload"
+                                        uploadLabel="Upload"
+                                        chooseLabel="Choose"
+                                        cancelLabel="Cancel"
+                                        accept="image/*" maxFileSize="10000000"
+                                    >
+                                        <template pTemplate type="content">
+                                            <img #profileImage id="personal-details-profile-image" src="{{ profileImagePath }}">
+                                        </template>
+                                    </p-fileUpload>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button (click)="onSubmit($event)" [disabled]="submitting" id="personal-details-save-button" type="submit" class="personal-details-submit btn fnd-btn-primary col-md-12">
+                        <img [class.glyphicon-refresh-animate]="submitting" src="../../../../assets/images/reload-icon.png">
+                        Update
+                    </button>
+                    <p *ngIf="globalError" class="global-error">{{ globalError }}</p>
+                    <p *ngIf="globalSuccess" class="global-success">{{ globalSuccess }}</p>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<div id="personal_details_popup" class="well {{tour.arrowClass}}">
+    Fill in the missing information. <br>
+    Click on “Update” once your done. <br>
+    Take your time, I will wait here. <br><br>
+    <input type="button" id="personal_details_popup_close" *ngIf="!tour.steps.personal_details.hideNext" class="btn personal_details_popup_close" (click)="initTourSection($event)" value="{{tour.label}}">
+    <input type="button" id="personal_details_popup_never" class="btn personal_details_popup_close" (click)="neverTourAgain($event)" value="{{tour.label_exit}}">
+</div>
+
+<modal #activationModal title="Confirm Address"
+       cancelButtonLabel="cancel"
+       submitButtonLabel="submit"
+       modalClass="modal-lg modal-sm fnd-confirm-modal"
+       [hideCloseButton]="false"
+       [closeOnEscape]="true"
+       [closeOnOutsideClick]="true"
+       (onOpen)="actionOnOpen()"
+       (onClose)="actionOnClose()"
+       (onSubmit)="actionOnSubmit()">
+
+    <modal-header></modal-header>
+
+    <modal-content>
+        <app-confirm-modal (confirmSent)="modal.close()"></app-confirm-modal>
+    </modal-content>
+
+    <modal-footer></modal-footer>
+
+</modal>
+<modal #upload_resume
+    title="Upload Resume"
+    cancelButtonLabel="cancel"
+    modalClass="modal-lg modal-sm fnd-confirm-modal"
+    [hideCloseButton]="false"
+    [closeOnEscape]="true"
+    [closeOnOutsideClick]="true"
+    (onOpen)="openUploadResumeModal()"
+    (onClose)="closeUploadResumeModal()">
+
+    <modal-content>
+        <div>
+        <modal-header>
+            <h2 class="upload-resume-header">
+            Upload to <span style="color: #31517A;">Findable</span>
+            </h2>
+        </modal-header>
+        
+        <div class="upload-resume-wrapper">
+            <p>
+            supported files: doc, docx, pdf
+            </p>
+            <button class="upload-button" (click)="openFileInput(upload_resume_input)">
+                <div class="upload-resume-main-btn">
+                    <i *ngIf="!uploadingResume" class="glyphicon glyphicon-arrow-up"></i>
+                    <i *ngIf="uploadingResume" class="glyphicon glyphicon-spinner glyphicon-refresh"></i>
+                    {{ resume_status }}
+                </div>
+                <!-- <form>
+                    <input #upload_resume_input id="upload_resume" [multiple]="false" name="file" type="file" (change)="onSelectresume($event)">
+                </form> -->
+            </button>
+            <button
+                (click)="closeUploadResumeModal()"
+                class="upload-resume-decline-btn"
+                >
+                I don't want to upload
+            </button>    
+        </div>
+            
+        </div>
+    </modal-content>
+</modal>

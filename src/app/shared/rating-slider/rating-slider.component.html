@@ -1,0 +1,25 @@
+<div class="tech-wrap">
+    
+    <div class="slider-wrap">
+        <ion-range-slider #slider
+        [from]="currentNum"
+        [min]="minNum"
+        [max]="maxNum"
+        (onFinish)="updateItem($event)"
+        [disable]="!items.length"
+        ></ion-range-slider>
+    </div>
+
+    <div class="slider-split" >
+        <div *ngFor="let value of ratingValues">{{ value.name || value }}</div>
+    </div>
+
+    <div class="items-wrap">
+        <div *ngFor="let item of items; let i = index" class="item" (click)="selectItem(i)" [class.selected]="selectedItem == items[i]">
+            <button (click)="removeItem(i)" class="item-remove"><i class="glyphicon glyphicon-remove-sign"></i></button>
+            <span class="item-text">{{ item.name }}</span>
+            <span class="item-rating">{{ item.level }}</span>
+        </div>
+    </div>
+
+</div>

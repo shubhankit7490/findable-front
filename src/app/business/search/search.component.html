@@ -1,0 +1,565 @@
+<header class="container-fluid n-p-r n-p-l">
+	<div class="row full-width n-m">
+		<div class="col-md-2">
+			<app-logo-main size="medium"></app-logo-main>
+		</div>
+		<div class="col-md-10 n-p-r n-p-l">
+			<app-menu-main [role]="role"></app-menu-main>
+			<app-user-main></app-user-main>
+		</div>
+	</div>
+</header>
+
+<div id='div-gpt-ad-1546199654905-0' style='height:90px; width:100%;margin-bottom:30px; text-align:center'>
+</div>
+<app-purchase-applicant
+	*ngIf="purchaseVisible"
+	#purchaseApplicantBlock
+	[applicants]="applicantsToPurchase"
+	(onPurchase)="onPurchase($event)"
+	(onCancel)="closePurchase($event)"
+></app-purchase-applicant>
+
+<div class="col-md-2 search-wrap no-print">
+
+	<div class="search-side-component col-md-12">
+		<app-save-search
+			[applicantProfile]="searchModel"
+			(onLoadSearch)="loadSavedSearch($event)"
+			(onOpen)="prependData()"
+			(onDelete)="saveSearchItemDeleted($event)"
+		></app-save-search>
+		<button class="refresh border-radius-5 col-md-5" (click)="handleResetButton()" [disabled]="loadingResults">
+			<i *ngIf="resetingSearch" class="glyphicon glyphicon-refresh"></i>
+			<span *ngIf="!resetingSearch">Reset</span>
+		</button>
+	</div>
+
+	<form autocomplete="off" spellcheck="false" (submit)="onSubmit($event)" novalidate>
+
+		<div class="search-side-component">
+			<h5>Job Title</h5>
+
+			<div class="tags-wrap component-wrap">
+				<img class="input-icon case-icon" src="../../../../assets/images/case.png">
+				<app-job-title
+					#jobTitleComponent
+					[tags]="selectedJobTitles"
+					[query]="jobTitleQuery"
+					(onSelected)="onJobTitleChange($event)"
+					(onRemove)="onJobTitleRemove($event)"
+					(onBlur)="onJobTitleUpdate($event)"
+				 ></app-job-title>
+			</div>
+
+		</div>
+
+		<div class="search-side-component">
+			<app-years-experience
+				[minYears]="minYears"
+				[maxYears]="maxYears"
+				[from]="searchModel.experience_from"
+				[to]="searchModel.experience_to"
+				(onSliderChange)="onYearsChosen($event)"
+			 ></app-years-experience>
+		</div>
+
+		<div class="search-side-component">
+			<h5>Position Type</h5><!-- POSITION TYPE -->
+
+			<div class="position-type-wrap component-wrap">
+				<app-array-selector
+					[selectedItem]="searchModel?.position_type"
+					[arrayItems]="enums?.employment_type"
+					(onSelect)="onPositionTypeSelected($event)"
+				></app-array-selector>
+			</div>
+
+		</div>
+
+		<div class="search-side-component no-bottom-margin">
+			<h5>Location</h5><!-- LOCATION -->
+
+			<div class="location-wrap component-wrap">
+				<img class="input-icon location-icon" src="../../../../assets/images/search-location-icon.png">
+				<app-location
+					[location]="searchModel.location"
+					(onSelected)="onLocationSelected($event)"
+				></app-location>
+			</div>
+
+		</div>
+
+		<div class="search-side-component">
+			<app-drawer title="Experience" [expanded]="false">
+
+				<div class="search-side-component inner">
+					<h5>Company Name</h5><!-- COMPANY NAME -->
+
+					<div class="company-name-wrap component-wrap">
+						<img class="input-icon location-icon" src="../../../../assets/images/search-company-icon.jpg">
+						<app-company-name
+							[company]="company"
+							(onSelected)="onCompanyNameSelected($event)"
+							(onBlur)="onCompanyNameChange($event)"
+						></app-company-name>
+					</div>
+
+				</div>
+
+				<div class="search-side-component inner">
+					<h5>Seniority</h5><!-- SENIORITY -->
+
+					<app-seniorities
+						placeholderText="Select seniority"
+						[selectedItem]="searchModel.seniority"
+						(onSelect)="onSenioritySelection($event)"
+					></app-seniorities>
+				</div>
+
+				<div class="search-side-component inner">
+					<h5>Industry</h5><!-- INDUSTRY -->
+
+					<div class="industry-wrap component-wrap">
+						<img class="input-icon location-icon" src="../../../../assets/images/search-industry.jpg">
+						<app-industry
+							[industry]="industry"
+							(onSelected)="onIndustrySelected($event)"
+							(onBlur)="onIndustryChange($event)"
+						></app-industry>
+					</div>
+
+				</div>
+
+				<div class="search-side-component inner">
+					<h5>Professional Skills</h5><!-- SKILLS -->
+
+					<div class="tech-wrap component-wrap">
+						<img class="input-icon location-icon" src="../../../assets/images/search-tech.jpg">
+						<app-skills
+							#skillsComponent
+							[skillInField]="false"
+							[clearOnSelect]="true"
+							[query]="skillQuery"
+							(onSelected)="onSkillSelected($event)"
+							(onBlur)="onSkillChange($event)"
+						></app-skills>
+						<app-rating-slider
+							#skillSlider
+							[ratingValues]="['Basic', 'Pretty good', 'Expert']"
+							[items]="selectedSkills"
+						></app-rating-slider>
+					</div>
+
+				</div>
+
+				<!-- <div class="search-side-component inner">
+					<h5>Responsibilities</h5>
+					<div class="responsibilities-wrap component-wrap">
+						<img class="input-icon location-icon" src="../../../../assets/images/search-responsibilities.jpg">
+						<app-responsibilities
+							[responsibilities]="responsibilities"
+							[query]="responsibilityQuery"
+							(onSelected)="onResponsibilitySelected($event)"
+							(onRemoved)="onResponsibilityRemoved($event)"
+							(onBlur)="onResponsibilityChanged($event)"
+						></app-responsibilities>
+					</div>
+				</div> -->
+
+			</app-drawer>
+
+			<app-drawer title="Education" [expanded]="false">
+
+				<div class="search-side-component inner">
+					<h5>Education Level</h5><!-- EDUCATION LEVEL -->
+
+					<div class="company-name-wrap component-wrap">
+						<app-education-level
+							#educationLevelComponent
+							[tags]="selectedEducationLevel"
+							[levels]="educationLevels"
+							placeholderText="Select education level"
+							[selectedItem]="educationLevelQuery"
+							(onRemoved)="onEducationLevelRemove($event)"
+							(onSelect)="onEducationSelected($event)"
+						></app-education-level>
+					</div>
+				</div>
+
+				<div class="search-side-component inner">
+					<h5>School Name</h5><!-- SCHOOL NAME -->
+
+					<div class="school-name-wrap component-wrap">
+						<img class="input-icon location-icon" src="../../../../assets/images/search-school-name.jpg">
+						<app-school-name
+							[school]="school"
+							(onSelected)="onSchoolSelected($event)"
+							(onBlur)="onSchoolChange($event)"
+						></app-school-name>
+					</div>
+
+				</div>
+
+			</app-drawer>
+
+			<app-drawer title="Personal">
+
+				<div class="search-side-component inner">
+					<h5>Languages</h5><!-- LANGUAGES -->
+
+					<div class="component-wrap">
+						<img class="input-icon" src="../../../../assets/images/search-languages.jpg">
+						<app-search-languages
+							[tags]="selectedLanguages"
+							[query]="languageQuery"
+							(onSelected)="onLanguageSelection($event)"
+							(onRemove)="removeSelectedLanguage($event)"
+							(onBlur)="onLanguageChange($event)"
+						></app-search-languages>
+					</div>
+				</div>
+
+				<div class="search-side-component inner">
+					<h5>Personal Traits</h5><!-- PERSONAL TRAITS -->
+
+					<div class="component-wrap">
+						<img class="input-icon" src="../../../../assets/images/search-traits.jpg">
+						<app-search-traits
+							[tags]="selectedTraits"
+							[query]="traitQuery"
+							(onSelected)="onTraitSelection($event)"
+							(onRemove)="onTraitSelection($event)"
+							(onBlur)="onTraitChange($event)"
+						></app-search-traits>
+					</div>
+				</div>
+			</app-drawer>
+
+			<!-- <app-drawer title="Preferences"></app-drawer> -->
+
+			<app-drawer title="General">
+
+				<div class="search-side-component inner hidden"><!-- SET TO BE HIDDEN-->
+						<h5>Salary</h5><!-- SALARY -->
+
+						<div class="component-wrap">
+							<app-salary
+								[min]="minSalary"
+								[max]="maxSalary"
+								[from]="searchModel.salary_from.salary"
+								[to]="searchModel.salary_to.salary"
+								[period]="searchModel.salary_to.salary_period || searchModel.salary_from.salary_period"
+								(onFinish)="onSalaryChanged($event)"
+								(onPeriodSelected)="onSalaryPeriodSelected($event, false)"
+							></app-salary>
+						</div>
+					</div>
+
+					<div class="search-side-component inner hidden"><!-- SET TO BE HIDDEN-->
+						<h5>Benefits</h5><!-- BENEFITS -->
+
+						<div class="component-wrap">
+							<app-benefits
+								(onSelect)="onBenefitSelected($event)"
+								[selectedItem]="searchModel.benefits"
+								placeholderText="Select benefits"
+							></app-benefits>
+						</div>
+					</div>
+
+					<div class="search-side-component inner">
+						<h5>Employment Status</h5><!-- EMPLOYMENT STATUS -->
+
+						<div class="component-wrap">
+							<app-employment-status
+								(onSelect)="onEmploymentSelected($event)"
+								[selectedItem]="searchModel.employment_status"
+								[statuses]="enums?.employment_status"
+								placeholderText="Select employment status"
+							></app-employment-status>
+						</div>
+					</div>
+
+				<div class="search-side-component inner">
+					<h5>Applicant Profile Updated</h5><!-- APPLICANT PROFILE UPDATED -->
+
+					<div class="component-wrap">
+						<app-last-updated-input
+							#lastUpdatedComponent
+							placeholderText="Select period"
+							[selectedItem]="updated"
+							(onSelect)="onProfileLastUpdatedSelected($event)"
+						></app-last-updated-input>
+					</div>
+				</div>
+
+				<div class="search-side-component inner">
+					<h5>Account ID</h5><!-- ACCOUNT ID -->
+
+					<div class="component-wrap">
+						<img class="input-icon" src="../../../../assets/images/search-account-id.jpg">
+						<app-account-id
+							ngDefaultControl
+							[accountId]="searchModel.account_id"
+							[(ngModel)]="searchModel.account_id"
+							[ngModelOptions]="{standalone: true}"
+						></app-account-id>
+					</div>
+				</div>
+
+			</app-drawer>
+
+		</div>
+
+		<div class="search-btn col-md-2">
+			<button (click)="performSearch(true)" class="form-control" [disabled]="loadingResults">
+				<i class="glyphicon glyphicon-search" [ngStyle]="{ 'opacity': (loadingResults) ? 0 : 1 }"></i>
+				<app-spinning-loader [showLoader]="loadingResults"></app-spinning-loader>
+				Search
+			</button>
+		</div>
+
+	</form>
+
+</div>
+
+<div class="col-md-10">
+
+	<div class="actions-wrap col-md-2 top-select">
+		<app-array-selector
+			#actionSelector
+			[arrayItems]="actions"
+			[disabled]="!table.selection || !table.selection.length"
+			[resetOnSelection]="true"
+			(onSelect)="onActionSelected($event)"
+			key_id="id"
+			key_name="name"
+			placeholderText="Actions"
+		></app-array-selector>
+	</div>
+
+	<div class="sort-wrap col-md-2 top-select">
+		<app-array-selector
+			#candidateTypeSelector
+			[arrayItems]="candidateTypes"
+			(onSelect)="onCandidateTypeSelected($event)"
+			key_id="id"
+			key_name="name"
+			placeholderText="Sort Candidates"
+		></app-array-selector>
+	</div>
+
+	<span class="total" *ngIf="total">
+		Found {{ total }} candidates | Showing results {{ offset + 1 }}-{{ offset + currentResultsCount }}
+	</span>
+
+	<div class="search-table-wrap">
+		<app-spinning-loader [showLoader]="loadingResults"></app-spinning-loader>
+		<p-dataTable
+			#table
+			[rows]="50"
+			[lazy]="true"
+			[pageLinks]="5"
+			[autoload]="false"
+			[rowHover]="false"
+			[totalRecords]="total"
+			paginatorPosition="top"
+			[expandableRows]="true"
+			selectionMode="multiple"
+			[value]="results.applicants"
+			[rowStyleClass]="getRowClass"
+			tableStyleClass="search-table"
+			(onLazyLoad)="loadData($event)"
+			(onRowClick)="onRowClick($event)"
+			[(selection)]="selectedApplicants"
+			[paginator]="!!results.hasOwnProperty('applicants') && !!results.applicants.length"
+			>
+			<p-column [style]="{'width': '25px'}" selectionMode="multiple"></p-column>
+			<p-column header="Account">
+				<template let-applicant="rowData" pTemplate="body">
+					{{
+						(applicant.firstname || applicant.lastname)
+							? (applicant.firstname || '') + ' ' + (applicant.lastname || '') + ' (#' + applicant.id + ')'
+							: '#' + applicant.id
+					}}
+				</template>
+			</p-column>
+			<p-column field="location.city_name" header="Location">
+				<template let-applicant="rowData" pTemplate="header">
+					<span class="ui-column-title pointer"
+						[class.active]="orderby == 'location'"
+						(click)="onSortTypeSelected('location')">
+						Location
+					</span>
+					<div class="column-header-arrows" [hidden]="orderby !== 'location'">
+						<div class="column-header-arrow column-header-arrow-up"
+							(click)="onOrderTypeSelected('asc')"
+							[class.active]="(order == 'asc' && orderby == 'location')"
+							>
+							<i class="glyphicon glyphicon-triangle-top"></i>
+						</div>
+						<div class="column-header-arrow column-header-arrow-down"
+							(click)="onOrderTypeSelected('desc')"
+							[class.active]="(order == 'desc' && orderby == 'location')"
+							>
+							<i class="glyphicon glyphicon-triangle-bottom"></i>
+						</div>
+					</div>
+				</template>
+			</p-column>
+			<p-column field="jobtitle.name" header="Job Title">
+				<template let-applicant="rowData" pTemplate="header">
+					<span class="ui-column-title pointer"
+						[class.active]="orderby == 'jobtitle'"
+						(click)="onSortTypeSelected('jobtitle')">
+						Title
+					</span>
+					<div class="column-header-arrows" [hidden]="orderby !== 'jobtitle'">
+						<div class="column-header-arrow column-header-arrow-up"
+							[class.active]="(order == 'asc' && orderby == 'jobtitle')"
+							(click)="onOrderTypeSelected('asc')"
+							>
+							<i class="glyphicon glyphicon-triangle-top"></i>
+						</div>
+						<div class="column-header-arrow column-header-arrow-down"
+							[class.active]="(order == 'desc' && orderby == 'jobtitle')"
+							(click)="onOrderTypeSelected('desc')"
+							>
+							<i class="glyphicon glyphicon-triangle-bottom"></i>
+						</div>
+					</div>
+				</template>
+			</p-column>
+			<p-column field="experience" header="Experience">
+				<template let-applicant="rowData" pTemplate="header">
+					<span class="ui-column-title pointer" [class.active]="orderby == 'experience'" (click)="onSortTypeSelected('experience')">Experience</span>
+					<div class="column-header-arrows" [hidden]="orderby !== 'experience'">
+						<div class="column-header-arrow column-header-arrow-up"
+							[class.active]="(order == 'asc' && orderby == 'experience')"
+							(click)="onOrderTypeSelected('asc')"
+							>
+							<i class="glyphicon glyphicon-triangle-top"></i>
+						</div>
+						<div class="column-header-arrow column-header-arrow-down"
+							[class.active]="(order == 'desc' && orderby == 'experience')"
+							(click)="onOrderTypeSelected('desc')"
+							>
+							<i class="glyphicon glyphicon-triangle-bottom"></i>
+						</div>
+					</div>
+				</template>
+			</p-column>
+			<p-column field="seniority.name" header="Seniority">
+				<template let-applicant="rowData" pTemplate="header">
+					<span class="ui-column-title pointer"
+						[class.active]="orderby == 'seniority'"
+						(click)="onSortTypeSelected('seniority')">
+						Seniority
+					</span>
+					<div class="column-header-arrows" [hidden]="orderby !== 'seniority'">
+						<div class="column-header-arrow column-header-arrow-up"
+							[class.active]="(order == 'asc' && orderby == 'seniority')"
+							(click)="onOrderTypeSelected('asc')"
+							>
+							<i class="glyphicon glyphicon-triangle-top"></i>
+						</div>
+						<div class="column-header-arrow column-header-arrow-down"
+							[class.active]="(order == 'desc' && orderby == 'seniority')"
+							(click)="onOrderTypeSelected('desc')"
+							>
+							<i class="glyphicon glyphicon-triangle-bottom"></i>
+						</div>
+					</div>
+				</template>
+			</p-column>
+			<p-column field="salary.salary" header="Salary">
+				<template let-applicant="rowData" pTemplate="header">
+					<span class="ui-column-title pointer" [class.active]="orderby == 'salary'" (click)="onSortTypeSelected('salary')">Salary</span>
+					<div class="column-header-arrows" [hidden]="orderby !== 'salary'">
+						<div class="column-header-arrow column-header-arrow-up"
+							[class.active]="(order == 'asc' && orderby == 'salary')"
+							(click)="onOrderTypeSelected('asc')"
+							>
+							<i class="glyphicon glyphicon-triangle-top"></i>
+						</div>
+						<div class="column-header-arrow column-header-arrow-down"
+							[class.active]="(order == 'desc' && orderby == 'salary')"
+							(click)="onOrderTypeSelected('desc')"
+							>
+							<i class="glyphicon glyphicon-triangle-bottom"></i>
+						</div>
+					</div>
+
+					<!-- <select class="salary-filter" (change)="onSalaryPeriodSelected($event.target.value, true)">
+						<option>Period</option>
+						<option *ngFor="let type of salaryTypes; let i = index;" [selected]="type.id === searchModel.salary_from.salary_period" [value]="type.id">{{ type.name }}</option>
+					</select> -->
+				</template>
+				<template let-applicant="rowData" pTemplate="body">
+					<!--{{ (applicant.salary.salary) ? '$' : '' }} {{ formatNumber(applicant.salary.salary) }} {{ applicant.salary.salary_period | salary }}-->
+					{{
+						(applicant.salary.salary && applicant.salary?.salary != 0)
+							? '$'
+							: ''
+					}} {{ getApplicantSalary(applicant.salary.salary, applicant.salary.salary_period) }}
+				</template>
+			</p-column>
+			<p-column [style]="{'width':'145px'}" field="status" header="Status">
+				<template let-applicant="rowData" pTemplate="body">
+					<div class="table-user-status">
+						<app-status-selector
+							userId="{{ applicant.id }}"
+							selectedItem="{{ applicant.status }}"
+							placeholderText="Change Status"
+						></app-status-selector>
+					</div>
+				</template>
+			</p-column>
+
+			<template let-applicant pTemplate="rowexpansion">
+				<app-applicant-search-result userId="{{ applicant.id }}"></app-applicant-search-result>
+			</template>
+
+			<p-column [style]="{'width':'18px'}" header="Note">
+				<template let-applicant="rowData" pTemplate="body">
+					<div class="table-user-status">
+						<app-note #userNote (onBeforeOpen)="onNoteClick()" userId="{{ applicant.id }}"></app-note>
+					</div>
+				</template>
+			</p-column>
+
+			<p-footerColumnGroup>
+				<p-row>
+					<p-column styleClass="footer-text-column" colspan="9">
+						<template pTemplate="footer">
+							<div class="table-user-status">
+								Showing:
+								<span class="bold">{{currentResultsCount}} candidates</span> | Avg Exp:
+								<span class="bold">{{avgExperience}} Years</span> | Avg Monthly Salary:
+								<span class="bold">${{avgSalaryMonthly}}</span> | Avg Annual Salary:
+								<span class="bold">${{avgSalary}}</span> | Total Salary:
+								<span class="bold">${{totalSalary}}</span>
+							</div>
+						</template>
+					</p-column>
+				</p-row>
+			</p-footerColumnGroup>
+		</p-dataTable>
+	</div>
+
+	<div class="search-welcome" *ngIf="firstVisit" #welcome>
+		<div class="inner-wrap">
+			Welcome to
+			<br>
+			<img src="../../../assets/images/logo.png">
+			<br>
+
+			<button class="form-control" (click)="closeWelcomeScreen()">
+				<i class="glyphicon glyphicon-arrow-right"></i>
+				Start Contacting Applicants
+			</button>
+		</div>
+	</div>
+
+</div>

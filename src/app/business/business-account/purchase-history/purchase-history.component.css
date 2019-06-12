@@ -1,0 +1,101 @@
+:host {
+    height: 100%;
+    background: transparent url(../../../../assets/images/purchase-history-bg.png) no-repeat bottom right;
+}
+
+:host h3 {
+    padding-top: 40px;
+    padding-bottom: 0px;
+    color: #13345F;
+    font-size: 16px;
+    font-weight: 700;
+    padding-left: 20px;
+}
+
+:host .row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+:host .col-xs-1, :host .col-sm-1, :host .col-md-1, :host .col-lg-1, :host .col-xs-2, :host .col-sm-2, :host .col-md-2, :host .col-lg-2, :host .col-xs-3, :host .col-sm-3, :host .col-md-3, :host .col-lg-3, :host .col-xs-4, :host .col-sm-4, :host .col-md-4, :host .col-lg-4, :host .col-xs-5, :host .col-sm-5, :host .col-md-5, :host .col-lg-5, :host .col-xs-6, :host .col-sm-6, :host .col-md-6, :host .col-lg-6, :host .col-xs-7, :host .col-sm-7, :host .col-md-7, :host .col-lg-7, :host .col-xs-8, :host .col-sm-8, :host .col-md-8, :host .col-lg-8, :host .col-xs-9, :host .col-sm-9, :host .col-md-9, :host .col-lg-9, :host .col-xs-10, :host .col-sm-10, :host .col-md-10, :host .col-lg-10, :host .col-xs-11, :host .col-sm-11, :host .col-md-11, :host .col-lg-11, :host .col-xs-12, :host .col-sm-12, :host .col-md-12, :host .col-lg-12 {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+:host .monthsLabel {
+    font-size: 15px;
+}
+
+:host .history-table {
+    border: 1px solid #ececec;
+}
+
+:host .history-table th {
+    background-color: #f0f1f6;
+    font-weight: 700;
+    border-right: 1px solid #cecece;
+}
+
+:host .history-table th:last-of-type {
+    background-color: #f0f1f6;
+    font-weight: 700;
+    border-right: 0px;
+}
+
+:host .history-table th, :host .history-table td {
+    font-size: 15px;
+    padding: 10px;
+    text-align: center;
+}
+
+:host >>> .form-group small {
+    margin: 0;
+}
+
+:host >>> select.form-control {
+    height: 34px;
+    margin-left: 20px;
+    font-size: 15px;
+}
+
+:host >>> ui-switch {
+    position: relative;
+    top: 5px;
+    margin-left: 17px;
+}
+
+:host >>> .auto-reload-submit-container {
+    clear: both;
+    margin-top: 20px;
+    margin-left: 17px;
+}
+
+:host >>> .renew-package, :host >>> .renew-package small {
+    margin-top: 10px;
+}
+
+:host .renew-enable-disable label, :host >>> .renew-package label, :host >>> .renew-package small {
+    margin-left: 20px;
+}
+
+:host .renew-enable-disable label, :host >>> .renew-package label {
+    font-size: 16px;
+}
+
+:host button[type="submit"]:focus {
+    outline: 0;
+}
+
+:host .title-aligner {
+    margin-top: 60px;
+    margin-bottom: 20px;
+}
+
+:host .form-control-aligner {
+    margin-top: 53px;
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th {
+    background-color: #f7f6fb;
+}

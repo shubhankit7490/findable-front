@@ -1,0 +1,23 @@
+<div class="years-experience-wrap">
+    
+    <h5 class="years-experience-title"><strong>Years Experience</strong></h5>
+    <h5 class="sumYears">{{ sumYears }}</h5>
+
+    <div class="slider-wrap">
+        <ion-range-slider #yearsSlider
+        type="double"
+        [min]="minYears"
+        [max]="maxYears"
+        [from]="from"
+        [to]="to"
+        (onFinish)="sliderOnFinish($event)" 
+        (onStart)="sliderOnStart($event)" 
+        ></ion-range-slider>
+        <!-- (onChange)="sliderOnChange($event)" -->
+    </div>
+
+    <div class="years-split">
+        <div *ngFor="let year of splitYears">{{ year }}</div>
+    </div>
+
+</div>

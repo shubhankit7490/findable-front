@@ -1,0 +1,51 @@
+
+
+
+        
+            <!-- <input type="button" ngControl="print" class="print_btn pull-right" value="" (click)="print_profile($event)"> -->
+            <div class="sharing_method_div">
+            <input type="button" ngControl="share" class="sharing_method_btn" value="Share Resume" (click)="shareResumeAction($event)">
+            </div>
+            <div class="sharing_method_div">
+            <input type="button" ngControl="pdf" class="pdf_btn" value="" (click)="pdf_profile($event)">
+            </div>
+            <!-- <input type="button" class="browse_method_btn pull-right" value="Browse" (click)="openUploadResumeMethod()"> -->
+
+
+        <modal #shareModal title="Share Resume"
+            cancelButtonLabel="cancel"
+            submitButtonLabel="submit"
+            modalClass="modal-lg floated fnd-pref-modal"
+            [hideCloseButton]="false"
+            [closeOnEscape]="true"
+            [closeOnOutsideClick]="true"
+            (onOpen)="onOpenShare()"
+            (onClose)="onCloseShare()">
+
+            <modal-header></modal-header>
+
+            <modal-content>
+                <app-sharing-modal></app-sharing-modal>
+            </modal-content>
+
+            <modal-footer></modal-footer>
+
+        </modal>
+
+        <modal #downloadModal title="Download PDF"
+               cancelButtonLabel="cancel"
+               submitButtonLabel="submit"
+               modalClass="modal-lg floated fnd-pdf-modal"
+               [hideCloseButton]="false"
+               [closeOnEscape]="true"
+               [closeOnOutsideClick]="true">
+
+            <modal-header></modal-header>
+
+            <modal-content>
+                <app-download-pdf-modal #pdfModal [blob]="blob"></app-download-pdf-modal>
+            </modal-content>
+
+            <modal-footer></modal-footer>
+
+        </modal>

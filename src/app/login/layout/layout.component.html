@@ -1,0 +1,19 @@
+<article>
+	<app-logo></app-logo>
+	<h1>{{ title }}</h1>
+	<!-- <div class="description" [innerHTML]="description"> </div> -->
+	<app-login *ngIf="router.url.indexOf('/user/login') >= 0 || router.url.indexOf('/business/login') >= 0"></app-login>
+	<app-sign-up [userType]="userType" *ngIf="router.url.indexOf('/user/signup?') >= 0 || router.url == '/user/signup' || router.url == '/business/signup'"></app-sign-up>
+	<app-verify *ngIf="router.url.indexOf('/verify') >= 0"></app-verify>
+	<app-password-forgot *ngIf="router.url.indexOf('/user/password/forgot') >= 0"></app-password-forgot>
+    <app-password-confirm *ngIf="router.url.indexOf('/reset') >= 0"></app-password-confirm>
+    
+    <p class="if-verified" *ngIf="router.url.indexOf('/user/signup/thank') > -1">
+        If your account is verified, please click <a (click)="clearAuthAndRedirect($event)">here</a>
+    </p>
+</article>
+<aside>
+	<figure>
+		<div id="figure-image"></div>
+	</figure>
+</aside>

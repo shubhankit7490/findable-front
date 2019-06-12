@@ -1,0 +1,40 @@
+<div class="save-search-wrap">
+
+    <button (click)="toggleDialog()" [class.active]="isOpen" class="save-search-btn col-md-5 border-radius-5">
+        <i class="glyphicon glyphicon-floppy-disk"></i>
+        <span>Save Search</span>
+    </button>
+
+    <div *ngIf="isOpen" class="save-search-dialog border-radius-5 col-md-12">
+        <button class="save-search-close-x" (click)="isOpen = false">
+            <i class="glyphicon glyphicon-remove"></i>
+        </button>
+
+        <h5>Save This Search</h5>
+        <form [formGroup]="form">
+            <input formControlName="searchName" placeholder="Name..." class="save-search-name form-control" type="text">
+            <button (click)="onSubmit($event)" type="submit" class="save-search-submit form-control" [disabled]="form.invalid">
+                <i class="glyphicon glyphicon-floppy-disk"></i>
+                Save
+            </button>
+            
+            <p *ngIf="formErrors.name" class="error">{{ formErrors.name }}</p>
+            <p *ngIf="formErrors.search" class="error">{{ formErrors.search }}</p>
+        </form>
+
+        <span class="searches-separator" *ngIf="savedSearches.length"></span>
+
+        <ul class="saved-searches">
+            <app-select-list-item
+                *ngFor="let savedSearch of savedSearches; let i = index"
+                (click)="getSearchRecord(savedSearch.id)"
+                (onItemDelete)="remove(i)"
+                [item]="savedSearch">
+            </app-select-list-item>
+        </ul>
+
+        <p *ngIf="formErrors.global" class="error">{{ formErrors.global }}</p>
+
+    </div>
+
+</div>

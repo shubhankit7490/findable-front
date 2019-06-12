@@ -1,0 +1,122 @@
+:host form {
+    width: 1000px;
+}
+
+:host select, :host options {
+    text-transform: capitalize;
+}
+
+div.fnd-form-controls-container {
+    display: flex;
+    flex-direction: row;
+}
+
+button.datePickerAnchor {
+    background: white;
+    border: 0;
+    margin-left: -43px;
+    position: relative;
+    top: 6px;
+}
+
+button.datePickerAnchor i {
+    font-size: 24px;
+    color: #A1A6C2;
+}
+div.datePickerContainer {
+    position: fixed;
+}
+
+div.fnd-form-column {
+    width: 300px;
+    margin: 0 20px;
+}
+
+#fnd-pref-salary-container {
+    display: flex;
+}
+
+#fnd-pref-desired-salary {
+    width: 60%;
+    margin-right: 18px;
+}
+
+#fnd-pref-salary-period {
+    width: 39%;
+}
+
+:host input[type="checkbox"] {
+    width: initial;
+    height: initial;
+}
+:host >>> .form-group{
+    padding:12px 0px;
+}
+
+:host >>> .load-page i {
+    font-size: 340%;
+    top: 40%;
+    left: 0%;
+}
+
+:host select, :host options, :host input {
+    font-family: 'Roboto', arial;
+    font-size: 15px;
+}
+
+:host >>> ::-webkit-input-placeholder {
+    font-family: 'Roboto', arial;
+    font-size: 15px;
+}
+:host >>> ::-moz-placeholder {
+    font-family: 'Roboto', arial;
+    font-size: 15px;
+}
+:host >>> :-ms-input-placeholder {
+    font-family: 'Roboto', arial;
+    font-size: 15px;
+}
+:host >>> :-moz-placeholder {
+    font-family: 'Roboto', arial;
+    font-size: 15px;
+}
+
+:host >>> .block-date.block-left {
+    width: 100%;
+}
+
+:host >>> .date-block-wrap select {
+    width: 92%;
+    display: inline-block;
+}
+
+:host >>> .left {
+    float: left;
+    width: 50%;
+}
+
+:host >>> .separator.left {
+    width: 5%;
+    font-size: 26px;
+    position: relative;
+    left: -5px;
+    top: 5px;
+}
+
+.legally-allowed {
+    clear: both;
+}
+
+:host >>> year-picker {
+    text-align: right;
+}
+
+:host >>> select:disabled {
+    background-color: #e3e4ed;
+    color: #a6a9bd;
+}
+
+
+:host >>> .cr-icon {
+    color: #13345f;
+}

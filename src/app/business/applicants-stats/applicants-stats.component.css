@@ -1,0 +1,283 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 1091px;
+    height: 100%;
+    position: relative;
+}
+
+header {
+    background: #13345F;
+    color: white;
+    height: 80px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+:host .col-xs-1, :host .col-sm-1, :host .col-md-1, :host .col-lg-1, :host .col-xs-2, :host .col-sm-2, :host .col-md-2, :host .col-lg-2, :host .col-xs-3, :host .col-sm-3, :host .col-md-3, :host .col-lg-3, :host .col-xs-4, :host .col-sm-4, :host .col-md-4, :host .col-lg-4, :host .col-xs-5, :host .col-sm-5, :host .col-md-5, :host .col-lg-5, :host .col-xs-6, :host .col-sm-6, :host .col-md-6, :host .col-lg-6, :host .col-xs-7, :host .col-sm-7, :host .col-md-7, :host .col-lg-7, :host .col-xs-8, :host .col-sm-8, :host .col-md-8, :host .col-lg-8, :host .col-xs-9, :host .col-sm-9, :host .col-md-9, :host .col-lg-9, :host .col-xs-10, :host .col-sm-10, :host .col-md-10, :host .col-lg-10, :host .col-xs-11, :host .col-sm-11, :host .col-md-11, :host .col-lg-11, :host .col-xs-12, :host .col-sm-12, :host .col-md-12, :host .col-lg-12 {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+:host .applicants-stats-container {
+    display:flex;
+    flex-direction:row;
+    width:100%;
+    height:100%;
+}
+
+:host .applicants-stats-sections {
+    width: 100%;
+}
+
+:host .stats-stat {
+    text-align: center;
+    min-height: 75px;
+    margin: 20px 0px;
+}
+
+:host .stat-wrapper {
+    margin: 0px auto;
+    padding-top: 7px;
+}
+
+:host span.stat-quantity {
+    font-weight: 700;
+    color: #012351;
+    font-size: 40px;
+    line-height: 40px;
+}
+
+:host span.stat-label {
+    display: block;
+    width: 100%;
+    text-align: justify;
+    -moz-text-align-last: center;
+    text-align-last: center;
+    margin-top: 10px;
+}
+
+:host .stats-applied {
+    background: transparent url('./../../../assets/images/stats-applied-icon.png') no-repeat 5px 10px;
+    max-width: 100px;
+}
+
+:host .stats-applied .stat-quantity {
+    padding-left: 50px;
+}
+
+:host .stats-purchased {
+    background: transparent url('./../../../assets/images/stats-purchased-icon.png') no-repeat 10px 10px;
+    max-width: 150px;
+}
+
+:host .stats-purchased .stat-quantity {
+    padding-left: 40px;
+}
+
+:host .stats-short {
+    background: transparent url('./../../../assets/images/stats-short-icon.png') no-repeat 5px 10px;
+    max-width: 80px;
+}
+
+:host .stats-short .stat-quantity {
+    padding-left: 40px;
+}
+
+:host .stats-hired {
+    background: transparent url('./../../../assets/images/stats-hired-icon.png') no-repeat 5px 10px;
+    max-width: 80px;
+}
+
+:host .stats-hired .stat-quantity {
+    padding-left: 40px;
+}
+
+/* Saved searches */
+:host .saved-search-controlls {
+    background-color: #f7f6fb;
+    padding: 20px;
+}
+
+ :host .fnd-btn:focus {
+    outline: 0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+:host .fnd-btn {
+    background-color: #e4e4ee;
+    color: #012351;
+    font-weight: 700;
+    padding: 10px;
+}
+
+:host input[type="text"], :host input[type="tel"], :host input[type="password"], :host input[type="email"], select.form-control {
+    height: 39px;
+    font-size: 14px;
+    margin-left: 5px;
+}
+
+:host .saved-search-date-picker .fnd-btn {
+    padding: 10px;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+:host >>> .searches-datatable-element {
+    width: 100%;
+}
+
+:host >>> .searches-datatable-element th {
+    background-color: #f7f7fa !important;
+    border-left: 1px solid rgba(229, 231, 237, .8) !important;
+    border-top: 1px solid #cbcedc;
+}
+
+:host >>> .searches-datatable-element tr.ui-widget-content, :host >>> .searches-datatable-element tbody.ui-widget-content:first-of-type {
+    border: 0px !important;
+    border-bottom: 0px solid #c7c7c7;
+}
+
+:host >>> .saved-search-datatable .ui-datatable-even {
+    background-color: #ffffff !important;
+}
+
+:host >>> .saved-search-datatable .ui-datatable-odd {
+    background-color: #f7f7f7 !important;
+}
+
+:host >>> .saved-search-datatable th, :host >>> .saved-search-datatable td {
+    text-align: center;
+}
+
+:host >>> .saved-search-datatable tr.ui-widget-content {
+    height: 65px;
+}
+
+:host >>> .delete-column {
+    width: 40px;
+}
+
+:host >>> .delete-column i {
+    font-weight: 100;
+    color: #d0d4df;
+}
+
+:host >>> .name-column {
+    text-align: left !important;
+}
+
+:host >>> .report-loader-column {
+    width: 120px;
+}
+
+:host >>> .report-loader-column a, :host >>> .report-loader-column a:hover, :host >>> .report-loader-column a:visited, :host >>> .report-loader-column a:active {
+    color: #3c3c3c;
+    text-decoration: none;
+}
+
+:host >>> select.search-status-select {
+    border: 0px;
+    padding: 2px;
+    border-radius: 3px;
+    background-color: #e4e4ee;
+}
+
+:host span.divider {
+    margin-top: 8px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+:host >>> select.search-status-select option {
+    border: 0;
+}
+
+:host >>> select.search-status-select:focus {
+    outline: 0;
+}
+
+:host .date-picker-label {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 8px;
+}
+
+:host >>> .select-list-dropdown {
+    height: 39px;
+    font-size: 14px;
+    border: 1px solid #c5c8d3;
+    border-radius: 3px;
+    margin: 0px 5px;
+}
+
+.loading-icon{
+    color: #3c3c3c;
+    font-size: 20px;
+    margin: auto;
+    top: 40%;
+    opacity: 1;
+}
+
+.loading-icon-small {
+    color: #3c3c3c;
+    font-size: 12px;
+    margin: auto;
+    top: 40%;
+    opacity: 1;
+    vertical-align: middle;
+}
+
+.loading-icon-loaded {
+    color: #3c3c3c;
+    font-size: 12px;
+    margin: auto;
+    top: 40%;
+    opacity: 1;
+}
+
+:host >>> .glyphicon-refresh-animate {
+    animation: spin .7s infinite linear;
+    -webkit-animation: spin .7s infinite linear;
+}
+
+@-webkit-keyframes spin {
+    from { 
+        -webkit-transform: rotate(0deg); 
+        -moz-transform: rotate(0deg); 
+        -ms-transform: rotate(0deg); 
+        transform: rotate(0deg);
+    }
+    to { 
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    from {
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+/* Growl Service */
+:host >>> .iziToast-wrapper .iziToastPosition {
+    margin-top: 10px !important;
+}
+:host >>> .iziToast-wrapper>div:first-child .iziToastPosition {
+    margin-top: 70px !important;
+}

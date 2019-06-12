@@ -1,0 +1,20 @@
+.location-input {
+    width: 100%;
+}
+
+:host >>> p-autocomplete input {
+    width: 100%;
+}
+
+:host >>> p-autocomplete {
+    width: 100%;
+    display: block;
+}
+
+:host >>> span.ui-autocomplete {
+    display: block;
+}
+
+.error {
+    color: red;
+}

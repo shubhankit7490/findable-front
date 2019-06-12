@@ -1,0 +1,12 @@
+<div class="popup popup-lg confirm-popup">
+    <app-spinning-loader [showLoader]="isSubmitting"></app-spinning-loader>
+    <div>
+        <div class="row">
+            <div id="confirm-action-link" class="col-md-12 col-sm-12 col-xs-12">
+                Your email address is not confirmed at Findable. <br>
+                Please confirm your email address in order to activate certain features. <br><br>
+                <a href="#" (click)="sendActivation($event)">Click here to confirm your email</a>
+            </div>
+        </div>
+    </div>
+</div>

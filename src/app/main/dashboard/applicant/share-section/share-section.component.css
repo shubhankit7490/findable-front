@@ -1,0 +1,87 @@
+.share-section {
+    background-color: #31517a;
+    height: 60px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+:host >>> input[type="button"]:focus {
+    outline:0;
+}
+
+:host >>> .fnd-pdf-modal {
+    width: 400px;
+}
+#appShareSection{
+    display: inline-block;
+    vertical-align: top;
+}
+.sharing_method_btn {
+    padding: 5px;
+    background: transparent url(/assets/images/sharing_method_btn_icon.png) no-repeat 16px 22px;
+    height: 74px;
+    border: 0px;
+    color: #fff;
+    font-weight: 400;
+    padding-left: 55px;
+    padding-right: 25px;
+    margin: 0px 0px 0px 0px;
+    position: relative;
+   /* padding: 5px;
+    background: transparent url(/assets/images/sharing_method_btn_icon.png) no-repeat 15px 9px;
+    height: 44px;
+    border: 0px;
+    border-right: 1px solid #fff;
+    color: #fff;
+    font-weight: 400;
+    padding-left: 55px;
+    padding-right: 25px;
+    vertical-align: top;
+    margin: 14px 0px 0px 0px;*/
+}
+
+.sharing_method_div:hover{    background-color: #31517A;}
+.sharing_method_div:hover input[type="button"]{color:#3bf9d8;}
+
+.sharing_method_div{position: relative;    display: inline-block;
+    vertical-align: top;}
+
+.sharing_method_div:before{content: "";
+    position: absolute;
+    top: 17px;
+    left: 0;
+    right: auto;
+    height: 38px;
+    background: #fff;
+    width: 1px;}
+
+.browse_method_btn {
+    padding: 5px;
+    background: transparent;
+    height: 60px;
+    border: 0px;
+    border-left: 1px solid #fff;
+    color: #fff;
+    font-weight: 400;
+    padding-left: 25px;
+    padding-right: 25px;
+
+}
+
+.pdf_btn {
+            background: transparent url(/assets/images/pdf_btn_icon.png) no-repeat 11px 15px;
+    height: 44px;
+    border: 0px;
+    min-width: 43px;
+    vertical-align: top;
+    margin: 14px 13px;
+}
+
+.print_btn {
+    padding: 5px;
+    background: transparent url(/assets/images/print_btn_icon.png) no-repeat 15px 20px;
+    height: 60px;
+    border: 0px;
+    border-left: 1px solid #fff;
+    min-width: 43px;
+}

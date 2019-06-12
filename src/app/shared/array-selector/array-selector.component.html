@@ -1,0 +1,4 @@
+<select #selectBox [disabled]="disabled" class="array-selector form-control" (change)="onSelectChange($event)">
+    <option *ngIf="placeholderText" [disabled]="disablePlaceholder" [selected]="selectedItem == 'undefined' || selectedItem === -1" [value]="placeholderValue">{{ placeholderText }}</option>
+    <option *ngFor="let item of arrayItems; let i = index" value="{{ item[key_id] || i }}" [selected]="selectedItem !== null && (item[key_id] === selectedItem || i === selectedItem || item === selectedItem)">{{ !!arrayLabels[i] ? arrayLabels[i] : (item[key_name] || item) }}</option>
+</select>

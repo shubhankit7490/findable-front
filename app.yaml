@@ -1,0 +1,95 @@
+runtime: php55
+api_version: 1
+service: staging
+
+handlers:
+
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+- url: /
+  script: mod_rewrite.php
+
+- url: /(.*\.css)
+  mime_type: text/css
+  static_files: \1
+  upload: (.*\.css)
+
+- url: /(.*\.js)
+  mime_type: text/javascript
+  static_files: \1
+  upload: (.*\.js)
+
+- url: /(.*\.map)
+  mime_type: application/octet-stream
+  static_files: \1
+  upload: (.*\.map)
+
+- url: /(.*\.png)
+  mime_type: image/png
+  static_files: \1
+  upload: (.*\.png)
+
+- url: /(.*\.jpg)
+  static_files: \1
+  upload: (.*\.jpg)
+
+- url: /(.*\.svg)
+  static_files: \1
+  upload: (.*\.svg)
+
+- url: /(.*\.woff)
+  static_files: \1
+  upload: (.*\.woff)
+
+- url: /(.*\.woff2)
+  static_files: \1
+  upload: (.*\.woff2)
+
+- url: /(.*\.ttf)
+  static_files: \1
+  upload: (.*\.ttf)
+
+- url: /(.*\.eot)
+  static_files: \1
+  upload: (.*\.eot)
+
+- url: /verify
+  script: mod_rewrite.php
+
+- url: /user/blocked
+  script: mod_rewrite.php
+
+- url: /user/personal-details
+  script: mod_rewrite.php
+
+- url: /user/login
+  script: mod_rewrite.php
+
+- url: /user/signup
+  script: mod_rewrite.php
+
+- url: /user/password/forgot
+  script: mod_rewrite.php
+
+- url: /user/(.*)
+  script: mod_rewrite.php
+
+- url: /business/(.*)
+  script: mod_rewrite.php
+  
+- url: /reset(.*)
+  script: mod_rewrite.php  
+
+- url: /apply(.*)
+  script: mod_rewrite.php  
+
+- url: /faq
+  script: mod_rewrite.php
+
+- url: /dashboard
+  script: mod_rewrite.php
+
+- url: /(.*)
+  script: mod_rewrite.php

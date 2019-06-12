@@ -1,0 +1,16 @@
+:host >>> select {
+    padding: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+}
+
+:host {
+    position: relative;
+}
+
+:host >>> app-spinning-loader .load-page i {
+    font-size: 14px !important;
+    color: #13345f !important;
+    top: 4px !important;
+    left: -19px !important;
+}

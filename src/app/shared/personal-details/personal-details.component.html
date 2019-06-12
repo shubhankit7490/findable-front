@@ -1,0 +1,138 @@
+<h3>My Personal Details</h3>
+
+<form [formGroup]="detailsForm" novalidate>
+    <div class="col-md-4">
+        <div class="form-group col-md-6">
+            <label class="fnd-req">First Name</label>
+            <input maxlength="150" (blur)="validate('firstname')" name="firstname" formControlName="firstname" type="text" class="form-control">
+        </div>
+
+        <div class="form-group col-md-6">
+            <label class="fnd-req">Last Name</label>
+            <input maxlength="150" (blur)="validate('lastname')" name="lastname" formControlName="lastname" type="text" class="form-control">
+        </div>
+
+        <p class="col-md-12 error">
+            <span *ngIf="formErrors.firstname.error" class="error">{{ formErrors.firstname.error }}</span>
+            <span *ngIf="formErrors.lastname.error" class="error">{{ formErrors.lastname.error }}</span>
+        </p>
+
+        <div class="form-group col-md-12">
+            <label class="fnd-req">Phone Number</label>
+            <input maxlength="16" (blur)="validate('phone')" name="phone" formControlName="phone" maxlength="15" type="tel" class="form-control">
+            <p class="error">{{ formErrors.phone.error }}</p>
+        </div>
+
+        <div class="form-group">
+            <div class="form-group">
+                <div class="form-group col-md-12">
+                    <label class="fnd-req">Location</label>
+                    <input id="city" class="form-control" formControlName="city" placeholder="Enter your address" type="text" autocomplete="false">
+                    <p class="error">{{ formErrors.city.error }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-md-12">
+            <label>Skype</label>
+            <input maxlength="255" name="skype" formControlName="skype" type="tel" class="form-control">
+            <p class="error">{{ formErrors.skype.error }}</p>
+        </div>
+
+        <div class="form-group col-md-12">
+            <label>Website</label>
+            <input maxlength="255" name="website" formControlName="website" type="tel" class="form-control">
+            <p class="error">{{ formErrors.website.error }}</p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="form-group col-md-12">
+            <label>Birthday</label><br>
+            <div class="block-date block-left">
+                <year-picker class="left clear-padding-left" selectClass="form-control" [data]="userBirthday" [maxYears]="18" (year)="setYear($event)"></year-picker>
+            </div>
+            <div class="block-date block-left">
+                <month-picker class="left clear-padding-left" selectClass="form-control" [data]="userBirthday" (month)="setMonth($event)"></month-picker>
+            </div>
+            <div class="block-date block-left">
+                <day-picker class="left clear-padding-left" selectClass="form-control" [data]="userBirthday" (day)="setDay($event)"></day-picker>
+            </div>
+            <p class="error">{{ formErrors.birthday.error }}</p>
+        </div>
+        <div class="form-group col-md-12">
+            <label>Gender</label>
+            <select name="gender" formControlName="gender" class="form-control" (blur)="validate('gender')">
+                <option value="M" [selected]="userDetails.gender == 'M'">Male</option>
+                <option value="F" [selected]="userDetails.gender == 'F'">Female</option>
+            </select>
+            <p class="error">{{ formErrors.gender.error }}</p>
+        </div>
+
+        <div class="form-group col-md-12">
+            <label class="fnd-req">Email</label>
+            <input maxlength="255" email (blur)="validate('email')" name="email" formControlName="email" type="email" class="form-control">
+            <p class="error">{{ formErrors.email.error }}</p>
+        </div>
+
+        <div class="reset-password-wrap form-group col-md-12">
+            <a routerLink="/user/password/forgot">Reset Password</a>
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+        <label>Profile Picture</label>
+        <div class="image-upload-wrap">
+
+            <div class="form-group">
+                <div class="image-upload-pic-wrap">
+                    <div class="my-drop-zone image-upload-top">
+                        <p-fileUpload
+                                #file
+                                name="file"
+                                url="{{UPLOAD_PATH}}"
+                                (onBeforeSend)="onBeforeSend($event)"
+                                (onUpload)="onUpload($event)"
+                                (onClear)="onClear()"
+                                (onError)="uploadError($event)"
+                                (onSelect)="onSelect($event, file)"
+                                styleClass="personal-details-file-upload"
+                                uploadLabel="Upload"
+                                chooseLabel="Choose"
+                                cancelLabel="Cancel"
+                                accept="image/*" maxFileSize="10000000"
+                        >
+                            <template pTemplate type="content">
+                                <img #profileImage id="personal-details-profile-image" src="{{ profileImagePath }}">
+                            </template>
+                        </p-fileUpload>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button *ngIf="mode === 'update'" (click)="onSubmit($event)" [disabled]="submitting" type="submit" class="personal-details-submit btn fnd-btn-primary col-md-12">
+            <img [class.glyphicon-refresh-animate]="submitting" src="../../../../assets/images/reload-icon.png">
+            Update
+        </button>
+
+        <div class="buttonsContainer">
+            <button *ngIf="mode === 'create'" (click)="goto(1)" [disabled]="submitting" type="button" class="company-information-submit btn fnd-btn-primary col-md-6">
+                <i class="glyphicon glyphicon-arrow-left"></i>
+                Prev
+            </button>
+
+            <button *ngIf="mode === 'create'" (click)="onSubmit($event)" [disabled]="submitting" type="submit" class="company-information-submit company-information-submit-right btn fnd-btn-primary col-md-6">
+                <i class="glyphicon glyphicon glyphicon-ok"></i>
+                Done
+            </button>
+        </div>
+
+        <p *ngIf="globalError" class="global-error">{{ globalError }}</p>
+        <p *ngIf="globalSuccess" class="global-success">{{ globalSuccess }}</p>
+
+    </div>
+
+</form>

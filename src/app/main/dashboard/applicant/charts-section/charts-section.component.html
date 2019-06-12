@@ -1,0 +1,185 @@
+<div class="chart-header" id="experience_chart_header">
+	<h2>Experience</h2>
+    <button id="tour-step-four" *ngIf="authService.currentUser && authService.getUserId() == userId" type="button" class="btn btn-success pull-left edit-link-button tour-step" (click)="tourService.initSection($event); openExperience();">
+        Edit section
+    </button>
+</div>
+
+<div *ngIf="experienceItems?.length > 0" (click)="toggleAdditionalInfo('experience');" class="toggle-additional-info">
+    <span class="chart-info-eye" [class.hideInfo]="!showAdditionalInfo.experience" ></span> 
+    {{ (showAdditionalInfo.experience) ? 'Hide' : 'Show' }} additional info
+</div>
+
+<app-chart *ngIf="experienceItems?.length > 0"
+    [items]="experienceItems"
+    [groups]="experienceGroups"
+    [template]="experienceTemplate"
+    [direction]="'rtl'"
+    [showAdditionalInfo]="showAdditionalInfo.experience"
+    [options]="experienceOptions"
+></app-chart>
+<div  *ngIf="experienceItems?.length == 0" class="chart-placeholder">
+	<div *ngIf="!anon" class="add-experience-icon" id="exp-chart-item-bg-icon" (click)="tourService.initSection($event); experienceModal.open()"></div>
+	<div *ngIf="!anon" class="add-experience-text" id="exp-chart-item-bg-text" (click)="tourService.initSection($event); experienceModal.open()">Add Experience</div>
+</div>
+
+<div class="chart-header">
+    <h2>Education</h2>
+    <button id="tour-step-five" *ngIf="authService.currentUser && authService.getUserId() == userId" type="button" class="btn btn-success pull-left edit-link-button tour-step" (click)="tourService.initSection($event); educationModal.open();">
+        Edit section
+    </button>
+</div>
+
+<div *ngIf="educationItems?.length > 0" (click)="toggleAdditionalInfo('education')" class="toggle-additional-info">
+    <span class="chart-info-eye" [class.hideInfo]="!showAdditionalInfo.education" ></span> 
+    {{ (showAdditionalInfo.education) ? 'Hide' : 'Show' }} additional info
+</div>
+
+<app-chart class="chart-education" *ngIf="educationItems?.length > 0"
+    [items]="educationItems"
+    [groups]="educationGroups"
+    [template]="educationTemplate"
+    [direction]="'rtl'"
+    [showAdditionalInfo]="showAdditionalInfo.education"
+    [options]="educationOptions"
+></app-chart>
+<div  *ngIf="educationItems?.length == 0" class="chart-placeholder">
+  <div *ngIf="!anon" class="add-education-icon" id="edu-chart-item-bg-icon" (click)="tourService.initSection($event); educationModal.open()"></div>
+  <div *ngIf="!anon" class="add-education-text" id="edu-chart-item-bg-text" (click)="tourService.initSection($event); educationModal.open()">Add Education</div>
+</div>
+
+<div class="chart-header">
+	<h2>Responsibilities</h2>
+    <button id="chart-experience-edit" *ngIf="authService.currentUser && authService.getUserId() == userId" type="button" class="btn btn-success pull-left edit-link-button tour-step" (click)="tourService.initSection($event); experienceModal.open();">
+        Edit section
+    </button>
+</div>
+
+<div *ngIf="focusItems?.length > 0" (click)="toggleAdditionalInfo('focus')" class="toggle-additional-info">
+    <span class="chart-info-eye" [class.hideInfo]="!showAdditionalInfo.focus" ></span> 
+    {{ (showAdditionalInfo.focus) ? 'Hide' : 'Show' }} additional info
+</div>
+
+<app-chart *ngIf="focusItems?.length > 0"
+    [items]="focusItems"
+    [groups]="focusGroups"
+    [template]="focusTemplate"
+    [direction]="'rtl'"
+    [options]="focusOptions"
+    [showAdditionalInfo]="showAdditionalInfo.focus"
+></app-chart>
+
+<div  *ngIf="focusItems?.length == 0" class="chart-placeholder">
+  <div *ngIf="!anon" class="add-experience-icon" id="rsp-chart-item-bg-icon" (click)="tourService.initSection($event); experienceModal.open()"></div>
+  <div *ngIf="!anon" class="add-experience-text" id="rsp-chart-item-bg-text" (click)="tourService.initSection($event); experienceModal.open()">Add Responsibilities</div>
+</div>
+
+<div class="chart-header">
+	<h2>Skills</h2>
+    <button id="tour-step-six" *ngIf="authService.currentUser && authService.getUserId() == userId" type="button" class="btn btn-success pull-left edit-link-button tour-step" (click)="tourService.initSection($event); skillsModal.open();">
+        Edit section
+    </button>
+</div>
+
+<app-chart id="skillChartComponent" *ngIf="techSkillsItems?.length > 0"
+    [items]="techSkillsItems"
+    [groups]="techSkillsGroups"
+    [nominal]="true"
+    [direction]="'ltr'"
+    [options]="techSkillsOptions"
+    [showAdditionalInfo]=false
+    (updateTimeline)="updateTimelineComponent()"
+></app-chart>
+<div id="fnd-skill-chart-fix" *ngIf="techSkillsItems?.length > 0">
+	<div *ngFor="let label of generateChartLabels()">{{ label }}</div>
+</div>
+<div  *ngIf="techSkillsItems?.length == 0" class="chart-placeholder">
+	<div *ngIf="!anon" class="add-skills-icon" id="skl-chart-item-bg-icon" (click)="tourService.initSection($event); skillsModal.open()"></div>
+	<div *ngIf="!anon" class="add-skills-text" id="skl-chart-item-bg-text" (click)="tourService.initSection($event); skillsModal.open()">Add Skills</div>
+</div>
+
+
+
+
+
+
+
+<modal #experienceModal title="Experience"
+       cancelButtonLabel="cancel"
+       submitButtonLabel="submit"
+       modalClass="modal-lg floated fnd-exp-modal"
+       [hideCloseButton]="false"
+       [closeOnEscape]="true"
+       [closeOnOutsideClick]="true"
+       (onOpen)="actionOnOpenExperience()"
+	   (onClose)="actionOnCloseExperience()">
+
+	<modal-header></modal-header>
+
+	<modal-content>
+		<app-experience-modal
+            #experienceModalForm
+            [enumAllData]="enumAllData"
+            [experienceClear]="experienceClear"
+            (updateExperience)="onUpdateExperience($event)"
+            (onClose)="closeExperienceModal()"
+		></app-experience-modal>
+	</modal-content>
+
+	<modal-footer></modal-footer>
+
+</modal>
+
+<modal #educationModal title="Education"
+       cancelButtonLabel="cancel"
+       submitButtonLabel="submit"
+       modalClass="modal-lg floated fnd-pref-modal"
+       [hideCloseButton]="false"
+       [closeOnEscape]="true"
+       [closeOnOutsideClick]="true"
+       (onOpen)="actionOnOpenEducation()"
+	   (onClose)="actionOnCloseEducation()"
+>
+
+	<modal-header></modal-header>
+
+	<modal-content>
+		<app-education-modal
+        [educationClear]="educationClear"
+		[enumsData]="enumDataEducationLevels"
+		(updateEducation)="onUpdateEducation($event)"
+		(onClose)="closeEducationModal()"
+        ></app-education-modal>
+	</modal-content>
+
+	<modal-footer></modal-footer>
+
+</modal>
+
+<modal #skillsModal title="Skills"
+       cancelButtonLabel="cancel"
+       submitButtonLabel="submit"
+       modalClass="modal-sm modal-sm fnd-pref-modal fnd-skills-modal-container"
+       [hideCloseButton]="false"
+       [closeOnEscape]="true"
+       [closeOnOutsideClick]="true"
+       (onOpen)="actionOnOpenSkills()"
+	   (onClose)="actionOnCloseSkills()"
+>
+
+	<modal-header></modal-header>
+
+	<modal-content>
+		<app-skills-modal
+            [items]="techSkillsItems"
+            [groups]="techSkillsGroups"
+            [techSkillsClear] = "techSkillsClear"
+            (updateSkills)="onUpdateSkills($event)"
+            (onClose)="closeSkillsModal()">
+
+		</app-skills-modal>
+	</modal-content>
+
+	<modal-footer></modal-footer>
+
+</modal>

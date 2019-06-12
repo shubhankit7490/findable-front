@@ -1,0 +1,214 @@
+.panel-heading [data-toggle="collapse"]:after {
+    font-family: 'Glyphicons Halflings';
+    content: "e072"; /* "play" icon */
+    float: right;
+    color: #F58723;
+    font-size: 18px;
+    line-height: 22px;
+    /* rotate "play" icon from > (right arrow) to down arrow */
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+.revert{
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.usual{
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+.glyphicon-remove-circle{
+    font-size:20px;
+    color:#13345F;
+}
+:host >>> .panel{
+    box-shadow: none;
+    border:1px solid transparent;
+}
+:host >>> .panel-open{
+    border:none;
+    box-shadow: none;
+    background-color: #EBEBF7;
+    background-image: none;
+    color:#13345F;
+}
+:host {
+    /*width: 304px;*/
+    background: #13345F;
+    position:relative;
+    height:100%;
+    padding-top: 40px;
+    /*min-width: 304px;*/
+}
+
+:host >>> .col-xs-12 {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+:host >>> .panel-default > .panel-heading + .panel-collapse > .panel-body{
+    border:none;
+    box-shadow: none;
+    background-color: #EBEBF7;
+    background-image: none;
+    color:#13345F;
+    padding-left:44px;
+}
+:host >>> .panel-open .panel-default > .panel-heading{
+    border:none;
+    box-shadow: none;
+    background-color: #EBEBF7;
+    background-image: none;
+    color:#13345F;
+}
+:host >>> .panel-default > .panel-heading{
+    background-color: #F8F7FC;
+    background-image: none;
+    border-top:none;
+    border-bottom: 1px solid #fff;
+    border-right: none;
+    border-left: none;
+    color:#13345F;
+    font-size:16px;
+}
+.title-faq{
+    padding-left:10px;
+    font-weight: bold;
+}
+.remove-padding-left{
+    padding-left:0px;
+}
+.h1{
+    padding-top:10px;
+    padding-bottom: 20px;
+    color:#13345F;
+}
+.panel-heading [data-toggle="collapse"].collapsed:after {
+    /* rotate "play" icon from > (right arrow) to ^ (up arrow) */
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+    color: #454444;
+}
+div.img-account-faq img { position: fixed; right:0; bottom: 0;}
+
+.icon-center-faq{
+    margin:0 auto;
+    width:51px;
+    display: block;
+}
+.text-form-faq{
+    color:#fff;
+    text-align: center;
+    font-size:16px;
+    padding-top:20px;
+    padding-bottom: 20px;
+}
+.icon-faq{
+    background-image: url("./../../../../assets/images/buttons/btn_send_icon.png");
+    width:21px;
+    height:25px;
+    display: block;
+    float: left;
+    left: 10px;
+    position: relative;
+    line-height: 40px;
+}
+form button[type="submit"].fnd-btn-large{
+    width:120px;
+    height:40px;
+    line-height: 23px;
+}
+:host >>> form button[type="submit"] {
+    float: right;
+}
+:host >>> .form-group {
+    display: block;
+}
+.form-control{
+    height: 53px;
+    font-size: 15px;
+}
+.form-textarea{
+    height: 200px;
+}
+.error{
+    padding-top:5px;
+    color: red;
+    display: inline-block;
+    text-align: center;
+    float: left;
+    padding: 0;
+}
+:host >>> .error-container {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.border-radius{
+    border:1px solid red;
+    padding:2px;
+    border-radius: 2px;
+    margin-right:5px;
+}
+.load-page{
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background-color: #fff;
+    opacity: 0.8;
+}
+.loading-icon{
+    color:#50E3C2;
+    font-size:50px;
+    margin:0 auto;
+    top:40%;
+    opacity: 1;
+    left:120px;
+}
+
+.glyphicon-refresh-animate {
+    animation: spin .7s infinite linear;
+    -webkit-animation: spin .7s infinite linear;
+}
+
+@-webkit-keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    from {
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,17 @@
+<div class="form-group">
+    <label>Location of Interest</label>
+	<input id="city" class="form-control" placeholder="Enter your address" type="text" autocomplete="false">
+	<!-- loader will not show unless location data is fetched when typing. Currently locations data is fetched when app.component.ts is loaded -->
+	<app-input-loader [loading]="requesting"></app-input-loader>
+</div>
+<div class="tip-text">In which cities/countries would you like to work?</div>
+<ul>
+	<li *ngFor="let location of selectedLocations; let i = index;">
+		<div class="color-oval fnd_color_{{i}}"></div>
+		<span class="">{{ location?.city_name }}</span>
+		<span class="">{{ location?.state_short_name }}</span>
+		<span class="">{{ location?.country_short_name_alpha_2 }}</span>
+		<i class="glyphicon glyphicon-remove" (click)="onDelete(i)"></i>
+		<div class="fld-vertical-divider"></div>
+	</li>
+</ul>

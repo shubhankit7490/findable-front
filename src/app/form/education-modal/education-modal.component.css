@@ -1,0 +1,185 @@
+:host form {
+    display: block;
+}
+
+:host >>> .form-group {
+    display: block;
+    padding: 12px 0;
+}
+.position-active{
+    width:100%;
+}
+.position-list > li {
+    width:100%;
+}
+.width-max{
+    width:150px;
+}
+:host >>> .full-height{
+    min-height:550px;
+    direction: rtl;
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+.datepickerFrom{
+    position: absolute;
+    top: 194px;
+    left: 14px;
+    z-index: 2;
+}
+.datepickerTo{
+    position: absolute;
+    top: 194px;
+    left: 64px;
+    z-index: 2;
+}
+.button-custom-done{
+    bottom: -20px;
+}
+.button-custom-done > button{
+    position: fixed;
+}
+:host >>> .list-wrapper{
+    height: auto;
+}
+button.datePickerAnchor {
+    background: white;
+    border: 0;
+    margin-left: 101px;
+    position: relative;
+    margin-top: -40px;
+    display: block;
+}
+
+button.datePickerAnchor i {
+    font-size: 24px;
+    color: #A1A6C2;
+}
+
+.error {
+    color: red;
+    padding-top: 0px;
+    display: block;
+    margin-top: 20px;
+    clear: both;
+    width: 300px;
+}
+
+:host select, :host options, :host input {
+    font-family: 'Roboto', arial;
+    font-size: 15px;
+}
+:host button:focus {
+    outline: 0;
+}
+:host >>> ::-webkit-input-placeholder {
+    font-family: 'Roboto', arial;
+    font-size: 15px;
+}
+:host >>> ::-moz-placeholder {
+    font-family: 'Roboto', arial;
+    font-size: 15px;
+}
+:host >>> :-ms-input-placeholder {
+    font-family: 'Roboto', arial;
+    font-size: 15px;
+}
+:host >>> :-moz-placeholder {
+    font-family: 'Roboto', arial;
+    font-size: 15px;
+}
+.clear-padding-left{
+    padding-left:0px;
+}
+.separator{
+    font-size: 20px;
+    padding-left: 7px;
+    padding-top: 3px;
+    width: 20px !important;
+    position: relative;
+    top: 7px;
+}
+.left{
+    float:left;
+}
+.block-date {
+    margin: 0 !important;
+}
+:host >>> .select-list-dropdown:disabled {
+    color: #e3e4ed;
+    background-color: #e3e4ed;
+}
+:host >>> .checkbox label {
+    font-size: 15px !important;
+    padding-top: 8px;
+    padding-left: 0px !important;
+}
+
+.submit:focus {
+    color: #eee;
+}
+
+/* Auto complete component style */
+:host >>> .ui-autocomplete {
+    width: 100%;
+}
+:host >>> .ui-autocomplete-input {
+    border: 1px solid #c5c8d3 !important;
+    width: 100%;
+    font-size: 15px !important;
+    padding-right: 20px;
+}
+:host >>> .ui-autocomplete-list-item {
+    font-size: 14px;
+}
+
+/* app-spinning-loader: */
+:host >>> .load-page i {
+    font-size: 340%;
+    top: 44%;
+    left: 0%;
+}
+
+.error.global {
+    display: block;
+    width: 480px;
+    position: absolute;
+    right: 0;
+    margin: 0 120px 0 0;
+    bottom: 8px;
+    font-size: 20px;
+    text-align: right;    
+}
+
+.success.global {
+    display: block;
+    width: 480px;
+    position: absolute;
+    right: 0;
+    margin: 0 120px 0 0;
+    bottom: 8px;
+    font-size: 20px;
+    text-align: right;
+}
+
+ul.position-list {
+    height: 453px;
+}
+
+#add-exp-wrapper, .position-list {
+    direction: ltr;
+}
+
+:host .fnd-block-right:before {
+    bottom: 14px;
+}
+
+:host .position-list > li {
+    padding: 0px 0px 10px 40px;
+}
+
+:host .fnd-form-submit-container {
+    display: inline-block;
+    right: 73px;
+}

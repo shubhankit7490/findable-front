@@ -1,0 +1,15 @@
+<div class="responsibilities-input">
+	<app-tags-input
+		#tagInput
+		[tags]="responsibilities"
+		[query]="query"
+		[suggestionsArray]="suggestions"
+		(onQuery)="searchResponsibility($event)"
+		(onAdd)="onSelect($event)"
+		(onRemove)="onRemove($event)"
+		(onFocusOut)="onUpdate($event)"
+		field="name"
+	></app-tags-input>
+	<app-input-loader [loading]="requesting"></app-input-loader>
+	<p class="error">{{ error }}</p>
+</div>

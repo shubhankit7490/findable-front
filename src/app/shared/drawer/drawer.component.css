@@ -1,0 +1,88 @@
+:host {
+    position: relative;
+    display: block;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+button.toggle {
+    background: transparent;
+    position: relative;
+    right: 0;
+    top: -1px;
+    z-index: 5;
+    width: 100%;
+    display: block;
+    border-radius: 50%;
+    padding: 15px 0 15px 0;
+    
+}
+
+button.toggle:focus {
+    outline: 0;
+}
+
+.drawer-wrap {
+    position: relative;
+    overflow: hidden;
+}
+
+:host >>> .drawer-title {
+    margin-top: 0;
+    color: #13345f;
+    font-weight: bold;
+    position: relative;
+    top: 5px;
+}
+ 
+.glyphicon-plus-x:before {
+    content: "+";
+    -moz-transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    -o-transform: rotate(135deg);
+    -ms-transform: rotate(135deg);
+    transform: rotate(135deg);
+    display: inline-block;
+}
+
+.glyphicon-plus:before {
+    content: "+";
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+    display: inline-block;
+}
+
+.toggle i:before {
+    -webkit-transition: all 250ms ease-in-out;
+    -moz-transition: all 250ms ease-in-out;
+    -ms-transition: all 250ms ease-in-out;
+    -o-transition: all 250ms ease-in-out;
+    transition: all 250ms ease-in-out;    
+}
+
+.drawer-wrap {
+    -webkit-transition: all 250ms ease-in-out;
+    -moz-transition: all 250ms ease-in-out;
+    -ms-transition: all 250ms ease-in-out;
+    -o-transition: all 250ms ease-in-out;
+    transition: all 250ms ease-in-out;    
+}
+
+button.toggle i {
+    background: #e3e4ed;
+    padding: 4px;
+    border-radius: 50%;
+    float: right;
+}
+
+button.toggle h5 {
+    float: left;
+}
+
+.search-side-component {
+    margin: 0 0 20px 0;
+    padding: 0 0 20px 0;
+}

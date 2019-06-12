@@ -1,0 +1,123 @@
+.block-inline{
+    display: inline-block;
+}
+form .checkbox label{
+    padding-left:30px;
+}
+.terms-padding{
+    padding-left:30px;
+}
+.error{
+    padding-top:0px;
+    color:#50E3C2;
+    display: block;
+    text-align: left;
+    height: 0;
+}
+.border-radius{
+    border:1px solid #50E3C2;
+    padding:2px;
+    border-radius: 2px;
+    margin: 0 5px 0 0;
+}
+.position{
+    position: relative;
+}
+.load-page{
+    position: relative;
+    right: -50%;
+    top: -55px;
+}
+.loading-icon {
+    color:#50E3C2;
+    margin:0 auto;
+    opacity: 1;
+    position: absolute;
+    right: 3%;
+    top: 13%;
+    font-size: 300%;
+}
+
+.loading-icon:before {
+    color: #13345F;
+}
+
+.glyphicon-refresh-animate {
+    animation: spin .7s infinite linear;
+    -webkit-animation: spin .7s infinite linear;
+}
+
+@-webkit-keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    from { 
+        -moz-transform: rotate(0deg); 
+        -ms-transform: rotate(0deg); 
+        transform: rotate(0deg);
+    }
+    to { 
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+div.description {
+    margin: 0 0 20px 0;
+}
+
+form button[type="submit"].fnd-btn-large {
+    width: 93%;
+    position: relative;
+}
+
+div.description {
+    margin: 0 0 20px 0;
+}
+
+.form-group.checkbox.text-left label {
+    padding-left: 24px !important;
+}
+
+.form-group.checkbox.text-left .error {
+    padding-left: 24px !important;
+    margin-bottom: 10px;
+}
+
+span.signup-link {
+    text-align: center;
+}
+
+.terms-padding {
+    padding: 0 !important;
+}
+
+.login {
+    margin: 20px 0 0 0;
+}
+
+:host label {
+    color: #fff;
+}
+
+:host .form-pad {
+    padding-bottom: 10px;
+}
+
+:host .signup-wrap {
+    width: 440px;
+    margin-top: 20px;
+}

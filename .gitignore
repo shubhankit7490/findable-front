@@ -1,0 +1,22 @@
+# Created by .ignore support plugin (hsz.mobi)
+api/application/libraries/vendor/
+api/application/views/compiled/
+.idea/
+.DS_Store
+api/application/.DS_Store
+
+# Angular files
+.idea
+node_modules
+jspm_packages
+npm-debug.*
+link-checker-results.txt
+app/**/*.js
+*.js.map
+e2e/**/*.js
+e2e/**/*.js.map
+_test-output
+_temp
+/dist/
+api/application/cache/
+.vscode

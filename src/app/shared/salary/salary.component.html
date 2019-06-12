@@ -1,0 +1,20 @@
+<div class="salary-input">
+    <div class="slider-wrap col-md-8">
+        <ion-range-slider #yearsSlider
+        type="double"
+        [min]="min"
+        [max]="max"
+        [from]="from"
+        [to]="to"
+        (onChange)="sliderOnChange($event)"
+        (onFinish)="sliderOnFinish($event)"
+        (onStart)="sliderOnStart($event)"
+        ></ion-range-slider>
+    </div>
+    <div class="period col-md-4">
+        <select class="form-control" (change)="periodSelected($event)">
+            <option selected [value]="null">Period</option>
+            <option *ngFor="let type of salaryTypes; let i = index;" [selected]="type == period" value="{{ type }}">{{ type | salary }}</option>
+        </select>
+    </div>
+</div>

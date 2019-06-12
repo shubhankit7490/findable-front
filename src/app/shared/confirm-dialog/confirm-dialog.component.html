@@ -1,0 +1,24 @@
+<div class="main-dialog-wrap">
+    <app-spinning-loader [showLoader]=""></app-spinning-loader>
+    <div class="inner-wrap">
+        <h3>{{title}}</h3>
+
+        <h4 *ngIf="subTitle !== null">{{subTitle}}</h4>
+
+        <img *ngIf="icon !== null" src="{{icon}}" class="{{iconClass}}" />
+
+        <p>{{description}}</p>
+
+        <div class="buttons-wrap">
+            <button [disabled]="!enabled" class="form-control" (click)="cancel($event)">
+                <i class="glyphicon glyphicon-remove-circle"></i>
+                Cancel
+            </button>
+
+            <button [disabled]="!enabled" class="form-control" (click)="confirm($event)" [disabled]="submitting">
+                <i class="glyphicon" [class.glyphicon-ok-circle]="!spinning" [class.glyphicon-refresh]="spinning === true" [class.glyphicon-refresh-animate]="spinning === true"></i>
+                Confirm
+            </button>
+        </div>
+    </div>
+</div>

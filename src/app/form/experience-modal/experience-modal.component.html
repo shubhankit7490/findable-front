@@ -1,0 +1,318 @@
+<div class="popup popup-lg exp-popup-lg">
+	<div id="experience_edit_form_popup">
+		<app-spinning-loader [showLoader]="isSubmitting"></app-spinning-loader>
+
+		<form [formGroup]="experienceGroup" (ngSubmit)="onSubmit($event)" autocomplete="off" novalidate>
+
+			<p class="global-message">{{ formErrors.global }}</p>
+			<div class="col-md-2 full-height position-list-wrapper">
+				<div id="add-exp-wrapper">
+					<button type="button" class="btn btn-dashed click" (click)="newExperience()">
+						<img src="../../../assets/images/buttons/btn_experience_add.png" class="btn-dotted-img" alt=""> Add Experience</button>
+				</div>
+				<ul class="position-list">
+					<li *ngFor="let experience of experienceClear; let i = index;" [class.position-active]="experience.id==setModelId" (click)="edit(experience)">
+						<button
+							mwlConfirm
+							type="button"
+							[title]="title"
+							placement="right"
+							[message]="message"
+							[appendToBody]="true"
+							class="btn btn-remove click"
+							(confirm)="delete(experience, $event)"
+							[popoverClass]="'confirm-dialog-container'">
+							<i class="glyphicon glyphicon-remove"></i>
+						</button>
+
+						<h5 class="fnd-block fnd_color_{{i}} fnd-block-right click">
+							<strong>{{experience.company.name}}</strong>
+						</h5>
+						<small *ngIf="experience.current == false">
+							{{experience.from | datex:'MMM'}} {{experience.from | datex:'Y'}} > {{experience.to | datex:'MMM'}} {{experience.to | datex:'Y'}}
+						</small>
+						<small *ngIf="experience.current == true">
+							{{experience.from | datex:'MMM'}} {{experience.from | datex:'Y'}} > {{now | datex:'MMM'}} {{now | datex:'Y'}}
+						</small>
+						<br>
+						<button type="button" class="btn btn-link click" (click)="newPosition($event, experience)">+ Add position</button>
+					</li>
+				</ul>
+			</div><!-- left-side -->
+
+			<div class="col-md-10 popup-padding">
+
+				<div class="row">
+					<div class="col-md-5">
+						<div class="form-group">
+							<!-- JOB TITLE -->
+							<label class="fnd-req">Job Title</label>
+							<p-autoComplete
+								#jobtitle
+								field='name'
+								[delay]=500
+								dataKey='id'
+								[minLength]=1
+								maxlength="150"
+								[suggestions]='resultsJobtitle'
+								[(ngModel)]='searchTermJobTitle'
+								(onBlur)='validateJobTitle($event)'
+								(completeMethod)='searchJobtitle($event)'
+								(onSelect)='onSelectJobtitleAutoComplete($event)'
+								(updateModel)='UpdateJobtitleState($event)'
+								formControlName='jobTitle'
+								placeholder='Job Title'
+							></p-autoComplete>
+							<app-input-loader [loading]="requestingJobtitle"></app-input-loader>
+							<span *ngIf="formErrors.job_title" class="error">
+								<i class="glyphicon glyphicon-remove border-radius"></i>
+								{{formErrors.job_title}}
+							</span>
+						</div>
+
+						<!-- COMPANY NAME -->
+						<div class="form-group">
+							<label class="fnd-req">Company Name</label>
+							<p-autoComplete
+								#company
+								field='name'
+								[delay]=500
+								dataKey='id'
+								[minLength]=1
+								maxlength="150"
+								[(ngModel)]='searchTerm'
+								[suggestions]='resultsCompany'
+								(onBlur)='validateCompany($event)'
+								(completeMethod)='searchCompany($event)'
+								(onSelect)='onSelectCompanyAutoComplete($event)'
+								(updateModel)='UpdateCompanyState($event)'
+								formControlName='companyName'
+								placeholder='Company Name'
+							></p-autoComplete>
+							<app-input-loader [loading]="requestingCompany"></app-input-loader>
+							<span *ngIf="formErrors.company" class="error">
+								<i class="glyphicon glyphicon-remove border-radius"></i>
+								{{formErrors.company}}
+							</span>
+						</div>
+
+						<!-- LOCATION -->
+						<div class="form-group">
+							<label class="fnd-req">Location</label>
+							<input id="location" class="form-control" formControlName="location" placeholder="Enter your address" type="text">
+							<app-input-loader [loading]="requestingLocation"></app-input-loader>
+							<span *ngIf="formErrors.city" class="error">
+								<i class="glyphicon glyphicon-remove border-radius"></i>
+								{{formErrors.city}}
+							</span>
+						</div>
+
+						<div class="form-group">
+							<div class="date-block-wrap form-group col-md-6 margin-left">
+									<!-- START DATE -->
+								<label class="fnd-req">Start Date</label>
+								<div class="block-date block-left">
+									<month-picker
+										#monthFrom
+										class="left"
+										[data]="from"
+										[defaults]="true"
+										(month)="setMonthDate($event)"
+									></month-picker>
+									<span class="clear-padding-left separator left">/</span>
+									<year-picker
+										#yearFrom
+										[data]="from"
+										[defaults]="true"
+										(year)="setYearDate($event)"
+										class="left clear-padding-left"
+									></year-picker>
+								</div>
+								<br>
+								<span *ngIf="formErrors.from" class="error">
+									<i class="glyphicon glyphicon-remove border-radius"></i>
+									{{formErrors.from}}
+								</span>
+							</div>
+							<div class="date-block-wrap form-group col-md-6">
+								<!-- END DATE -->
+								<label class="fnd-req">End Date</label>
+								<div class="block-date">
+									<month-picker
+										#monthTo
+										[data]="to"
+										class="left"
+										[defaults]="true"
+										selectClass="select-list-dropdown"
+										[disabled]="experienceGroup.value.current"
+										(month)="setMonthDateTo($event)"
+									></month-picker>
+									<span class="left clear-padding-left separator">/</span>
+									<year-picker
+										#yearTo
+										[data]="to"
+										[defaults]="true" 
+										class="left clear-padding-left"
+										[disabled]="experienceGroup.value.current"
+										selectClass="select-list-dropdown"
+										(year)="setYearDateTo($event)"
+									></year-picker>
+								</div>
+								<br>
+								<span *ngIf="formErrors.to" class="error">
+									<i class="glyphicon glyphicon-remove border-radius"></i>
+									{{formErrors.to}}
+								</span>
+							</div>
+							<div *ngIf="showStartDatePickerTo" class="datepickerTo">
+								<datepicker [showWeeks]="false" (selectionDone)="onSelectionDateTo($event)"></datepicker>
+							</div>
+						</div>
+
+						<!-- CURRENTLY WORK HERE -->
+						<div class="form-group">
+							<div class="col-md-6"></div>
+							<div class="col-md-6">
+								<div class="form-group checkbox">
+									<label for="fnd-pref-benefits">
+										<input
+											type="checkbox"
+											class="form-control"
+											id="fnd-pref-benefits"
+											formControlName="current"
+											(click)="onChangeCurrent($event.target.checked)">
+										<span class="cr v">
+											<i class="cr-icon glyphicon glyphicon-ok"></i>
+										</span>
+										Currently Work Here
+									</label>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					
+					<div class="col-md-4"><!-- right middle col -->
+						
+						<!-- JOB SENIORITY -->
+						<div class="form-group">
+							<label>Job Seniority</label>
+							<select #senioritySelect class="form-control" formControlName="seniority" (change)="onSelectSeniority($event)">
+								<option selected disabled value=""></option>
+								<option disabled value="">Select Job Seniority</option>
+								<option *ngFor="let seniority of seniorities"
+									value="{{ seniority.id }}"
+									[selected]="setModelSeniority?.id == (seniority?.id)">
+									{{ seniority.name }}
+								</option>
+							</select>
+							<span *ngIf="formErrors.seniority" class="error">
+								<i class="glyphicon glyphicon-remove border-radius"></i>{{formErrors.seniority}}</span>
+						</div>
+
+						<!-- JOB TYPE -->
+						<div class="form-group">
+							<label>Job Type</label>
+							<select class="form-control" formControlName="type" [(ngModel)]="typeSelected" (change)="onChangeType($event.target.value)">
+								<option *ngFor="let typeItem of enumAllData" value="{{typeItem}}" [selected]="typeItem === typeSelected">{{typeItem}}</option>
+							</select>
+							<span *ngIf="formErrors.type" class="error">
+								<i class="glyphicon glyphicon-remove border-radius"></i>{{formErrors.type}}</span>
+						</div>
+
+						<!-- INDUSTRY -->
+						<div class="form-group form-group-industry">
+							<label>Industry</label>
+							<p-autoComplete
+								#industry
+								field='name'
+								[delay]=500
+								dataKey='id'
+								[minLength]=1
+								maxlength="150"
+								[suggestions]='resultsIndustry'
+								[(ngModel)]='searchTermIndustry'
+								(completeMethod)='searchIndustry($event)'
+								(onSelect)='onSelectIndustryAutoComplete($event)'
+								(onBlur)='hideIndustryAutoComplete($event)'
+								formControlName='industry'
+								placeholder='Industry'
+							 ></p-autoComplete>
+							<app-input-loader [loading]="requestingIndustry"></app-input-loader>
+							<span *ngIf="formErrors.industry" class="error">
+								<i class="glyphicon glyphicon-remove border-radius"></i>
+								{{formErrors.industry}}
+							</span>
+						</div>
+
+						<!-- SALARY -->
+						<div class="form-group">
+							<label>Salary</label>
+							<div class="row">
+								<div class="col-md-8">
+									<input
+										maxlength="9"
+										formControlName="salary"
+										type="text"
+										class="form-control"
+										[textMask]="{mask: mask}"
+										placeholder="Enter Salary..."
+										(change)="onSalary($event.target.value)">
+									<span *ngIf="formErrors.salary" class="error">
+										<i class="glyphicon glyphicon-remove border-radius"></i>
+										{{formErrors.salary}}
+									</span>
+								</div>
+								<div class="col-md-4">
+									<select class="form-control" formControlName="salary_period" (change)="onChangeSalary_period($event.target.value)">
+										<option *ngFor="let preiod of salaryPeriodModel;let count = index"
+											value="{{preiod}}"
+											[selected]="preiod === sendModelExperience.salary_period">
+											{{preiod | salary}}
+										</option>
+									</select>
+									<span *ngIf="formErrors.salary_period" class="error">
+										<i class="glyphicon glyphicon-remove border-radius"></i>
+										{{formErrors.salary_period}}
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+
+					<div class="col-md-3"><!-- right most col -->
+						<!-- RESPONSIBILITIES -->
+						<app-focus-and-expertise [areasOfFocus]="setAreasOfFocus" (areasEdit)="onAreasEdit($event)" #responsibilities></app-focus-and-expertise>
+						<span *ngIf="formErrors.areas_of_focus" class="error margin-bottom-error">
+							<i class="glyphicon glyphicon-remove border-radius"></i>
+							{{formErrors.areas_of_focus}}
+						</span>
+						<div class="row">
+							<div class="col-xs-12">
+								<button
+									id="experience_edit_save_button"
+									class="pull-right btn info-btn btn-lg"
+									[disabled]="!experienceGroup.valid || !experienceGroup.dirty || sendModelExperience.from === null || (sendModelExperience.to === null && (sendModelExperience.current == false))">
+									<i class="glyphicon glyphicon-list"></i>
+									Save
+								</button>
+							</div>
+						</div>
+					</div>
+					<!-- col -->
+				</div>
+
+			</div><!-- right-side -->
+
+		</form>
+		<!-- form -->
+		<div id="fnd-experience-dialog-done" class="fnd-form-submit-container button-custom-done">
+			<button id="fnd-experience-dialog-done-button" type="button" class="btn btn-success" (click)="saveAndClose($event)">
+				Done
+			</button>
+		</div>
+	</div>
+	<!-- row -->
+</div>
+<!-- popup-lg -->

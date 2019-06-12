@@ -1,0 +1,125 @@
+<app-spinning-loader [showLoader]="isSubmitting"></app-spinning-loader>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit($event)" autocomplete="off" novalidate>
+	<div class="fnd-form-controls-container">
+		<div class="fnd-form-column">
+			<div class="form-group flex-column">
+				<label for="fnd-pref-employment-status" class="fnd-req">What is your employment status?</label>
+				<select class="form-control" id="fnd-pref-employment-status" formControlName="employment_status">
+					<option *ngFor="let status of employmentStatuses" [value]="status">{{status}}</option>
+				</select>
+                <span *ngIf="formErrors.employment_status" class="error"><i class="glyphicon glyphicon-remove border-radius"></i>{{formErrors.employment_status}}</span>
+			</div>
+			<div class="form-group flex-column">
+				<label for="fnd-pref-current-status" class="fnd-req">Are you currently looking for a job?</label>
+				<select class="form-control" id="fnd-pref-current-status" formControlName="current_status">
+					<option *ngFor="let status of currentStatuses" [value]="status">{{status}}</option>
+				</select>
+                <span *ngIf="formErrors.current_status" class="error"><i class="glyphicon glyphicon-remove border-radius"></i>{{formErrors.current_status}}</span>
+			</div>
+			<div class="form-group flex-column">
+				<label for="fnd-pref-employment-type" class="fnd-req">Employment Type Seeking?</label>
+				<select class="form-control" id="fnd-pref-employment-type" formControlName="employment_type" (change)="updateSalaryPeriod($event)">
+					<option *ngFor="let type of employmentTypes" [value]="type">{{type}}</option>
+				</select>
+                <span *ngIf="formErrors.employment_type" class="error"><i class="glyphicon glyphicon-remove border-radius"></i>{{formErrors.employment_type}}</span>
+			</div>
+			<div class="form-group flex-column">
+				<label for="fnd-pref-desired-salary">Expected Salary (Recommended)</label>
+				<div id="fnd-pref-salary-container">
+					<input maxlength="9" type="text" class="form-control" id="fnd-pref-desired-salary" formControlName="desired_salary" [textMask]="{mask: mask}">
+					<select class="form-control" id="fnd-pref-salary-period" formControlName="desired_salary_period">
+						<option *ngFor="let period of salaryPeriods; let i = index" [value]="period">{{period | salary}} </option>
+					</select>
+				</div>
+                <span *ngIf="formErrors.desired_salary" class="error"><i class="glyphicon glyphicon-remove border-radius"></i>{{formErrors.desired_salary}}</span>
+                <span *ngIf="formErrors.desired_salary_period" class="error"><i class="glyphicon glyphicon-remove border-radius"></i>{{formErrors.desired_salary_period}}</span>
+			</div>
+
+			<div class="form-group checkbox">
+				<label for="fnd-pref-benefits">
+					<input type="checkbox" value="" class="form-control" id="fnd-pref-benefits" formControlName="benefits">
+					<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                    Add benefits in addition to salary
+				</label>
+                <span *ngIf="formErrors.benefits" class="error"><i class="glyphicon glyphicon-remove border-radius"></i>{{formErrors.benefits}}</span>
+			</div>
+		</div>
+
+		<div class="fnd-form-column">
+			<app-locations-form
+                    #locationOfInteresetComponent
+					class="flex-column form-group"
+					[selectedLocations]="preferencesModel?.locations"
+					(onLocationsChange)="onLocationsChange($event)">
+			</app-locations-form>
+
+			<div class="form-group radio">
+				<label for="fnd-pref-only-current-location">
+					<input type="radio" class="form-control" id="fnd-pref-only-current-location" formControlName="relocation" value="0">
+					<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					Only Current Location?
+				</label>
+                <span *ngIf="formErrors.only_current_location" class="error"><i class="glyphicon glyphicon-remove border-radius"></i>{{formErrors.only_current_location}}</span>
+			</div>
+
+			<div class="form-group radio">
+				<label for="fnd-pref-relocation">
+					<input type="radio" class="form-control" id="fnd-pref-relocation" formControlName="relocation" value="1">
+					<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					Willing To Relocate?
+				</label>
+                <span *ngIf="formErrors.relocation" class="error"><i class="glyphicon glyphicon-remove border-radius"></i>{{formErrors.relocation}}</span>
+			</div>
+		</div>
+
+		<div class="fnd-form-column">
+			<div class="form-group flex-column">
+				<label for="fnd-pref-available" [ngClass]="{'fnd-req': form.get('current_status').value !== 'not looking'}">When are you available to start working?</label>
+				<select (change)="availableFromChange($event)" #availability class="form-control" id="fnd-pref-available" formControlName="available_from">
+					<option *ngFor="let availability of available_from" [value]="availability">{{availability}}</option>
+				</select>
+                <span *ngIf="formErrors.available_from" class="error"><i class="glyphicon glyphicon-remove border-radius"></i>{{formErrors.available_from}}</span>
+			</div>
+
+			<input type="hidden" formControlName="start_time">
+			<div *ngIf="availability.value == 'from'" class="date-block-wrap form-group col-md-12 margin-left">
+                <div class="block-date block-left">
+                    <month-picker [disabled]="form.get('current_status').value === 'not looking'" class="left" [data]="from" (month)="setMonthDate($event)"> </month-picker>
+                    <year-picker [disabled]="form.get('current_status').value === 'not looking'" class="left clear-padding-left" [data]="from" (year)="setYearDate($event)"></year-picker>
+                </div>
+            </div>
+
+            <div class="form-group checkbox legally-allowed">
+				<label for="fnd-pref-legal-usa">
+					<input type="checkbox" class="form-control" id="fnd-pref-legal-usa" formControlName="legal_usa">
+					<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+					I am legally allowed to work in the US
+				</label>
+                <span *ngIf="formErrors.legal_usa" class="error"><i class="glyphicon glyphicon-remove border-radius"></i>{{formErrors.legal_usa}}</span>
+			</div>
+
+		</div>
+
+	</div>
+
+	<div id="fnd-pref-submit-container-id" class="fnd-form-submit-container">
+		<button type="submit" id="status-experience-dialog-done" class="btn btn-success" [disabled]="!form.valid || !form.dirty">Done</button>
+	</div>
+</form>
+
+<div
+	#fld_pref_start_time_date_picker
+	class="datePickerContainer"
+	[hidden]="!datePickerOpened"
+	[style.top.px]="datePickerTop"
+	[style.left.px]="datePickerLeft">
+	<datepicker
+		[(ngModel)]="dt"
+		[minDate]="minDate"
+		[showWeeks]="true"
+		name="start-date-picker"
+		[dateDisabled]="dateDisabled"
+		(selectionDone)="onStartTimeChange()"
+	></datepicker>
+</div>

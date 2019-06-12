@@ -1,0 +1,8 @@
+<section class="profile-details-section">
+	<app-profile [userId]="userId"></app-profile>
+	<app-contact-info [userId]="userId" *ngIf="contactDetails === true"></app-contact-info>
+	<app-status-prefs [userId]="userId"></app-status-prefs>
+	<app-recent-job [userId]="userId"></app-recent-job>
+	<app-languages [userId]="userId"></app-languages>
+	<app-traits [userId]="userId"></app-traits>
+</section>

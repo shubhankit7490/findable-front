@@ -1,0 +1,12 @@
+<div #drawer class="drawer-wrap {{ (expanded) ? 'opened' : 'closed' }}">
+    
+    <button type="button" (click)="toggleState()" class="toggle">
+        <h5 class="drawer-title">{{ title }}</h5>
+        <i class="glyphicon {{ (expanded) ? 'glyphicon-plus-x' : 'glyphicon-plus' }}"></i>
+    </button>
+
+    <div #drawerContent class="drawer-content">
+        <ng-content></ng-content>
+    </div>
+
+</div>

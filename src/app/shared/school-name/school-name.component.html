@@ -1,0 +1,14 @@
+<div class="company-name-input">
+	<p-autoComplete
+		#autocompleteElement
+		[(ngModel)]="searchTerm"
+		[suggestions]="schools"
+		(completeMethod)="searchSchool($event)"
+		(updateModel)='setState($event)'
+		(onSelect)="onSelect($event)"
+		(onBlur)="onFocusOut($event)"
+		field="name"
+	></p-autoComplete>
+	<app-input-loader [loading]="requesting"></app-input-loader>
+	<p class="error">{{ error }}</p>
+</div>

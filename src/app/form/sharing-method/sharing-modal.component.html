@@ -1,0 +1,51 @@
+<div class="popup popup-lg sharing-popup">
+    <div>
+        <div class="row">
+            <div class="col-md-5 col-sm-5 col-xs-5 border-right">
+                <h4 class="padded-title">Share Your Resume By Email</h4>
+                <form autocomplete="off" novalidate [formGroup]="sharingFields" (ngSubmit)="send($event, sharingFields)">
+                    <div class="form-group">
+                        <label class="control-label">Email</label>
+                        <input maxlength="255" (blur)="validate('to')" class="form-control" type="email" value="" placeholder="Enter email address" formControlName="to">
+                        <span [hidden]="!formErrors.to.error.length" class="error"><i class="glyphicon glyphicon-remove border-radius"></i>{{formErrors.to.error}}</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Subject</label>
+                        <input maxlength="50" (blur)="validate('subject')" class="form-control" type="text" value="" placeholder="Enter subject" formControlName="subject">
+                        <span [hidden]="!formErrors.subject.error.length" class="error"><i class="glyphicon glyphicon-remove border-radius"></i>{{formErrors.subject.error}}</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Message</label>
+                        <textarea maxlength="250" (blur)="validate('message')" formControlName="message" class="form-control" placeholder="Your message..."></textarea>
+                        <span [hidden]="!formErrors.message.error.length" class="error"><i class="glyphicon glyphicon-remove border-radius"></i>{{formErrors.message.error}}</span>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" [disabled]="!sharingFields.valid" class="btn fnd-btn-primary fnd-btn-large pull-right">
+                            <span *ngIf="!showLoader" class="icon-envelope" aria-hidden="true"></span>
+                            <div *ngIf="showLoader" class="load-page">
+                                <i class="glyphicon glyphicon-refresh glyphicon-refresh-animate loading-icon"></i>
+                            </div>
+                            Send
+                        </button>
+                    </div>
+                    <p class="error" id="sharing-error-global">{{globalError}}</p>
+                </form>
+            </div>
+            <div class="col-md-7 col-sm-7 col-xs-7 social-links">
+                <h4>Post Your Resume To Social Media</h4>
+                <div class="social-networks">
+                    <img src="/assets/images/sharing_fb_icon.png" title="Facebook" (click)="share_facebook()">
+                    <img src="/assets/images/sharing_twitter_icon.png" title="Twitter" (click)="share_twitter('Findable profile')">
+                    <img src="/assets/images/sharing_linkedin_icon.png" title="LinkedIn" (click)="share_linkedin()">
+                    <img src="/assets/images/sharing_gplus_icon.png" title="Google+" (click)="share_gplus()">
+                </div>
+                <div class="personal-link">
+                    <h5>Link: (Copy and Paste to Social Media)</h5>
+                    <div class="form-group">
+                        <input class="form-control" type="text" (click)="selectSharingLink($event)" [(ngModel)]="repoUrl" readonly="readonly">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

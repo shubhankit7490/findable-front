@@ -1,0 +1,7 @@
+.input-loader {
+    position: relative;
+    z-index: 999;
+    float: right;
+    margin-top: -34px;
+    margin-right: 10px;
+}

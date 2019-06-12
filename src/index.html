@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Findable</title>
+  <base href="/">
+  <meta property="og:image" content="/assets/images/findable_share.png" />
+  <meta property="og:title" content="Hi, check out my profile on Findable.co" />
+  <meta property="og:description" content="Findable – Create your free digital resume and be findable, promote yourself and track your resume activity in just 5 minutes" />
+  <meta property="og:type" content="website" />
+  <meta name="viewport" content="width=1920">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+      <!-- code for google ads -->
+<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+
+<script>
+  googletag.cmd.push(function() {
+    googletag.defineSlot('/21780857839/Candidate_Banner_728x90', [728, 90], 'div-gpt-ad-1546199565287-0').addService(googletag.pubads());
+    googletag.defineSlot('/21780857839/Employer_Banner_728x90', [728, 90], 'div-gpt-ad-1546199654905-0').addService(googletag.pubads());
+    googletag.pubads().enableSingleRequest();
+    googletag.enableServices();
+  });
+</script>
+</head>
+<body>
+    <script>
+        (function(w,l,e,g){
+            if(l.host.indexOf('localhost') >= 0) {
+                w[e] = 'development';
+                w[g] = 'UA-106631784-1';
+            } else if(l.host.indexOf('staging.findable.co') >= 0) {
+                w[e] = 'staging';
+                w[g] = 'UA-106631784-1';
+            } else {
+                w[e] = 'production';
+                w[g] = 'UA-106631784-2';
+            }
+        })(window, window.location, 'environment', 'gaID');
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', window.gaID, 'auto');
+    </script>
+
+    <!-- Hotjar Tracking Code for https://welcome.findable.co/ -->
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:702377,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+        if (window.location.protocol == "http:" && location.hostname!='localhost') {
+          window.location = document.URL.replace("http://", "https://");
+        }
+
+    </script>
+    <app-root></app-root>
+    <script src="https://js.stripe.com/v2/"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2Noyrm95Zv_JFRIHl8-1u8oGDiLal4zk&libraries=places&language=en"></script>
+</body>
+</html>

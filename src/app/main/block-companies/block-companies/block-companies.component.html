@@ -1,0 +1,109 @@
+<div class="row">
+
+    <div class="col-md-3">
+
+        <h2 class="h1">Block Companies</h2>
+
+            <p>
+                You can block companies from viewing your profile
+            </p>
+
+            <div class="block-companies-switch-wrap blocking-info-purchase-wrap" [class.on]="blockingInfoStatus">
+                <label >
+                    Hide personal data
+                    <i class="glyphicon glyphicon-question-sign" 
+                        data-toggle="tooltip" data-placement="top" title="Companies wont be able to view your privet contact information. Instead, Findable will send you emails with company name, person name, email, tell and message."
+                        ></i>
+                </label>
+                <ui-switch 
+                    size="small" 
+                    [(ngModel)]="blockingInfoStatus" 
+                    (change)="onBlockInfoSwitchChange($event)"
+                    color="#fff">
+                </ui-switch>
+                <p class="blocking-info-sub-ends-at" *ngIf="blockingInfoSubEndsAt">Your subscription will expire on the: {{ blockingInfoSubEndsAt | date: 'dd.MM.yyyy' }}</p>
+                <div class="purchase-sub" *ngIf="blockingInfoCanBuy">
+                    <button class="btn" (click)="onBlockInfoSwitchChange($event)">Purchase for 3.99$ /month</button>
+                </div>
+            </div>
+
+            <div class="block-companies-switch-wrap" [class.on]="blockingStatus">
+                <label>Block All Companies</label>
+                <ui-switch 
+                    size="small" 
+                    [(ngModel)]="blockingStatus" 
+                    (change)="onSwitchChange($event)"
+                    [disabled]="disabled"
+                    color="#fff">
+                </ui-switch>
+            </div>
+
+            <div class="show-resume-wrap col-md-12 no-pad">
+                <div class="form-group col-md-12 no-pad">
+                    <label *ngIf="blockingStatus">Show my resume only to</label>
+                    <label *ngIf="!blockingStatus">Block specific companies</label>
+                </div>
+                <div class="form-group col-md-12 no-pad">
+                    <p-autoComplete
+                            #autocompleteInput
+                            [(ngModel)]='searchTerm'
+                            [suggestions]='results'
+                            [minLength]=1
+                            [delay]=500
+                            dataKey='id'
+                            placeholder='Enter company name'
+                            (completeMethod)='search($event)'
+                            (onSelect)='onSelectAutoComplete($event)'
+                            field='name'
+                    ></p-autoComplete>
+                    <i *ngIf="requestingJobtitle" class="glyphicon glyphicon-refresh glyphicon-spinner auto-complete-spinner" aria-hidden="true"></i>
+                    <p class="error"></p>
+                </div>
+            </div>
+
+            <div class="text-right">
+                <p class="text-center error-message">{{ errorMessage }}</p>
+                <button class="btn add-company" 
+                    [class.btn-danger]="!blockingStatus"
+                    [class.btn-success]="blockingStatus"
+                    (click)="addCompany()"
+                    [disabled]="disabled">
+                    <i class="glyphicon" [class.glyphicon-ban-circle]="!blockingStatus" [class.glyphicon-ok-circle]="blockingStatus"></i>
+                    {{ (blockingStatus) ? 'Show' : 'Block' }}
+                </button>
+            </div>
+
+            <div *ngIf="companies.length" class="col-md-12 dashed"></div>
+
+            <ul class="fnd-peronal-traits">
+                <li *ngFor="let company of companies; let i = index;" >
+                    {{ company.name }}
+                    <button type="button" [disabled]="disabled" (click)="removeCompany(company.id)" class="btn-li btn-right click"><i class="glyphicon glyphicon-remove"></i></button>
+                </li>
+
+            </ul>
+
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="purchaseModal" tabindex="-1" role="dialog" aria-labelledby="purchaseModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="purchaseModalLabel">Hide personal data - Subscription</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <subscriptionComp [modeStatus]="blockingInfoMode" (subscribed)="onSubscribed($event)"></subscriptionComp>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

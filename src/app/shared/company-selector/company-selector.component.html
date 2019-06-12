@@ -1,0 +1,9 @@
+<div class="company-selector">
+
+    <h1>Choose a Company to Recruit for</h1>
+
+    <div class="companies">
+        <button [disabled]="submitting" *ngFor="let company of companies" (click)="selectCompany($event, company)">{{ company.name }}</button>
+    </div>
+
+</div>

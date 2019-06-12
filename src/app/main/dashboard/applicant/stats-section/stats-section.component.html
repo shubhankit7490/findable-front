@@ -1,0 +1,212 @@
+<div class="row-fluid">
+
+    <div class="row stats-section">
+
+        <div class="col-md-2">
+            <!-- Date select component -->
+            <div [formGroup]="dateSelector" class="form-group date-selector">
+                <label class="fnd-req sr-only">Report Period</label>
+                <select [value]="30" ngControl="report" formControlName="report" class="form-control" #report (change)="loadStats(report.value)">
+                    <option value="30">Last 30 Days</option>
+                    <option value="90">Last 3 Months</option>
+                    <option value="180">Last 6 Months</option>
+                    <option value="365">Last Year</option>
+                </select><br>
+                <p class="error">{{data_service_error}}</p>
+            </div>
+            <!-- End of date select component -->
+
+            <!-- Stats KPI component -->
+            <div class="stats-section-kpi">
+                <div class="stats-section-total-views">
+                    {{ totalViews }}
+                </div>
+                <div class="stats-section-total-views-tip">
+                    Total Profile Views
+                </div>
+            </div>
+            <!-- End of stats KPI component -->
+        </div>
+
+        <div class="col-md-5">
+            <!-- Stats map component -->
+            <div class="stats-section-map">
+                <div #america class="stats-section-continent-badge pull-left northamerica" (click)="showCompanies('northamerica', northamerica_popup)" *ngIf="stats.yourViews.northamerica.count > 0 || stats.yourViews.northamerica.views > 0">
+	    			<span class="stats-badge-value">
+	    				{{stats.yourViews.northamerica.count + stats.yourViews.northamerica.views}}
+    				</span>
+                    <div malihu-scrollbar #northamerica_popup [scrollbarOptions]="scrollbarOptions" class="stats-businesses-container" [class.hidden]="popups.northamerica">
+                        <div *ngIf="stats.yourViews.northamerica.views > 0" style="width: 100%; font-weight: bold;">Views: {{stats.yourViews.northamerica.views}}</div>
+                        <div style="width: 100%" *ngFor="let business of stats.yourViews.northamerica.businesses; let i = index;">
+                            <span class="company_name">{{business.name}}</span>
+                            <span class="company_logo">
+                                <img *ngIf="business.logo != null" src="{{business.logo}}">
+                                <span *ngIf="business.logo == null">Company</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div #america class="stats-section-continent-badge pull-left southamerica" (click)="showCompanies('southamerica', southamerica_popup)" *ngIf="stats.yourViews.southamerica.count > 0 || stats.yourViews.southamerica.views > 0">
+	    			<span class="stats-badge-value">
+	    				{{stats.yourViews.southamerica.count + stats.yourViews.southamerica.views}}
+    				</span>
+                    <div malihu-scrollbar #southamerica_popup [scrollbarOptions]="scrollbarOptions" class="stats-businesses-container" [class.hidden]="popups.southamerica">
+                        <div *ngIf="stats.yourViews.southamerica.views > 0" style="width: 100%; font-weight: bold;">Views: {{stats.yourViews.southamerica.views}}</div>
+                        <div style="width: 100%" *ngFor="let business of stats.yourViews.southamerica.businesses; let i = index;">
+                            <span class="company_name">{{business.name}}</span>
+                            <span class="company_logo">
+                                <img *ngIf="business.logo != null" src="{{business.logo}}">
+                                <span *ngIf="business.logo == null">Company</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div #europe class="stats-section-continent-badge pull-left europe" (click)="showCompanies('europe', europe_popup)" *ngIf="stats.yourViews.europe.count > 0 || stats.yourViews.europe.views > 0">
+	    			<span class="stats-badge-value">
+	    				{{stats.yourViews.europe.count + stats.yourViews.europe.views}}
+    				</span>
+                    <div malihu-scrollbar #europe_popup [scrollbarOptions]="scrollbarOptions" class="stats-businesses-container" [class.hidden]="popups.europe">
+                        <div *ngIf="stats.yourViews.europe.views > 0" style="width: 100%; font-weight: bold;">Views: {{stats.yourViews.europe.views}}</div>
+                        <div style="width: 100%" *ngFor="let business of stats.yourViews.europe.businesses; let i = index;">
+                            <span class="company_name">{{business.name}}</span>
+                            <span class="company_logo">
+                                <img *ngIf="business.logo != null" src="{{business.logo}}">
+                                <span *ngIf="business.logo == null">Company</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div #asia class="stats-section-continent-badge pull-left asia" (click)="showCompanies('asia', asia_popup)" *ngIf="stats.yourViews.asia.count > 0 || stats.yourViews.asia.views > 0">
+	    			<span class="stats-badge-value">
+	    				{{stats.yourViews.asia.count + stats.yourViews.asia.views}}
+    				</span>
+                    <div malihu-scrollbar #asia_popup [scrollbarOptions]="scrollbarOptions" class="stats-businesses-container" [class.hidden]="popups.asia">
+                        <div *ngIf="stats.yourViews.asia.views > 0" style="width: 100%; font-weight: bold;">Views: {{stats.yourViews.asia.views}}</div>
+                        <div style="width: 100%" *ngFor="let business of stats.yourViews.asia.businesses; let i = index;">
+                            <span class="company_name">{{business.name}}</span>
+                            <span class="company_logo">
+                                <img *ngIf="business.logo != null" src="{{business.logo}}">
+                                <span *ngIf="business.logo == null">Company</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div #africa class="stats-section-continent-badge pull-left africa" (click)="showCompanies('africa', africa_popup)" *ngIf="stats.yourViews.africa.count > 0 || stats.yourViews.africa.views > 0">
+	    			<span class="stats-badge-value">
+	    				{{stats.yourViews.africa.count + stats.yourViews.africa.views}}
+    				</span>
+                    <div malihu-scrollbar #africa_popup [scrollbarOptions]="scrollbarOptions" class="stats-businesses-container" [class.hidden]="popups.africa">
+                        <div *ngIf="stats.yourViews.africa.views > 0" style="width: 100%; font-weight: bold;">Views: {{stats.yourViews.africa.views}}</div>
+                        <div style="width: 100%" *ngFor="let business of stats.yourViews.africa.businesses; let i = index;">
+                            <span class="company_name">{{business.name}}</span>
+                            <span class="company_logo">
+                                <img *ngIf="business.logo != null" src="{{business.logo}}">
+                                <span *ngIf="business.logo == null">Company</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div #pacific class="stats-section-continent-badge pull-left oceania" (click)="showCompanies('oceania', oceania_popup)" *ngIf="stats.yourViews.oceania.count > 0 || stats.yourViews.oceania.views > 0">
+	    			<span class="stats-badge-value">
+	    				{{stats.yourViews.oceania.count + stats.yourViews.oceania.views}}
+    				</span>
+                    <div malihu-scrollbar #oceania_popup [scrollbarOptions]="scrollbarOptions" class="stats-businesses-container" [class.hidden]="popups.oceania">
+                        <div *ngIf="stats.yourViews.oceania.views > 0" style="width: 100%; font-weight: bold;">Views: {{stats.yourViews.oceania.views}}</div>
+                        <div style="width: 100%" *ngFor="let business of stats.yourViews.oceania.businesses; let i = index;">
+                            <span class="company_name">{{business.name}}</span>
+                            <span class="company_logo">
+                                <img *ngIf="business.logo != null" src="{{business.logo}}">
+                                <span *ngIf="business.logo == null">Company</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div #pacific class="stats-section-continent-badge pull-left antarctica" (click)="showCompanies('antarctica', antarctica_popup)" *ngIf="stats.yourViews.antarctica.count > 0 || stats.yourViews.antarctica.views > 0">
+	    			<span class="stats-badge-value">
+	    				{{stats.yourViews.antarctica.count + stats.yourViews.antarctica.views}}
+    				</span>
+                    <div malihu-scrollbar #antarctica_popup [scrollbarOptions]="scrollbarOptions" class="stats-businesses-container" [class.hidden]="popups.antarctica">
+                        <div *ngIf="stats.yourViews.antarctica.views > 0" style="width: 100%; font-weight: bold;">Views: {{stats.yourViews.antarctica.views}}</div>
+                        <div style="width: 100%" *ngFor="let business of stats.yourViews.antarctica.businesses; let i = index;">
+                            <span class="company_name">{{business.name}}</span>
+                            <span class="company_logo">
+                                <img *ngIf="business.logo != null" src="{{business.logo}}">
+                                <span *ngIf="business.logo == null">Company</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- End of stats map component -->
+        </div>
+
+        <div class="col-md-3">
+            <!-- Stats status summery component -->
+            <div class="stats-status-summery">
+                <h3>Your Status</h3>
+
+                <div class="stats-status-row">
+	    			<span class="status-name">
+	    				Short Listed
+	    			</span>
+                    <span class="status-value pull-right">
+	    				{{stats.yourStatus.short}}
+	    			</span>
+                </div>
+
+                <div class="stats-status-row top-border">
+	    			<span class="status-name">
+	    				Interviewing
+	    			</span>
+                    <span class="status-value pull-right">
+	    				{{stats.yourStatus.interviewing}}
+	    			</span>
+                </div>
+
+                <div class="stats-status-row top-border">
+	    			<span class="status-name">
+	    				Initial Contact
+	    			</span>
+                    <span class="status-value pull-right">
+	    				{{stats.yourStatus.initial}}
+	    			</span>
+                </div>
+
+                <div class="stats-status-row top-border">
+	    			<span class="status-name">
+	    				Hired
+	    			</span>
+                    <span class="status-value pull-right">
+	    				{{stats.yourStatus.hired}}
+	    			</span>
+                </div>
+            </div>
+            <!-- End of stats status summery component -->
+        </div>
+
+        <div class="col-md-2">
+            <!-- Completion badge component -->
+            <div class="inner-content text-center">
+                <div class="c100 p{{stats.profileCompletion}} big center green">
+	    			<span>
+	    				{{stats.profileCompletion}}% <br>
+	    				<span class="stats-percent-note">Finished</span>
+	    			</span>
+                    <div class="slice"><div class="bar"></div><div class="fill"></div></div>
+                </div>
+            </div>
+            <div class="stats-percent-tip" *ngIf="stats.profileCompletion < 100 && profileCompletionLoaded">
+                We recommend you fill in and update any missing parts
+            </div>
+            <!-- End of completion badge component -->
+        </div>
+
+    </div>
+</div>

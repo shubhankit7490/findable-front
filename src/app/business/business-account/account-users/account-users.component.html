@@ -1,0 +1,93 @@
+<div class="account-users-container">
+    <table class="table table-condensed table-striped account-users-table">
+        <thead>
+        <tr>
+            <th>Email</th>
+            <th>Job Title</th>
+            <th class="smallHeader centered">
+                This user can use the <br>
+                companies credits
+            </th>
+            <th class="centered">Remove</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let recruit of recruiters" [class.disabled]="(recruit.id == authService.currentUser.user_id && authService.currentUser.role == 'manager')">
+            <td *ngIf="recruit.status === active">{{recruit.email}}</td>
+            <td *ngIf="recruit.status === pending">{{recruit.email}} <span class="pending">(Pending)</span></td>
+            <td>{{recruit.jobtitle === null ? '' : recruit.jobtitle}}</td>
+            <td>
+                <ui-switch
+                    [checked]="recruit.purchase_permission == 1"
+                    [disabled]="updates.indexOf(recruit.id) > -1"
+                    (change)="onAutoRenewChangeRecruiter($event, recruit)"
+                    size="small"
+                    color="#fff"
+                    [switchColor]="(recruit.purchase_permission == 1) ? '#3afbcf' : '#a1a5be'">
+                </ui-switch>
+            </td>
+            <td class="centered">
+                <a href="javascript: void(0)" id="r{{recruit.id}}" (click)="deleteRecruiter($event, recruit)">
+                    <span *ngIf="deletes.indexOf(recruit.id) < 0" class="glyphicon glyphicon-remove recruiter-remove"></span>
+                    <span *ngIf="deletes.indexOf(recruit.id) > -1" [class.glyphicon-refresh-animate]="deletes.indexOf(recruit.id) > -1" class="glyphicon glyphicon-refresh recruiter-remove"></span>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="account-users-invite">
+    <h3>Add or Invite Users</h3>
+
+    <form [formGroup]="inviteUsersFormGroup" (ngSubmit)="onSubmit($event)" novalidate autocomplete="off">
+        <div class="form-group">
+            <label class="fnd-req">Email</label>
+            <input (blur)="validate('email')" name="email" formControlName="email" maxlength="100" type="email" class="form-control">
+            <p class="error">{{ controls.messages.email }}</p>
+        </div>
+
+        <div class="form-group">
+            <label>Job title</label>
+            <p-autoComplete
+                    maxlength="150"
+                    #jobtitle
+                    [(ngModel)]='inviteUsersFormGroup.value.jobtitle'
+                    [suggestions]='resultsJobtitle'
+                    [minLength]=1
+                    [delay]=500
+                    dataKey='id'
+                    placeholder=''
+                    (completeMethod)='searchJobtitle($event)'
+                    (onSelect)='onSelectJobtitleAutoComplete($event)'
+                    (onBlur)='validateJobTitle($event)'
+                    (updateModel)='UpdateJobtitleState($event)'
+                    formControlName='jobtitle'
+                    field='name'
+            ></p-autoComplete>
+            <app-input-loader [loading]="requestingJobtitle"></app-input-loader>
+            <span *ngIf="controls.messages.jobtitle.length" class="error"><i class="glyphicon glyphicon-remove border-radius"></i>{{controls.messages.jobtitle}}</span>
+        </div>
+
+        <div class="form-group purchase-enable-disable">
+            <ui-switch
+                    [(ngModel)]="autoRenewEnabled"
+                    [ngModelOptions]="{standalone: true}"
+                    (change)="onAutoRenewChange($event)"
+                    size="small"
+                    color="#fff"
+                    [switchColor]="switchColor">
+            </ui-switch>
+            <label *ngIf="autoRenewEnabled === false">This user cannot use the companies credits</label>
+            <label *ngIf="autoRenewEnabled === true">This user can use the companies credits</label>
+        </div>
+
+        <div class="form-group">
+            <button [disabled]="submitting || !inviteUsersFormGroup.valid" type="submit" class="auto-reload-submit btn fnd-btn-primary col-md-12">
+                <img *ngIf="submitting" [class.glyphicon-refresh-animate]="submitting" src="../../../../assets/images/reload-icon.png">
+                <img *ngIf="!submitting" src="../../../../assets/images/email-invite-icon.png">
+                Send Invitation in Email
+            </button>
+        </div>
+    </form>
+</div>

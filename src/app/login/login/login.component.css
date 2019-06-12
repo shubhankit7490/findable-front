@@ -1,0 +1,98 @@
+.login {
+    width: 350px;
+    padding: 52px 0 0 0;
+    text-align: left;
+    position: relative;
+}
+
+.login label {
+    font-weight: normal;
+    color: #fff;
+}
+.error{
+    color: #50E3C2;
+    display: block;
+    height: 0;
+    font-size: 13px;
+    position: relative;
+    top: 2px;
+}
+
+.error i {
+    /*border: 0;*/
+}
+
+.border-radius{
+    border:1px solid #50E3C2;
+    padding:2px;
+    border-radius: 2px;
+    margin: 0 4px 0 0;
+}
+.position{
+    position: relative;
+}
+.load-page{
+    position: relative;
+    right: -101%;
+    top: -55px;
+}
+.loading-icon {
+    color:#50E3C2;
+    margin:0 auto;
+    opacity: 1;
+    position: absolute;
+    right: 3%;
+    top: 13%;
+    font-size: 300%;
+}
+
+.loading-icon:before {
+    color: #13345F;
+}
+
+button[type="submit"] {
+    position: relative;
+}
+
+.glyphicon-refresh-animate {
+    animation: spin .7s infinite linear;
+    -webkit-animation: spin .7s infinite linear;
+}
+
+@-webkit-keyframes spin {
+    from { 
+        -webkit-transform: rotate(0deg); 
+        -moz-transform: rotate(0deg); 
+        -ms-transform: rotate(0deg); 
+        transform: rotate(0deg);
+    }
+    to { 
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    from { 
+        -moz-transform: rotate(0deg); 
+        -ms-transform: rotate(0deg); 
+        transform: rotate(0deg);
+    }
+    to { 
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+form .form-group {
+    padding: 0 0 24px 0 !important;
+}
+
+:host #login-error {
+    height: auto;
+    text-align: center;
+    font-size: 22px;
+}

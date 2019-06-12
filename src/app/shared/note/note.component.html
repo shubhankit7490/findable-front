@@ -1,0 +1,23 @@
+<div class="note-wrap" [class.expanded]="noteCheckbox.checked">
+    <div (click)="(isOpen) ? close() : open();" class="note-wrap-icon">
+        <input class="noteCheckbox" #noteCheckbox type="checkbox">
+        <i [style.text-shadow]="standout" class="glyphicon glyphicon-list-alt note-icon"></i>
+    </div>
+    
+    <div class="note" *ngIf="noteCheckbox.checked">
+        <p>
+            Add Your Note
+            <span class="pull-right small-spinner" *ngIf="loading"><i class="glyphicon glyphicon-refresh glyphicon-spinner auto-complete-spinner" aria-hidden="true"></i> Loading </span>
+        </p>
+        <div (click)="close()" class="note-close" *ngIf="!loading">
+            <i class="glyphicon glyphicon-remove"></i>
+        </div>
+        <textarea [placeholder]="placeholderText" [(ngModel)]="text"></textarea>
+        <button class="submit" (click)="updateUserNote()">
+            <app-spinning-loader class="loader" [showLoader]="isSubmitting"></app-spinning-loader>
+            <i class="glyphicon glyphicon-floppy-disk"></i>
+            Save
+        </button>
+        <p class="errors" *ngIf="errors">{{ errors.join('\n') }}</p>
+    </div>
+</div>

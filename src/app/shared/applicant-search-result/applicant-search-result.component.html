@@ -1,0 +1,130 @@
+
+
+<div class="search-result-inside">
+    <div *ngIf="rowLoading" class="search-result-inside-loading">
+        <app-spinning-loader [showLoader]="rowLoading"></app-spinning-loader>
+    </div>
+
+    <app-search-profile #profileComponent (onLoaded)="checkLoadingStatus()" userId="{{ userId }}" ></app-search-profile>
+    <app-status-prefs (onLoaded)="checkLoadingStatus()" userId="{{ userId }}" ></app-status-prefs>
+    <app-recent-job (onLoaded)="checkLoadingStatus()" userId="{{ userId }}" ></app-recent-job>
+    <app-languages (onLoaded)="checkLoadingStatus()" userId="{{ userId }}" ></app-languages>
+    <app-traits (onLoaded)="checkLoadingStatus()" userId="{{ userId }}" ></app-traits>
+
+</div>
+<div class="search-result-bottom-bar no-print">
+    <button *ngIf="userDetails?.phone"
+        class="bar-item bar-img phone"
+        [tooltip]="phoneTooltipTemplate"
+        triggers="click:click"
+        #phonePop="bs-tooltip">
+        <img id="phoneIcon" src="../../../assets/images/search/phone.png">
+    </button>
+    <button *ngIf="userDetails?.email"
+        class="bar-item bar-img email"
+        [tooltip]="emailTooltipTemplate"
+        triggers="click:click"
+        #emailPop="bs-tooltip">
+        <img id="emailIcon" src="../../../assets/images/search/mail.png">
+    </button>
+    <button *ngIf="userDetails?.skype"
+        class="bar-item bar-img skype"
+        [tooltip]="skypeTooltipTemplate" 
+        triggers="click:click"
+        #skypePop="bs-tooltip">
+        <img id="skypeIcon" src="../../../assets/images/search/skype.png">
+    </button>
+    <button *ngIf="userDetails?.website"
+        class="bar-item bar-img link"
+        [tooltip]="websiteTooltipTemplate"
+        triggers="click:click"
+        #websitePop="bs-tooltip">
+        <a href="{{ (userDetails?.website.indexOf('//') > -1) ? userDetails?.website : '//' + userDetails?.website}}" target="_blank">
+            <img id="websiteIcon" src="../../../assets/images/search/link.png">
+        </a>
+    </button>
+    <button (click)="printRow($event)" class="bar-item bar-img print"><img src="../../../assets/images/search/print.png"></button>
+
+    <span class="btn-wrap">
+        <button (click)="reportOpened = !reportOpened" class="bar-item bar-img report"><img src="../../../assets/images/search/hand.png"></button>
+        <app-report-component
+        *ngIf="reportOpened"
+        [userId]="userId"
+        (onSend)="closeReportComponent($event)"
+        (onClose)="reportOpened = false"
+        ></app-report-component>
+    </span>
+
+    <button (click)="toggleActive('experience')" [disabled]="charts.experience.disabled" class="bar-item bar-text form-control experience" [class.active]="charts.experience.active">Experience 
+        <app-spinning-loader [showLoader]="charts.experience.loading"></app-spinning-loader>
+        <i [class.glyphicon-triangle-bottom]="!charts.experience.active" [class.glyphicon-triangle-top]="charts.experience.active" class="glyphicon"></i>
+    </button>
+    <button (click)="toggleActive('education')" [disabled]="charts.education.disabled" class="bar-item bar-text form-control education" [class.active]="charts.education.active">Education 
+        <app-spinning-loader [showLoader]="charts.education.loading"></app-spinning-loader>
+        <i [class.glyphicon-triangle-bottom]="!charts.education.active" [class.glyphicon-triangle-top]="charts.education.active" class="glyphicon"></i>
+    </button>
+    <button (click)="toggleActive('responsibilities')" [disabled]="charts.responsibilities.disabled" class="bar-item bar-text form-control responsibilities" [class.active]="charts.responsibilities.active">Responsibilities 
+        <app-spinning-loader [showLoader]="charts.responsibilities.loading"></app-spinning-loader>
+        <i [class.glyphicon-triangle-bottom]="!charts.responsibilities.active" [class.glyphicon-triangle-top]="charts.responsibilities.active" class="glyphicon"></i>
+    </button>
+    <button (click)="toggleActive('skills')" [disabled]="charts.skills.disabled" class="bar-item bar-text form-control skills" [class.active]="charts.skills.active">Skills 
+        <app-spinning-loader [showLoader]="charts.skills.loading"></app-spinning-loader>
+        <i [class.glyphicon-triangle-bottom]="!charts.skills.active" [class.glyphicon-triangle-top]="charts.skills.active" class="glyphicon"></i>
+    </button>
+</div>
+
+<div class="charts-wrap">
+
+    <div class="chart-wrap" *ngIf="charts.experience.active">
+        <h3>Experience</h3>
+        <app-chart-experience
+            [userId]="userId"
+            (noData)="onNoData('experience')"
+            (onLoaded)="charts.experience.loading = false"
+        ></app-chart-experience>
+    </div>
+    
+    <div class="chart-wrap" *ngIf="charts.education.active">
+    <h3>Education</h3>
+        <app-chart-education
+            [userId]="userId"
+            (noData)="onNoData('education')"
+            (onLoaded)="charts.education.loading = false"
+        ></app-chart-education>
+    </div>
+
+    <div class="chart-wrap" *ngIf="charts.responsibilities.active">
+        <h3>Responsibilities</h3>
+        <app-chart-responsibilities
+            [userId]="userId"
+            (noData)="onNoData('responsibilities')"
+            (onLoaded)="charts.responsibilities.loading = false"
+        ></app-chart-responsibilities>
+    </div>
+
+    
+    <div class="chart-wrap" *ngIf="charts.skills.active">
+        <h3>Skills</h3>
+        <app-chart-skills
+            [userId]="userId"
+            (noData)="onNoData('skills')"
+            (onLoaded)="charts.skills.loading = false"
+        ></app-chart-skills>
+    </div>
+
+    <template #phoneTooltipTemplate (clickOutside)="closePhoneTooltip($event)">
+        {{userDetails?.phone}}
+    </template>
+
+    <template #emailTooltipTemplate (clickOutside)="closeEmailTooltip($event)">
+        {{userDetails?.email}}
+    </template>
+
+    <template #websiteTooltipTemplate (clickOutside)="closeWebsiteTooltip($event)">
+        <a class="pointer" id="websiteLink" (click)="openWebsite(userDetails?.website)">{{userDetails?.website}}</a>
+    </template>
+
+    <template #skypeTooltipTemplate (clickOutside)="closeSkypeTooltip($event)">
+        <a class="pointer" id="skypeLink" (click)="openSkype(userDetails?.skype)">{{userDetails?.skype}}</a>
+    </template>
+</div>

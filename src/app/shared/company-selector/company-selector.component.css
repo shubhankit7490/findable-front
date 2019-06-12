@@ -1,0 +1,27 @@
+.company-selector {
+    position: absolute;
+    top: -90px;
+    left: 0;
+    height: 490px;
+    background: rgba(19, 52, 95, 0.94);
+    z-index: 10;
+    text-align: center;
+    width: 100%;
+    overflow: auto;
+}
+
+.company-selector h1 {
+    font-size: 20px;
+    color: #39fbcf;
+}
+
+.companies button {
+    display: block;
+    width: 100%;
+    background: #39fbcf;
+    font-size: 20px;
+    color: #13345f;
+    padding: 10px 0;
+    margin: 0 0 10px 0;
+    border-radius: 5px;
+}

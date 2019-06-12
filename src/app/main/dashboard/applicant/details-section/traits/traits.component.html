@@ -1,0 +1,44 @@
+<div>
+	<h3>Personal Traits</h3>
+	<ul>
+		<li *ngFor="let trait of traitsData">
+			<span class="trait contact-item-icon trait-{{trait.name.toLowerCase().replace(' ', '-')}}"></span>
+			<span class="contact-item-value">{{ trait.name }}</span>
+		</li>
+	</ul>
+</div>
+
+<div *ngIf="authService.currentUser && authService.getUserId() == userId" class="edit-section">
+    <button id="tour-step-eight" type="button" class="btn btn-success pull-left edit-link-button" (click)="tourService.initSection($event); traitsModal.open()">
+        Edit Section
+    </button>
+</div>
+
+<modal #traitsModal title="Personal Traits"
+       cancelButtonLabel="cancel"
+       submitButtonLabel="submit"
+       modalClass="modal-lg modal-sm fnd-traits-modal"
+       [hideCloseButton]="false"
+       [closeOnEscape]="true"
+       [closeOnOutsideClick]="true"
+       (onOpen)="actionOnOpen()"
+       (onClose)="actionOnClose()"
+       (onSubmit)="actionOnSubmit()">
+
+	<modal-header></modal-header>
+
+	<modal-content>
+		<app-select-list
+				[entityName]="'traits'"
+				[selectedList]="traits"
+				[traitsData] = "traitsData"
+				(updateTraits) = "updateTraits($event)"
+                [showColors]="false"
+                [showIcons]="true"
+        ></app-select-list>
+				<!-- (onSuccessfulUpdate)="traitsModal.close()" -->
+	</modal-content>
+
+	<modal-footer></modal-footer>
+
+</modal>

@@ -1,0 +1,25 @@
+<header>
+    <app-logo-main size="medium"></app-logo-main>
+</header>
+
+<div class="row-fluid">
+
+    <div class="col-md-12 personal-details-wrap">
+
+        <div class="as-sidebar col-md-2">
+
+            <ul>
+                <li class="as-sidebar-item my-account-icon" [ngClass]="'selected'">
+                    Company Information
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="col-md-10 form-wrap">
+            <app-business-setup-form #companySetupFormComponent (onComplete)="completeSetup()"></app-business-setup-form>
+        </div>
+
+    </div>
+
+</div>

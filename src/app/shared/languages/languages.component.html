@@ -1,0 +1,15 @@
+<div class="languages-input">
+	<app-tags-input
+		#tagInput
+		[(tags)]="tags"
+		[query]="query"
+		[suggestionsArray]="languages"
+		(onQuery)="searchLanguage($event)"
+		(onRemove)="removeLanguage($event)"
+		(onAdd)="onSelect($event)"
+		(onFocusOut)="onUpdate($event)"
+		field="name"
+	></app-tags-input>
+	<app-input-loader [loading]="requesting"></app-input-loader>
+	<p class="error">{{ error }}</p>
+</div>

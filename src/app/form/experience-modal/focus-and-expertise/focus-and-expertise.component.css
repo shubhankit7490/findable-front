@@ -1,0 +1,45 @@
+.list-wrapper {
+  margin-top: 27px;
+  min-height: 250px;
+}
+
+:host >>> .ui-autocomplete {
+  width: 100%;
+}
+
+:host >>> .ui-autocomplete-input {
+  border: 1px solid #c5c8d3 !important;
+  width: 100%;
+  font-size: 15px;
+  padding-right: 20px;
+}
+
+:host >>> .ui-autocomplete-list-item {
+  font-size: 14px;
+}
+
+:host >>> .auto-complete-spinner {
+  position: relative;
+  z-index: 999;
+  float: right;
+  margin-top: -32px;
+  margin-right: 10px;
+}
+
+:host >>> span.fnd-block {
+  padding-right: 40px;
+  display: inline-block;
+  text-indent: -30px;
+  margin-left: 30px;
+}
+
+p.form-messages {
+  clear: both;
+  text-align: center;
+  height: 0;
+  font-size: 13px;
+  color: red;
+  position: relative;
+  top: 3px;
+  margin: 0;
+}

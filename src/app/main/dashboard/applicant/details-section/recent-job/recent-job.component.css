@@ -1,0 +1,19 @@
+:host {
+    min-width: 170px;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+:host h3 {
+    padding-left: 26px;
+}
+
+:host ul {
+    list-style-type: none;
+    padding-left: 26px;
+}
+
+:host ul li {
+    margin-bottom: 20px;
+}

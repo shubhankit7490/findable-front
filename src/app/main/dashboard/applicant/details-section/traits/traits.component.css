@@ -1,0 +1,42 @@
+:host {
+    min-width: 146px;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+:host ul {
+    list-style-type: none;
+    padding-left: 26px;
+}
+
+:host ul li {
+    line-height: 3em;
+    display: flex;
+    align-items: center;
+}
+
+:host ul li .contact-item-icon {
+    margin-right: 17px;
+}
+
+:host ul li .contact-item-icon.trait-big-picture {
+    margin-right: 30px !important;
+}
+
+:host ul li .contact-item-icon.trait-adaptable {
+    margin-right: 25px !important;
+}
+
+
+:host ul li .contact-item-value {
+    margin-right: 12px;
+}
+
+:host >>> .fnd-traits-modal {
+    width: 315px;
+}
+
+:host .edit-link {
+    display: table;
+}

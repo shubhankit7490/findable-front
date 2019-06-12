@@ -1,0 +1,53 @@
+:host {
+    min-width: 160px;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+:host h3 {
+    padding-left: 26px;
+}
+
+:host div.language-level-container {
+    margin: 0;
+    padding-left: 26px;
+}
+
+:host div.language-level-container:not(:last-child) {
+    border-bottom: 1px solid #E3E4ED;
+    margin-bottom: 14px;
+}
+
+:host div.language-level-label {
+    float: left;
+    min-width: 60px;
+    font-size: 14px;
+}
+
+:host ul {
+    list-style-type: none;
+}
+
+:host ul li {
+    margin-bottom: 10px;
+}
+
+:host .item-value {
+    font-size: 11px;
+}
+
+:host .flag {
+    position: relative;
+    top: 2px;
+}
+
+:host .language-level-container ul {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+}
+
+:host .edit-link {
+    display: table;
+}

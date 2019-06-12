@@ -1,0 +1,152 @@
+:host .container {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+:host h3 {
+  padding-top: 40px;
+  padding-bottom: 30px;
+  color: #13345F;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+}
+
+:host .container-aligner {
+  margin-left: 0px;
+}
+
+/* Auto complete component style */
+:host >>> .ui-autocomplete {
+  width: 100%;
+}
+:host >>> .ui-autocomplete-input {
+  border: 1px solid #c5c8d3 !important;
+  width: 100%;
+  font-size: 15px !important;
+  padding-right: 20px;
+}
+:host >>> .ui-autocomplete-list-item {
+  font-size: 14px;
+}
+:host >>> .auto-complete-spinner {
+  position: relative;
+  z-index: 999;
+  float: right;
+  margin-top: -32px;
+  margin-right: 10px;
+}
+
+/* Spinner animation */
+.glyphicon-refresh-animate {
+  animation: spin .7s infinite linear;
+  -webkit-animation: spin .7s infinite linear;
+}
+
+@-webkit-keyframes spin {
+  from { 
+      -webkit-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      transform: rotate(0deg);
+  }
+  to { 
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+      -moz-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      transform: rotate(0deg);
+  }
+  to {
+      -moz-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      transform: rotate(360deg);
+  }
+}
+/* END Spinner animation */
+
+:host .fnd-req {
+  position: absolute;
+  top: 2px;
+  left: 23px;
+  z-index: 99;
+}
+
+:host .image-upload-wrap {
+  text-align: center;
+}
+
+:host .image-upload-top {
+  padding: 0;
+  margin-bottom: 0;
+}
+
+:host .image-upload-wrap > .form-group {
+  margin: 0;
+}
+
+:host select, :host option, :host input {
+  font-family: 'Roboto', arial;
+  font-size: 15px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:host form .row {
+  margin-bottom: 10px;
+}
+
+:host form .form-group {
+  margin: 0;
+}
+
+:host .company-setup-submit {
+  padding: 15px 0;
+  margin: 27px 0 0 0;
+  height: 52px;
+}
+
+:host .flex {
+  display: flex;
+  flex-direction: row;
+}
+
+:host >>> [icon="fa-close"] {
+  font-size: 0 !important;
+  background: transparent url('../../../../assets/images/image-upload-remove-icon.png') no-repeat scroll center !important;
+}
+
+:host >>> .ui-fileupload .ui-fileupload-content {
+  padding: 0;
+}
+
+:host >>> .ui-fileupload-buttonbar.ui-widget-header.ui-corner-top {
+  padding: 0;
+}
+
+:host >>> .business-setup-file-upload {
+  border: 0 !important;
+}
+
+:host >>> button.ui-fileupload-choose {
+  padding: 0 !important;
+}
+
+:host >>> .ui-fileupload-choose:hover {
+  background: transparent !important;
+}
+
+:host >>> .ui-fileupload .ui-fileupload-buttonbar {
+  background: #fff;
+}
+
+:host span.firstname-error, :host span.lastname-error {
+  margin: 0 15px;
+}

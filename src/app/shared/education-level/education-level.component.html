@@ -1,0 +1,21 @@
+<div class="company-name-input">
+	<app-array-selector
+		#arraySelector
+    [selectedItem]="selectedItem"
+    [arrayItems]="levels"
+    key_id="id"
+    key_name="name"
+    [placeholderText]="placeholderText"
+		(onSelect)="onSelectChange($event)"
+		[resetOnSelection]="true"
+	></app-array-selector>
+	<div class="tags">
+		<app-tag *ngFor="let tag of tags"
+			#tagComponent
+			[valueName]="tag.name"
+			[valueIdentifier]="tag.id"
+			(onRemove)="removeTag($event)">
+		</app-tag>
+	</div>
+</div>
+<p class="error">{{ error }}</p>

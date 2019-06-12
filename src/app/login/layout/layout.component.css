@@ -1,0 +1,68 @@
+:host {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+article {
+    width: 64%;
+    min-height: 610px;
+    background: #13345F;
+    color: white;
+
+    padding: 72px 72px 36px 12px;
+
+    text-align: center;
+}
+
+article h1 {
+    /* User Sign In: */
+    font-size: 30px;
+    color: #39FBCF;
+    line-height: 30px;
+    margin: 25px 0;
+}
+
+article div.description {
+    /* Sign in with your em: */
+    font-size: 18px;
+    color: #FFFFFF;
+    line-height: 22px;
+
+}
+aside {
+    width: 35%;
+
+    background: white;
+}
+
+aside figure {
+    padding: 72px 0 0 0;
+}
+
+aside figure div#figure-image {
+    background: url('./../../../assets/images/signup_layout_figure.png') no-repeat;
+    height: 100%;
+    width: 424px;
+    margin-left: -24px;
+}
+
+/* colors for form elements on signup layout */
+
+:host >>> form .checkbox label i {
+    color: #50E3C2;
+}
+
+:host >>> .checkbox .cr,
+:host >>> .radio .cr {
+    border: 2px solid #50E3C2;
+}
+
+.if-verified {
+    font-size: 18px;
+    margin: 20px 0 0 0;
+}
+
+p.if-verified a {
+    cursor: pointer;
+}

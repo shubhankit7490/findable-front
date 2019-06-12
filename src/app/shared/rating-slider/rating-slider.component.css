@@ -1,0 +1,73 @@
+.slider-split {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+.item {
+    background: #31517a;
+    color: #fff;
+    padding: 6px 12px;
+    margin: 0 0 8px 0;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    min-width: 55%;
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+}
+
+.item.selected {
+    color: #39fbcf;
+}
+
+span.item-rating {
+    float: right;
+    padding: 0 0 0 25px;
+    color: #fff;
+}
+
+button.item-remove {
+    background: transparent;
+    padding: 0;
+}
+
+.slider-wrap {
+}
+
+.slider-split {
+    margin: 0 0 20px 0;
+}
+
+button.item-remove {
+    font-size: 16px;
+    position: absolute;
+    top: 6px;
+    left: 7px;
+}
+
+span.item-text {
+    position: relative;
+    left: 15px;
+}
+
+:host >>> span.irs-bar, :host >>> span.irs-bar-edge {
+    background: #3afbcf;
+}
+
+:host >>> span.irs-slider.single {
+    background: #13345f;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+
+:host >>> .irs-from, :host >>> .irs-to, :host >>> .irs-single {
+    background: #13345f;
+}
+
+:host >>> .irs-from:after, :host >>> .irs-to:after, :host >>> .irs-single:after {border-top-color: #13345f;}

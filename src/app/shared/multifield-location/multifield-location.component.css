@@ -1,0 +1,105 @@
+/* Auto complete component style */
+:host >>> .ui-autocomplete {
+    width: 100%;
+}
+:host >>> .ui-autocomplete-input {
+    border: 1px solid #c5c8d3 !important;
+    width: 100%;
+    font-size: 15px !important;
+    padding-right: 20px;
+}
+:host >>> .ui-autocomplete-list-item {
+    font-size: 14px;
+}
+:host >>> .auto-complete-spinner {
+    position: relative;
+    z-index: 999;
+    float: right;
+    margin-top: -32px;
+    margin-right: 10px;
+}
+
+:host >>> #citySelector .ui-autocomplete-panel {
+    width: 277px !important;
+}
+
+:host >>> #countrySelector .ui-autocomplete-panel {
+    width: 277px !important;
+    margin-left: -185px;
+}
+
+:host p.error, :host >>> p.error {
+    clear: both;
+}
+
+:host >>> .ui-state-disabled, :host >>> .ui-widget:disabled {
+    background: #e3e4ed;
+    color: #a6a9bd;
+    opacity: 1;
+}
+
+/* Spinner animation */
+.glyphicon-refresh-animate {
+    animation: spin .7s infinite linear;
+    -webkit-animation: spin .7s infinite linear;
+}
+
+@-webkit-keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    from {
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+/* From */
+:host select, :host option, :host input {
+    font-family: 'Roboto', arial !important;
+    font-size: 15px !important;
+}
+
+:host option {
+    font-size: 14px !important;
+}
+
+:host .col-md-12 {
+    padding-left: 0px;
+}
+
+:host .col-md-4 {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+:host .col-md-4.minimal {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+:host select.form-control {
+    height: 52px;
+}
+
+:host >>> input[type="text"], :host >>> select {
+    height: 52px;
+}

@@ -1,0 +1,20 @@
+<div class="tags-wrap">
+	<p-autoComplete
+		#autocompleteElement
+		[(ngModel)]='query'
+		[suggestions]='suggestionsArray'
+		(completeMethod)='initSearch($event)'
+		[field]="field"
+		(onSelect)="onSelect($event)"
+		(onBlur)='onBlur($event)'
+		(updateModel)='onUpdate($event)'
+	></p-autoComplete>
+	<div class="tags">
+		<app-tag *ngFor="let tag of tags"
+			#tagComponent
+			[valueName]="tag.name"
+			[valueIdentifier]="tag.id"
+			(onRemove)="removeTag($event)">
+		</app-tag>
+	</div>
+</div>

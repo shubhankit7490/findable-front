@@ -1,0 +1,54 @@
+.main-dialog-wrap {
+    background: rgba(27, 59, 100, 0.91);
+    color: #fff;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 50;
+}
+
+.inner-wrap {
+    width: 360px;
+    height: 300px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+h3 {
+    color: #3afbcf;
+}
+
+h4 {
+    margin: 10px 0 10px 0;
+    font-weight: 100;
+}
+
+h4 span {
+    color: #3afbcf;
+}
+
+.buttons-wrap button {
+    background: #3afbcf;
+    color: #012351;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 7px 12px;
+    margin: 0 15px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    width: 32%;
+    display: inline-block;
+    border: 0;
+}
+
+.buttons-wrap button i {
+    font-size: 14px;
+}

@@ -1,0 +1,89 @@
+:host .container {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+:host .container-aligner {
+    margin-left: 0px;
+}
+
+:host .padding-left-reset {
+    padding-left: 0px;
+}
+
+:host h3 {
+    padding-top: 40px;
+    padding-bottom: 0px;
+    color: #13345F;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+:host h4 {
+    padding-top: 15px;
+    padding-bottom: 0px;
+    color: #13345F;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+:host h4.marginTop {
+    margin-top: 40px;
+}
+
+:host h5 {
+    padding-top: 15px;
+    padding-bottom: 0px;
+    color: #13345F;
+    font-size: 15px;
+    font-weight: 700;
+    padding-left: 5px;
+}
+
+:host h4 img {
+    margin-left: 5px;
+    margin-top: -2px;
+}
+
+:host *:focus {
+    outline:0;
+}
+
+:host .spacer {
+    min-height: 40px;
+}
+
+/* Payment form style */
+:host .payment-section {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+:host .checkbox label {
+    font-size: 14px;
+}
+
+:host .payment-details-submit {
+    padding: 15px 0;
+    margin: 30px 0 0 0;
+    height: 100%;
+}
+
+:host .payment-information-submit {
+    padding: 15px 0;
+    margin: 30px 0 0 0;
+    height: 100%;
+    width: 49%;
+}
+
+:host .payment-information-submit-right {
+    margin-left: 2%;
+}
+
+.form-control-container {
+    background-color: transparent;
+    height: 52px;
+    border-radius: 3px;
+    border: 1px solid #c5c8d3;
+    padding: 17px 7px;
+}

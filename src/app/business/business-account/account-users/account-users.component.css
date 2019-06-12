@@ -1,0 +1,170 @@
+:host {
+    height: 100%;
+}
+
+:host h3 {
+    padding-top: 40px;
+    padding-bottom: 0px;
+    color: #13345F;
+    font-size: 16px;
+    font-weight: 700;
+    padding-left: 20px;
+}
+
+:host .monthsLabel {
+    font-size: 15px;
+}
+
+:host textarea {
+    width: 50%;
+    min-height: 200px;
+    font-size: 12px;
+}
+
+:host >>> pre {
+    padding: 10px;
+    margin: 0px;
+    background-color: #fff;
+}
+
+:host code {
+    background: #fff;
+}
+
+:host .aligner {
+    margin-left: 17px;
+}
+
+:host ui-switch {
+    position: relative;
+}
+
+:host .account-users-container {
+    width: 100%;
+    padding-right: 380px;
+}
+
+:host .account-users-table {
+    margin-top: 50px;
+}
+
+:host .account-users-table th {
+    vertical-align: middle;
+    background-color: #f0f1f6;
+    border-right: 1px solid rgba(227, 230, 234, .5);
+}
+
+:host .account-users-table th:last-of-type {
+    border-right: 0px;
+}
+
+:host .account-users-table th, :host .account-users-table td {
+    padding: 10px;
+}
+
+:host .account-users-invite {
+    width: 350px;
+    height: 100%;
+    position: fixed;
+    right: 0;
+    top: 75px;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #f7f7fa;
+}
+
+:host .account-users-invite label {
+    font-size: 15px;
+}
+
+:host .purchase-enable-disable ui-switch {
+    float: left;
+}
+
+:host >>> .purchase-enable-disable, :host >>> .purchase-enable-disable small {
+    margin: 0px;
+}
+
+:host .purchase-enable-disable label {
+    display: inline;
+    width: 85%;
+    float: left;
+    margin-left: 10px;
+}
+
+:host .form-group {
+    margin-bottom: 10px;
+}
+
+:host .account-users-invite h3 {
+    padding-top: 20px;
+    padding-left: 0px;
+    margin-bottom: 20px;
+}
+
+:host .centered {
+    text-align: center;
+}
+
+:host .smallHeader {
+    font-size: 11px;
+}
+
+:host .recruiter-remove {
+    color: #bec5d1;
+    font-size: 18px;
+}
+
+:host .recruiter-remove:hover {
+    color: #f5a4a7;
+}
+
+:host .sending, :host .sending:hover, :host .sending span, :host .sending span:hover {
+    color: #bec5d1 !important;
+}
+
+:host .pending {
+    color: #cdcdcd;
+    font-size: 11px;
+}
+
+:host button[type="submit"] {
+    height: 54px;
+    margin-top: 20px;
+}
+
+:host button[type="submit"]:focus {
+    outline: 0;
+}
+
+/* Auto complete component style */
+:host >>> .ui-autocomplete {
+    width: 100%;
+}
+:host >>> .ui-autocomplete-input {
+    border: 1px solid #c5c8d3 !important;
+    width: 100%;
+    font-size: 15px !important;
+    padding-right: 20px;
+}
+:host >>> .ui-autocomplete-list-item {
+    font-size: 14px;
+}
+:host >>> .auto-complete-spinner {
+    position: relative;
+    z-index: 999;
+    float: right;
+    margin-top: -32px;
+    margin-right: 10px;
+}
+
+:host >>> .account-users-table tr.disabled {
+    background: #e3e3e3 !important;
+    color: #9a9a9a;
+    pointer-events: none;
+}
+
+:host >>> .account-users-table tr.disabled ui-switch span small {
+    background: #dadada !important;
+}

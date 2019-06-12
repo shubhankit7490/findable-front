@@ -1,0 +1,74 @@
+<header>
+    <app-logo-main size="medium"></app-logo-main>
+    <app-menu-main [role]="role"></app-menu-main>
+    <app-user-main></app-user-main>
+</header>
+
+<div class="business-account-container">
+
+    <div class="personal-details-wrap" id="personal-details-wrap">
+
+        <ul>
+            <li class="as-sidebar-item my-account-icon" [ngClass]="step == 1 ? 'selected': ''" (click)="setStep(1)">
+                Company Information
+            </li>
+            <li class="as-sidebar-item account-users" [ngClass]="step == 2 ? 'selected': ''" (click)="setStep(2)">
+                Account Users
+            </li>
+            <li class="as-sidebar-item payment" [ngClass]="step == 3 ? 'selected': ''" (click)="setStep(3)">
+                Payment
+            </li>
+            <li class="as-sidebar-item current-package" [ngClass]="step == 4 ? 'selected': ''" (click)="setStep(4)">
+                Current Balance
+            </li>
+            <li class="as-sidebar-item purchase-history" [ngClass]="step == 5 ? 'selected': ''" (click)="setStep(5)">
+                Purchase History
+            </li>
+            <li class="as-sidebar-item general-embedding" [ngClass]="step == 6 ? 'selected': ''" (click)="setStep(6)">
+                General Embedding
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="form-wrap">
+
+        <app-business-setup-form
+            *ngIf="step == 1"
+            [(businessRecord)]="businessRecord"
+            [mode]="'update'"
+        ></app-business-setup-form>
+
+        <account-users *ngIf="step == 2"></account-users>
+
+        <payment
+            *ngIf="step == 3"
+            #paymentComponent
+            [mode]="'update'"
+            [(payment)]="payment" 
+            [(businessModel)]="business" 
+            [(package_id)]="package_id" 
+            (onModelChange)="updateModel($event)">
+        </payment>
+
+        <current-package
+            *ngIf="step == 4"
+            [(packages)]="packages"
+            [(credits)]="credits"
+            (onModelChange)="updateModel($event)"
+        ></current-package>
+
+        <purchase-history
+            *ngIf="step == 5"
+            [(history)]="history"
+            (onModelChange)="updateModel($event)"
+        ></purchase-history>
+        
+        <general-embedding
+            *ngIf="step == 6"
+            [companyName]="business.name"
+        ></general-embedding>
+
+    </div>
+
+</div>

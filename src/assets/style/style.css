@@ -1,0 +1,32 @@
+*, body, form, div, p {
+	margin:0px;
+	padding:0px;
+	border:0px;
+}
+
+*:focus {
+	outline:0;
+}
+
+::-webkit-input-placeholder {
+	color: #000000;
+}
+
+:-moz-placeholder {
+	color: #000000;
+	opacity: 1;
+}
+
+::-moz-placeholder {
+	color: #000000;
+	opacity: 1;
+}
+
+:-ms-input-placeholder {
+	color: #000000;
+}
+
+html, body {
+	width: 100%;
+	height: 100%;
+}

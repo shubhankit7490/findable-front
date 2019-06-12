@@ -1,0 +1,103 @@
+<div class="container container-aligner container-limiter">
+    <h3 *ngIf="mode === 'create'">Fill in your corporate credit card data</h3>
+    <h4 [ngClass]="{'marginTop': mode === 'update' || mode === 'create'}">We Accept: <img src="/assets/images/credit-cards-logos.png"></h4>
+
+    <form [formGroup]="paymentForm" novalidate autocomplete="false">
+        <div class="col-md-4 padding-left-reset">
+            <h5>Credit Card</h5>
+            <div class="spacer">&nbsp;</div>
+
+            <div class="form-group col-md-12 payment-section">
+                <label for="card-element" class="fnd-req">Current Credit Card Number</label>
+                <div id="card-element" class="form-control-container"></div>
+                <p class="error" id="card-errors" role="alert">{{ controls.messages.number }}</p>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="cardExpiry-element" class="fnd-req">Exp Date</label>
+                    <div id="cardExpiry-element" class="form-control-container"></div>
+                    <p class="error" id="cardExpiry-errors" role="alert">{{ controls.messages.exp_datex }}</p>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="cardCvc-element" class="fnd-req">CVC Code</label>
+                    <div id="cardCvc-element" class="form-control-container"></div>
+                    <p class="error" id="cardCvc-errors" role="alert">{{ controls.messages.cvv }}</p>
+
+                </div>
+            </div>
+
+            <div class="form-group col-md-12 payment-section">
+                <label class="fnd-req">Card Holder Name</label>
+                <input maxlength="16" (blur)="validate('name')" name="name" formControlName="name" maxlength="150" type="text" class="form-control">
+                <p class="error">{{ controls.messages.name }}</p>
+            </div>
+
+            <h5>Billing Information</h5>
+            <div class="spacer">
+                <div class="form-group checkbox">
+                    <label>
+                        <input #copmanyLocation type="checkbox" value='true' (change)="checkV($event)" checked>
+                        <span tabindex="0" (keyup)="checkV($event)" class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                        Same As Company Information
+                    </label>
+                </div>
+            </div>
+
+            <div>
+                <!-- ALL THE REST OF THE FORM -->
+                <div class="form-group col-md-12 payment-section">
+                    <label class="fnd-req">Full Name</label>
+                    <input maxlength="16" (blur)="validate('fullname')" name="fullname" formControlName="fullname" maxlength="150" type="text" class="form-control">
+                    <p class="error">{{ controls.messages.fullname }}</p>
+                </div>
+    
+                <div class="form-group col-md-12 payment-section">
+                    <label class="fnd-req">Address Line 1</label>
+                    <input maxlength="16" (blur)="validate('address_line1')" name="address_line1" formControlName="address_line1" maxlength="150" type="text" class="form-control">
+                    <p class="error">{{ controls.messages.address_line1 }}</p>
+                </div>
+    
+                <div class="form-group col-md-12 payment-section">
+                    <label class="fnd-req">Address Line 2</label>
+                    <input maxlength="16" (blur)="validate('address_line2')" name="address_line2" formControlName="address_line2" maxlength="150" type="text" class="form-control">
+                    <p class="error">{{ controls.messages.address_line2 }}</p>
+                </div>
+    
+                <div class="form-group col-md-12 payment-section">
+                    <label for="city">Location</label>
+                    <input id="city" formControlName="location" class="form-control" placeholder="Enter company address" type="text" autocomplete="false">
+                    <p class="error">{{ controls.messages.location }}</p>
+                </div>
+    
+                <div class="form-group col-md-12 payment-section">
+                    <label>Zip Code</label>
+                    <input maxlength="16" (blur)="validate('address_zip')" name="address_zip" formControlName="address_zip" maxlength="12" type="text" class="form-control">
+                    <p class="error">{{ controls.messages.address_zip }}</p>
+                </div>
+    
+                <button *ngIf="mode === 'update'" (click)="onSubmit($event)" [disabled]="submitting || !valid" type="submit" class="payment-details-submit btn fnd-btn-primary col-md-12">
+                    <img [class.glyphicon-refresh-animate]="submitting" src="../../../../assets/images/reload-icon.png">
+                    Update
+                </button>
+    
+                
+                <div>
+                    <button *ngIf="mode === 'create'" (click)="onSubmit($event)" [disabled]="submitting || !valid" type="submit" class="payment-details-submit btn fnd-btn-primary col-md-12">
+                        <img *ngIf="submitting" [class.glyphicon-refresh-animate]="submitting" src="../../../../assets/images/reload-icon.png">
+                        <i *ngIf="!submitting" class="glyphicon glyphicon glyphicon-ok"></i>
+                        Done
+                    </button>
+    
+                    <p class="error">{{ controls.messages.global }}</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <h5>&nbsp;</h5>
+            <div class="spacer">&nbsp;</div>          
+        </div>
+    </form>
+</div>

@@ -1,0 +1,14 @@
+<div class="location-input">
+    <p-autoComplete
+        #autocompleteElement
+        [(ngModel)]="searchTerm"
+        [suggestions]="locations"
+        (completeMethod)="searchLocation($event)"
+        (updateModel)='setState($event)'
+        (onSelect)="onSelect($event)"
+        field="name"
+    >   
+    </p-autoComplete>
+    <app-input-loader [loading]="requesting"></app-input-loader>
+    <p class="error">{{ error }}</p>
+</div>

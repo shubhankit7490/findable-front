@@ -1,0 +1,21 @@
+<div class="chart-placeholder chart-loading" *ngIf="!!requesting">
+    <app-spinning-loader [showLoader]="requesting"></app-spinning-loader>
+    Loading chart...
+</div>
+
+<div class="chart-wrap" #chartWrap *ngIf="!requesting && !!techSkillsItems.length">
+    
+    <app-chart #chartElement class="skillChartComponent" *ngIf="techSkillsItems?.length > 0"
+        [items]="techSkillsItems"
+        [groups]="techSkillsGroups"
+        [nominal]="true"
+        [direction]="'ltr'"
+        [options]="techSkillsOptions"
+        [showAdditionalInfo]=false
+        (updateTimeline)="updateTimelineComponent()"
+    ></app-chart>
+    <div class="fnd-skill-chart-fix" *ngIf="techSkillsItems?.length > 0">
+      <div *ngFor="let label of generateChartLabels()">{{ label }}</div>
+    </div>
+
+</div>

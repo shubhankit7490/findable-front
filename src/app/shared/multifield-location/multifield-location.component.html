@@ -1,0 +1,47 @@
+<div class="col-md-12">
+    <label class="{{labelClass}}">{{label}}</label>
+</div>
+<div class="col-md-4" id="citySelector">
+    <p-autoComplete
+        #locationCity
+        [(ngModel)]='searchTermCity'
+        [suggestions]='resultsCities'
+        [minLength]=1
+        [disabled]='disabled'
+        [delay]=500
+        dataKey='id'
+        placeholder='City'
+        (completeMethod)='searchCity($event)'
+        (onSelect)='onSelectAutoCompleteCity($event)'
+        (onBlur)='clearAutocompleteCity()'
+        (updateModel)='onChangeCity()'
+        field='name'
+    ></p-autoComplete>
+    <i *ngIf="requestingCities" class="glyphicon glyphicon-refresh glyphicon-spinner auto-complete-spinner" aria-hidden="true"></i>
+</div>
+<div class="col-md-4 minimal">
+    <select class="form-control" [disabled]="states.length === 0 || disabled" (change)="selectState($event.target.value)">
+        <option name="">State</option>
+        <option *ngFor="let _state of states" [attr.value]="_state.id" [selected]="_state.id === state.id">{{_state.name}}</option>
+    </select>
+</div>
+<div class="col-md-4" id="countrySelector">
+    <p-autoComplete
+        #locationCountry
+        [(ngModel)]='searchTermCountry'
+        [suggestions]='resultsCountries'
+        [minLength]=0
+        [disabled]='disabled'
+        [delay]=500
+        dataKey='id'
+        placeholder='Country'
+        (completeMethod)='searchCountry($event)'
+        (onSelect)='onSelectAutoCompleteCountry($event)'
+        (onBlur)='clearAutocompleteCountry()'
+        (updateModel)='onChangeCountry()'
+        field='name'
+    ></p-autoComplete>
+    <app-input-loader [loading]="requestingCountries"></app-input-loader>
+    <!-- <i *ngIf="requestingCountries" class="glyphicon glyphicon-refresh glyphicon-spinner auto-complete-spinner" aria-hidden="true"></i> -->
+</div>
+<p class="error">{{ formErrors.location.error }}</p>

@@ -1,0 +1,192 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 1091px;
+}
+
+header {
+    background: #13345F;
+    color: white;
+    height: 81px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+article {
+    background: white;
+    color: #13345F;
+    width: 100%;
+}
+#appShareSection{
+    display: inline-block;
+    vertical-align: top;
+    margin-left: -34px;
+}
+article h1 {
+    /* User Sign In: */
+    font-size: 30px;
+    color: #39FBCF;
+    line-height: 30px;
+}
+
+article div.description {
+    /* Sign in with your em: */
+    font-size: 18px;
+    color: #FFFFFF;
+    line-height: 22px;
+
+}
+.container-fluid{
+    padding-right:0px!important;
+}
+/* http://stackoverflow.com/questions/30553602/flexbox-justify-left-and-right-on-the-same-line */
+app-user {
+    margin-left: auto;
+}
+
+:host {
+    height: 100%;
+}
+
+:host >>> .faq-container-container {
+    display:flex;
+    flex-direction:row;
+    width:100%;
+    height:100%;
+}
+
+/* Applicant dashboard "Edit section" links */
+/* This is how you implement children style inside parent css */
+:host >>> div.edit-section {
+    width: 100%;
+    padding: 6px 29px 15px 26px;
+    display: flex;
+}
+
+:host >>> div.flex-right {
+    flex-direction: row-reverse;
+}
+
+:host >>> .edit-link {
+    background: url("/assets/images/edit.png") no-repeat;
+    font-size: 12px;
+    color: #39FBCF;
+    padding-left: 22px;
+}
+
+:host >>> span.item-label {
+    display: block;
+    color: #A1A6BE;
+}
+
+
+/* style for form elements on dashboard layout */
+
+:host >>> form .checkbox label i {
+    color: white;
+}
+
+:host >>> .checkbox .cr,
+:host >>> .radio .cr {
+    border: 2px solid #566982;
+    background-color: white;
+}
+
+:host >>> input[type=checkbox]:checked + span.cr {
+    background-color: #13345F;
+}
+
+:host >>> .form-control {
+    font-size: 18px;
+}
+
+:host >>> form label {
+    font-size: 16px;
+    font-weight: normal;
+}
+
+:host >>> form {
+    display: flex;
+    flex-direction: column;
+}
+
+/*:host >>> .form-group {
+    display: flex;
+}*/
+
+:host >>> .flex-column {
+    flex-direction: column;
+}
+:host >>> .flex-row {
+    flex-direction: row;
+}
+
+:host >>> select {
+    /*background-color: #E3E4ED;*/
+    border-radius: 2px;
+    /*border: 0;*/
+}
+
+:host >>> select,
+:host >>> input {
+    height: 50px;
+    color: #A1A6C2;
+}
+
+/* placeholders needs a special rule for color */
+:host >>> select::placeholder,
+:host >>> input::placeholder {
+    color: #A1A6C2;
+}
+
+/* style dialogs according to design */
+
+:host >>> .modal-header {
+    border: 0;
+    color: white;
+}
+
+:host >>> .modal-header .close {
+    color: white;
+    text-shadow: none;
+    filter: alpha(opacity=100);
+    opacity: 1;
+}
+
+:host >>> .modal-body {
+    background-color: white;
+    border-radius: 4px;
+    padding: 15px 0;
+}
+
+:host >>> .modal-footer {
+    display: none;
+}
+
+:host >>> .modal-content {
+    background-color: transparent;
+    box-shadow: none;
+    border:none;
+}
+
+:host >>> .fnd-form-submit-container {
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    bottom: -48px; /* button height 40px, margin from dialog 8px */
+    right: 0;
+}
+
+:host >>> .fnd-form-submit-container button {
+    background-color: #39FBCF;
+    background-image: none;
+    color: #002351;
+    text-shadow: none;
+    height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-weight: bold;
+}

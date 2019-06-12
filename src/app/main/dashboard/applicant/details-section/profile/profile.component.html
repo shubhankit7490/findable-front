@@ -1,0 +1,99 @@
+<div class="whoami">
+	<div class="name-and-image" [class.no-border-bottom]="seeFullDetails">
+		<div class="profile-image">
+			<a routerLink="/user/personal-details" *ngIf="!seeFullDetails">
+				<img *ngIf="!profileSubscribe || profileSubscribe.image?.url === null" src="/assets/images/dashboard_profile_avatar.png" class="profile-avatar"/>
+                <img *ngIf="!!profileSubscribe && profileSubscribe.image?.url !== null" [src]="profileSubscribe.image?.url" />
+				<div *ngIf="!!profileSubscribe" class="profile-image-edit"></div>
+			</a>
+		</div>
+		<div class="profile-name-container">
+			<h1 class="profile-name seeFullDetails" *ngIf="seeFullDetails">#{{ userId }}</h1>
+			<h1 class="profile-name" *ngIf="!seeFullDetails">{{ profileSubscribe?.firstname }} {{  profileSubscribe?.lastname }} (#{{userId}})</h1>
+			<div class="profile-location">
+				{{ profileSubscribe?.location?.name }}
+			</div>
+			<div class="profile-updated" *ngIf="profileSubscribe?.updated">
+				<img class="profile-updated-icon" src="../../../../../../assets/images/profile-update-icon.png">
+				<span>Updated - {{ profileSubscribe?.updated | datex: 'MMM D YY' }}</span>
+
+				<br>
+				<button type="button" class="contact-button" (click)="showPurchase()" *ngIf="anon && (!profileSubscribe?.firstname?.length || !profileSubscribe?.firstname?.length)">Contact Applicant</button>
+			</div>
+			<div *ngIf="resumeExists" class="download-resume-container">
+				<button *ngIf="gettingResume" class="btn btn-success pull-left download-resume" (click)="getResumeOfUser(userId, resumeFileType)">
+					<span *ngIf="!isFetching">
+						Click to get Resume
+					</span>
+					<span *ngIf="isFetching">
+						<i class="glyphicon glyphicon-refresh glyphicon-spinner"></i>
+						Processing...
+					</span>
+				</button>
+				<button
+					*ngIf="!gettingResume"
+					class="btn btn-success pull-left download-resume"
+					style="border: 1px solid yellow"
+					(click)="downloadResume(blob)"
+					>
+					Click To Download
+				</button>
+				<!-- <a href="{{ downloadResumeUrl }}" *ngIf="!gettingResume" class="btn btn-success pull-left download-resume" style="border: 1px solid yellow"
+				 download="{{ downloadResumePath }}">
+					Click To Download
+				</a> -->
+			</div>
+		</div>
+	</div>
+	<div class="about-me" *ngIf="!seeFullDetails">
+		<h2>About me</h2>
+		<p #aboutContentContainer>{{profileSubscribe?.about || ''}} </p>
+		<a *ngIf="( profile | async )?.about !== null" [hidden]="aboutMeLength > 126" (click)="showAbout($event, aboutContentContainer)"> {{ (this.aboutShown) ? 'Read less' : 'Read more...' }} </a>
+	</div>
+	<div class="edit-section flex-right" *ngIf="!anon">
+		<button *ngIf="currentUserAutenticated" type="button" class="btn btn-success pull-left edit-link-button" (click)="aboutMeModal.open()">
+				Edit Section
+		</button>
+	</div>
+</div>
+<modal #aboutMeModal title="About Me"
+	   cancelButtonLabel="cancel"
+	   submitButtonLabel="submit"
+	   modalClass="modal-sm fnd-aboutMe-modal"
+	   [hideCloseButton]="false"
+	   [closeOnEscape]="true"
+	   [closeOnOutsideClick]="true"
+	   (onOpen)="actionOnOpen()"
+	   (onClose)="actionOnClose()"
+	   (onSubmit)="actionOnSubmit()">
+
+	<modal-header></modal-header>
+
+	<modal-content>
+		<app-about-me [aboutMeLength]='aboutMeLength' [profile]="profileSubscribe?.about" (personalDetailsAbout)="personalDetailsAboutUpdate($event)"></app-about-me>
+	</modal-content>
+
+	<modal-footer></modal-footer>
+
+</modal>
+
+<modal #contactApplicantModal title="Contact Applicant"
+       cancelButtonLabel="cancel"
+       submitButtonLabel="submit"
+       modalClass="modal-sm fnd-contact-modal"
+       [hideCloseButton]="false"
+       [closeOnEscape]="true"
+       [closeOnOutsideClick]="true"
+       (onOpen)="actionOnOpen()"
+       (onClose)="actionOnClose()"
+       (onSubmit)="actionOnSubmit()">
+
+    <modal-header></modal-header>
+
+    <modal-content>
+        <app-contact-applicant [userId]="userId" (onUpdate)="onApplicantContact($event)"></app-contact-applicant>
+    </modal-content>
+
+    <modal-footer></modal-footer>
+
+</modal>

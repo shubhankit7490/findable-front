@@ -1,0 +1,64 @@
+:host .chart-container {
+    padding: 14px;
+}
+
+:host >>> .vis-timeline {
+    border: 0;
+}
+
+:host >>> .vis-group,
+:host >>> .vis-label,
+:host >>> .vis-panel{
+    border-color: #F1F2F7;
+}
+
+:host >>> .vis-labelset .vis-label,
+:host >>> .vis-time-axis .vis-text{
+    color: #13345F;
+}
+:host >>> .vis-item {
+    color: white;
+    border: 0;
+}
+:host >>> .vis-item.vis-range {
+    height: 40px;
+    border-radius: 20px;
+    top: 0;
+}
+
+:host >>> .vis-item .vis-item-overflow {
+    overflow: visible;
+}
+
+:host >>> .vis-time-axis .vis-grid {
+    border-color: #F1F2F7;
+}
+
+:host >>> .vis-item .vis-item-content {
+    padding: 0 5px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Custom classes for chart items */
+
+:host >>> .fnd-chart-item-additional {
+    position: absolute;
+    color: #AAA;
+    direction: ltr;
+    top: 0px;
+    bottom: 0px;
+    margin: auto;
+    height: 20px;
+}
+
+/* Don't show current time on charts */
+:host >>> .vis-current-time {
+    display: none;
+}
+
+:host >>> .fnd-chart-value {
+    direction: ltr;
+}

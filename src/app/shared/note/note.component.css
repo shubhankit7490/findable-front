@@ -1,0 +1,103 @@
+.note-wrap {
+    position: relative;
+}
+
+.note textarea {
+    width: 100%;
+    resize: none;
+    height: 140px;
+    color: #13345f;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 6px 9px;
+}
+
+.note .submit {
+    background: #39fbcf;
+    color: #13345f;
+    font-size: 15px;
+    padding: 8px 28px;
+    font-weight: bold;
+    float: right;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    margin: 10px 0 0 0;
+    position: relative;
+}
+
+.note .submit i {
+    position: relative;
+    top: 2px;
+}
+
+.note {
+    position: absolute;
+    top: 38px;
+    right: -10px;
+    min-height: 265px;
+    cursor: default;
+    width: 270px;
+    background: #13345f;
+    z-index: 10;
+    color: #fff;
+    padding: 10px 20px 0px 20px;
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.note-close {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    z-index: 99;
+    color: #fff;
+}
+
+.noteCheckbox {
+    display: none;
+}
+
+i.note-icon {
+    margin-left: 3px;
+}
+
+div.note-wrap-icon {
+    padding: 28px 18px;
+    z-index: 1;
+    position: absolute;
+    margin: -37px -10px;
+}
+
+:host >>> app-spinning-loader.loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+}
+
+:host >>> app-spinning-loader.loader i {
+    font-size: 20px !important;
+    color: #13345f !important;
+}
+
+:host >>> app-spinning-loader.loader .load-page {
+    background: #39fbcf;
+    opacity: 1;
+}
+
+:host >>> app-spinning-loader.loader i {
+    top: 10px !important;
+}
+
+p.errors {
+    clear: both;
+    text-align: center;
+    padding: 7px 0 0 0 !important;
+}

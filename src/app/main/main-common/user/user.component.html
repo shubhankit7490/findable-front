@@ -1,0 +1,13 @@
+<div ngbDropdown class="d-inline-block fnd-user">
+	<a>
+        <button (click)="menuVisible = !menuVisible" class="btn fnd-btn-layout" [class.opened]="menuVisible" id="dropdownMenu1" ngbDropdownToggle>
+            {{profile?.firstname}} {{ profile?.lastname }}
+            <span class="glyphicon glyphicon-chevron-down"></span>
+		</button>
+	</a>
+	<div *ngIf="menuVisible" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+		<a class="dropdown-item" routerLink="/user/personal-details">My Account</a>
+		<a class="dropdown-item" (click)="logout($event)">Logout</a>
+	</div>
+	<!-- google ads code -->
+</div>

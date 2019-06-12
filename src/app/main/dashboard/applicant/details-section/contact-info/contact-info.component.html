@@ -1,0 +1,27 @@
+<div class="tour-step-second">
+	<h3>Contact Info</h3>
+	<ul>
+		<li *ngIf="( profile | async )?.phone">
+			<img src="../../../../../../assets/images/contact-info-phone.png">
+			<span class="contact-item-value"><a href="tel:{{ ( profile | async )?.phone }}">{{ ( profile | async )?.phone }}</a></span>
+		</li>
+		<li *ngIf="( profile | async )?.email">
+			<img src="../../../../../../assets/images/contact-info-email.png">
+			<span class="contact-item-value"><a href="mailto:{{ ( profile | async )?.email }}">{{ ( profile | async )?.email }}</a></span>
+		</li>
+		<li *ngIf="( profile | async )?.skype">
+			<img src="../../../../../../assets/images/contact-info-skype.png">
+			<span class="contact-item-value">{{ ( profile | async )?.skype }}</span>
+		</li>
+		<li *ngIf="( profile | async )?.website">
+			<img src="../../../../../../assets/images/contact-info-website.png">
+			<span class="contact-item-value"><a href="{{ ( profile | async )?.website.indexOf('http') < 0 ? 'http://' + (profile | async )?.website : (profile | async )?.website }}" target="_blank">{{ ( profile | async )?.website }}</a></span>
+		</li>
+	</ul>
+</div>
+<div *ngIf="authService.isLoggedIn && authService.currentUser.user_id == userId" class="edit-section">
+    <button id="personal-details-edit-link" type="button" class="btn btn-success pull-left edit-link-button" routerLink="/user/personal-details" (click)="tourService.initSection($event)">
+        Edit Section
+    </button>
+</div>
+

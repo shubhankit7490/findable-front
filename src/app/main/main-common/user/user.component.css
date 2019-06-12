@@ -1,0 +1,94 @@
+/* User component */
+:host {
+    margin-left: auto;
+    float: right;
+}
+
+.fnd-btn-layout {
+    color: white;
+    background: #13345F;
+}
+
+:host .fnd-btn-layout {
+    padding: 26px 35px !important;
+}
+
+.fnd-btn-layout:focus {
+    color: white;
+    background: #13345F;
+}
+
+.fnd-btn-layout:hover {
+    color: white;
+    background: #31517A;
+}
+
+.fnd-user .dropdown-menu {
+    background: #13345F;
+}
+
+.fnd-user .dropdown-item {
+    display: block;
+    border: none;
+    width: 100%;
+    color: white;
+    background: #13345F;
+}
+
+.fnd-user .dropdown-item:hover {
+    background: #31517A;
+    cursor: pointer;
+}
+
+.d-inline-block.fnd-user {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    border: 0;
+    margin-top: 0;
+    border-radius: 0;
+    padding: 0;
+    min-width: 283px !important;
+    display: block !important;
+    left: auto;
+    right: 0;
+}
+
+.dropdown-item {
+    padding: 14px 16px;
+    text-align: left;
+    background: #566982 !important;
+    border-bottom: 1px solid #3f4d60 !important;
+}
+
+#dropdownMenu1 {
+    padding: 25px 35px;
+    border-radius: 0;
+}
+
+button#dropdownMenu1:hover {
+    color: #3bf9d8;
+}
+
+.dropdown-item:hover {
+    color: #3bf9d8 !important;
+    background: #13345F !important;
+}
+
+button#dropdownMenu1.opened {
+    background: #31517A;
+    color: #3bf9d8;
+}
+
+button#dropdownMenu1:focus {
+    outline: 0;
+}
+
+button#dropdownMenu1 > span {
+    position: relative;
+    top: 2px;
+    left: 6px;
+}

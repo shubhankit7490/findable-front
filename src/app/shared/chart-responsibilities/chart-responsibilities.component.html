@@ -1,0 +1,21 @@
+<div class="chart-placeholder chart-loading" *ngIf="!!requesting">
+    <app-spinning-loader [showLoader]="requesting"></app-spinning-loader>
+    Loading Chart...
+</div>
+
+<div class="chart-wrap" *ngIf="!requesting && !!focusItems.length">
+    <div *ngIf="focusItems?.length > 0" (click)="showAdditionalInfo = !showAdditionalInfo" class="toggle-additional-info">
+        <span class="chart-info-eye" [class.hideInfo]="!showAdditionalInfo" ></span> 
+        {{ (showAdditionalInfo) ? 'Hide' : 'Show' }} Additional Info
+    </div>
+
+    <app-chart *ngIf="focusItems?.length > 0"
+       [items]="focusItems"
+       [groups]="focusGroups"
+       [template]="focusTemplate"
+       [direction]="'rtl'"
+       [options]="focusOptions"
+       [showAdditionalInfo]="showAdditionalInfo"
+    ></app-chart>
+
+</div>

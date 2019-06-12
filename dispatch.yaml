@@ -1,0 +1,18 @@
+dispatch:
+  - url: "admin.findable.co/*"
+    service: admin
+
+  - url: "mobile.findable.co/*"
+    service: mobile
+
+  - url: "mobile-staging.findable.co/*"
+    service: mobile-staging
+
+  - url: "mobile.findable.co/*"
+    service: mobile
+
+  - url: "staging.findable.co/*"
+    service: staging
+
+  - url: "welcome.findable.co/*"
+    service: welcome
