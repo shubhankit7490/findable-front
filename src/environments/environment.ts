@@ -11,7 +11,7 @@ export const environment = {
 	// production: false,
 	// envName: 'stag',
 	//baseApiPath: 'https://staging-dot-findable-api.appspot.com',
-	baseApiPath: 'http://localhost/findable/findable-api',
+	baseApiPath: 'http://localhost/findabletask/findableapi',
 	baseUrl: 'https://staging.findable.co',
 	stripeKey: 'pk_test_7JXJfK3INsGQVTnDZfvNKDnS'
 };

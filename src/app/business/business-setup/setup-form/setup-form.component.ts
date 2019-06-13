@@ -793,7 +793,7 @@ export class BusinessSetupFormComponent implements OnInit {
       let location: models.Location = this.location;
       let industry: models.Industry = this.industry;
       let year_established = 2018;
-      let business = { name, size, industry, location, web_address, logo, year_established };
+      let business = { firstname,lastname,phone,email,name, size, industry, location, web_address, logo, year_established };
       let personalDetails = { firstname, lastname, phone, email, location };
       if (this.mode === 'create') {
         this.submitting = true;
