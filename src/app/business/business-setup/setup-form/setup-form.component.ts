@@ -723,7 +723,16 @@ export class BusinessSetupFormComponent implements OnInit {
           this.submissionAccomplished = true;
           this.submitting = false;
           if (this.mode === 'create') {
-            this.onComplete.emit();
+            ///this.onComplete.emit();
+            // to show messgae of successfull registarion.
+            setTimeout(() => this.submissionAccomplished = false, 3000);
+            GrowlService.message('Your account created successfuly please wait for admin approval', 'success');
+            setTimeout(() =>{ 
+              this.analyticsService.emitEvent('Account', 'Logout', 'Desktop', this.authService.currentUser.user_id);
+              this.authService.logout();
+              window.location.href = environment.baseUrl+'/business/login';
+             }, 3000);
+            
           } else if (this.mode === 'update') {
             setTimeout(() => this.submissionAccomplished = false, 3000);
             GrowlService.message('Successfully updated your company information', 'success');
