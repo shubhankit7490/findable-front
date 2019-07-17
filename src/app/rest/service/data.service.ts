@@ -130,13 +130,13 @@ export class DataService {
 		return this.profileMeObservable = this.authApi.usersMeProfileGet(userId).share();
 	}
 
-	profile_get(userId: number) {
+	profile_get(userId: number,showdata=0) {
 		let config = new Configuration();
 		config.apiKey = this.apiKey;
 		if (!this.authApi) {
 			this.authApi = new DefaultApi(this.http, null, config);
 		}
-		return this.authApi.usersUserIdProfileGet(userId).share();
+		return this.authApi.usersUserIdProfileGet(userId,showdata).share();
 	}
 
 	profile_put(userId: number, profile: models.PersonalDetails) {
@@ -1136,13 +1136,22 @@ export class DataService {
 		return businessSearchResultsGetObservable;
 	}
 
-	purchase_applicants_post(businessId: number, applicants: models.ApplicantsIds) {
+	purchase_applicants_post(fullname:string,company:string,message:string,recruitingfor:string,businessId: number, applicants: models.ApplicantsIds) {
 		let config = new Configuration();
 		config.apiKey = this.apiKey;
 		if (!this.businessApi) {
 			this.businessApi = new BusinessApi(this.http, null, config);
 		}
-		return this.businessApi.businessBusinessIdPurchasesPost(businessId, applicants);
+		return this.businessApi.businessBusinessIdPurchasesPost(fullname,company,message,recruitingfor,businessId,applicants);
+	}
+
+	update_applicant_status(status: string,businessId: number, applicants: models.ApplicantsIds) {
+		let config = new Configuration();
+		config.apiKey = this.apiKey;
+		if (!this.businessApi) {
+			this.businessApi = new BusinessApi(this.http, null, config);
+		}
+		return this.businessApi.businessBusinessChnageApplicantstatus(status,businessId,applicants);
 	}
 
 	/**
@@ -1279,4 +1288,5 @@ export class DataService {
 		let subscriptionsPut$ = this.authApi.userSubscriptionPut(userId, stripeToken, billingName);
 		return subscriptionsPut$;
 	}
+
 }

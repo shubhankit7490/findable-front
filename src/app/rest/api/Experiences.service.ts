@@ -191,7 +191,6 @@ export class ExperiencesApi {
     if (extraHttpRequestParams) {
       requestOptions = this.extendObj(requestOptions, extraHttpRequestParams);
     }
-
     return this.http.request(path, requestOptions);
   }
 

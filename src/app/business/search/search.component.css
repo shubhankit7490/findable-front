@@ -122,6 +122,10 @@ span.side-component-separator {
     background: #e6fffb !important;
 }
 
+:host >>> .search-table .ui-datatable-data tr.applicant-row-remove-from-market {
+    background: #DF0101 !important;
+}
+
 :host >>> .search-table th.ui-state-active, :host >>> .search-table th.ui-state-highlight {
     background: transparent !important;
 }
@@ -442,8 +446,15 @@ span.side-component-separator {
     background: #e6fffb;
     color: #13345f;
 }
-
+:host >>> tr.applicant-row-remove-from-market.fnd-search-row.ui-state-highlight td {
+    background: #DF0101;
+    color: #13345f;
+}
 :host >>> tr.applicant-row-purchased.fnd-search-row.ui-state-highlight td app-status-selector select {
+    background: #fff !important;
+    color: #13345f !important;
+}
+:host >>> tr.applicant-row-remove-from-market.fnd-search-row.ui-state-highlight td app-status-selector select {
     background: #fff !important;
     color: #13345f !important;
 }
@@ -451,13 +462,24 @@ span.side-component-separator {
 :host >>> tr.applicant-row-purchased.fnd-search-row.ui-state-highlight {
     border: 0 !important;
 }
+:host >>> tr.applicant-row-remove-from-market.fnd-search-row.ui-state-highlight {
+    border: 0 !important;
+}
 
 :host >>> tr.applicant-row-purchased.fnd-search-selected.ui-state-highlight td {
     background: #13345f;
     color: #e6fffb;
 }
+:host >>> tr.applicant-row-remove-from-market.fnd-search-selected.ui-state-highlight td {
+    background: #13345f;
+    color: #e6fffb;
+}
 
 :host >>> tr.applicant-row-purchased.fnd-search-selected.ui-state-highlight td app-status-selector select {
+    background: #13345f !important;
+    color: #fff !important;
+}
+:host >>> tr.applicant-row-remove-from-market.fnd-search-selected.ui-state-highlight td app-status-selector select {
     background: #13345f !important;
     color: #fff !important;
 }

@@ -7,7 +7,7 @@ declare let iziToast: any;
 export class GrowlService {
 	constructor() {}
 
-	static message(message = '', type = 'info', timeout = 3000) {
+	static message(message = '', type = 'info', timeout = 10000) {
 		let iziToastOptions = {
 			class: 'iziToastPosition',
 			title: '',

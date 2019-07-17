@@ -61,7 +61,6 @@ export class ArraySelectorComponent implements OnInit {
 			name: selectedName,
 			id: selectedIndex
 		};
-
 		this.onSelect.emit({ item: this.chosenItem, event });
 
 		if (this.resetOnSelection) {

@@ -4,7 +4,12 @@ import {DataService} from '../../rest/service/data.service';
 import {GrowlService} from '../../rest/service/growl.service';
 import {MessageService} from '../../services/message.service';
 import {ChartDataService} from '../../services/chart-data.service';
-
+import { PersonalDetails } from "../../rest/model/PersonalDetails";
+import { TourService } from '../../services/tour.service';
+import { UserPreferencesExt } from '../../rest/service/extended-models/UserPreferencesExt';
+import { Observable } from 'rxjs/Observable';
+import * as models from '../../rest/model/models';
+declare let moment: any;
 @Component({
 	selector: 'app-applicant-search-result',
 	templateUrl: './applicant-search-result.component.html',
@@ -17,8 +22,13 @@ export class ApplicantSearchResultComponent implements OnInit {
 	@ViewChild('emailPop') emailPop;
 	@ViewChild('websitePop') websitePop;
 	@Input() userId: any;
-
-	rowSections = 6;
+	@Input() creatorid: any;
+	public profiledetaile: PersonalDetails;
+	public showprofile:boolean=false;
+	public prefrences:boolean=false;
+	public jobs:boolean=false;
+	public edu_data:boolean=false;
+	rowSections = 1;
 
 	public reportOpened = false;
 
@@ -39,19 +49,31 @@ export class ApplicantSearchResultComponent implements OnInit {
 		responsibilities: {active: false, loading: false, disabled: false},
 		skills: {active: false, loading: false, disabled: false},
 	};
-
-	constructor(public dataService: DataService, public authService: AuthService, public messageService: MessageService, public chartDataService: ChartDataService) {
+	public preferences$: Observable<UserPreferencesExt>;
+	private preferencesClear: UserPreferencesExt;
+	positions$: Observable<models.Position[]>;
+	recentJob: models.Position[];
+	education: Observable<models.ExistingEducations>;
+	educationClear: models.ExistingEducation[];
+	constructor(
+	 public dataService: DataService,
+	 public authService: AuthService, 
+	 public messageService: MessageService, 
+	 public chartDataService: ChartDataService,
+	 public tourService: TourService
+	 ) {
 	}
 
 	ngOnInit() {
-
 		this.charts.experience.disabled = this.chartDataService.getData('experience', this.userId).disabled;
 		this.charts.education.disabled = this.chartDataService.getData('education', this.userId).disabled;
 		this.charts.responsibilities.disabled = this.chartDataService.getData('responsibilities', this.userId).disabled;
 		this.charts.skills.disabled = this.chartDataService.getData('skills', this.userId).disabled;
 
 		this.getContactDetails();
-
+		this.getPreferences();
+		this.getRecentJob();
+		this.loadEducation();
 		this.messageService.getMessage().subscribe(
 			response => {
 				if (response.name === 'RELOAD_PROFILE' && response.data == this.userId) {
@@ -127,13 +149,18 @@ export class ApplicantSearchResultComponent implements OnInit {
 	checkLoadingStatus() {
 		this.loadedRowSections++;
 
-		if (this.loadedRowSections >= this.rowSections) {
-			this.rowLoading = false;
+		/*if (this.loadedRowSections >= this.rowSections) {
+			//this.rowLoading = false;
 		} else {
 			this.rowLoading = true;
-		}
+		}*/
 	}
-
+	setProfileValue(res){
+		this.profiledetaile=res;
+		console.log(this.profiledetaile);
+		this.showprofile=true;
+		this.rowLoading = false;
+	}
 	closeReportComponent(event) {
 		setTimeout(() => {
 			this.reportOpened = false;
@@ -188,7 +215,9 @@ export class ApplicantSearchResultComponent implements OnInit {
 			}, 0);
 		}
 	}
-
+	userdob(date){
+		return moment(date).format('DD/MM/YYYY');
+	}
 	openSkype(username) {
 		window['redirect']('skype:' + username + '?chat', true);
 	}
@@ -200,5 +229,29 @@ export class ApplicantSearchResultComponent implements OnInit {
 	redirect(url = '', n?: boolean) {
 		window['redirect'](url, n);
 	}
+	getPreferences() {
+		console.log('df');
+		this.preferences$ = this.dataService.preferences_get(this.userId);
+		this.prefrences=true;
+	}
+	getRecentJob() {
+		this.positions$ = this.dataService.recentJob_get(this.userId);
+		this.positions$.subscribe(
+			(response: models.Position[]) => {
+				this.recentJob = response;
+				this.jobs=true;
+			},
+			error => {
+			}
+		);
+	}
+	  loadEducation() {
+	  	console.log('dfg');
+       this.education = this.dataService.education_get(this.userId);
+        this.education.subscribe(response => {
+        this.educationClear = response;
+       	this.edu_data=true;
+    	});
+    }
 
 }

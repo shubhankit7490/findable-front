@@ -277,17 +277,43 @@ export class BusinessApi {
    * @param applicants
    */
   public businessBusinessIdPurchasesPost(
+    fullname: string,
+    company: string,
+    message: string,
+    recruitingfor:string,
     businessId: number,
     applicants?: models.ApplicantsIds,
     extraHttpRequestParams?: any
   ): Observable<models.PurchasedSuccess> {
     return this.businessBusinessIdPurchasesPostWithHttpInfo(
+      fullname,
+      company,
+      message,
+      recruitingfor,
       businessId,
       applicants,
       extraHttpRequestParams
     ).map(this.handleResponse);
   }
-
+   /**
+   * chnage uploded business candidate status
+   * Accessible to the recruiter / manager / admin roles only
+   * @param businessId The business identifier number
+   * @param applicants
+   */
+  public businessBusinessChnageApplicantstatus(
+    status:string,
+    businessId: number,
+    applicants?: models.ApplicantsIds,
+    extraHttpRequestParams?: any
+  ): Observable<models.PurchasedSuccess> {
+    return this.businessBusinessChnageApplicantstatusPostWithHttpInfo(
+      status,
+      businessId,
+      applicants,
+      extraHttpRequestParams
+    ).map(this.handleResponse);
+  }
   /**
    * Update the business record
    * Accessible to the manager role only
@@ -965,6 +991,10 @@ export class BusinessApi {
    * @param applicants
    */
   public businessBusinessIdPurchasesPostWithHttpInfo(
+    fullname: string,
+    company: string,
+    message: string,
+    recruitingfor:string,
     businessId: number,
     applicants?: models.ApplicantsIds,
     extraHttpRequestParams?: any
@@ -972,6 +1002,7 @@ export class BusinessApi {
     const path = this.basePath + `/business/${businessId}/purchases`;
 
     let queryParameters = new URLSearchParams();
+    let  formParams = new URLSearchParams();
     let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
     // verify required parameter 'businessId' is not null or undefined
     if (businessId === null || businessId === undefined) {
@@ -979,18 +1010,32 @@ export class BusinessApi {
         "Required parameter businessId was null or undefined when calling businessBusinessIdPurchasesPost."
       );
     }
-
+    headers.set("Content-Type", "application/x-www-form-urlencoded");
+    if (fullname !== undefined) {
+      formParams.set("fullname",<any>fullname);
+    }
+    if (company !== undefined) {
+       formParams.set("company",<any>company);
+    }
+    if (message !== undefined) {
+       formParams.set("message",<any>message);
+    }
+    if (recruitingfor !== undefined) {
+       formParams.set("recruitingfor",<any>recruitingfor);
+    }
+    if (applicants !== undefined) {
+       formParams.set("applicants",<any>JSON.stringify(applicants));
+    }
     // authentication (X-API-KEY) required
     if (this.configuration.apiKey) {
       headers.set("X-API-KEY", this.configuration.apiKey);
     }
-
-    headers.set("Content-Type", "application/json");
+    //headers.set("Content-Type", "application/json");
 
     let requestOptions: RequestOptionsArgs = new RequestOptions({
       method: RequestMethod.Post,
       headers: headers,
-      body: applicants == null ? "" : JSON.stringify(applicants), // https://github.com/angular/angular/issues/10612
+      body: formParams.toString(), // https://github.com/angular/angular/issues/10612
       search: queryParameters
     });
 
@@ -1001,7 +1046,56 @@ export class BusinessApi {
 
     return this.http.request(path, requestOptions);
   }
+   /**
+   * Chnage applicant status
+   * Accessible to the recruiter / manager / admin roles only
+   * @param businessId The business identifier number
+   * @param applicants
+   */
+  public businessBusinessChnageApplicantstatusPostWithHttpInfo(
+    status:string,
+    businessId: number,
+    applicants?: models.ApplicantsIds,
+    extraHttpRequestParams?: any
+  ): Observable<Response> {
+    const path = this.basePath + `/business/${businessId}/updateapplicantstatus`;
 
+    let queryParameters = new URLSearchParams();
+    let  formParams = new URLSearchParams();
+    let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+    // verify required parameter 'businessId' is not null or undefined
+    if (businessId === null || businessId === undefined) {
+      throw new Error(
+        "Required parameter businessId was null or undefined when calling businessBusinessChnageApplicantstatusPostWithHttpInfo."
+      );
+    }
+    headers.set("Content-Type", "application/x-www-form-urlencoded");
+    if (applicants !== undefined) {
+       formParams.set("applicants",<any>JSON.stringify(applicants));
+    }
+    if (status !== undefined) {
+       formParams.set("status",<any>status);
+    }
+    // authentication (X-API-KEY) required
+    if (this.configuration.apiKey) {
+      headers.set("X-API-KEY", this.configuration.apiKey);
+    }
+    //headers.set("Content-Type", "application/json");
+
+    let requestOptions: RequestOptionsArgs = new RequestOptions({
+      method: RequestMethod.Post,
+      headers: headers,
+      body: formParams.toString(), // https://github.com/angular/angular/issues/10612
+      search: queryParameters
+    });
+
+    // https://github.com/swagger-api/swagger-codegen/issues/4037
+    if (extraHttpRequestParams) {
+      requestOptions = this.extendObj(requestOptions, extraHttpRequestParams);
+    }
+
+    return this.http.request(path, requestOptions);
+  }
   /**
    * Update the business record
    * Accessible to the manager role only

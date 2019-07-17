@@ -18,8 +18,20 @@
 
         <div class="col-md-10 form-wrap">
             <app-business-setup-form #companySetupFormComponent (onComplete)="completeSetup()"></app-business-setup-form>
+            <div>
+                
+            </div>
         </div>
 
     </div>
 
+
+</div>
+
+<div class="info_overlay" *ngIf="showoverlay">
+        <div>
+            <h3>Thanks for your interest</h3>
+            <span>A findable associate will reach you as soon as possible. To schedule a call at your convenience please click <a target="_blank" href="https://calendly.com/findable" style="text-decoration: underline;">here</a>
+            </span>
+        </div>
 </div>

@@ -2,53 +2,53 @@
 	<div class="name-and-image" [class.no-border-bottom]="seeFullDetails">
 		<div class="profile-image">
 
-			<h1 class="profile-name anon" *ngIf="!seeFullDetails">#{{ userId }}</h1>
-			<div class="profile-location" *ngIf="!seeFullDetails">
+			<h1 class="profile-name anon" *ngIf="!seeFullDetails && displayright==1">#{{ userId }}</h1>
+			<div class="profile-location" *ngIf="!seeFullDetails || displayright==0">
 				{{ ( profile | async )?.location?.city_name }}
 				{{ ( profile | async )?.location?.state_short_name }}
 				{{ ( profile | async )?.location?.country_short_name_alpha_2 }}
 			</div>
 
-			<div class="profile-updated" *ngIf="!seeFullDetails">
+			<div class="profile-updated" *ngIf="!seeFullDetails || displayright==0">
 				<img class="profile-updated-icon" src="../../../../../../assets/images/profile-update-icon.png">
 				<span>Updated - {{ ( profile | async )?.updated | datex: 'MMM D YY' }}</span>
 			</div>
 
-			<div *ngIf="seeFullDetails">
+			<div *ngIf="seeFullDetails  && displayright==1">
 				<img *ngIf="( profile | async )?.image?.url == null" src="/assets/images/dashboard_profile_avatar.png" class="profile-avatar"/>
 				<img *ngIf="( profile | async )?.image?.url !== null" [src]="( profile | async )?.image?.url " />
 				<div *ngIf="( profile | async )?.image?.url !== null" class="profile-image-edit"></div>
 			</div>
 
-			<button *ngIf="!seeFullDetails"
+			<button *ngIf="creator_id!=login_user_id"
 				class="contact-button no-print pointer"
 				(click)="onContactClick($event)"
 				>
 				Contact Applicant
 			</button>
 
-			<a class="contact-button no-print pointer" (click)="redirect('/user/' + userId, true)">Full Profile</a>
+			<a class="contact-button no-print pointer" (click)="redirect('/user/' + userId, true)">Resume</a>
 		</div>
 		<div class="profile-name-container">
 			<div class="profile-name-container-top">
-				<h1 class="profile-name" *ngIf="seeFullDetails">{{ ( profile | async )?.firstname }} {{  ( profile | async )?.lastname }} (#{{userId}})</h1>
+				<h1 class="profile-name" *ngIf="seeFullDetails && displayright==1">{{ ( profile | async )?.firstname }} {{  ( profile | async )?.lastname }} (#{{userId}})</h1>
 				
-				<div class="profile-location" *ngIf="seeFullDetails">
+				<div class="profile-location" *ngIf="seeFullDetails && displayright==1">
 					{{ ( profile | async )?.location?.city_name }}
 					{{ ( profile | async )?.location?.state_short_name }}
 					{{ ( profile | async )?.location?.country_short_name_alpha_2 }}
 				</div>
-
-				<div class="profile-updated" *ngIf="seeFullDetails">
+				
+				<div class="profile-updated" *ngIf="seeFullDetails && displayright==1">
 					<img class="profile-updated-icon" src="../../../../../../assets/images/profile-update-icon.png">
 					<span>Updated - {{ ( profile | async )?.updated | datex: 'MMM D YY' }}</span>
 				</div>
-				<div class="profile-updated-eye" *ngIf="seeFullDetails">
+				<!-- <div class="profile-updated-eye" *ngIf="seeFullDetails">
 					<img src="../../../../../../assets/images/about-me-eye.png">
-				</div>
+				</div> -->
 			</div>
 
-			<div class="profile-name-container-bottom">
+			<div class="profile-name-container-bottom" *ngIf="displayright==1">
 				<div class="about-me">
 					<h2>About Me</h2>
 					<p #aboutContentContainer>{{profileSubscribe?.about || ''}} </p>
@@ -76,7 +76,7 @@
 <modal #contactApplicant title="Contact Applicant"
        cancelButtonLabel="cancel"
        submitButtonLabel="submit"
-       modalClass="modal-sm fnd-contact-modal"
+       class="fnd-contact-modal custom-model"
        [hideCloseButton]="false"
        [closeOnEscape]="true"
        [closeOnOutsideClick]="true"

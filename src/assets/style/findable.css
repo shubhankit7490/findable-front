@@ -701,6 +701,19 @@ span.small-spinner {
     -webkit-animation: spin .7s infinite linear;
 }
 
+.custom-model .modal-content{
+    background-color: rgba(19,52,95,.4)!important;
+}
+
+.custom-model .modal-title{font-size: 28px;text-align: center; margin-top: 20px; margin-bottom: 20px;}
+
+
+.custom-model .modal-header{border-bottom: 0}
+
+.custom-model label{
+    color: #fff!important;
+}
+
 @-webkit-keyframes spin {
     from {
         -webkit-transform: rotate(0deg);

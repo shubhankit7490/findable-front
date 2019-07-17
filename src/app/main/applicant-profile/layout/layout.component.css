@@ -139,21 +139,21 @@ app-user {
     opacity: 1;
 }
 
-:host >>> .modal-body {
+/*:host >>> .modal-body {
     background-color: white;
     border-radius: 4px;
     padding: 15px 0;
-}
+}*/
 
-:host >>> .modal-footer {
+/*:host >>> .modal-footer {
     display: none;
-}
+}*/
 
-:host >>> .modal-content {
+/*:host >>> .modal-content {
     background-color: transparent;
     box-shadow: none;
     border:none;
-}
+}*/
 
 :host >>> .fnd-form-submit-container {
     display: flex;
@@ -163,7 +163,7 @@ app-user {
     right: 0;
 }
 
-:host >>> .fnd-form-submit-container button {
+/*:host >>> .fnd-form-submit-container button {
     background-color: #39FBCF;
     background-image: none;
     color: #002351;
@@ -172,7 +172,7 @@ app-user {
     padding-left: 20px;
     padding-right: 20px;
     font-weight: bold;
-}
+}*/
 
 .top-bar-item {
     width: 80px;

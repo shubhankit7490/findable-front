@@ -74,7 +74,8 @@ import { PurchaseHistoryComponent } from 	'./business-account/purchase-history/p
 import { GeneralEmbeddingComponent } from './business-account/general-embedding/general-embedding.component';
 import { AccountUsersComponent } from 		'./business-account/account-users/account-users.component';
 import { ApplicantsStatsComponent } from 	'./applicants-stats/applicants-stats.component';
-import { SearchComponent } from 					'./search/search.component';
+import { SearchComponent } from 			'./search/search.component';
+import { UploadResume } from 				'./upload-resume/upload-resume.component';
 
 // utilities:
 import { AutoUnsubscribe } from '../utils/autoUnsubscribe';
@@ -128,6 +129,7 @@ const routes: Routes = [
 		GeneralEmbeddingComponent,
 		AccountUsersComponent,
 		SearchComponent,
+		UploadResume,
 		SaveSearchComponent,
 		YearsExperienceComponent,
 		TagsInputComponent,

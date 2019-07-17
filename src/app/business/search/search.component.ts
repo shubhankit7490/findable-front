@@ -42,10 +42,11 @@ export class SearchComponent implements OnInit,AfterViewInit {
 	public total: number;
 	public currentResultsCount = 0;
 	public firstVisit = false;
-
+	public selectedid='all';
 	// Applicant purchase
 	public purchaseVisible = false;
 	public applicantsToPurchase: number[] = [];
+	public applicant_chnage_status: number[] = [];
 
 	// Job title
 	public selectedJobTitles: models.JobTitle[] = [];
@@ -98,7 +99,8 @@ export class SearchComponent implements OnInit,AfterViewInit {
 
 	public candidateTypes = [
 		{ id: 'all', name: 'All Candidates' },
-		{ id: 'my candidates', name: 'My Candidates' },
+		{ id: 'uploaded candidates', name: 'My Candidates' },
+		/*{ id: 'uploaded candidates', name: 'Uploaded Candidates' },*/
 		{ id: 'initial', name: 'Initial contact' },
 		{ id: 'short', name: 'Short listed' },
 		{ id: 'hired', name: 'Hired' },
@@ -112,8 +114,14 @@ export class SearchComponent implements OnInit,AfterViewInit {
 	// ]
 
 	public actions = [
-		{ id: 'fulldetails', name: 'See full details' },
+		{ id: 'fulldetails', name: 'Cantact Applicant' },
 		{ id: 'open', name: 'Open / Close selected' }
+	];
+
+	public actions_uploded_candidate = [
+		{ id: 'addtomarket', name: 'Add to market' },
+		{ id: 'removefrommarket', name: 'Remove from market'},
+		{ id: 'deleteandremove', name: 'Delete & Remove'}
 	];
 
 	public searchModel: models.ApplicantsSearchProfileParsed | models.ApplicantsSearchProfile = {
@@ -711,6 +719,7 @@ export class SearchComponent implements OnInit,AfterViewInit {
 	}
 
 	public onCandidateTypeSelected(typeObject: EmitArraySelector) {
+		this.selectedid=typeObject.item.id;
 		switch (typeObject.item.id) {
 			case 'all':
 				this.router.navigate(['/'], { skipLocationChange: true })
@@ -721,6 +730,7 @@ export class SearchComponent implements OnInit,AfterViewInit {
 			case 'hired':
 			case 'interviewing':
 			case 'my candidates':
+			case 'uploaded candidates':
 			case 'irrelevant':
 				this.searchModel['status'] = typeObject.item.id;
 				this.performSearch();
@@ -742,7 +752,31 @@ export class SearchComponent implements OnInit,AfterViewInit {
 		this.order = type;
 		this.performSearch();
 	}
-
+	public updateuserstatus(status: string){
+		this.applicant_chnage_status = this.table.selection
+		.filter(value => {
+			return Number(value.id);
+		})
+		.map(value => {
+			return Number(value.id);
+		});
+		
+		this.dataService.update_applicant_status(status,this.authService.currentUser.user_id,this.applicant_chnage_status).subscribe(
+			(response: models.PurchasedSuccess) => {
+				GrowlService.message('update successful', 'success');
+				if(status=='deleteandremove'){
+					this.performSearch(true);
+				}else{
+					this.applicant_chnage_status.forEach(value => {
+					this.onchnagestatus(value);
+					})
+				}
+			},
+			error => {
+				GrowlService.message(JSON.parse(error._body).message, 'error');
+			}
+		)
+	}
 	public onActionSelected(event) {		
 		switch (event.item.id) {
 			case 'fulldetails':
@@ -762,9 +796,23 @@ export class SearchComponent implements OnInit,AfterViewInit {
 					this.table.toggleRow(row, event.originalEvent);
 				});
 			break;
+			case 'addtomarket':
+				if(confirm("Are you sure want to add to market place")) {
+				    this.updateuserstatus('addtomarket');	
+				  }
+			break;
+			case 'removefrommarket':
+				if(confirm("Are you sure want to remove from market place")) {
+				    this.updateuserstatus('removefrommarket');
+				  }
+			break;
+			case 'deleteandremove':
+				if(confirm("Are you sure want to delete and remove from market place")) {
+				    this.updateuserstatus('deleteandremove');
+				  }
+			break;
 		}
 	}
-
 	private openPurchase() {
 		this.purchaseVisible = true;
 	}
@@ -775,12 +823,10 @@ export class SearchComponent implements OnInit,AfterViewInit {
 
 	public onPurchase(profile: OnPurchaseData) {
 		this.purchaseVisible = false;
-
 		if (profile) {
 			this.messageService.sendMessage({ name: 'RELOAD_PROFILE', data: profile.data.userId });
 		}
-
-		this.dataService.profile_get(profile.data.userId).subscribe(
+		this.dataService.profile_get(profile.data.userId,0).subscribe(
 			response => {
 				let value = this.table.value.find(value => value.id == profile.data.userId && value );
 				Object.assign(value, response);
@@ -788,6 +834,18 @@ export class SearchComponent implements OnInit,AfterViewInit {
 		);
 	}
 
+	public onchnagestatus(userid) {
+		this.purchaseVisible = false;
+		if (userid) {
+			this.messageService.sendMessage({ name: 'RELOAD_PROFILE', data: userid });
+		}
+		this.dataService.profile_get(userid,1).subscribe(
+			response => {
+				let value = this.table.value.find(value => value.id == userid && value );
+				Object.assign(value, response);
+			}
+		);
+	}
 	public loadData(event) {
 		this.offset = event.first;
 
@@ -912,7 +970,7 @@ export class SearchComponent implements OnInit,AfterViewInit {
 		let className = 'fnd-search-row';
 
 		if (!!data.firstname || !!data.lastname) {
-			className += ' applicant-row-purchased';
+			className += ' applicant-row-purchased';	
 		}
 
 		return className;

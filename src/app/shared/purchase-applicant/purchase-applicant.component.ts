@@ -47,6 +47,7 @@ export class PurchaseApplicantComponent implements OnInit {
 			company: 'Company',
 			email: 'Email',
 			phone: 'Phone',
+			recruiting_for: '',
 			message: 'Message'
 		},
 		errors: {
@@ -59,6 +60,7 @@ export class PurchaseApplicantComponent implements OnInit {
 			company: '',
 			email: '',
 			phone: '',
+			recruiting_for:'',
 			message: '',
 			global: ''
 		}
@@ -79,6 +81,7 @@ export class PurchaseApplicantComponent implements OnInit {
 		this.submitting = true;
 		this.getBusinessBalance();
 		this.getUserSubscription();
+		this.confirmseb(1);
 		this.fullname = this.authService.getItem('currentProfile').firstname + ' ' + this.authService.getItem('currentProfile').lastname;
 		this.businessName = this.authService.getItem('currentBusiness').name;
 		this.userId=this.applicants[0];
@@ -87,6 +90,7 @@ export class PurchaseApplicantComponent implements OnInit {
 			company: '',
 			email: '',
 			phone: '',
+			recruiting_for: '',
 			message: '',
 			global: ''
 		};
@@ -94,20 +98,20 @@ export class PurchaseApplicantComponent implements OnInit {
 		this.phone=this.authService.getItem('currentProfile').phone;
 		this.contactApplicantForm = this.formBuilder.group({
 			fullname: [this.fullname, Validators.required],
-			email: [this.email, [Validators.required, CustomValidators.email]],
-			company: ['', Validators.required],
+			company: [this.businessName, Validators.required],
 			phone: [''],
+			recruiting_for: [''],
 			message: ['']
 		});
 	}
 
 	confirmseb(event) {
-		if(this.subscription && this.subscription.status == 'active'){
+		/*if(this.subscription && this.subscription.status == 'active'){*/
 			this.submitting = true;
 			this.cnfmodel.open();
-		}else{
+		/*}else{
 			this.submitrequest();
-		}
+		}*/
 		
 	}
 	actionOnOpen() {
@@ -122,14 +126,14 @@ export class PurchaseApplicantComponent implements OnInit {
 	actionOnSubmit() {
 
 	}
-	submitrequest(){
+	submitrequest(fullname,company,message,recruiting_for){
 		this.submitting = true;
 
 		this.applicants = this.applicants.map(value => {
 			return value = Number(value);
 		})
 
-		this.dataService.purchase_applicants_post(this.authService.currentUser.business_id, this.applicants).subscribe(
+		this.dataService.purchase_applicants_post(fullname,company,message,recruiting_for,this.authService.currentUser.business_id,this.applicants).subscribe(
 			(response: models.PurchasedSuccess) => {
 				this.submitting = false;
 
@@ -143,13 +147,16 @@ export class PurchaseApplicantComponent implements OnInit {
 					});
 				})
 				if (response.skipped.length) {
-					GrowlService.message(`Purchase successful. ${response.skipped.length} applicants were already purchased and have not been charged for`, 'success');
+					this.isSubmitting = false;
+					GrowlService.message(`Thanks for reaching out to candidate. An email was sent to his recruiter, they will get back to you shortly. ${response.skipped.length} applicants were already purchased and have not been charged for`, 'success');
 				}
 				else {
-					GrowlService.message('Purchase successful', 'success');
+					this.isSubmitting = false;
+					GrowlService.message('Thanks for reaching out to candidate. An email was sent to his recruiter, they will get back to you shortly.', 'success');
 				}
 			},
 			error => {
+				this.isSubmitting = false;
 				this.submitting = false;
 
 				GrowlService.message(JSON.parse(error._body).message, 'error');
@@ -253,7 +260,24 @@ export class PurchaseApplicantComponent implements OnInit {
 		}
 	}
 
+
 	onSubmit(e: Event) {
+		//e.preventDefault();
+		//e.stopPropagation();
+		if (this.validate()) {
+			this.isSubmitting = true;
+			let fullname = this.contactApplicantForm.value.fullname;
+			let company = this.contactApplicantForm.value.company;
+			let message = this.contactApplicantForm.value.message;
+			let recruiting_for =this.contactApplicantForm.value.recruiting_for;
+		//this.onUpdate.emit(e);
+		//GrowlService.message('Your contact request was send to the applicant', 'success');
+		this.hardreset();
+		this.submitrequest(fullname,company,message,recruiting_for);
+		}
+	}
+
+	/*onSubmit(e: Event) {
 		e.preventDefault();
 		e.stopPropagation();
 
@@ -284,7 +308,7 @@ export class PurchaseApplicantComponent implements OnInit {
 				}
 			);
 		}
-	}
+	}*/
 
 	hardreset() {
 		this.contactApplicantForm.reset();

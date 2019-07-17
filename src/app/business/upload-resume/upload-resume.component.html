@@ -1,0 +1,47 @@
+ <button type="button" class="auto-reload-submit btn fnd-btn-primary" (click)="openUploadResume()">
+     Upload Candidate
+ </button>
+
+  <modal #upload_resume
+        title="Upload Resume"
+        cancelButtonLabel="cancel"
+        modalClass="modal-lg modal-sm fnd-confirm-modal"
+        [hideCloseButton]="false"
+        [closeOnEscape]="true"
+        [closeOnOutsideClick]="true"
+        (onOpen)="openUploadResumeModal()"
+        (onClose)="closeUploadResumeModal()">
+
+    <modal-content>
+        <div>
+        <modal-header>
+            <h2 class="upload-resume-header">
+            Upload to <span style="color: #31517A;">Findable</span>
+            </h2>
+        </modal-header>
+        
+        <div class="upload-resume-wrapper">
+            <p>
+            supported files: doc, docx, pdf
+            </p>
+            <button class="upload-button" (click)="openFileInput(upload_resume_input)">
+                <div class="upload-resume-main-btn">
+                    <i *ngIf="!uploadingResume" class="glyphicon glyphicon-arrow-up"></i>
+                    <i *ngIf="uploadingResume" class="glyphicon glyphicon-spinner glyphicon-refresh"></i>
+                    {{ resume_status }}
+                </div>
+                <form>
+                    <input #upload_resume_input id="upload_resume" [multiple]="true" name="file" type="file" (change)="onSelect($event)">
+                </form>
+            </button>
+            <button
+                (click)="closeUploadResumeModal()"
+                class="upload-resume-decline-btn"
+                >
+                I don't want to upload
+            </button>    
+        </div>
+            
+        </div>
+    </modal-content>
+</modal>

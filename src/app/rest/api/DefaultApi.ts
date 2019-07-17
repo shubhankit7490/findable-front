@@ -1148,7 +1148,7 @@ export class DefaultApi {
    * @param file
    */
   public usersUserUploadResumeParsingPost(
-    file: File,
+    file: File[],
     extraHttpRequestParams?: any
   ): Observable<models.EntityId> {
     const path = this.basePath + `/users/cv`;
@@ -1163,7 +1163,11 @@ export class DefaultApi {
     let formData: FormData = new FormData();
 
     if (file !== undefined) {
-      formData.append("file", file, file.name);
+      console.log(file);
+       for (var x = 0; x < file.length; x++) {
+          formData.append("file[]", file[x], file[x].name);
+        }
+      
     }
 
     let requestOptions: RequestOptionsArgs = new RequestOptions({
@@ -1500,9 +1504,10 @@ export class DefaultApi {
    */
   public usersUserIdProfileGet(
     userId: number,
+    showdata: number,
     extraHttpRequestParams?: any
   ): Observable<models.PrivateProfile> {
-    const path = this.basePath + `/users/${userId}/profile`;
+    const path = this.basePath + `/users/${userId}/profile/${showdata}`;
 
     let queryParameters = new URLSearchParams();
     let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845

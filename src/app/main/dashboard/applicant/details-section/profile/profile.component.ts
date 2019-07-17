@@ -48,7 +48,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 	public blob: Blob = null;
 	public currentUserAutenticated: boolean = false;
 	private isLoggedIn: boolean = false;
-
+	public contact_applicant: boolean = true;
 	constructor(
 		private dataService: DataService,
 		private authService: AuthService,
@@ -68,6 +68,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
 	ngOnInit() {
 		this.profileGetRequest();
+		this.setUserPurchasedInfo();
 		this.aboutShown = false;
 		this.userId = !!this.userId ? this.userId : this.authService.currentUser.user_id;
 		this.isLoggedIn = this.authService.isLoggedIn;
@@ -126,6 +127,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 	onApplicantContact(e: Event) {
 		this.analyticsService.emitEvent('Contact Applicant', 'Create', 'Desktop');
 		this.contactModal.close();
+		this.contact_applicant=false;
 	}
 
 	profileGetRequest() {
@@ -223,5 +225,15 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 			// revert to Click to get Resume button
 			this.gettingResume = true;
 		}
+	}
+	setUserPurchasedInfo(){
+		this.dataService.purches_get(this.userId).subscribe(
+			(res:any) => {
+				if(res.status){
+					this.contact_applicant=false;
+				}
+				
+			}
+		);
 	}
 }

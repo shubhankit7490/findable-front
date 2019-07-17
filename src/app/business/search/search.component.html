@@ -327,9 +327,19 @@
 <div class="col-md-10">
 
 	<div class="actions-wrap col-md-2 top-select">
-		<app-array-selector
+		<app-array-selector *ngIf="selectedid!='uploaded candidates'"
 			#actionSelector
 			[arrayItems]="actions"
+			[disabled]="!table.selection || !table.selection.length"
+			[resetOnSelection]="true"
+			(onSelect)="onActionSelected($event)"
+			key_id="id"
+			key_name="name"
+			placeholderText="Actions"
+		></app-array-selector>
+		<app-array-selector *ngIf="selectedid=='uploaded candidates'"
+			#actionSelector
+			[arrayItems]="actions_uploded_candidate"
 			[disabled]="!table.selection || !table.selection.length"
 			[resetOnSelection]="true"
 			(onSelect)="onActionSelected($event)"
@@ -406,6 +416,11 @@
 							<i class="glyphicon glyphicon-triangle-bottom"></i>
 						</div>
 					</div>
+				</template>
+			</p-column>
+			<p-column header="Market Place"  *ngIf="selectedid=='uploaded candidates'">
+				<template let-applicant="rowData" pTemplate="body">
+					{{ (applicant.market_place==1)?'Available':'Not Available'}}
 				</template>
 			</p-column>
 			<p-column field="jobtitle.name" header="Job Title">
@@ -518,7 +533,7 @@
 			</p-column>
 
 			<template let-applicant pTemplate="rowexpansion">
-				<app-applicant-search-result userId="{{ applicant.id }}"></app-applicant-search-result>
+				<app-applicant-search-result userId="{{ applicant.id }}" creatorid="{{applicant.creator_id}}"></app-applicant-search-result>
 			</template>
 
 			<p-column [style]="{'width':'18px'}" header="Note">

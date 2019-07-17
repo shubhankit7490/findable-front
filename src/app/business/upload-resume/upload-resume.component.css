@@ -1,0 +1,76 @@
+:host {
+    min-width: 304px;
+}
+.large {
+    height: 63px;
+}
+.medium {
+    width: 70%;
+    display: block;
+    vertical-align: middle;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+.small {
+    height: 23px;
+}
+.logo-wrapper {
+    display: block;
+    height: 70px;
+    line-height: 70px;
+    position: relative;
+}
+:host button.fnd-btn-primary {
+    background: #39FBD0;
+    color: #13345F;
+    font-weight: bold;
+}
+:host >>> #upload_resume {
+    visibility: collapse;
+}
+
+:host >>> .upload-resume-decline-btn {
+    margin: 10px;
+    background-color: transparent;
+    outline: none;color: #31517A;
+    font-weight:  700;
+    text-decoration: underline;
+}
+
+:host >>> .upload-resume-main-btn {
+    position: absolute;
+    z-index: 9;
+    transform: translate(53%, 540%);
+    font-size: 16px;
+}
+
+:host >>> .upload-button {
+    margin: 10px;
+    width: 90%;
+    height: 300px;
+    background-color: #F1F1F6;
+    border: 3px dashed #CBDDF6;
+    font-weight: 700;
+    max-width: 300px;
+    border-radius: 10%;
+    outline: none;
+}
+
+:host >>> .upload-resume-wrapper {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+:host >>> .upload-resume-header {
+    color: #511300;
+    text-align: center;
+    padding-top: 10px;
+    font-weight: 700;
+}

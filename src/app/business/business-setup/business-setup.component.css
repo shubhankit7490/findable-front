@@ -283,3 +283,18 @@ h3 {
     margin-top: -32px;
     margin-right: 10px;
 }
+
+
+
+
+
+.info_overlay{    position: fixed; top: 0; left: 0; right: 0; background: rgba(50,81,113,.9);
+    text-align: center;width:100%;height:100%;
+    z-index: 100;}
+    .info_overlay h3{color: #fff;
+    font-size: 37px;
+    padding-bottom: 10px;
+    margin-bottom: 0;}
+
+    .info_overlay span{    color: #fff; font-size: 20px;}
+    .info_overlay div{    position: absolute; top: 0; left: 0; right: 0; margin: auto;}

@@ -17,6 +17,8 @@ import { BusinessSetupFormComponent } from './setup-form/setup-form.component';
 	styleUrls: [ './business-setup.component.css' ]
 })
 export class BusinessSetupComponent implements OnInit {
+	public showoverlay: boolean = false;
+
 	@ViewChild('companyInformationComponent') companySetupFormComponent: BusinessSetupFormComponent;	
 	constructor(
 		private router: Router,
@@ -41,7 +43,10 @@ export class BusinessSetupComponent implements OnInit {
 	 * @returns {void} void
 	 */
 	public completeSetup(): void {
+		console.log('fg');
 		/** navigate to to search view as first ever visit: */
-		this.router.navigate(['/business/search'], { queryParams: { first: true } } );
+		this.showoverlay=true;
+		window.scrollTo(0, 0);
+		//this.router.navigate(['/business/search'], { queryParams: { first: true } } );
 	}
 }

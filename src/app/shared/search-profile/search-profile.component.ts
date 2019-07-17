@@ -17,7 +17,10 @@ import { Modal } from 'ngx-modal';
 })
 export class SearchProfileComponent implements OnInit {
 	@Input() userId: number;
+	@Input() displayright: number;
+	@Input() creator_id:any;
 	@Output() onLoaded = new EventEmitter<any>();
+	@Output() setprofilevalue= new EventEmitter<any>();
 	@ViewChild('contactApplicant') contactModal: Modal;
 
 	// aboutMe: Observable<extModels.AboutMeExt>;
@@ -33,7 +36,8 @@ export class SearchProfileComponent implements OnInit {
 	public subscription: any = null;
 	public fullname: string = '';
 	public businessName: string = '';
-	public see_subscription_model = false;
+	public see_subscription_model = true;
+	public login_user_id:number;
 	constructor(
 		public dataService: DataService,
 		public authService: AuthService,
@@ -42,6 +46,7 @@ export class SearchProfileComponent implements OnInit {
 	) {	}
 
 	ngOnInit() {
+		this.login_user_id=this.authService.getUserId();
 		this.profileGetRequest();
 		this.aboutShown = false;
 		this.anon = (!!this.authService.isLoggedIn && (this.userId != this.authService.getUserId()));
@@ -66,6 +71,7 @@ export class SearchProfileComponent implements OnInit {
 			}
 
 			this.onLoaded.emit(true);
+			this.setprofilevalue.emit(this.profileSubscribe);
 		},
 		error => {
 			this.onLoaded.emit(false);
@@ -104,7 +110,13 @@ export class SearchProfileComponent implements OnInit {
 	}
 
 	onContactClick(event) {
-		if(this.subscription && this.subscription.status == 'active'){
+		this.messageService.sendMessage({
+				action: 'CONTACT_APPLICANT',
+				data: this.userId
+			});
+		//this.contactModal.open();
+	/*	if(this.subscription && this.subscription.status == 'active'){
+			//this.contactModal.open();
 			// Pop the contact form
 			if(this.see_subscription_model){
 				this.contactModal.open();
@@ -120,7 +132,7 @@ export class SearchProfileComponent implements OnInit {
 				action: 'CONTACT_APPLICANT',
 				data: this.userId
 			});
-		}
+		}*/
 	}
 
 
@@ -142,7 +154,7 @@ export class SearchProfileComponent implements OnInit {
 		this.dataService.purches_get(this.userId).subscribe(
 			(res:any) => {
 				if(res.status){
-					this.see_subscription_model=true;
+					this.see_subscription_model=false;
 				}
 				
 			}

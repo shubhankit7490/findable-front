@@ -5,14 +5,350 @@
         <app-spinning-loader [showLoader]="rowLoading"></app-spinning-loader>
     </div>
 
-    <app-search-profile #profileComponent (onLoaded)="checkLoadingStatus()" userId="{{ userId }}" ></app-search-profile>
-    <app-status-prefs (onLoaded)="checkLoadingStatus()" userId="{{ userId }}" ></app-status-prefs>
-    <app-recent-job (onLoaded)="checkLoadingStatus()" userId="{{ userId }}" ></app-recent-job>
-    <app-languages (onLoaded)="checkLoadingStatus()" userId="{{ userId }}" ></app-languages>
-    <app-traits (onLoaded)="checkLoadingStatus()" userId="{{ userId }}" ></app-traits>
+    
+    <!-- <app-status-prefs (onLoaded)="checkLoadingStatus()" userId="{{ userId }}" ></app-status-prefs> -->
+    <!-- <app-recent-job (onLoaded)="checkLoadingStatus()" userId="{{ userId }}" ></app-recent-job> -->
+    <!-- <app-languages (onLoaded)="checkLoadingStatus()" userId="{{ userId }}" ></app-languages>
+    <app-traits (onLoaded)="checkLoadingStatus()" userId="{{ userId }}" ></app-traits> -->
 
+     <div class="search-result-inside-wrap">
+         <div class="row">
+            <div class="col-md-3"><app-search-profile #profileComponent (onLoaded)="checkLoadingStatus()" (setprofilevalue)="setProfileValue($event)" userId="{{ userId }}" creator_id="{{ creatorid }}" displayright="0"></app-search-profile></div>
+            <div class="col-md-9">
+                <div class="row rowbox">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <div class="sri-cont">
+                            <h3 class="section-heading-1">Account info</h3>
+                            <div class="stri-fieldbox" *ngIf="showprofile">
+
+
+                                <table width="100%" class="tn_detailss">
+                                    <tbody>
+                                        <tr>
+                                            <td width="40%">
+                                                <span class="field-label">Account Number :</span> 
+                                            </td>
+                                            <td width="60%">
+                                                <span class="dield-value">{{userId}}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="40%">
+                                                <span class="field-label">First Name : </span> 
+                                            </td>
+                                            <td width="60%">
+                                                <span class="dield-value">{{(profiledetaile.firstname !=null)?profiledetaile.firstname:'..........................'}}</span>  
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="40%">
+                                                <span class="field-label">Last Name :</span> 
+                                            </td>
+                                            <td width="60%">
+                                                <span class="dield-value">
+                                                    {{(profiledetaile.lastname !=null)?profiledetaile.lastname:'..........................'}}
+                                                </span>  
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="40%">
+                                                <span class="field-label">Phone Number : </span> 
+                                            </td>
+                                            <td width="60%">
+                                                <span class="dield-value">
+                                                 {{(profiledetaile.firstname !=null)?(profiledetaile.phone!=null?profiledetaile.phone:'N/A'):'..........................'}}   
+                                                </span>   
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="40%">
+                                                <span class="field-label">Location : </span> 
+                                            </td>
+                                            <td width="60%" *ngIf="profiledetaile.firstname !=null">
+                                                <span class="dield-value" *ngIf="profiledetaile.location.city_name || profiledetaile.location.state_name || profiledetaile.location.country_name">
+                                                    {{profiledetaile.location.city_name}} {{profiledetaile.location.state_name}} {{profiledetaile.location.country_name}}
+                                                </span>  
+                                                 <span class="dield-value" *ngIf="profiledetaile.location.city_name==null && profiledetaile.location.state_name===null && profiledetaile.location.country_name==null">
+                                                    N/A
+                                                </span>  
+                                            </td>
+                                            <td width="60%" *ngIf="profiledetaile.firstname ==null">
+                                                <span class="dield-value">
+                                                    ..........................
+                                                </span>  
+                                            </td>
+                                        </tr>
+                                         <tr>
+                                            <td width="40%">
+                                                 <span class="field-label">Skype : </span> 
+                                            </td>
+                                            <td width="60%">
+                                                <span class="dield-value" [ngClass]="profiledetaile.skype!=null ? '': 'emptValue'">
+                                                {{(profiledetaile.firstname !=null)?(profiledetaile.skype!=null?profiledetaile.skype:'N/A'):'..........................'}}    
+                                                </span>     
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="40%">
+                                                  <span class="field-label">Website : </span>  
+                                            </td>
+                                            <td width="60%">
+                                                 <span class="dield-value" [ngClass]="profiledetaile.website!=null ? '': 'emptValue'">
+                                                     {{(profiledetaile.firstname !=null)?(profiledetaile.website!=null?profiledetaile.website:'N/A'):'..........................'}}    
+                                                 </span>      
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="40%">
+                                                 <span class="field-label">Birthday : </span>  
+                                            </td>
+                                            <td width="60%">
+                                                 <span class="dield-value" [ngClass]="profiledetaile.profile_birthday!=null ? '': 'emptValue'">
+
+                                                    {{(profiledetaile.firstname !=null)?(profiledetaile.profile_birthday!=null?userdob(profiledetaile.profile_birthday):'N/A'):'..........................'}} 
+                                                </span>       
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="40%">
+                                                 <span class="field-label">Gender : </span>   
+                                            </td>
+                                            <td width="60%">
+                                                 <span class="dield-value" [ngClass]="profiledetaile.profile_gender!=null ? '': 'emptValue'">
+                                                  {{(profiledetaile.firstname !=null)?(profiledetaile.profile_gender=='M'?'Male':(profiledetaile.profile_gender=='F'?'Female':'N/A')):'..........................'}} 
+                                                    
+                                            </span>         
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="40%">
+                                                 <span class="field-label">Email : </span>    
+                                            </td>
+                                            <td width="60%">
+                                                 <span class="dield-value" [ngClass]="profiledetaile.email!=null ? '': 'emptValue'">
+
+                                                  {{(profiledetaile.firstname !=null)?(profiledetaile.email!=null?profiledetaile.email:'N/A'):'..........................'}}     
+                                              </span>           
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                        </div>                 
+                        </div>
+                        <div class="col-md-6 form-group" *ngIf="prefrences">
+                            <div class="sri-cont">
+                                <h3 class="section-heading-1">Status & Preferences</h3>
+                                <div class="stri-fieldbox status-prefe-table">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>What is your employment status?</td>
+                                                <td>{{ ( preferences$ | async )?.employment_status }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Are you currently looking for a job?</td>
+                                                <td> {{((preferences$ | async)?.current_status=='actively looking')?'Yes':'NO'}}</td>
+                                            </tr>
+                                             <tr>
+                                                <td>Employment Type Seeking?</td>
+                                                <td>{{ ( preferences$ | async )?.employment_type }}</td>
+                                            </tr>
+                                             <tr>
+                                                <td>Expected Salary (Recommended) Add benefits in addition to salary</td>
+                                                <td>{{ ((preferences$ | async)?.desired_salary) ? '$' : '' }}{{ ( preferences$ | async )?.desired_salary }}
+                                                {{ ( preferences$ | async )?.desired_salary_period_readable }}</td>
+                                            </tr>
+                                             <tr>
+                                                <td>Locations of Interest :</td>
+                                                <td>{{(preferences$ | async)?.locations}}</td>
+                                            </tr>
+                                             <tr>
+                                                <td>Willing To Relocate? :</td>
+                                                <td>
+                                                {{((preferences$ | async)?.relocation=='1')?'Yes':'NO'}}</td>
+                                            </tr>
+                                             <tr>
+                                                <td>When are you available to start working? :</td>
+                                                <td>{{(preferences$ | async)?.available_from}}</td>
+                                               
+                                            </tr>
+                                             <tr>
+                                                <td>I am legally allowed to work in the US</td>
+                                                <td>{{((preferences$ | async)?.legal_usa=='1')?'Yes':'NO'}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mostjob-box" *ngIf="jobs">
+                              <div class="sri-cont" *ngFor="let jobdata of recentJob; let myIndex = index"> 
+                                <h3 class="section-heading-1">Jobs:{{(myIndex==0)?'Most Recent':myIndex}}</h3>
+                                <div class="stri-fieldbox">
+
+                                     <table width="100%" class="tn_detailss">
+                                        <tbody>
+                                            <tr>
+                                                <td width="40%">
+                                                    <span class="field-label">Job title : </span> 
+                                                </td>
+                                                <td width="60%">
+                                                    <span class="dield-value">{{jobdata.job_title.name}}</span> 
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="40%">
+                                                    <span class="field-label">Company Name : </span> 
+                                                </td>
+                                                <td width="60%">
+                                                     <span class="dield-value">{{jobdata.company.name}}</span>  
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="40%">
+                                                   <span class="field-label">Location : </span> 
+                                                </td>
+                                                <td width="60%">
+                                                      <span class="dield-value">{{jobdata.location.city_name}} {{jobdata.location.state_name}} {{jobdata.location.country_name}}</span>  
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="40%">
+                                                   <span class="field-label">Start End Date : </span>
+                                                </td>
+                                                <td width="60%">
+                                                        <span class="dield-value">{{userdob(jobdata.from)}} to {{(jobdata.current==1)?'Present':userdob(jobdata.to)}}</span>   
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="40%">
+                                                   <span class="field-label">Currently Work Here : </span> 
+                                                </td>
+                                                <td width="60%">
+                                                        <span class="dield-value">{{(jobdata.current==1)?'Yes':'No'}}</span>     
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="40%">
+                                                   <span class="field-label">Job Seniority : </span> 
+                                                </td>
+                                                <td width="60%">
+                                                         <span class="dield-value">{{jobdata.seniority.name}}</span>      
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="40%">
+                                                   <span class="field-label">Job Type : </span> 
+                                                </td>
+                                                <td width="60%">
+                                                          <span class="dield-value">{{jobdata.type}}</span>        
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="40%">
+                                                   <span class="field-label">Industry: </span> 
+                                                </td>
+                                                <td width="60%">
+                                                          <span class="dield-value">{{jobdata.industry.name}}</span>         
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="40%">
+                                                   <span class="field-label">Salary : </span>  
+                                                </td>
+                                                <td width="60%">
+                                                          <span class="dield-value">{{jobdata.salary}} {{jobdata.salary_period}}</span>          
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="40%">
+                                                   <span class="field-label">Responsibilities: </span>  
+                                                </td>
+                                                <td width="60%">
+                                                         <span class="dield-value" *ngFor="let responsibilities of jobdata.areas_of_focus">
+                                                        {{responsibilities.name}}
+                                                    </span>           
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                     </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 educationbox" *ngIf="edu_data">
+                            <div class="sri-cont" *ngFor="let edu of educationClear; let myIndex = index">
+                               <h3 class="section-heading-1">Education:{{(myIndex==0)?'Most Recent':myIndex}}</h3>
+                                <div class="stri-fieldbox">
+                                    <table width="100%" class="tn_detailss">
+                                        <tbody>
+                                            <tr>
+                                                <td width="40%">
+                                                    <span class="field-label">School Name : </span> 
+                                                </td>
+                                                <td width="60%">
+                                                    <span class="dield-value">{{edu.name}}</span> 
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="40%">
+                                                    <span class="field-label">Start Date - End Date: </span> 
+                                                </td>
+                                                <td width="60%">
+                                                    <span class="dield-value" *ngIf="edu.from!='1970-01-01 00:00:00'">{{userdob(edu.from)}} to {{(edu.current==1)?'Present':userdob(edu.to)}}</span> 
+                                                     <span class="dield-value" *ngIf="edu.from=='1970-01-01 00:00:00'">N/A</span> 
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="40%">
+                                                    <span class="field-label">Currently Study Here : </span> 
+                                                </td>
+                                                <td width="60%">
+                                                    <span class="dield-value">{{(edu.current==1)?((edu.from!='1970-01-01 00:00:00')?'Yes':'N/A'):'No'}}</span> 
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="40%">
+                                                    <span class="field-label">Education Level : </span>
+                                                </td>
+                                                <td width="60%">
+                                                    <span class="dield-value">{{edu.level.name}}</span> 
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="40%">
+                                                   <span class="field-label">Field of Degree : </span>
+                                                </td>
+                                                <td width="60%">
+                                                    <span class="dield-value" *ngFor="let field of edu.fields">
+                                                {{field.name}}
+                                                    </span>  
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+         </div>
+    </div>
 </div>
 <div class="search-result-bottom-bar no-print">
+    <button (click)="toggleActive('responsibilities')" [disabled]="charts.responsibilities.disabled" class="bar-item bar-text form-control responsibilities" [class.active]="charts.responsibilities.active"> 
+        
+    </button>
+</div>
+<!-- <div class="search-result-bottom-bar no-print">
     <button *ngIf="userDetails?.phone"
         class="bar-item bar-img phone"
         [tooltip]="phoneTooltipTemplate"
@@ -71,9 +407,9 @@
         <app-spinning-loader [showLoader]="charts.skills.loading"></app-spinning-loader>
         <i [class.glyphicon-triangle-bottom]="!charts.skills.active" [class.glyphicon-triangle-top]="charts.skills.active" class="glyphicon"></i>
     </button>
-</div>
+</div> -->
 
-<div class="charts-wrap">
+<!-- <div class="charts-wrap">
 
     <div class="chart-wrap" *ngIf="charts.experience.active">
         <h3>Experience</h3>
@@ -127,4 +463,4 @@
     <template #skypeTooltipTemplate (clickOutside)="closeSkypeTooltip($event)">
         <a class="pointer" id="skypeLink" (click)="openSkype(userDetails?.skype)">{{userDetails?.skype}}</a>
     </template>
-</div>
+</div> -->

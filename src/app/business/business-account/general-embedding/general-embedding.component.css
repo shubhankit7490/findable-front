@@ -52,3 +52,16 @@
     width: 50%;
     margin-bottom: 30px;
 }
+:host .uploadresume{
+    padding-bottom: 14px;
+}
+
+.uploadresume h4{
+display: inline-block;
+vertical-align: middle;
+}
+.uploadresumecomponent{
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+}

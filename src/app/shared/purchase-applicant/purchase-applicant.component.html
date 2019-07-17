@@ -1,4 +1,4 @@
-<div class="purchase-applicant-wrap">
+<!-- <div class="purchase-applicant-wrap">
     <app-spinning-loader [showLoader]=""></app-spinning-loader>
     <div class="inner-wrap">
         <h3>Confirm Use of Credit</h3>
@@ -37,11 +37,11 @@
             </button>
         </div>
     </div>
-</div>
+</div> -->
 <modal #cnfmodel title="Contact Applicant"
-       cancelButtonLabel="cancel"
-       submitButtonLabel="submit"
-       modalClass="modal-sm fnd-contact-modal"
+       cancelButtonLabel=""
+       submitButtonLabel=""
+       modalClass="fnd-contact-modal custom-model"
        [hideCloseButton]="false"
        [closeOnEscape]="true"
        [closeOnOutsideClick]="true"
@@ -58,29 +58,30 @@
     
     <div class="row1" id="contact_applicant_form_popup">
         <form [formGroup]="contactApplicantForm" (submit)="onSubmit($event)" class="form-wrapper" spellcheck="false" autocomplete="off" novalidate>
-            <div class="form-group">
-                <label class="sr-only" for="fullname">Full name</label>
-                <input class="form-control" type="text" id="fullname" formControlName="fullname" value="{{ fullname }}" placeholder="Full name (Required)">
-                <p class="error">{{ controls.messages.fullname }}</p>
+            <div class="row">
+                <div class="col-md-6">
+                <div class="form-group">
+                    <label  for="fullname">Please confirm you’re</label>
+                    <input class="form-control" type="text" id="fullname" formControlName="fullname" value="{{ fullname }}" placeholder="Full name (Required)">
+                    <p class="error">{{ controls.messages.fullname }}</p>
+                </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label  for="company">From</label>
+                        <input class="form-control" type="text" id="company" formControlName="company" value="{{ businessName }}" placeholder="Company (Required)">
+                        <p class="error">{{ controls.messages.company }}</p>
+                    </div>
+                </div>
+            </div>
+             <div class="form-group">
+                        <label  for="recruiting_for">Recruiting for (Which Company)</label>
+                        <input class="form-control" type="text" id="recruiting_for" formControlName="recruiting_for" value="" placeholder="Recruiting for">
             </div>
             <div class="form-group">
-                <label class="sr-only" for="company">Company name</label>
-                <input class="form-control" type="text" id="company" formControlName="company" value="{{ businessName }}" placeholder="Company (Required)">
-                <p class="error">{{ controls.messages.company }}</p>
-            </div>
-            <div class="form-group">
-                <label class="sr-only" for="email">Email address</label>
-                <input class="form-control" type="email" id="email" formControlName="email" value="{{ email }}" placeholder="Email (Required)">
-                <p class="error">{{ controls.messages.email }}</p>
-            </div>
-            <div class="form-group">
-                <label class="sr-only" for="phone">Phone</label>
-                <input class="form-control" type="tel" id="phone" formControlName="phone" value="{{ phone }}" placeholder="Phone">
-                <p class="error">{{ controls.messages.phone }}</p>
-            </div>
-            <div class="form-group">
-                <label class="sr-only" for="message">Message:</label>
-                <textarea class="form-control" id="message" name="message" formControlName="message" maxlength="150" placeholder="Message"></textarea>
+                <label  for="message">We will verify availability and candidate and interest. 
+                If you have any screening questions please state them.</label>
+                <textarea class="form-control" id="message" name="message" formControlName="message" maxlength="150" placeholder=""></textarea>
                 <p class="error">{{ controls.messages.message }}</p>
             </div>
             <div class="form-group fnd-form-submit-container button-custom-done">

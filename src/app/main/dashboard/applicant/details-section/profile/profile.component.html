@@ -18,7 +18,7 @@
 				<span>Updated - {{ profileSubscribe?.updated | datex: 'MMM D YY' }}</span>
 
 				<br>
-				<button type="button" class="contact-button" (click)="showPurchase()" *ngIf="anon && (!profileSubscribe?.firstname?.length || !profileSubscribe?.firstname?.length)">Contact Applicant</button>
+				<button type="button" class="contact-button" (click)="showPurchase()" *ngIf="anon && isLoggedIn && contact_applicant">Contact Applicant</button>
 			</div>
 			<div *ngIf="resumeExists" class="download-resume-container">
 				<button *ngIf="gettingResume" class="btn btn-success pull-left download-resume" (click)="getResumeOfUser(userId, resumeFileType)">
@@ -80,7 +80,7 @@
 <modal #contactApplicantModal title="Contact Applicant"
        cancelButtonLabel="cancel"
        submitButtonLabel="submit"
-       modalClass="modal-sm fnd-contact-modal"
+       modalClass="modal-sm fnd-contact-modal custom-model"
        [hideCloseButton]="false"
        [closeOnEscape]="true"
        [closeOnOutsideClick]="true"

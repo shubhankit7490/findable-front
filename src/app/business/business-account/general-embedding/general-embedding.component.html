@@ -4,10 +4,11 @@
         Start seeing your applicants on Findable and comparing them to others.
     </span>
 </div>
-
 <div class="general-embedding-host">
-
-    <h4 class="embedding-section">1. Copy for embedding into website career page</h4>
+    <div class="uploadresume">
+    <h4>1.</h4><business-upload-resume class="uploadresumecomponent"></business-upload-resume>
+    </div>
+    <h4 class="embedding-section">2. Copy for embedding into website career page</h4>
     <div class="general-embedding-snippet">
             <pre><code (mousedown)="selectSnippet(snippet)" (mouseup)="selectSnippet(snippet)" (click)="selectSnippet(snippet)" #snippet class="xml hljs javascript highlight highlight-$event">&#x3C;a title=&#x22;Apply&#x22; href=&#x22;https:{{baseLink}}/apply/{{authService.currentUser.business_id}}&#x22; target=&#x22;_blank&#x22;&#x3E;&#x3C;img alt=&#x22;Apply&#x22; src="https:{{baseLink}}/assets/images/buttons/apply-btn.jpg&#x22;&#x3E;&#x3C;/a&#x3E;</code></pre>
         </div>
@@ -22,12 +23,12 @@
 {{'}'}}(document, 'script', 'findable-embedded-sdk'));&lt;/script&gt;</code></pre>
     </div> -->
 
-    <h4 class="embedding-section">2. Link: (Copy and paste to social media)</h4>
+    <h4 class="embedding-section">3. Link: (Copy and paste to social media)</h4>
     <div class="general-embedding-snippet">
         <pre><code (mousedown)="selectSnippet(link)" (mouseup)="selectSnippet(link)" (click)="selectSnippet(link)" #link class="xml hljs html highlight highlight-this">https:{{baseLink}}/apply/{{authService.currentUser.business_id}}</code></pre>
     </div>
 
-    <h4 class="embedding-section">3. Auto reply email response (Copy and paste)</h4>
+    <h4 class="embedding-section">4. Auto reply email response (Copy and paste)</h4>
     <div class="general-embedding-snippet">
         <pre><code (mousedown)="selectSnippet(email)" (mouseup)="selectSnippet(email)" (click)="selectSnippet(email)" #email class="xml hljs html highlight highlight-this">Thanks for applying to {{ companyName }}. Please click on this <a href="https:{{baseLink}}/apply/{{authService.currentUser.business_id}}">link</a>: https:{{baseLink}}/apply/{{authService.currentUser.business_id}} and fill out your profile. We will get back to you if you're relevant. Thanks.</code></pre>
     </div>
