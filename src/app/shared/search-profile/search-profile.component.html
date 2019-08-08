@@ -24,10 +24,9 @@
 				class="contact-button no-print pointer"
 				(click)="onContactClick($event)"
 				>
-				Contact Applicant
+				Contact Recruiter
 			</button>
-
-			<a class="contact-button no-print pointer" (click)="redirect('/user/' + userId, true)">Resume</a>
+			<a class="contact-button no-print pointer" *ngIf="creator_id==login_user_id" [href]="( profile | async )?.resume.url" target="_blank">Resume</a>
 		</div>
 		<div class="profile-name-container">
 			<div class="profile-name-container-top">

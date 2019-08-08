@@ -46,6 +46,7 @@
     z-index: 9;
     transform: translate(53%, 540%);
     font-size: 16px;
+    color: #000;
 }
 
 :host >>> .upload-button {

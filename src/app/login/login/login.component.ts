@@ -117,14 +117,12 @@ export class LoginComponent implements OnInit,AfterViewInit {
 				} else {
 					this.analyticsService.emitEvent('Account', 'Login', 'Desktop', this.authService.currentUser.user_id);
 					this.setMessage();
-	
 					this.authService.currentUser = response;
 	
 					this.authService.isLoggedIn = true;
 					this.dataService.apiKey = response.key;
 	
 					this.providerService.getData();
-	
 					if (response.businesses.length === 1) {
 						this.dataService.update_user_config(this.authService.currentUser.user_id, {active_business_id: response.businesses[0].id}).subscribe(
 							response => {

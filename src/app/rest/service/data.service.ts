@@ -1136,13 +1136,13 @@ export class DataService {
 		return businessSearchResultsGetObservable;
 	}
 
-	purchase_applicants_post(fullname:string,company:string,message:string,recruitingfor:string,businessId: number, applicants: models.ApplicantsIds) {
+	purchase_applicants_post(fullname:string,company:string,message:string,recruitingfor:string,businessId: number, applicants: models.ApplicantsIds,exclusive_contact:any) {
 		let config = new Configuration();
 		config.apiKey = this.apiKey;
 		if (!this.businessApi) {
 			this.businessApi = new BusinessApi(this.http, null, config);
 		}
-		return this.businessApi.businessBusinessIdPurchasesPost(fullname,company,message,recruitingfor,businessId,applicants);
+		return this.businessApi.businessBusinessIdPurchasesPost(fullname,company,message,recruitingfor,businessId,exclusive_contact,applicants);
 	}
 
 	update_applicant_status(status: string,businessId: number, applicants: models.ApplicantsIds) {

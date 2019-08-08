@@ -282,6 +282,7 @@ export class BusinessApi {
     message: string,
     recruitingfor:string,
     businessId: number,
+    exclusive_contact:any,
     applicants?: models.ApplicantsIds,
     extraHttpRequestParams?: any
   ): Observable<models.PurchasedSuccess> {
@@ -291,6 +292,7 @@ export class BusinessApi {
       message,
       recruitingfor,
       businessId,
+      exclusive_contact,
       applicants,
       extraHttpRequestParams
     ).map(this.handleResponse);
@@ -996,6 +998,7 @@ export class BusinessApi {
     message: string,
     recruitingfor:string,
     businessId: number,
+    exclusive_contact:boolean,
     applicants?: models.ApplicantsIds,
     extraHttpRequestParams?: any
   ): Observable<Response> {
@@ -1022,6 +1025,9 @@ export class BusinessApi {
     }
     if (recruitingfor !== undefined) {
        formParams.set("recruitingfor",<any>recruitingfor);
+    }
+    if (exclusive_contact !== undefined) {
+       formParams.set("exclusive_contact",<any>exclusive_contact);
     }
     if (applicants !== undefined) {
        formParams.set("applicants",<any>JSON.stringify(applicants));

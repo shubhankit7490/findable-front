@@ -2,8 +2,8 @@
 	<app-logo></app-logo>
 	<h1>{{ title }}</h1>
 	<!-- <div class="description" [innerHTML]="description"> </div> -->
-	<app-login *ngIf="router.url.indexOf('/user/login') >= 0 || router.url.indexOf('/business/login') >= 0"></app-login>
-	<app-sign-up [userType]="userType" *ngIf="router.url.indexOf('/user/signup?') >= 0 || router.url == '/user/signup' || router.url == '/business/signup'"></app-sign-up>
+	<app-login *ngIf="router.url.indexOf('/user/login') >= 0 || router.url.indexOf('/business/login') >= 0 || router.url.indexOf('/recruiter/login') >= 0"></app-login>
+	<app-sign-up [userType]="userType" *ngIf="router.url.indexOf('/user/signup?') >= 0 || router.url == '/user/signup' || router.url == '/business/signup' || router.url == '/recruiter/signup'"></app-sign-up>
 	<app-verify *ngIf="router.url.indexOf('/verify') >= 0"></app-verify>
 	<app-password-forgot *ngIf="router.url.indexOf('/user/password/forgot') >= 0"></app-password-forgot>
     <app-password-confirm *ngIf="router.url.indexOf('/reset') >= 0"></app-password-confirm>

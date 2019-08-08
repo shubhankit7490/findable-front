@@ -27,7 +27,7 @@ export class BusinessSetupComponent implements OnInit {
 	) {	}
 
 	ngOnInit() {
-		if (this.authService.currentUser.role !== 'manager' || !!this.authService.currentUser.business_id) {
+		if ((this.authService.currentUser.role == 'applicant') || !!this.authService.currentUser.business_id) {
 			this.authService.checkUserStatus(this.authService.currentUser);
 		}
 		

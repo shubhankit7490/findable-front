@@ -48,7 +48,8 @@ export class PurchaseApplicantComponent implements OnInit {
 			email: 'Email',
 			phone: 'Phone',
 			recruiting_for: '',
-			message: 'Message'
+			message: 'Message',
+			exclusive_contact: ''
 		},
 		errors: {
 			url: '{field} does not contain a valid url',
@@ -62,7 +63,8 @@ export class PurchaseApplicantComponent implements OnInit {
 			phone: '',
 			recruiting_for:'',
 			message: '',
-			global: ''
+			global: '',
+			exclusive_contact: ''
 		}
 	};
 	constructor(
@@ -92,7 +94,8 @@ export class PurchaseApplicantComponent implements OnInit {
 			phone: '',
 			recruiting_for: '',
 			message: '',
-			global: ''
+			global: '',
+			exclusive_contact: '',
 		};
 		this.email=this.authService.getItem('currentProfile').email;
 		this.phone=this.authService.getItem('currentProfile').phone;
@@ -101,7 +104,8 @@ export class PurchaseApplicantComponent implements OnInit {
 			company: [this.businessName, Validators.required],
 			phone: [''],
 			recruiting_for: [''],
-			message: ['']
+			message: [''],
+			exclusive_contact: ['']
 		});
 	}
 
@@ -126,14 +130,14 @@ export class PurchaseApplicantComponent implements OnInit {
 	actionOnSubmit() {
 
 	}
-	submitrequest(fullname,company,message,recruiting_for){
+	submitrequest(fullname,company,message,recruiting_for,exclusive_contact){
 		this.submitting = true;
 
 		this.applicants = this.applicants.map(value => {
 			return value = Number(value);
 		})
 
-		this.dataService.purchase_applicants_post(fullname,company,message,recruiting_for,this.authService.currentUser.business_id,this.applicants).subscribe(
+		this.dataService.purchase_applicants_post(fullname,company,message,recruiting_for,this.authService.currentUser.business_id,this.applicants,exclusive_contact).subscribe(
 			(response: models.PurchasedSuccess) => {
 				this.submitting = false;
 
@@ -270,10 +274,11 @@ export class PurchaseApplicantComponent implements OnInit {
 			let company = this.contactApplicantForm.value.company;
 			let message = this.contactApplicantForm.value.message;
 			let recruiting_for =this.contactApplicantForm.value.recruiting_for;
+			let exclusive_contact =this.contactApplicantForm.value.exclusive_contact;
 		//this.onUpdate.emit(e);
 		//GrowlService.message('Your contact request was send to the applicant', 'success');
 		this.hardreset();
-		this.submitrequest(fullname,company,message,recruiting_for);
+		this.submitrequest(fullname,company,message,recruiting_for,exclusive_contact);
 		}
 	}
 

@@ -61,11 +61,8 @@ export class MenuComponent implements OnInit {
 				id: 'menu-manager-faq'
 			},
 			{
-				text: 'Post Job',
-				url: 'https://findable.jobboard.io/products',
-				id: 'menu-applicant-post-job',
-				opennew: true,
-				outsideurl: true,
+				text: 'Component',
+				iscomponent: true,
 			},
 		],
 		recruiter: [
@@ -89,6 +86,10 @@ export class MenuComponent implements OnInit {
 				text: 'FAQ',
 				url: '/faq',
 				id: 'menu-recruiter-faq'
+			},
+			{
+				text: 'Component',
+				iscomponent:false,
 			},
 		],
 	};
@@ -127,4 +128,5 @@ interface MenuConfigItem {
 	id?: 			 string;
 	opennew?: boolean;
 	outsideurl?: boolean;
+	iscomponent?:boolean;
 }

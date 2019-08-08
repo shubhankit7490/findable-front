@@ -6,20 +6,22 @@
 			<ul *ngFor="let item of _conf; let i = index" class="nav navbar-nav forline" [attr.data-index]="i">
 				<li [class.active]="item.url == _route">
 					<span *ngIf="i<'4'" class="linespan"></span>
-					<a *ngIf="item.reloaded !== true && item.outsideurl!=true" routerLink="{{item.url}}" id="{{item.id}}" (click)="initTourSection($event)" class="findable-main-menu-item">
+					<a *ngIf="item.reloaded !== true && item.outsideurl!=true && item.iscomponent!=true" routerLink="{{item.url}}" id="{{item.id}}" (click)="initTourSection($event)" class="findable-main-menu-item">
 						{{item.text}}
 						<span class="sr-only">(current)</span>
 					</a>
-                    <a *ngIf="item.reloaded === true && item.outsideurl!=true" (click)="goto(item.url)" id="{{item.id}}" class="findable-main-menu-item">
+                    <a *ngIf="item.reloaded === true && item.outsideurl!=true && item.iscomponent!=true" (click)="goto(item.url)" id="{{item.id}}" class="findable-main-menu-item">
                         {{item.text}}
                         <span class="sr-only">(current)</span>
                     </a>
-                    <a *ngIf="item.reloaded !=true  && item.outsideurl==true" href="{{item.url}}" id="{{item.id}}" target="_blank" class="findable-main-menu-item">
+                    <a *ngIf="item.reloaded !=true  && item.outsideurl==true && item.iscomponent!=true" href="{{item.url}}" id="{{item.id}}" target="_blank" class="findable-main-menu-item">
                         {{item.text}}
                         <span class="sr-only">(current)</span>
                     </a>
+                    <business-upload-resume class="uploadresumecomponent" *ngIf="item.iscomponent==true"></business-upload-resume>
 				</li>
 			</ul>
+
 		</div><!-- /.navbar-collapse -->
 	</div><!-- /.container-fluid -->
 </nav>

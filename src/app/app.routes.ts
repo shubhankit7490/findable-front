@@ -45,11 +45,19 @@ export const appRoutes: Routes = [
 		component: SignupLayoutComponent
 	},
 	{
+		path: 'recruiter/login',
+		component: SignupLayoutComponent
+	},
+	{
 		path: 'user/signup',
 		component: SignupLayoutComponent
 	},
 	{
 		path: 'business/signup',
+		component: SignupLayoutComponent
+	},
+	{
+		path: 'recruiter/signup',
 		component: SignupLayoutComponent
 	},
 	{

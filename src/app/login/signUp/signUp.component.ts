@@ -73,7 +73,10 @@ export class SignUpComponent implements OnInit {
 
 		if (this.activatedRoute.routeConfig.path.indexOf('business/signup') > -1) {
 			this.role = 'manager';
-		} else {
+		}else if(this.activatedRoute.routeConfig.path.indexOf('recruiter/signup') > -1) {
+			this.role = 'recruiter';
+		}
+		else {
 			this.role = (!!this.inviteCode) ? 'recruiter' : 'applicant';
 		}
 
@@ -138,7 +141,9 @@ export class SignUpComponent implements OnInit {
 								this.authService.isLoggedIn = true;
 								this.router.navigate(['/business/setup']);
 							} else {
-								this.router.navigate(['user/signup/thank']);
+								this.authService.isLoggedIn = true;
+								this.router.navigate(['/business/setup']);
+								//this.router.navigate(['user/signup/thank']);
 							}
 						} else if (r.status === 'banned') {
 							this.formErrors.global = 'This account has been banned.';

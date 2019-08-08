@@ -48,7 +48,6 @@ export class UploadResume implements OnInit {
    */
   public onSelect(event: Event): void {
 	this.file = (event.target as HTMLInputElement).files;
-	if(this.file.length<=5){
 			// const supportedFiles = 'doc'; //'|docx|pdf|rtf'
 			for (var x = 0; x < this.file.length; x++) {
 				if (this.file[x] && this.file[x].name && (/\.(doc|docx|pdf|rtf')$/).test(this.file[x].name.toLowerCase())) {
@@ -73,8 +72,8 @@ export class UploadResume implements OnInit {
 								this.resume_status = 'Upload resume';
 							}, 7000);
 							// make sure page is refreshed with new data.
-							//this.router.navigate(['/dashboard']);
-							//window.location.reload();
+							this.router.navigate(['/search']);
+							this.closeUploadResumeModal();
 						} else {
 							this.resume_status = 'Unsupported file!';
 							setTimeout(() => {
@@ -99,13 +98,6 @@ export class UploadResume implements OnInit {
 					this.resume_status = 'Upload resume';
 				}, 5000);
 			}
-		}else{
-			this.uploadingResume = false;
-			this.resume_status = 'Max 5 file allow!';
-				setTimeout(() => {
-					this.resume_status = 'Upload resume';
-			}, 3000);
-		}
 	}
 	/**
 	 * Upload Resume should open

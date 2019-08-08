@@ -26,6 +26,7 @@ export class SearchProfileComponent implements OnInit {
 	// aboutMe: Observable<extModels.AboutMeExt>;
 	// responseObs: Observable<Response>;
 	public profile;
+	public profile_data;
 	public aboutShown: Boolean;
 	public seeFullDetails = false;
 	public aboutMeLength: number = 0;

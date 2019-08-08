@@ -137,12 +137,19 @@ export class AuthService {
 					}
 					break;
 				case 'recruiter':
-					if (user.status === userActive) {
+					/*if (user.status === userActive) {
 						this.router.navigate([this.redirectUrl || '/business/search']);
 					} else if (user.status === userPending) {
 						this.router.navigate(['user/signup/thank']);
 					} else {
 						this.router.navigate(['/user/login']);
+					}*/
+					if (user.status === userActive) {
+						this.router.navigate([this.redirectUrl || '/business/search']);
+					} else if (user.status === userPending) {
+						this.router.navigate([this.redirectUrl || '/business/search']);
+					} else {
+						this.router.navigate([this.redirectUrl || '/business/search']);
 					}
 					break;
 				case 'manager':

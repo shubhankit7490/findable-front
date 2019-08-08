@@ -84,6 +84,11 @@
                 <textarea class="form-control" id="message" name="message" formControlName="message" maxlength="150" placeholder=""></textarea>
                 <p class="error">{{ controls.messages.message }}</p>
             </div>
+             <div class="form-group">
+                <input type="checkbox" id="exclusive_contact" name="exclusive_contact" formControlName="exclusive_contact">
+                <label  for="exclusive_contact">Do you have an exclusive contract for the position you’re trying to fill?</label>
+                <p class="error">{{ controls.messages.exclusive_contact }}</p>
+            </div>
             <div class="form-group fnd-form-submit-container button-custom-done">
                 <button type="submit" class="btn btn-success">
                     Send
