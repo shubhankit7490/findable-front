@@ -16,6 +16,7 @@
 	*ngIf="purchaseVisible"
 	#purchaseApplicantBlock
 	[applicants]="applicantsToPurchase"
+	[selectedid]="selectedid"
 	(onPurchase)="onPurchase($event)"
 	(onCancel)="closePurchase($event)"
 ></app-purchase-applicant>
@@ -360,6 +361,12 @@
 		></app-array-selector>
 	</div>
 
+	<div class="sort-wrap col-md-2 top-select" *ngIf="selectedid=='uploaded candidates' && totaluploadedCandidate>0">
+		<select #selectBox [disabled]="disabled" class="array-selector form-control" (change)="onUploadedDateSelected($event)">
+	    <option  [selected]="selectedItem == 'undefined' || selectedItem === -1" [value]="null">Uploaded date</option>
+	    <option *ngFor="let item of uploadedCandidate; let i = index" value="{{ item.id || i }}">{{item.uploaded_date}} {{item.uploaded_user}}/{{item.total_user}}</option>
+	</select>
+	</div>
 	<span class="total" *ngIf="total">
 		Found {{ total }} candidates | Showing results {{ offset + 1 }}-{{ offset + currentResultsCount }}
 	</span>
@@ -385,6 +392,12 @@
 			[(selection)]="selectedApplicants"
 			[paginator]="!!results.hasOwnProperty('applicants') && !!results.applicants.length"
 			>
+			<p-column header="Market Place"  *ngIf="selectedid=='uploaded candidates'">
+				<template let-applicant="rowData" pTemplate="body">
+					<div style="width:13px;height:13px;background-color:#39FBD0;border: 1px solid black; " *ngIf="applicant.market_place==1"></div>
+					<div style="width:13px;height:13px;background-color:#fff;border: 1px solid black;" *ngIf="applicant.market_place==0"></div>
+				</template>
+			</p-column>
 			<p-column [style]="{'width': '25px'}" selectionMode="multiple"></p-column>
 			<p-column header="Account">
 				<template let-applicant="rowData" pTemplate="body">
@@ -416,11 +429,6 @@
 							<i class="glyphicon glyphicon-triangle-bottom"></i>
 						</div>
 					</div>
-				</template>
-			</p-column>
-			<p-column header="Market Place"  *ngIf="selectedid=='uploaded candidates'">
-				<template let-applicant="rowData" pTemplate="body">
-					{{ (applicant.market_place==1)?'Available':'Not Available'}}
 				</template>
 			</p-column>
 			<p-column field="jobtitle.name" header="Job Title">
@@ -539,11 +547,15 @@
 			<p-column [style]="{'width':'18px'}" header="Note">
 				<template let-applicant="rowData" pTemplate="body">
 					<div class="table-user-status">
-						<app-note #userNote (onBeforeOpen)="onNoteClick()" userId="{{ applicant.id }}"></app-note>
+						<app-note #userNote (onBeforeOpen)="onNoteClick()" userId="{{ applicant.id }}" role="{{role}}" selectedid="{{selectedid}}" creatorid="{{applicant.creator_id}}" login_user_id="{{authService.currentUser.user_id}}"></app-note>
 					</div>
 				</template>
 			</p-column>
-
+			<p-column header="Edit" [style]="{'width': '25px'}" *ngIf="selectedid=='uploaded candidates'">
+				<template let-applicant="rowData" pTemplate="body">
+					<span class="glyphicon glyphicon-edit" (click)="openprefrencesmodel(applicant.id)" style="padding: 40%;"></span>
+				</template>
+			</p-column>
 			<p-footerColumnGroup>
 				<p-row>
 					<p-column styleClass="footer-text-column" colspan="9">
@@ -578,3 +590,29 @@
 	</div>
 
 </div>
+<modal #preferencesModal
+	title="Status and Preferences"
+	cancelButtonLabel="cancel"
+	submitButtonLabel="submit"
+	modalClass="modal-lg modal-sm fnd-pref-modal modalCustomize"
+	[hideCloseButton]="false"
+	[closeOnEscape]="true"
+	[closeOnOutsideClick]="true"
+	(onOpen)="actionOnOpen()"
+	(onClose)="actionOnClose()"
+	(onSubmit)="actionOnSubmit()">
+
+	<modal-header></modal-header>
+
+	<modal-content>
+		<app-preferences-form
+			#preferencesModalForm
+			[(preferences)]="preferences$"
+			[user_id]="user_id"
+			(onSuccessfulUpdate)="closeStatusModal($event)"
+		></app-preferences-form>
+	</modal-content>
+
+	<modal-footer></modal-footer>
+
+</modal>

@@ -1,5 +1,6 @@
 <app-purchase-applicant *ngIf="purchaseVisible" #purchaseApplicantBlock 
     [applicants]="applicantsToPurchase"
+    selectedid='uploaded candidates'
     (onPurchase)="onPurchase($event)"
     (onCancel)="closePurchase()"
 ></app-purchase-applicant>

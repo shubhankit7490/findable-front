@@ -30,7 +30,7 @@ export class SignUpComponent implements OnInit {
 	private response: models.User;
 	public role: string;
 	private businessId: number;
-
+	public user_type=[{id:'manager',value:'Employer'},{id:'recruiter',value:'Recruiter'},{id:'applicant',value:'Job Seeker'}];
 	constructor(
 		public router: Router,
 		public dataService: DataService,
@@ -46,6 +46,7 @@ export class SignUpComponent implements OnInit {
 			email: '',
 			password: '',
 			global: '',
+			userType:'',
 			terms: false,
 		};
 
@@ -54,6 +55,7 @@ export class SignUpComponent implements OnInit {
 			firstname: ['', Validators.required],
 			lastname: ['', Validators.required],
 			password: ['', Validators.required],
+			userType: ['', Validators.required],
 			terms: [false, Validators.required],
 			invite: [''],
 			role: ['']
@@ -104,6 +106,7 @@ export class SignUpComponent implements OnInit {
 			lname: '',
 			email: '',
 			password: '',
+			userType:'',
 			global: ''
 		};
 
@@ -111,6 +114,7 @@ export class SignUpComponent implements OnInit {
 			this.formErrors['terms'] = true;
 			this.showLoader = false;
 		} else {
+			this.role=signUpForm.value.userType;
 			this.showLoader = true;
 			this.dataService.signup(signUpForm.value.firstname, signUpForm.value.lastname, signUpForm.value.email, signUpForm.value.password, this.role, this.inviteCode, this.businessId).subscribe(
 				response => {
@@ -213,6 +217,7 @@ interface FormErrors {
 	lname: string;
 	email: string;
 	password: string;
+	userType: string;
 	global: string;
 	terms?: boolean;
 }

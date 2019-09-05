@@ -101,3 +101,7 @@ p.errors {
     text-align: center;
     padding: 7px 0 0 0 !important;
 }
+.selctbox{
+    width: 100%;
+    color: #13345f;
+}

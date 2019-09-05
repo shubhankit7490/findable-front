@@ -72,7 +72,7 @@ export class UploadResume implements OnInit {
 								this.resume_status = 'Upload resume';
 							}, 7000);
 							// make sure page is refreshed with new data.
-							this.router.navigate(['/search']);
+							this.router.navigate(['/search'], { queryParams: {page: 'upload-resume',uploaded_id:response.uploaded_id}});
 							this.closeUploadResumeModal();
 						} else {
 							this.resume_status = 'Unsupported file!';

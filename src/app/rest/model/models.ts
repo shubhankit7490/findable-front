@@ -120,3 +120,4 @@ export * from './ValidationError';
 export * from './StripeOptionalParameters';
 export * from './QueryEvent';
 export * from './EmitItem';
+export * from './UploadCandidate';

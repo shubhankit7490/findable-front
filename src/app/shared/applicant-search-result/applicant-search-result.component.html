@@ -169,7 +169,7 @@
                                              <tr>
                                                 <td>Willing To Relocate? :</td>
                                                 <td>
-                                                {{((preferences$ | async)?.relocation=='1')?'Yes':'NO'}}</td>
+                                                {{((preferences$ | async)?.relocation=='1')?'Yes':((preferences$ | async)?.relocation==NULL)?'N/A':'No'}}</td>
                                             </tr>
                                              <tr>
                                                 <td>When are you available to start working? :</td>
@@ -178,7 +178,8 @@
                                             </tr>
                                              <tr>
                                                 <td>I am legally allowed to work in the US</td>
-                                                <td>{{((preferences$ | async)?.legal_usa=='1')?'Yes':'NO'}}</td>
+                                                <td>{{((preferences$ | async)?.legal_usa=='1')?'Yes':((preferences$ | async)?.legal_usa==NULL)?'N/A':'No'}}
+                                            </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -281,7 +282,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 educationbox" *ngIf="edu_data">
+                        <div class="col-md-6 educationbox">
                             <div class="sri-cont" *ngFor="let edu of educationClear; let myIndex = index">
                                <h3 class="section-heading-1">Education:{{(myIndex==0)?'Most Recent':myIndex}}</h3>
                                 <div class="stri-fieldbox">
@@ -332,6 +333,12 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                </div>
+                            </div>
+                            <div class="sri-cont" *ngIf="text!=''">
+                               <h3 class="section-heading-1">Notes</h3>
+                                <div class="dield-value" style="color: #000;">
+                                    {{text}}
                                 </div>
                             </div>
                         </div>

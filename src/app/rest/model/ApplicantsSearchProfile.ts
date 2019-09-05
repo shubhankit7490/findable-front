@@ -77,4 +77,6 @@ export interface ApplicantsSearchProfile {
 
     account_id?: number;
 
+    uploaded_date?: number;
+
 }

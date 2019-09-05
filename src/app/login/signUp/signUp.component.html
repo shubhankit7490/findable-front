@@ -11,7 +11,7 @@
                             formControlName="firstname"
                             autocomplete="smartystreets"
                             placeholder="First Name"
-                            class="form-control"
+                            class="form-control signupform"
                             autocomplete="off"
                             maxlength="150"
                             id="firstname"
@@ -30,7 +30,7 @@
                             autocomplete="smartystreets"
                             formControlName="lastname"
                             placeholder="Last Name"
-                            class="form-control"
+                            class="form-control signupform"
                             autocomplete="off" 
                             maxlength="150"
                             id="lastname"
@@ -53,7 +53,7 @@
                             (input)="shouldDisplayRequired(['email']); shouldDisplayEmailValidation(['email'],'invalidEmail')"
                             autocomplete="smartystreets"
                             formControlName="email"
-                            class="form-control"
+                            class="form-control signupform"
                             placeholder="Email"
                             autocomplete="off"
                             maxlength="255"
@@ -75,7 +75,7 @@
                             autocomplete="smartystreets"
                             formControlName="password"
                             placeholder="Password"
-                            class="form-control"
+                            class="form-control signupform"
                             autocomplete="off"
                             type="password"
                             maxlength="60"
@@ -86,6 +86,26 @@
                             <i class="glyphicon glyphicon-remove border-radius"></i>
                             {{formErrors.password}}
                         </span>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <div class="col-xs-12 form-pad">
+                        <label class="sr-only" for="userType">User Type</label>
+                        <select 
+                            (input)="shouldDisplayRequired(['userType'])"
+                            autocomplete="smartystreets"
+                            formControlName="userType"
+                            class="form-control signupform"
+                            id="userType"
+                            >
+                        <option value=''>User type</option>
+                         <option *ngFor="let obj of user_type" value="{{obj.id}}">{{obj.value}}</option>
+                        </select>
+                        <!-- <span *ngIf="shouldDisplayRequired(['password'])" class="error"><i class="glyphicon glyphicon-remove border-radius"></i>Password is required</span> -->
+<!--                         <span *ngIf="formErrors.userType" class="error">
+                            <i class="glyphicon glyphicon-remove border-radius"></i>
+                            {{formErrors.userType}}
+                        </span> -->
                     </div>
                 </div>
                 <p *ngIf="formErrors.global" class="global-error">{{ formErrors.global }}</p>

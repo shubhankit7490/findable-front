@@ -313,7 +313,36 @@ export class DictionaryApi {
 
     return this.http.request(path, requestOptions).map(this.handleResponse);
   }
+   /**
+   * Get a user  uploaded candidate
+   *
+   */
+  public dictionaryUploadedCandidateGet(
+    extraHttpRequestParams?: any
+  ): Observable<models.UploadCandidate[]> {
+    const path = this.basePath + `/users/uploaded_candidate`;
 
+    let queryParameters = new URLSearchParams();
+    let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+
+    // authentication (X-API-KEY) required
+    if (this.configuration.apiKey) {
+      headers.set("X-API-KEY", this.configuration.apiKey);
+    }
+
+    let requestOptions: RequestOptionsArgs = new RequestOptions({
+      method: RequestMethod.Get,
+      headers: headers,
+      search: queryParameters
+    });
+
+    // https://github.com/swagger-api/swagger-codegen/issues/4037
+    if (extraHttpRequestParams) {
+      requestOptions = this.extendObj(requestOptions, extraHttpRequestParams);
+    }
+
+    return this.http.request(path, requestOptions).map(this.handleResponse);
+  }
   /**
    * Get a dictionary of the enums in the platform
    *

@@ -75,7 +75,7 @@
         <!-- Company Name -->
         <div class="row">
           <div class="form-group col-md-6">
-            <label class="fnd-req"></label>
+           <!--  <label class="fnd-req"></label> -->
             <input
               id="name"
               type="text"
@@ -92,7 +92,7 @@
         <!-- COMPANY SIZE -->
         <div class="row">
           <div class="form-group col-md-6">
-            <label class="fnd-req"></label>
+            <!-- <label class="fnd-req"></label> -->
             <select id="companySize" class="form-control" formControlName="size"
               (change)='setState("size", $event)'>
               <option class="company-size-disabled-option" disabled [selected]="!companySetupForm.value.size">Company Size</option>
@@ -107,7 +107,7 @@
         <!-- INDUSTRY -->
         <div class="row">
           <div class="form-group col-md-6">
-            <label class="fnd-req"></label>
+            <!-- <label class="fnd-req"></label> -->
             <p-autoComplete
               #industrySelector
               (completeMethod)='searchIndustry($event)'
@@ -132,7 +132,7 @@
         <!-- ADDRESS 1 -->
         <div class="row" *ngIf="mode==='create'">
           <div class="form-group col-md-6">
-            <label class="fnd-req"></label>
+            <!-- <label class="fnd-req"></label> -->
             <input
               type="text"
               maxlength="16"
@@ -179,7 +179,7 @@
         <!-- ZIP CODE -->
         <div class="row" *ngIf="mode==='create'">
           <div class="form-group col-md-6">
-            <label class="fnd-req"></label>
+           <!--  <label class="fnd-req"></label> -->
             <input
               type="tel"
               maxlength="16"
@@ -195,7 +195,7 @@
         <!-- WEBSITE ADDRESS -->
         <div class="row">
           <div class="form-group col-md-6">
-            <label class="fnd-req"></label>
+            <!-- <label class="fnd-req"></label> -->
             <input
               type="text"
               maxlength="150"
@@ -203,6 +203,7 @@
               (blur)="setState('web_address', $event)"
               (keyup)="checkSiteText($event)"
               formControlName="web_address"
+              placeholder="Web Address"
               class="form-control">
             <p class="error">{{ controls.messages.web_address }}</p>
           </div>

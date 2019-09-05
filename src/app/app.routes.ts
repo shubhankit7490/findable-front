@@ -65,6 +65,10 @@ export const appRoutes: Routes = [
 		component: SignupLayoutComponent
 	},
 	{
+		path: 'signup',
+		component: SignupLayoutComponent
+	},
+	{
 		path: 'verify',
 		component: SignupLayoutComponent
 	},

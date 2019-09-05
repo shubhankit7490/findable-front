@@ -28,6 +28,7 @@ export class ApplicantSearchResultComponent implements OnInit {
 	public prefrences:boolean=false;
 	public jobs:boolean=false;
 	public edu_data:boolean=false;
+	public text:string='';
 	rowSections = 1;
 
 	public reportOpened = false;
@@ -74,6 +75,7 @@ export class ApplicantSearchResultComponent implements OnInit {
 		this.getPreferences();
 		this.getRecentJob();
 		this.loadEducation();
+		this.getUserNote();
 		this.messageService.getMessage().subscribe(
 			response => {
 				if (response.name === 'RELOAD_PROFILE' && response.data == this.userId) {
@@ -145,7 +147,19 @@ export class ApplicantSearchResultComponent implements OnInit {
 			}
 		);
 	}
-
+	private getUserNote(): void {
+		this.dataService.user_note_get(this.userId).subscribe(
+			(response:any) => {
+				this.text = decodeURIComponent(response.note);
+				if((this.text.length == 1 && (/\s/).test(this.text)) || this.text == 'undefined') {
+					this.text = '';
+				}
+			},
+			error => {
+				GrowlService.message('An error occured, please try again', 'error');
+			}
+		);
+	}
 	checkLoadingStatus() {
 		this.loadedRowSections++;
 
@@ -155,9 +169,9 @@ export class ApplicantSearchResultComponent implements OnInit {
 			this.rowLoading = true;
 		}*/
 	}
+
 	setProfileValue(res){
 		this.profiledetaile=res;
-		console.log(this.profiledetaile);
 		this.showprofile=true;
 		this.rowLoading = false;
 	}
@@ -172,7 +186,6 @@ export class ApplicantSearchResultComponent implements OnInit {
 	 * @param {number} id User id
 	 */
 	getProfileData(id) {
-		console.log('@applicant-search-result > getProfileData');
 		return this.dataService.profile_get(id);
 	}
 
@@ -230,7 +243,6 @@ export class ApplicantSearchResultComponent implements OnInit {
 		window['redirect'](url, n);
 	}
 	getPreferences() {
-		console.log('df');
 		this.preferences$ = this.dataService.preferences_get(this.userId);
 		this.prefrences=true;
 	}
@@ -246,7 +258,6 @@ export class ApplicantSearchResultComponent implements OnInit {
 		);
 	}
 	  loadEducation() {
-	  	console.log('dfg');
        this.education = this.dataService.education_get(this.userId);
         this.education.subscribe(response => {
         this.educationClear = response;

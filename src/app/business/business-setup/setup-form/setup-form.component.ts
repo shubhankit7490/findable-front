@@ -158,14 +158,18 @@ export class BusinessSetupFormComponent implements OnInit {
       lastname:      [ '', Validators.required ],
       phone:         [ '', Validators.required ],
       email:         [ '', [ Validators.required, Validators.pattern('.+\@.+\.+[a-zA-Z0-9]') ] ],
-      name:          [ '', Validators.required ],
-      size:          [ '', Validators.required ],
+     /* name:          [ '', Validators.required ],
+      size:          [ '', Validators.required ],*/
+       name:          [ ''],
+      size:          [ ''],
       industry:      [ '' ],
       address_line1: [ '' ],
       address_line2: [ '' ],
       location:      [ '', Validators.required ],
+      /*location:      [ ''],*/
       address_zip:   [ '' ],
-      web_address:   [ 'https://', [ Validators.required, CustomValidators.url ] ],
+     /* web_address:   [ 'https://', [ Validators.required, CustomValidators.url ] ],*/
+     web_address:   [ ''],
       logo:          [ null ],
     });
   }
@@ -192,8 +196,9 @@ export class BusinessSetupFormComponent implements OnInit {
    */
   private loadGmaps(): void {
 		setTimeout(() => {
-			this.autocomplete = new google.maps.places.Autocomplete((document.getElementById('city')), { types: ['(cities)'] });
-			google.maps.event.addDomListener(document.getElementById('city'), 'keydown', function(event) {
+			/*this.autocomplete = new google.maps.places.Autocomplete((document.getElementById('city')), { types: ['(cities)'] });*/
+			this.autocomplete = new google.maps.places.Autocomplete((document.getElementById('city')));
+      google.maps.event.addDomListener(document.getElementById('city'), 'keydown', function(event) {
 				if (event.keyCode === 13) {
           // prevent enter and return keys
 					event.preventDefault();
@@ -250,6 +255,9 @@ export class BusinessSetupFormComponent implements OnInit {
 					}
 					break;
 				case 'administrative_area_level_1':
+          if (this.location.city_name === null) {
+            this.location.city_name = place.address_components[i]['long_name'];
+          }
           this.location.state_name = place.address_components[i]['long_name'];
 					this.location.state_short_name = place.address_components[i]['short_name'];
 					break;

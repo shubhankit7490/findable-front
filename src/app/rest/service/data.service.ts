@@ -169,13 +169,13 @@ export class DataService {
 		return this.authApi.usersUserIdNotesGet(userId).share();
 	}
 
-	public user_note_put(userId: number, note: string): Observable<Response> {
+	public user_note_put(userId: number, note: string,type:string): Observable<Response> {
 		let config = new Configuration();
 		config.apiKey = this.apiKey;
 		if (!this.authApi) {
 			this.authApi = new DefaultApi(this.http, null, config);
 		}
-		return this.authApi.usersUserIdNotesPut(userId, note);
+		return this.authApi.usersUserIdNotesPut(userId, note,type);
 	}
 
 	user_saved_searches_get(userId: number) {
@@ -845,7 +845,15 @@ export class DataService {
 		let dictionary$ = this.dictionaryApi.dictionaryEducationLevelsGet();
 		return dictionary$;
 	}
-
+	public dictionary_uploaded_candidate(): Observable<models.UploadCandidate[]> {
+		let config = new Configuration();
+		config.apiKey = this.apiKey;
+		if (!this.dictionaryApi) {
+			this.dictionaryApi = new DictionaryApi(this.http, null, config);
+		}
+		let dictionary$ = this.dictionaryApi.dictionaryUploadedCandidateGet();
+		return dictionary$;
+	}
 	public search_applicants_post(offset: number, orderby?: string, order?: string, search?: models.ApplicantsSearchProfile | models.ApplicantsSearchProfileParsed): Observable<models.ApplicantsSearchResultProfiles> {
 		let config = new Configuration();
 		config.apiKey = this.apiKey;

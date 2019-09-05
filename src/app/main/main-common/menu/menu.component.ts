@@ -89,7 +89,7 @@ export class MenuComponent implements OnInit {
 			},
 			{
 				text: 'Component',
-				iscomponent:false,
+				iscomponent:true,
 			},
 		],
 	};

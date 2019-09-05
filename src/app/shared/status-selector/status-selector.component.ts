@@ -13,9 +13,9 @@ import { ArraySelectorComponent } from '../array-selector/array-selector.compone
 })
 export class StatusSelectorComponent implements OnInit {
 
-    itemsArray = ['short', 'interviewing', 'initial', 'hired', 'irrelevant'];
+    itemsArray = ['short', 'interviewing', 'initial', 'hired', 'irrelevant','rejected-expensive','rejected-experience'];
 
-    itemsLabels = ['Short Listed', 'Interviewing', 'Initial Contact', 'Hire', 'Irrelevant'];
+    itemsLabels = ['Short Listed', 'Interviewing', 'Initial Contact', 'Hire', 'Irrelevant','Rejected – Too expensive','Rejected – Not enough experience'];
 
     @Input() userId;
 

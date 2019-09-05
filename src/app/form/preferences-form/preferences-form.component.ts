@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, ViewChild, EventEmitter, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild, EventEmitter, ElementRef,OnChanges,SimpleChanges } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -30,13 +30,14 @@ declare let moment: any;
 	templateUrl: './preferences-form.component.html',
 	styleUrls: ['./preferences-form.component.css']
 })
-export class PreferencesFormComponent implements OnInit {
+export class PreferencesFormComponent implements OnInit,OnChanges{
 	@Input() preferences: Observable<extModels.UserPreferencesExt>;
+	@Input() user_id:number=0;
 	@ViewChild('locationOfInteresetComponent') locationOfInteresetComponent: LocationsFormComponent;
 	@ViewChild('fld_pref_start_time_date_picker') datePickerContainer: ElementRef;
 	@Output() onSuccessfulUpdate = new EventEmitter<boolean>();
 	public from: string;
-	public isSubmitting: boolean = false;
+	public isSubmitting: Boolean = false;
 	public preferencesModel: extModels.UserPreferencesExt = {
 		available: '',
 		desired_salary_period_readable: '',
@@ -93,6 +94,7 @@ export class PreferencesFormComponent implements OnInit {
 	};
 	public mask: Array<string | RegExp>;
 	private opened = false;
+	private user_form_id:number=0;
 	public formErrors: FormErrors = {
 		employment_status: '',
 		current_status: '',
@@ -140,7 +142,52 @@ export class PreferencesFormComponent implements OnInit {
 
 		this.mask = numberMask;
 	}
+	ngOnChanges(changes: SimpleChanges){
+			this.preferences.subscribe((response: extModels.UserPreferencesExt) => {
+			this.preferencesModel = response;
+			response.desired_salary_period = (response.desired_salary_period==null)? 'Y' :response.desired_salary_period;
+			const {
+				start_time: startTime,
+				employment_status,
+				current_status,
+				employment_type,
+				desired_salary: expectedSalary,
+				desired_salary_period,
+				benefits,
+				locations,
+				relocation: relocate,
+				only_current_location,
+				available_from,
+				legal_usa,
+			} = response;
 
+			this.from = (startTime)
+				? moment(startTime).format('YYYY-MM-DD hh:mm:ss')
+				: moment().set('month', 0).format('YYYY-MM-DD hh:mm:ss');
+
+			let start_time = moment(startTime).format('MM/YYYY');
+
+			let desired_salary = (expectedSalary !== null) ? expectedSalary : '';
+			let relocation = +relocate ? '1' : '0';
+			this.form.patchValue({
+				employment_status,
+				current_status,
+				employment_type,
+				desired_salary,
+				desired_salary_period,
+				benefits,
+				locations,
+				relocation,
+				available_from,
+				start_time,
+				legal_usa,
+			});
+			
+		});
+
+		this.observeForm();
+		this.user_form_id=this.user_id;
+	}
 	ngOnInit() {
 		this.preferences.subscribe((response: extModels.UserPreferencesExt) => {
 			this.preferencesModel = response;
@@ -187,6 +234,7 @@ export class PreferencesFormComponent implements OnInit {
 		});
 
 		this.observeForm();
+		this.user_form_id=this.authService.getUserId();
 	}
 
 	public onSubmit(event: Event) {
@@ -218,7 +266,7 @@ export class PreferencesFormComponent implements OnInit {
 		}
 
 		this.response$ = this.dataService.preferences_put(
-			this.authService.getUserId(),
+			this.user_form_id,
 			this.preferencesModel
 		);
 		this.response$.subscribe(
@@ -259,7 +307,7 @@ export class PreferencesFormComponent implements OnInit {
 					action: 'UPDATE_SALARY'
 				});
 				this.response = response;
-				this.analyticsService.emitEvent('Status And Preferences', 'Update', 'Desktop', this.authService.currentUser.user_id);
+				this.analyticsService.emitEvent('Status And Preferences', 'Update', 'Desktop',this.user_form_id);
 				this.onSuccessfulUpdate.emit(true);
 				if (desiredSalary !== null) {
 					this.preferencesModel.desired_salary = desiredSalary.replace(' ', '').replace('$', '').replace(/,/g, '');

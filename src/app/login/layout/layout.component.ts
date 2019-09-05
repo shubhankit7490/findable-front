@@ -52,6 +52,10 @@ export class SignupLayoutComponent implements OnInit {
 			this.description = 'Sign up with your email and password:';
 			this.userType = 'recruiter';
 		}
+		if (url.indexOf('/signup') >= 0) {
+			this.title = 'Sign Up';
+			this.description = 'Sign up with your email and password:';
+		}
 		if (url.indexOf('/user/signup/thank') >= 0) {
 			this.title = 'Thank you for creating account';
 			this.description = 'An email was sent to you with a link. <br>Please click on the link to start contacting applicants<br>';

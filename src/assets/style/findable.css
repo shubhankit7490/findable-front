@@ -103,8 +103,13 @@ form input[type="text"].form-control,
 form input[type="email"].form-control,
 form input[type="password"].form-control,
 form input[type="number"].form-control,
-form input[type="tel"].form-control {
+form input[type="tel"].form-control,
+form input[type="select"].form-control {
     height: 52px;
+}
+
+.signupform{
+    height: 40px!important;
 }
 
 form button[type="submit"].fnd-btn-primary, form button.fnd-btn-primary, form input[type="submit"].fnd-btn-primary {
@@ -285,6 +290,26 @@ label {
 }
 
 span.cr { background: #13345f; }
+
+.modalCustomize span.cr { background: transparent!important;     border: 2px solid #566982;
+    background-color: white;}
+
+.modalCustomize .btn-success{
+    background-color: #39FBCF;
+    background-image: none;
+    color: #002351;
+    text-shadow: none;
+    height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-weight: bold;
+}
+
+.modalCustomize .modal-footer{display: none}
+.fnd-form-submit-container{    position: absolute;
+    bottom: -48px;
+    right: 0;}
+
 
 
 /* Checkbox and Radio - Fancy style */
@@ -640,7 +665,7 @@ img#business-image {
 }
 
 signup-layout .form-group {
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 }
 
 block-companies-form .form-group, faq-form .form-group {

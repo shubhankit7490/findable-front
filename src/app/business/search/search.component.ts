@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewChildren, QueryList,AfterViewInit,ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild,Output, ViewChildren, QueryList,AfterViewInit,ElementRef,EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subscription, Observable } from 'rxjs';
@@ -6,7 +6,7 @@ import { DataTable } from 'interjet-primeng/components/datatable/datatable';
 
 // models
 import * as models from '../../rest/model/models';
-
+import { Modal } from 'ngx-modal';
 // Services
 import { DataService } from '../../rest/service/data.service';
 import { AuthService } from '../../rest/service/auth.service';
@@ -15,12 +15,14 @@ import { MessageService } from '../../services/message.service';
 import { AnalyticsService } from '../../services/analytics.service';
 import { ChartDataService } from '../../services/chart-data.service';
 
+import { UserPreferencesExt } from '../../rest/service/extended-models/UserPreferencesExt';
 // components
 import { OnPurchaseData, PurchaseApplicantComponent } from '../../shared/purchase-applicant/purchase-applicant.component';
 import { EmitArraySelector, ArraySelectorComponent } from '../../shared/array-selector/array-selector.component';
 import { RatingSliderComponent, RatedItem } from '../../shared/rating-slider/rating-slider.component';
 import { NoteComponent } from '../../shared/note/note.component';
-
+import { PreferencesFormComponent } from '../../form/preferences-form/preferences-form.component';
+import { TourService } from '../../services/tour.service';
 @Component({
 	selector: 'app-search',
 	templateUrl: './search.component.html',
@@ -35,11 +37,18 @@ export class SearchComponent implements OnInit,AfterViewInit {
 	@ViewChild('skillsComponent') skillsComponent;
 	@ViewChild('educationLevelComponent') educationLevelComponent;
 	@ViewChild('lastUpdatedComponent') lastUpdatedComponent;
+	@ViewChild('preferencesModal') preferencesModal: Modal;
+	@ViewChild('preferencesModalForm') preferencesModalForm: PreferencesFormComponent;
 	@ViewChildren(NoteComponent) noteComponents: QueryList<NoteComponent>
+	@Output() onLoaded = new EventEmitter<any>();
+	
+	public preferences$: Observable<UserPreferencesExt>;
+	private preferencesClear: UserPreferencesExt;
 	public enums: models.Enums;
 	public selectedApplicants = [];
 	public results: models.ApplicantsSearchResultProfiles = {};
 	public total: number;
+	public user_id: number;
 	public currentResultsCount = 0;
 	public firstVisit = false;
 	public selectedid='all';
@@ -64,7 +73,8 @@ export class SearchComponent implements OnInit,AfterViewInit {
 	// Education
 	public selectedEducationLevel: models.DictionaryItem[] = [];
 	public educationLevels: models.DictionaryItem[] = [];
-	
+	public uploadedCandidate: models.UploadCandidate[] = [];
+	public totaluploadedCandidate=0;
 	// Skills
 	@ViewChild('skillSlider') skillSlider: RatingSliderComponent;
 	public selectedSkills: models.TechSkill[] = [];
@@ -105,7 +115,9 @@ export class SearchComponent implements OnInit,AfterViewInit {
 		{ id: 'short', name: 'Short listed' },
 		{ id: 'hired', name: 'Hired' },
 		{ id: 'interviewing', name: 'Interviewing' },
-		{ id: 'irrelevant', name: 'Irrelevant' }
+		{ id: 'irrelevant', name: 'Irrelevant' },
+		{ id: 'rejected-expensive', name: 'Rejected – Too expensive' },
+		{ id: 'rejected-experience', name: 'Rejected – Not enough experience' }
 	]
 
 	// orderTypes = [
@@ -114,11 +126,13 @@ export class SearchComponent implements OnInit,AfterViewInit {
 	// ]
 
 	public actions = [
-		{ id: 'fulldetails', name: 'Cantact Applicant' },
+		{ id: 'fulldetails', name: 'Contact Recruiter' },
 		{ id: 'open', name: 'Open / Close selected' }
 	];
 
 	public actions_uploded_candidate = [
+		{ id: 'fulldetails', name: 'Contact Applicant' },
+		{ id: 'open', name: 'Open / Close selected' },
 		{ id: 'addtomarket', name: 'Add to market' },
 		{ id: 'removefrommarket', name: 'Remove from market'},
 		{ id: 'deleteandremove', name: 'Delete & Remove'}
@@ -164,6 +178,7 @@ export class SearchComponent implements OnInit,AfterViewInit {
 		legal_usa: null,
 		updated: null,
 		status: null,
+		uploaded_date: null,
 		account_id: null,
 	}
 
@@ -202,7 +217,8 @@ export class SearchComponent implements OnInit,AfterViewInit {
 		private analyticsService: AnalyticsService,
 		private activatedRoute: ActivatedRoute,
 		private router: Router,
-		private elementRef: ElementRef
+		private elementRef: ElementRef,
+		public tourService: TourService,
 	) {
 		this.role = this.authService.currentUser.role;
 	}
@@ -211,13 +227,22 @@ export class SearchComponent implements OnInit,AfterViewInit {
 
 		this.getEnums();
 		this.getEducationLevels();
-		
+		this.getUploadDetail();
+		this.getPreferences();
 		this.activatedRoute.queryParams.subscribe(params => {
 			if (params['first']) {
 				this.firstVisit = true;
 			}
+			if(params['page']=='upload-resume'){
+					this.searchModel['status']='uploaded candidates';
+			}
+			if(params['uploaded_id']!='' && params['uploaded_id']!='undefined'){
+					this.searchModel.uploaded_date =params['uploaded_id'];
+			}
 			if (params['token']) {
-				this.getSearchModelByToken(params['token']);
+
+					this.getSearchModelByToken(params['token']);
+				
 			} else {
 				/**
 				 * When navigating to Account Settings and returning, the route will not have a token
@@ -239,7 +264,22 @@ export class SearchComponent implements OnInit,AfterViewInit {
 
 		this.analyticsService.emitPageview('Search');
 	}
+	getPreferences() {
+		this.preferences$ = this.dataService.preferences_get(261);
 
+		this.preferences$.subscribe(
+			(response: UserPreferencesExt) => {
+				this.preferencesClear = response;
+				// Update the tourService
+				/*this.tourService.collect('status', response.employment_status === null);
+				this.tourService.collect('status_edit', response.employment_status === null);
+				this.onLoaded.emit(true);*/
+			},
+			error => {
+				/*this.onLoaded.emit(false);*/
+			}
+		);
+	}
 	public handleResetButton() {
 		this.resetingSearch = true;
 
@@ -329,7 +369,7 @@ export class SearchComponent implements OnInit,AfterViewInit {
 				this.performSearch();
 			},
 			error => {
-				console.log('@search > getSearchModelByToken [ERROR]:', error);
+				//console.log('@search > getSearchModelByToken [ERROR]:', error);
 				GrowlService.message(JSON.parse(error._body).message, 'error');
 			}
 		);
@@ -730,6 +770,8 @@ export class SearchComponent implements OnInit,AfterViewInit {
 			case 'hired':
 			case 'interviewing':
 			case 'my candidates':
+			case 'rejected-expensive':
+			case 'rejected-experience':
 			case 'uploaded candidates':
 			case 'irrelevant':
 				this.searchModel['status'] = typeObject.item.id;
@@ -742,6 +784,11 @@ export class SearchComponent implements OnInit,AfterViewInit {
 		}
 	}
 
+	public onUploadedDateSelected(event) {
+		//console.log(event.target.value);
+		this.searchModel.uploaded_date = (event.target.value === 'null') ? null : event.target.value;
+		this.performSearch();
+	}
 	public onSortTypeSelected(type: string) {
 		this.order = 'asc';
 		this.orderby = type;
@@ -897,16 +944,20 @@ export class SearchComponent implements OnInit,AfterViewInit {
 	 * Event to be fired on table row click
 	 */
 	public onRowClick(event) {
+		if((event.originalEvent.target).className!='glyphicon glyphicon-edit'){
 		this.analyticsService.emitEvent('Search', 'Open', 'Desktop', this.authService.currentUser.user_id);
 		this.toggleCurrentRow(event);
+				}
 	}
 
 	private toggleCurrentRow(event) {
 		let row_id = Number(event.data.id);
+		
 		this.table.toggleRow(event.data, event.originalEvent);
 
+
 		setTimeout(() => {
-			this.table.selection = this.table.expandedRows;
+			//this.table.selection = this.table.expandedRows;
 		}, 0);
 	}
 
@@ -938,7 +989,19 @@ export class SearchComponent implements OnInit,AfterViewInit {
 				this.educationLevels = response;
 			},
 			error => {
-				console.log('@search > getEducationLevel [ERROR]:', error);
+				//console.log('@search > getEducationLevel [ERROR]:', error);
+			}
+		)
+	}
+
+	private getUploadDetail() {
+		this.dataService.dictionary_uploaded_candidate().subscribe(
+			(response: models.UploadCandidate[]) => {
+				this.uploadedCandidate = response;
+				this.totaluploadedCandidate=this.uploadedCandidate.length;
+			},
+			error => {
+				//console.log('@search > getEducationLevel [ERROR]:', error);
 			}
 		)
 	}
@@ -1219,4 +1282,44 @@ export class SearchComponent implements OnInit,AfterViewInit {
         window['functionFromExternalScript'](params);
       }
     }
+    actionOnOpen() {
+		this.analyticsService.emitEvent('Status And Preferences', 'Open', 'Desktop', this.authService.currentUser.user_id);
+
+		let domLooker = setInterval(() => {
+			if (!!document.getElementById('city')) {
+				this.preferencesModalForm.locationOfInteresetComponent.loadGmaps();
+				clearInterval(domLooker);
+			}
+		}, 50);
+	}
+	actionOnClose() {
+		this.analyticsService.emitEvent('Status And Preferences', 'Close', 'Desktop', this.authService.currentUser.user_id);
+
+		/*if (!this.preferencesClear.employment_status) {
+			this.tourService.sleep();
+		}*/
+	}
+	actionOnSubmit() {
+	}
+	closeStatusModal(e) {
+		this.preferencesModal.close();
+		this.performSearch(true);
+	}
+	openprefrencesmodel(userid){
+		this.user_id=userid;
+		this.preferences$ = this.dataService.preferences_get(userid);
+		this.preferences$.subscribe(
+			(response: UserPreferencesExt) => {
+				this.preferencesClear = response;
+				// Update the tourService
+				this.tourService.collect('status', response.employment_status === null);
+				this.tourService.collect('status_edit', response.employment_status === null);
+				this.onLoaded.emit(true);
+				this.preferencesModal.open();
+			},
+			error => {
+				this.onLoaded.emit(false);
+			}
+		);
+	}
 }

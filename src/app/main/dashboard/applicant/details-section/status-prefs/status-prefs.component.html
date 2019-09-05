@@ -48,6 +48,7 @@
 		<app-preferences-form
 			#preferencesModalForm
 			[(preferences)]="preferences$"
+			[user_id]="authService.currentUser.user_id"
 			(onSuccessfulUpdate)="closeStatusModal($event)"
 		></app-preferences-form>
 	</modal-content>

@@ -23,6 +23,8 @@ export class PurchaseApplicantComponent implements OnInit {
 
 	@Input() applicantCost: number = 1;
 
+	@Input() selectedid;
+
 	@Output() onPurchase = new EventEmitter<OnPurchaseData>();
 
 	@Output() onCancel = new EventEmitter<any>();
@@ -34,7 +36,7 @@ export class PurchaseApplicantComponent implements OnInit {
 	private requesting: boolean;
 
 	public submitting: boolean;
-
+	public model_heading:string = 'Contact Recuirter';
 	public subscription: any = null;
 	public fullname: string = '';
 	public businessName: string = '';
@@ -80,6 +82,9 @@ export class PurchaseApplicantComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		if(this.selectedid=='uploaded candidates'){
+			this.model_heading='Contact Applicant'
+		}
 		this.submitting = true;
 		this.getBusinessBalance();
 		this.getUserSubscription();

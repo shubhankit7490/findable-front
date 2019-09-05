@@ -1373,6 +1373,7 @@ export class DefaultApi {
   public usersUserIdNotesPut(
     userId: number,
     note?: string,
+    type?: string,
     extraHttpRequestParams?: any
   ): Observable<Response> {
     const path = this.basePath + `/users/${userId}/notes`;
@@ -1397,6 +1398,9 @@ export class DefaultApi {
 
     if (note !== undefined) {
       formParams.set("note", <any>note);
+    }
+    if (type !== undefined) {
+      formParams.set("type", <any>type);
     }
 
     let requestOptions: RequestOptionsArgs = new RequestOptions({
