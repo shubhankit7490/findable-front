@@ -40,6 +40,7 @@ export class SearchComponent implements OnInit,AfterViewInit {
 	@ViewChild('preferencesModal') preferencesModal: Modal;
 	@ViewChild('preferencesModalForm') preferencesModalForm: PreferencesFormComponent;
 	@ViewChildren(NoteComponent) noteComponents: QueryList<NoteComponent>
+	@ViewChildren(PreferencesFormComponent) preferencesFormComponent: QueryList<PreferencesFormComponent>
 	@Output() onLoaded = new EventEmitter<any>();
 	
 	public preferences$: Observable<UserPreferencesExt>;
@@ -69,7 +70,7 @@ export class SearchComponent implements OnInit,AfterViewInit {
 	
 	public minYears = 0;
 	public maxYears = 30;
-	
+	public prefrence=null;
 	// Education
 	public selectedEducationLevel: models.DictionaryItem[] = [];
 	public educationLevels: models.DictionaryItem[] = [];
@@ -108,8 +109,6 @@ export class SearchComponent implements OnInit,AfterViewInit {
 	]
 
 	public candidateTypes = [
-		{ id: 'all', name: 'All Candidates' },
-		{ id: 'uploaded candidates', name: 'My Candidates' },
 		/*{ id: 'uploaded candidates', name: 'Uploaded Candidates' },*/
 		{ id: 'initial', name: 'Initial contact' },
 		{ id: 'short', name: 'Short listed' },
@@ -119,7 +118,10 @@ export class SearchComponent implements OnInit,AfterViewInit {
 		{ id: 'rejected-expensive', name: 'Rejected – Too expensive' },
 		{ id: 'rejected-experience', name: 'Rejected – Not enough experience' }
 	]
-
+	public candidateTypes_my = [
+		{ id: 'all', name: 'All Candidates' },
+		{ id: 'uploaded candidates', name: 'My Candidates' },
+	]
 	// orderTypes = [
 	// 	{id: 'asc', name: 'Ascending'},
 	// 	{id: 'desc', name: 'Descending'}
@@ -179,6 +181,7 @@ export class SearchComponent implements OnInit,AfterViewInit {
 		updated: null,
 		status: null,
 		uploaded_date: null,
+		user_type: null,
 		account_id: null,
 	}
 
@@ -234,13 +237,15 @@ export class SearchComponent implements OnInit,AfterViewInit {
 				this.firstVisit = true;
 			}
 			if(params['page']=='upload-resume'){
-					this.searchModel['status']='uploaded candidates';
+					this.searchModel.user_type='uploaded candidates';
 			}
-			if(params['uploaded_id']!='' && params['uploaded_id']!='undefined'){
+			if(params['uploaded_id']!='' && params['uploaded_id']!=undefined){
 					this.searchModel.uploaded_date =params['uploaded_id'];
 			}
+			if(params['code']!='' && params['code']!=undefined){
+					this.setauthtoken(params['code'],params['scope']);
+			}
 			if (params['token']) {
-
 					this.getSearchModelByToken(params['token']);
 				
 			} else {
@@ -263,6 +268,21 @@ export class SearchComponent implements OnInit,AfterViewInit {
 		);
 
 		this.analyticsService.emitPageview('Search');
+	}
+	setauthtoken(token,scope){
+		this.dataService.set_auth_token(token,scope).subscribe(
+			(res:any) => {
+				if(res.status==1){
+					GrowlService.message(res.message, 'success');
+				}else if(res.status==0){
+					GrowlService.message(res.message, 'error');
+				}
+				
+			},
+			error => {
+				GrowlService.message(JSON.parse(error._body).message, 'error');
+			}
+		)
 	}
 	getPreferences() {
 		this.preferences$ = this.dataService.preferences_get(261);
@@ -759,7 +779,7 @@ export class SearchComponent implements OnInit,AfterViewInit {
 	}
 
 	public onCandidateTypeSelected(typeObject: EmitArraySelector) {
-		this.selectedid=typeObject.item.id;
+
 		switch (typeObject.item.id) {
 			case 'all':
 				this.router.navigate(['/'], { skipLocationChange: true })
@@ -787,6 +807,12 @@ export class SearchComponent implements OnInit,AfterViewInit {
 	public onUploadedDateSelected(event) {
 		//console.log(event.target.value);
 		this.searchModel.uploaded_date = (event.target.value === 'null') ? null : event.target.value;
+		this.performSearch();
+	}
+	public onUploadedusertypeSelected(typeObject: EmitArraySelector) {
+		//console.log(event.target.value);
+		this.selectedid=typeObject.item.id;
+		this.searchModel.user_type = (typeObject.item.id === 'null') ? null : typeObject.item.id;
 		this.performSearch();
 	}
 	public onSortTypeSelected(type: string) {
@@ -1293,8 +1319,12 @@ export class SearchComponent implements OnInit,AfterViewInit {
 		}, 50);
 	}
 	actionOnClose() {
-		this.analyticsService.emitEvent('Status And Preferences', 'Close', 'Desktop', this.authService.currentUser.user_id);
-
+		/*this.analyticsService.emitEvent('Status And Preferences', 'Close', 'Desktop', this.authService.currentUser.user_id);
+			this.preferencesFormComponent.forEach(note => {
+				note.close();
+			});
+		*/
+		this.preferencesModal.close();
 		/*if (!this.preferencesClear.employment_status) {
 			this.tourService.sleep();
 		}*/
@@ -1306,6 +1336,7 @@ export class SearchComponent implements OnInit,AfterViewInit {
 		this.performSearch(true);
 	}
 	openprefrencesmodel(userid){
+		this.prefrence='edit';
 		this.user_id=userid;
 		this.preferences$ = this.dataService.preferences_get(userid);
 		this.preferences$.subscribe(

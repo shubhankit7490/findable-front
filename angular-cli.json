@@ -18,7 +18,7 @@
       "tsconfig": "tsconfig.json",
       "prefix": "app",
       "styles": [
-         "../node_modules/ion-rangeslider/css/ion.rangeSlider.css",
+        "../node_modules/ion-rangeslider/css/ion.rangeSlider.css",
         "assets/style/flags.css",
         "assets/style/traits.css",
         "assets/style/primeng-bootstrap-theme.css",
@@ -39,7 +39,7 @@
         "assets/scripts/interjet.connector.min.js",
         "../node_modules/moment/moment.js",
         "../node_modules/vis/dist/vis.js",
-        "../node_modules/jquery/dist/jquery.min.js", 
+        "../node_modules/jquery/dist/jquery.min.js",
         "../node_modules/ion-rangeslider/js/ion.rangeSlider.min.js",
         "../node_modules/ardethian-custom-scrollbar-plugin/jquery.mCustomScrollbar.js",
         "../node_modules/izitoast/dist/js/iziToast.min.js",

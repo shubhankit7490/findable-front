@@ -47,5 +47,7 @@ export interface PersonalDetails {
 
     birthday?: number;
 
+    is_google_auth?: number;
+
     updated?: Date;
 }

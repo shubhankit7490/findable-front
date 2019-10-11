@@ -349,7 +349,9 @@
 			placeholderText="Actions"
 		></app-array-selector>
 	</div>
-
+	<span class="total" *ngIf="total">
+		Found {{ total }} candidates | Showing results {{ offset + 1 }}-{{ offset + currentResultsCount }}
+	</span>
 	<div class="sort-wrap col-md-2 top-select">
 		<app-array-selector
 			#candidateTypeSelector
@@ -357,19 +359,26 @@
 			(onSelect)="onCandidateTypeSelected($event)"
 			key_id="id"
 			key_name="name"
-			placeholderText="Sort Candidates"
+			placeholderText="Status"
 		></app-array-selector>
 	</div>
-
+	<div class="sort-wrap col-md-2 top-select">
+		<app-array-selector
+			#candidateTypeSelector
+			[arrayItems]="candidateTypes_my"
+			(onSelect)="onUploadedusertypeSelected($event)"
+			key_id="id"
+			key_name="name"
+			placeholderText="Lists"
+		></app-array-selector>
+	</div>
 	<div class="sort-wrap col-md-2 top-select" *ngIf="selectedid=='uploaded candidates' && totaluploadedCandidate>0">
 		<select #selectBox [disabled]="disabled" class="array-selector form-control" (change)="onUploadedDateSelected($event)">
-	    <option  [selected]="selectedItem == 'undefined' || selectedItem === -1" [value]="null">Uploaded date</option>
-	    <option *ngFor="let item of uploadedCandidate; let i = index" value="{{ item.id || i }}">{{item.uploaded_date}} {{item.uploaded_user}}/{{item.total_user}}</option>
-	</select>
+		    <option  [selected]="selectedItem == 'undefined' || selectedItem === -1" [value]="null">Uploaded date</option>
+		    <option *ngFor="let item of uploadedCandidate; let i = index" value="{{ item.id || i }}">{{item.uploaded_date}} {{item.uploaded_user}}/{{item.total_user}}:{{item.name}}</option>
+		</select>
 	</div>
-	<span class="total" *ngIf="total">
-		Found {{ total }} candidates | Showing results {{ offset + 1 }}-{{ offset + currentResultsCount }}
-	</span>
+	
 
 	<div class="search-table-wrap">
 		<app-spinning-loader [showLoader]="loadingResults"></app-spinning-loader>
@@ -551,9 +560,10 @@
 					</div>
 				</template>
 			</p-column>
-			<p-column header="Edit" [style]="{'width': '25px'}" *ngIf="selectedid=='uploaded candidates'">
+			<p-column header="Edit" [style]="{'width': '25px'}" >
 				<template let-applicant="rowData" pTemplate="body">
-					<span class="glyphicon glyphicon-edit" (click)="openprefrencesmodel(applicant.id)" style="padding: 40%;"></span>
+					<span *ngIf="authService.currentUser.user_id==applicant.creator_id" class="glyphicon glyphicon-edit" (click)="openprefrencesmodel(applicant.id)" style="padding: 40%;"></span>
+					<span *ngIf="authService.currentUser.user_id!=applicant.creator_id"  style="padding: 25%;">N/A</span>
 				</template>
 			</p-column>
 			<p-footerColumnGroup>
@@ -609,6 +619,7 @@
 			#preferencesModalForm
 			[(preferences)]="preferences$"
 			[user_id]="user_id"
+			[prefrence]="prefrence"
 			(onSuccessfulUpdate)="closeStatusModal($event)"
 		></app-preferences-form>
 	</modal-content>

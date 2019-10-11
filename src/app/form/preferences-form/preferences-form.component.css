@@ -26,12 +26,19 @@ button.datePickerAnchor i {
 div.datePickerContainer {
     position: fixed;
 }
-
+:host >>> #cke_editor1{
+    margin-left:17px;
+}
 div.fnd-form-column {
     width: 300px;
     margin: 0 20px;
 }
-
+.textarea{
+    width: 100%;padding: 16px;margin-left: 18px;
+}
+.m-l-10{
+  margin-left: 18px;
+}
 #fnd-pref-salary-container {
     display: flex;
 }
@@ -44,7 +51,12 @@ div.fnd-form-column {
 #fnd-pref-salary-period {
     width: 39%;
 }
-
+:host >>> p-autocomplete input {
+   width: 300Px!important;
+}
+:host >>> .myeditor {
+   margin-left: 18px;
+}
 :host input[type="checkbox"] {
     width: initial;
     height: initial;

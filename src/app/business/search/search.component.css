@@ -25,7 +25,9 @@ span.side-component-separator {
     display: block;
     margin: 20px 0;
 }
-
+.close{
+    display:none;
+}
 .component-wrap {
     position: relative;
 }
@@ -306,9 +308,8 @@ select {
 .total {
     display: inline;
     float: left;
-    width: 26%;
+    width: 16%;
     text-align: center;
-    margin: 12px 0 0 0;
     color: #13345f;
     font-weight: bold;
 }

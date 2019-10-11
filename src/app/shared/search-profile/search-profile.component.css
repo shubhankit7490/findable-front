@@ -132,6 +132,9 @@ h1.profile-name {
 :host .pointer {
     cursor: pointer;
 }
+.sendemail-model .modal-header{
+    font-size: 30px;
+}
 /*.modal-content {
     background: #13345f99;
     padding: 20px 10px;

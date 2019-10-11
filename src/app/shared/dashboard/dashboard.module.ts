@@ -13,6 +13,7 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { DateModule } from '../date/date.module';
 import { TypeaheadModule, ProgressbarModule, PopoverModule } from 'ng2-bootstrap';
 import { AutoCompleteModule } from 'interjet-primeng/components/autocomplete/autocomplete';
+
 import { GlobalModule } from '../global/global.module';
 import { IonRangeSliderModule } from 'ng2-ion-range-slider';
 import { CookieModule } from 'ngx-cookie';
@@ -46,9 +47,8 @@ import { EducationModalComponent } from '../../form/education-modal/education-mo
 import { FieldOfDegreeComponent } from '../../form/field-of-degree/field-of-degree.component';
 import { ExperienceModalComponent } from '../../form/experience-modal/experience-modal.component';
 import { FocusAndExpertiseComponent } from '../../form/experience-modal/focus-and-expertise/focus-and-expertise.component';
-
 import { MessageService } from '../../services/message.service';
-
+import { CKEditorModule } from 'ng2-ckeditor';
 @NgModule({
 	imports: [
 		RouterModule,
@@ -62,6 +62,7 @@ import { MessageService } from '../../services/message.service';
 		DatepickerModule,
 		AccordionModule,
 		ModalModule,
+		CKEditorModule,
 		MalihuScrollbarModule,
 		DndModule.forRoot(),
 		TextMaskModule,

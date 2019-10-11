@@ -70,6 +70,32 @@
 				</label>
                 <span *ngIf="formErrors.relocation" class="error"><i class="glyphicon glyphicon-remove border-radius"></i>{{formErrors.relocation}}</span>
 			</div>
+			<div class="form-group" *ngIf="prefrence=='edit'">
+							<!-- JOB TITLE -->
+							<label class="fnd-req">Current Job Title</label>
+							<p-autoComplete
+								#jobtitle
+								field='name'
+								[delay]=500
+								dataKey='id'
+								[minLength]=1
+								maxlength="240"
+								[suggestions]='resultsJobtitle'
+								[(ngModel)]='searchTermJobTitle'
+								(onBlur)='validateJobTitle($event)'
+								(completeMethod)='searchJobtitle($event)'
+								(onSelect)='onSelectJobtitleAutoComplete($event)'
+								(updateModel)='UpdateJobtitleState($event)'
+								formControlName='jobTitle'
+								placeholder='Job Title'
+
+							></p-autoComplete>
+							<app-input-loader [loading]="requestingJobtitle"></app-input-loader>
+							<span *ngIf="formErrors.job_title" class="error">
+								<i class="glyphicon glyphicon-remove border-radius"></i>
+								{{formErrors.job_title}}
+							</span>
+			</div>
 		</div>
 
 		<div class="fnd-form-column">
@@ -97,13 +123,50 @@
 				</label>
                 <span *ngIf="formErrors.legal_usa" class="error"><i class="glyphicon glyphicon-remove border-radius"></i>{{formErrors.legal_usa}}</span>
 			</div>
-
+			<div class="form-group flex-column" *ngIf="prefrence=='edit'" style="margin-top:24px;">
+				<label for="fnd-pref-current-status" class="fnd-req">Current job Seniority</label>
+				<select #senioritySelect class="form-control" formControlName="seniority" (change)="onSelectSeniority($event)">
+					<option selected disabled value=""></option>
+					<option disabled value="">Select Job Seniority</option>
+					<option *ngFor="let seniority of seniorities"
+						value="{{ seniority.id }}"
+						[selected]="setModelSeniority?.id == (seniority?.id)">
+						{{ seniority.name }}
+					</option>
+				</select>
+                <span *ngIf="formErrors.current_status" class="error"><i class="glyphicon glyphicon-remove border-radius"></i>{{formErrors.current_status}}</span>
+			</div>
+			
 		</div>
 
 	</div>
-
+		<div class="row" *ngIf="prefrence=='edit'">
+			<div class="col-md-11">
+				<div class="form-group myeditor">
+					<label for="fnd-pref-current-status" class="m-l-10">Notes</label>
+					<!-- <textarea name="editor1" id="editor1" class="form-control textarea" formControlName="text" #host></textarea> -->
+					 <ckeditor
+   					 	[readonly]="false"
+   					 	formControlName="text"
+   					 	name="notdes"
+   					 	[(ngModel)]="notdes"
+   					 	>
+  					</ckeditor>
+				</div>
+			</div>
+		</div> 
+		<div class="row" *ngIf="prefrence=='edit'">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="fnd-pref-current-status" class="m-l-10">Notes Share Type</label>
+					<select class="form-control m-l-10" formControlName="type">
+		                <option *ngFor="let item of type_data; let i = index" value="{{ item|| i }}">{{item}}</option>
+	           		</select>
+	           	</div>
+			</div>
+		</div>
 	<div id="fnd-pref-submit-container-id" class="fnd-form-submit-container">
-		<button type="submit" id="status-experience-dialog-done" class="btn btn-success" [disabled]="!form.valid || !form.dirty">Done</button>
+		<button type="submit" id="status-experience-dialog-done" class="btn btn-success" [disabled]="!form.valid">Done</button>
 	</div>
 </form>
 

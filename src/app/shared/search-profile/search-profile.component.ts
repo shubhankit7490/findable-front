@@ -7,8 +7,12 @@ import { ContactApplicantComponent } from '../../form/contact-applicant/contact-
 
 import { PersonalDetails } from "../../rest/model/PersonalDetails";
 import { MessageService } from '../../services/message.service';
-
+import { GrowlService } from '../../rest/service/growl.service';
 import { Modal } from 'ngx-modal';
+
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+
+import * as models from '../../rest/model/models';
 
 @Component({
 	selector: 'app-search-profile',
@@ -16,13 +20,14 @@ import { Modal } from 'ngx-modal';
 	styleUrls: ['search-profile.component.css']
 })
 export class SearchProfileComponent implements OnInit {
+	contactApplicantForm: FormGroup;
 	@Input() userId: number;
 	@Input() displayright: number;
 	@Input() creator_id:any;
 	@Output() onLoaded = new EventEmitter<any>();
 	@Output() setprofilevalue= new EventEmitter<any>();
 	@ViewChild('contactApplicant') contactModal: Modal;
-
+	@ViewChild('EmailVerification') email_verification: Modal;
 	// aboutMe: Observable<extModels.AboutMeExt>;
 	// responseObs: Observable<Response>;
 	public profile;
@@ -33,17 +38,32 @@ export class SearchProfileComponent implements OnInit {
 	public profileSubscribe: PersonalDetails;
 	private updateAboutMe: PersonalDetails;
 	private anon = true;
-
+	public submitting: boolean;
 	public subscription: any = null;
 	public fullname: string = '';
 	public businessName: string = '';
 	public see_subscription_model = true;
 	public login_user_id:number;
+	isSubmitting = false;
+	public controls: any = {
+		fields: {
+			message: 'Message',
+		},
+		errors: {
+			url: '{field} does not contain a valid url',
+			required: '{field} field is required',
+			message: '{field} field is required',
+		},
+		messages: {
+			email: '',	
+		}
+	};
 	constructor(
 		public dataService: DataService,
 		public authService: AuthService,
 		public messageService: MessageService,
-		private analyticsService: AnalyticsService
+		private analyticsService: AnalyticsService,
+		public formBuilder: FormBuilder
 	) {	}
 
 	ngOnInit() {
@@ -54,6 +74,9 @@ export class SearchProfileComponent implements OnInit {
 		this.getUserSubscription();
 		this.setBusinessInfo();
 		this.setUserPurchasedInfo();
+		this.contactApplicantForm = this.formBuilder.group({
+			message: ['', Validators.required]
+		});
 	}
 
 	profileGetRequest() {
@@ -78,6 +101,32 @@ export class SearchProfileComponent implements OnInit {
 			this.onLoaded.emit(false);
 		});
 	}
+	sendemail(){
+		if(this.profileSubscribe.is_google_auth==0){
+			this.email_verification.open();
+		}else{
+			this.submitrequest('create auth');
+		}
+	}
+	/**
+	 * Upload Resume should open
+	 */
+	openemailverification() {
+
+		this.email_verification.open();
+	}
+
+	/**
+	 * Upload Resume should close
+	 */
+	closeemailverification() {
+		this.isSubmitting = false;
+		this.email_verification.close();
+		// does not refresh page, as long as url route is already on here
+		// will change it but not refresh when uploadResume=true param exists
+		//this.router.navigate(['/dashboard']);
+	}
+
 
 	personalDetailsAboutUpdate(data) {
 		this.updateAboutMe = {
@@ -191,5 +240,88 @@ export class SearchProfileComponent implements OnInit {
 	onApplicantContact(e: Event) {
 		this.analyticsService.emitEvent('Contact Applicant', 'Create', 'Desktop');
 		this.contactModal.close();
+	}
+	onSubmit(e: Event) {
+		//e.preventDefault();
+		//e.stopPropagation();
+		if (this.validate()) {
+			this.isSubmitting = true;
+			let message = this.contactApplicantForm.value.message;
+		//this.onUpdate.emit(e);
+		//GrowlService.message('Your contact request was send to the applicant', 'success');
+		this.hardreset();
+		this.submitrequest(message);
+		}
+	}
+			/*
+	 * validatex: A generic error validation function based on the mapping object (controls)
+	 */
+	validate(key?: string, slient?: Boolean) {
+
+		let __v = 0;
+		if (!key) {
+			for (let c in this.contactApplicantForm.controls) {
+				if (this.contactApplicantForm.controls.hasOwnProperty(c) && !this.contactApplicantForm.controls[c].valid) {
+					for (let e in this.contactApplicantForm.controls[c].errors) {
+						console.log(this.controls.errors.hasOwnProperty(e));
+						if (this.contactApplicantForm.controls[c].errors.hasOwnProperty(e) && this.controls.errors.hasOwnProperty(e)) {
+							if (!slient) {
+								this.controls.messages[c] = this.controls.errors[e].replace('{field}', this.controls.fields[c]);
+							}
+							__v++;
+							break;
+						}
+					}
+				} else {
+					this.controls.messages[c] = '';
+				}
+			}
+		} else {
+			if (!this.contactApplicantForm.controls[key].valid) {
+				for (let e in this.contactApplicantForm.controls[key].errors) {
+					if (this.contactApplicantForm.controls[key].errors.hasOwnProperty(e) && this.controls.errors.hasOwnProperty(e)) {
+						if (!slient) {
+							this.controls.messages[key] = this.controls.errors[e].replace('{field}', this.controls.fields[key]);
+						}
+						__v++;
+						break;
+					}
+				}
+			} else {
+				this.controls.messages[key] = '';
+			}
+		}
+
+		return __v === 0;
+	}
+
+	hardreset() {
+		this.contactApplicantForm.reset();
+		this.controls.messages = {
+			email: '',
+		};
+	}
+	submitrequest(message){
+		this.submitting = true;
+
+
+		this.dataService.send_email_applicant(message,this.userId).subscribe(
+			(res:any) => {
+				if(res.status==1){
+					window['redirect'](res.authurl,false);
+				}else if(res.status==2){
+					this.isSubmitting = false;
+					this.closeemailverification();
+					GrowlService.message(res.msg, 'success');
+				}
+				
+			},
+			error => {
+				this.isSubmitting = false;
+				this.submitting = false;
+
+				GrowlService.message(JSON.parse(error._body).message, 'error');
+			}
+		)
 	}
 }

@@ -50,13 +50,13 @@ export class MenuComponent implements OnInit {
 				url: '/business/account/info',
 				id: 'menu-manager-account-settings'
 			},
-			{
+			/*{
 				text: 'Applicants Stats',
 				url: '/business/stats',
 				id: 'menu-manager-applicants-stats'
-			},
+			},*/
 			{
-				text: 'FAQ',
+				text: 'Help',
 				url: '/faq',
 				id: 'menu-manager-faq'
 			},
@@ -77,13 +77,13 @@ export class MenuComponent implements OnInit {
 				url: '/business/account/info',
 				id: 'menu-recruiter-account-settings'
 			},
-			{
+			/*{
 				text: 'Applicants Stats',
 				url: '/business/stats',
 				id: 'menu-recruiter-applicants-stats'
-			},
+			},*/
 			{
-				text: 'FAQ',
+				text: 'Help',
 				url: '/faq',
 				id: 'menu-recruiter-faq'
 			},

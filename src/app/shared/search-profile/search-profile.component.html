@@ -27,6 +27,8 @@
 				Contact Recruiter
 			</button>
 			<a class="contact-button no-print pointer" *ngIf="creator_id==login_user_id" [href]="( profile | async )?.resume.url" target="_blank">Resume</a>
+
+			<a class="contact-button no-print pointer" *ngIf="creator_id==login_user_id" (click)="sendemail()" target="_blank">Send Email</a>
 		</div>
 		<div class="profile-name-container">
 			<div class="profile-name-container-top">
@@ -91,4 +93,42 @@
 
     <modal-footer></modal-footer>
 
+</modal>
+ <modal #EmailVerification
+        title="Send email to user"
+        cancelButtonLabel=""
+        modalClass="modal-lg modal-sm sendemail-model"
+        [hideCloseButton]="false"
+        [closeOnEscape]="true"
+        [closeOnOutsideClick]="true"
+        (onOpen)="openemailverification()"
+        (onClose)="closeemailverification()">
+     <!-- <modal-header>
+     	Send email to user
+     </modal-header>   -->  
+    <modal-content>
+       <div class="popup">
+       		<app-spinning-loader [showLoader]="isSubmitting"></app-spinning-loader>
+       		<div class="row1" id="contact_applicant_form_popup">
+       			<form [formGroup]="contactApplicantForm" (submit)="onSubmit($event)" class="form-wrapper" spellcheck="false" autocomplete="off" novalidate>
+       				 <div class="">
+		                <div class="p-5">
+		                <div class="form-group">
+		                    <label  for="fullname">Message*</label>
+		                    <textarea class="form-control" id="message" formControlName="message" value="" placeholder="Message (Required)" row="10"></textarea>
+		                    <p class="error">{{ controls.messages.message }}</p>
+		                </div>
+		                </div>
+		              
+		            </div>
+		            <div class="form-group clearfix bttmModal">
+
+		                <button type="submit" class="btn btn-success pull-right">
+		                    Send
+		                </button>
+		            </div>
+       			</form>
+       		</div>
+       	</div>	
+    </modal-content>
 </modal>

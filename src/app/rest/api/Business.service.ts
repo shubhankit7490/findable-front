@@ -297,6 +297,38 @@ export class BusinessApi {
       extraHttpRequestParams
     ).map(this.handleResponse);
   }
+
+
+  /**
+   * Send email to applicant
+   * Accessible to the recruiter / manager / admin roles only
+   * @param businessId The business identifier number
+   * @param email id
+   */
+  public businessBusinessSendEmail(
+    message: string,
+    businessId:number
+  ): Observable<models.PurchasedSuccess> {
+    return this.businessBusinessSendEmailPostWithHttpInfo(
+      message,
+      businessId
+    ).map(this.handleResponse);
+  }
+   /**
+   * Set auth token
+   * Accessible to the recruiter / manager / admin roles only
+   * @param businessId The business identifier number
+   * @param email id
+   */
+  public businessBusinessSetAuthToken(
+    code: string,
+    scope: string
+  ): Observable<{ code: string;}> {
+    return this.businessBusinessSetAuthTokenPostWithHttpInfo(
+      code,
+      scope
+    ).map(this.handleResponse);
+  }
    /**
    * chnage uploded business candidate status
    * Accessible to the recruiter / manager / admin roles only
@@ -985,7 +1017,89 @@ export class BusinessApi {
 
     return this.http.request(path, requestOptions);
   }
+  public businessBusinessSetAuthTokenPostWithHttpInfo(
+    code: string,
+    scope: string
+  ): Observable<Response> {
+    const path = this.basePath + `/business/oauth2callback`;
 
+    let queryParameters = new URLSearchParams();
+    let  formParams = new URLSearchParams();
+    let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+    // verify required parameter 'businessId' is not null or undefined
+    if (code === null || code === undefined) {
+      throw new Error(
+        "Required parameter businessId was null or undefined when calling businessBusinessIdPurchasesPost."
+      );
+    }
+    headers.set("Content-Type", "application/x-www-form-urlencoded");
+    if (code !== undefined) {
+      queryParameters.set("code", <any>code);
+    }
+    if (scope !== undefined) {
+      queryParameters.set("scope", <any>scope);
+    }
+
+    // authentication (X-API-KEY) required
+    if (this.configuration.apiKey) {
+      headers.set("X-API-KEY", this.configuration.apiKey);
+    }
+    //headers.set("Content-Type", "application/json");
+
+    let requestOptions: RequestOptionsArgs = new RequestOptions({
+       method: RequestMethod.Get,
+      headers: headers,
+      search: queryParameters
+    });
+
+    // https://github.com/swagger-api/swagger-codegen/issues/4037
+    
+
+    return this.http.request(path, requestOptions);
+  }
+  /**
+   * Send email to applicant 
+   * Accessible to the recruiter / manager / admin roles only
+   * @param businessId The business identifier number
+   * @param email
+   */
+  public businessBusinessSendEmailPostWithHttpInfo(
+    message: string,
+    businessId: number
+  ): Observable<Response> {
+    const path = this.basePath + `/business/${businessId}/sendemail`;
+
+    let queryParameters = new URLSearchParams();
+    let  formParams = new URLSearchParams();
+    let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+    // verify required parameter 'businessId' is not null or undefined
+    if (message === null || message === undefined) {
+      throw new Error(
+        "Required parameter businessId was null or undefined when calling businessBusinessIdPurchasesPost."
+      );
+    }
+    headers.set("Content-Type", "application/x-www-form-urlencoded");
+    if (message !== undefined) {
+      formParams.set("message",<any>message);
+    }
+    // authentication (X-API-KEY) required
+    if (this.configuration.apiKey) {
+      headers.set("X-API-KEY", this.configuration.apiKey);
+    }
+    //headers.set("Content-Type", "application/json");
+
+    let requestOptions: RequestOptionsArgs = new RequestOptions({
+      method: RequestMethod.Post,
+      headers: headers,
+      body: formParams.toString(), // https://github.com/angular/angular/issues/10612
+      search: queryParameters
+    });
+
+    // https://github.com/swagger-api/swagger-codegen/issues/4037
+    
+
+    return this.http.request(path, requestOptions);
+  }
   /**
    * Purchase applciants
    * Accessible to the recruiter / manager / admin roles only

@@ -8,7 +8,7 @@ import { HighlightJsModule, HighlightJsService } from 'angular2-highlight-js';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { IonRangeSliderModule } from 'ng2-ion-range-slider';
 import { TooltipModule } from 'ng2-bootstrap/tooltip';
-
+import { SafeHtmlPipe } from '../form/preferences-form/safeHtml.pipe';
 // services:
 import { DataService } from 			'../rest/service/data.service';
 import { AuthService } from 			'../rest/service/auth.service';
@@ -161,6 +161,7 @@ const routes: Routes = [
 		SaveSearchComponent,
 		ApplicantsStatsComponent,
 		FirstWordPipe,
+		SafeHtmlPipe
 	],
 	providers: [
 		DataService,
@@ -170,7 +171,7 @@ const routes: Routes = [
 		ChartDataService,
 		MessageService
 	],
-	exports: [PaymentComponent]
+	exports: [PaymentComponent,SafeHtmlPipe]
 })
 
 export class BusinessModule { }

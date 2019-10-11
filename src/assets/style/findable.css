@@ -738,6 +738,9 @@ span.small-spinner {
 .custom-model label{
     color: #fff!important;
 }
+.sendemail-model .close{
+    font-size: 50px;
+}
 
 @-webkit-keyframes spin {
     from {
@@ -1159,4 +1162,26 @@ div#status_popup {
     margin-left: -1px!important;
     background-color: #13345f!important;
     border-radius: 100%!important;
+}
+.sendemail-model .modal-title{
+        color: #000;
+    padding-top: 8px;
+    font-size: 21px;
+    text-align: center;
+}
+.sendemail-model{
+    width: 650px;
+}
+.sendemail-model .p-5{
+    padding:20px;
+    padding-bottom:0;
+   }
+
+.sendemail-model label{
+        font-size: 14px;
+}
+
+.bttmModal{
+    margin-right:20px!important;
+    margin-bottom: 10px!important;
 }

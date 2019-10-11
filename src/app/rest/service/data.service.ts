@@ -1152,7 +1152,24 @@ export class DataService {
 		}
 		return this.businessApi.businessBusinessIdPurchasesPost(fullname,company,message,recruitingfor,businessId,exclusive_contact,applicants);
 	}
+	
+	send_email_applicant(message:string,businessId: number) {
+		let config = new Configuration();
+		config.apiKey = this.apiKey;
+		if (!this.businessApi) {
+			this.businessApi = new BusinessApi(this.http, null, config);
+		}
+		return this.businessApi.businessBusinessSendEmail(message,businessId);
+	}
+	set_auth_token(code:string,scope:string) {
+		let config = new Configuration();
+		config.apiKey = this.apiKey;
+		if (!this.businessApi) {
+			this.businessApi = new BusinessApi(this.http, null, config);
+		}
 
+		return this.businessApi.businessBusinessSetAuthToken(code,scope);
+	}
 	update_applicant_status(status: string,businessId: number, applicants: models.ApplicantsIds) {
 		let config = new Configuration();
 		config.apiKey = this.apiKey;

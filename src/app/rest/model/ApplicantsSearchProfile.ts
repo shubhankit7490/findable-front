@@ -69,6 +69,7 @@ export interface ApplicantsSearchProfile {
     legal_usa?: boolean;
 
     status?: null|string;
+    user_type?: null|string;
 
     /**
      * Number of days since last profile update

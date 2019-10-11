@@ -80,8 +80,12 @@ export class SignUpComponent implements OnInit {
 		}
 		else {
 			this.role = (!!this.inviteCode) ? 'recruiter' : 'applicant';
+			if(this.role=='recruiter'){
+				this.signUpFields.patchValue({
+					'userType':'recruiter',
+					});
+			}
 		}
-
 		this.analyticsService.emitPageview('Signup');
 	}
 

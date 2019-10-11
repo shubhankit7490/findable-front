@@ -1,4 +1,4 @@
-<div class="note-wrap" [class.expanded]="noteCheckbox.checked" *ngIf="login_user_id==creatorid || type=='Personal & Share' || (role=='recruiter' && type=='Share with recruiters')">
+<div class="note-wrap" [class.expanded]="noteCheckbox.checked" *ngIf="login_user_id !=creatorid && type=='Personal & Share' || (role=='recruiter' && type=='Share with recruiters')">
     <div (click)="(isOpen) ? close() : open();" class="note-wrap-icon">
         <input class="noteCheckbox" #noteCheckbox type="checkbox">
         <i [style.text-shadow]="standout" class="glyphicon glyphicon-list-alt note-icon"></i>
@@ -27,7 +27,7 @@
         <p class="errors" *ngIf="errors">{{ errors.join('\n') }}</p>
     </div>
 </div>
-<div *ngIf="login_user_id != creatorid && type !='Personal & Share' && (role !='recruiter' || type !='Share with recruiters')">
+<div *ngIf="login_user_id == creatorid || type !='Personal & Share' && (role !='recruiter' || type !='Share with recruiters')">
     <p>N/A</p>
 </div>
 

@@ -3,14 +3,14 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
-
+import { AutoComplete } from 'interjet-primeng/components/autocomplete/autocomplete';
 // services:
 import { MessageService } from '../../services/message.service';
 import { DataService } from '../../rest/service/data.service';
 import { AuthService } from '../../rest/service/auth.service';
 import { AnalyticsService } from '../../services/analytics.service';
 import { TransformerService } from '../../rest/service/transformer.service';
-
+import { Router, ActivatedRoute } from '@angular/router';
 // components:
 import { LocationsFormComponent } from '../locations-form/locations-form.component';
 
@@ -24,18 +24,26 @@ const numberMask = createNumberMask({
 });
 
 declare let moment: any;
-
+declare var CKEDITOR: any;
 @Component({
 	selector: 'app-preferences-form',
 	templateUrl: './preferences-form.component.html',
 	styleUrls: ['./preferences-form.component.css']
 })
 export class PreferencesFormComponent implements OnInit,OnChanges{
+	config: any;
+  	mycontent: string;
+  	log: string = '';
+
 	@Input() preferences: Observable<extModels.UserPreferencesExt>;
 	@Input() user_id:number=0;
+	@Input() prefrence:string=null;
+	@ViewChild('jobtitle') jobTitleInput: AutoComplete;
 	@ViewChild('locationOfInteresetComponent') locationOfInteresetComponent: LocationsFormComponent;
 	@ViewChild('fld_pref_start_time_date_picker') datePickerContainer: ElementRef;
 	@Output() onSuccessfulUpdate = new EventEmitter<boolean>();
+	recentJob: models.Position;
+	public sendModelExperience: models.Position = {};
 	public from: string;
 	public isSubmitting: Boolean = false;
 	public preferencesModel: extModels.UserPreferencesExt = {
@@ -73,12 +81,36 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 
 	// Form definition
 	public form: FormGroup;
-
+	public notdes:string=''
+	public requestingJobtitle = false;
+	public resultsJobtitle: models.DictionaryItem[];
+	private setModelJobTitle: models.JobTitle = {
+		id: null,
+		name: ''
+	};
+	public setModelSeniority: models.Seniority;
+	public seniorities: models.Seniority[] = [
+		{ id: 1,  name: 'Unpaid'	  	},
+		{ id: 2,  name: 'Internship'	},
+		{ id: 3,  name: 'Entry'	  		},
+		{ id: 4,  name: 'Associate'	  },
+		{ id: 5,  name: 'Junior'	  	},
+		{ id: 6,  name: 'Senior'	  	},
+		{ id: 7,  name: 'Manager'	  	},
+		{ id: 8,  name: 'Director'	  },
+		{ id: 9,  name: 'VP'	  	  },
+		{ id: 10, name: 'President'	  },
+		{ id: 11, name: 'Partner'	  	},
+		{ id: 12, name: 'Owner'	  		},
+		{ id: 13, name: 'Founder'	  	},
+		{ id: 14, name: 'Nonmanager'	 },
+		{ id: 15, name: 'Management'	  	}
+	];
 	// Form state
 	public datePickerOpened = false;
 	public datePickerTop = 1;
 	public datePickerLeft = 1;
-
+	public searchTermJobTitle: string;
 	// StartTime Date Picker properties
 	public dt: Date = new Date();
 	public minDate: Date = void 0;
@@ -92,9 +124,11 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 		formatYear: 'YY',
 		startingDay: 1
 	};
+	public editorinstance:any='';
 	public mask: Array<string | RegExp>;
 	private opened = false;
 	private user_form_id:number=0;
+	public type_data=[] ;
 	public formErrors: FormErrors = {
 		employment_status: '',
 		current_status: '',
@@ -106,7 +140,11 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 		start_time: '',
 		legal_usa: '',
 		only_current_location: '',
-		relocation: ''
+		relocation: '',
+		jobTitle: '',
+		seniority: '',
+		type:'',
+		text:''
 	};
 
 	constructor(
@@ -115,6 +153,7 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 		formBuilder: FormBuilder,
 		public messageService: MessageService,
 		public analyticsService: AnalyticsService,
+		private router: Router
 	) {
 		// Init form object
 		this.form = formBuilder.group({
@@ -128,7 +167,11 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 			relocation: 					 [ '0' ],
 			available_from: 			 [ '' ],
 			start_time: 					 [ '' ],
-			legal_usa: 						 [ '' ]
+			legal_usa: 						 [ '' ],
+			jobTitle: 						 [ '', Validators.required ],
+			seniority:[ '', Validators.required ],
+			type:[''],
+			text:[''],
 		});
 		// Init date picker
 		(this.tomorrow = new Date()).setDate(this.tomorrow.getDate() + 1);
@@ -143,6 +186,11 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 		this.mask = numberMask;
 	}
 	ngOnChanges(changes: SimpleChanges){
+			//CKEDITOR.replace( 'editor1' );
+			/*if(window.CKEDITOR) {
+		           window.CKEDITOR.replace('editor1');
+		       }*/
+
 			this.preferences.subscribe((response: extModels.UserPreferencesExt) => {
 			this.preferencesModel = response;
 			response.desired_salary_period = (response.desired_salary_period==null)? 'Y' :response.desired_salary_period;
@@ -187,8 +235,72 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 
 		this.observeForm();
 		this.user_form_id=this.user_id;
+		if(this.prefrence=='edit'){
+			this.dataService.user_note_get(this.user_id).subscribe(
+				(response:any) => {
+					this.form.patchValue({
+					'text': decodeURIComponent(response.note),
+					'type':response.type,
+					});
+					if(response.note == undefined) {
+						this.form.patchValue({
+						'text': '',
+						'type':'Personal',
+						});
+					}
+					for(var name in CKEDITOR.instances)
+					{
+						CKEDITOR.instances[name].destroy();
+					}
+						setTimeout(()=>{ 
+							this.editorinstance =CKEDITOR.replace('notdes');
+							var editorins=this.editorinstance.name;
+							if(response.note == undefined) {
+								CKEDITOR.instances[editorins].setData(''); 
+							}else{
+								CKEDITOR.instances[editorins].setData(response.note); 
+							}
+						 }, 500);	
+					},
+			
+			);
+			// get recent job for client
+			this.dataService.recentJob_get(this.user_id).subscribe(
+				(response:any) => {
+					this.recentJob = response[0];
+						console.log(this.recentJob.seniority);
+						let id = Number(this.recentJob.seniority.id);
+						let name = this.recentJob.seniority.name;
+						let jobTitle=this.recentJob.job_title.name;
+						this.setModelSeniority = { id, name };
+						this.form.patchValue({
+						'seniority':id,
+						 'jobTitle':jobTitle
+						});
+						console.log(this.recentJob);
+						this.searchTermJobTitle=jobTitle;
+						this.sendModelExperience.id=this.recentJob.id;
+						this.sendModelExperience.company = this.recentJob.company;
+						this.sendModelExperience.location = this.recentJob.location;
+						this.sendModelExperience.industry = this.recentJob.industry;
+						this.sendModelExperience.type = this.recentJob.type;
+						this.sendModelExperience.areas_of_focus = this.recentJob.areas_of_focus;
+						this.sendModelExperience.salary =this.recentJob.salary;
+						this.sendModelExperience.to =this.recentJob.to;
+						this.sendModelExperience.from = this.recentJob.from;
+						this.sendModelExperience.current = this.recentJob.current;
+						this.sendModelExperience.salary_period = this.recentJob.salary_period;
+						this.setModelJobTitle=  this.recentJob.job_title;
+						this.setModelSeniority=  this.recentJob.seniority;
+				}
+			);
+		}
 	}
 	ngOnInit() {
+		/*if(CKEDITOR.instances['editor1']){
+				console.log('df');
+				CKEDITOR.instances['editor1'].destroy();
+		}*/
 		this.preferences.subscribe((response: extModels.UserPreferencesExt) => {
 			this.preferencesModel = response;
 			
@@ -235,8 +347,30 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 
 		this.observeForm();
 		this.user_form_id=this.authService.getUserId();
-	}
+		if(this.authService.currentUser.role=='manager'){
+			this.type_data=['Personal','Personal & Share'] ;
+		}else{
+			this.type_data=['Personal','Share with recruiters','Personal & Share'] ;
+		}
+		this.config = {
+		   allowedContent: false,
+		    forcePasteAsPlainText: true
+		};
 
+	}
+	onPaste($event: any): void {
+    	console.log("onPaste");
+    //this.log += new Date() + "<br />";
+  	}
+  	onChange($event: any): void {
+    	console.log("onChange");
+    //this.log += new Date() + "<br />";
+ 	 }
+ 	public close(){
+ 		/*CKEDITOR.instances['editor1'].destroy();
+ 		//CKEDITOR.replace('body');
+ 		location.reload();*/
+ 	}
 	public onSubmit(event: Event) {
 		event.preventDefault();
 		this.isSubmitting = true;
@@ -252,7 +386,11 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 			start_time: '',
 			legal_usa: '',
 			only_current_location: '',
-			relocation: ''
+			relocation: '',
+			jobTitle:'',
+			seniority: '',
+			type:'',
+			text:'',
 		};
 
 		let desiredSalary = this.form.get('desired_salary').value;
@@ -264,14 +402,12 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 			this.isSubmitting = false;
 			return;
 		}
-
 		this.response$ = this.dataService.preferences_put(
 			this.user_form_id,
 			this.preferencesModel
 		);
 		this.response$.subscribe(
 			(response: Response) => {
-				this.form.reset();
 				const {
 					employment_status,
 					current_status,
@@ -308,7 +444,10 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 				});
 				this.response = response;
 				this.analyticsService.emitEvent('Status And Preferences', 'Update', 'Desktop',this.user_form_id);
-				this.onSuccessfulUpdate.emit(true);
+				setTimeout(function () {
+					this.onSuccessfulUpdate.emit(true);
+				}.bind(this), 500);
+
 				if (desiredSalary !== null) {
 					this.preferencesModel.desired_salary = desiredSalary.replace(' ', '').replace('$', '').replace(/,/g, '');
 				} else {
@@ -317,13 +456,36 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 
 				TransformerService.transformPreferences(this.preferencesModel, 0);
 				this.isSubmitting = false;
+				if(this.prefrence=='edit'){
+					this.updateusernote();
+					this.updateuserexp();
+				}
+				this.form.reset();
 			}, error => {
 				this.isSubmitting = false;
 				this.handleErrors(error);
 			}
 		);
 	}
+	private updateuserexp(){
+		this.sendModelExperience.job_title = this.setModelJobTitle;
+		this.sendModelExperience.seniority = this.setModelSeniority;
+		console.log(this.sendModelExperience);
+		this.dataService.experience_put(this.user_id, this.sendModelExperience.id, this.sendModelExperience).subscribe(
+			(response: Response) => {
+			}
+		);
+	}
+	private updateusernote(){
+		var data=CKEDITOR.instances[this.editorinstance.name].getData();
+		if(data!=''){
+			this.dataService.user_note_put(this.user_id,data,this.form.get('type').value).subscribe(
+				response => {
 
+				}
+			);
+		}
+	}
 	private prepareModel() {
 		this.preferencesModel.employment_status = this.form.get('employment_status').value;
 		this.preferencesModel.current_status = this.form.get('current_status').value;
@@ -419,7 +581,13 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 			this.formErrors['email'] = err_body.message;
 		}
 	}
-
+	public onSelectSeniority(event: Event): void {
+		let id = Number((event.target as HTMLInputElement).value);
+		let name = (event.target as HTMLSelectElement)
+			.options[(event.target as HTMLSelectElement).selectedIndex].text;
+		this.setModelSeniority = { id, name };
+		console.log(this.setModelSeniority);
+	}
 	updateSalaryPeriod(e: Event) {
 		this.form.patchValue({
 			'desired_salary': ''
@@ -438,6 +606,64 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 		}
 	}
 
+	UpdateJobtitleState(event) {
+		let _e = event.srcElement || event.target;
+
+		if (_e.value.length > 0) {
+			this.form.controls['jobTitle'].markAsDirty();
+		} else {
+			this.form.patchValue({
+				'jobTitle': ''
+			});
+		}
+	}
+	searchJobtitle(event) {
+		this.setModelJobTitle = {
+			id: null,
+			name: event.query
+		}
+
+		if (!event.query.length) {
+			return;
+		}
+
+		this.requestingJobtitle = true;
+		this.dataService.dictionary_job_title_get('jobtitle', event.query).subscribe(
+			response => {
+				this.resultsJobtitle = response;
+				this.requestingJobtitle = false;
+			}
+		);
+	}
+	validateJobTitle(element) {
+		setTimeout(function () {
+			this.jobTitleInput.hide();
+		}.bind(this), 200);
+
+		this.form.patchValue({
+			jobTitle: (<HTMLInputElement>element.target).value
+		});
+
+		this.setModelJobTitle = {
+			id: null,
+			name: (<HTMLInputElement>element.target).value
+		};
+
+		if (!(<HTMLInputElement>element.target).value) {
+			this.formErrors['job_title'] = 'Please type or choose a job title';
+		} else {
+			this.formErrors['job_title'] = '';
+		}
+	}
+	onSelectJobtitleAutoComplete(e) {
+		console.log('form',this.form.value);
+		this.form.patchValue({
+			jobTitle: e.name
+		});
+		this.setModelJobTitle = e;
+		this.formErrors['job_title'] = '';
+
+	}
 	/*
 	 * observeForm: Subscribe for changes in the FormGroup
 	 */
@@ -482,4 +708,8 @@ export interface FormErrors {
 	legal_usa: string;
 	only_current_location: string;
 	relocation: string;
+	jobTitle:string;
+	seniority: string,
+	type:string,
+	text:string,
 }
