@@ -191,6 +191,8 @@ select {
     display: inline-block;
     text-align: center;
     float: right;
+    margin-top:25px;
+    margin-bottom:10px;
 }
 
 :host >>> .ui-paginator-page {

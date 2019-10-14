@@ -378,7 +378,9 @@
 		    <option *ngFor="let item of uploadedCandidate; let i = index" value="{{ item.id || i }}">{{item.uploaded_date}} {{item.uploaded_user}}/{{item.total_user}}:{{item.name}}</option>
 		</select>
 	</div>
-	
+	<div class="sort-wrap col-md-2 " *ngIf="role=='recruiter'" style="float:right;padding-top: 11px;">Account No:
+		{{authService.currentUser.user_id}}
+	</div>
 
 	<div class="search-table-wrap">
 		<app-spinning-loader [showLoader]="loadingResults"></app-spinning-loader>
@@ -390,7 +392,7 @@
 			[autoload]="false"
 			[rowHover]="false"
 			[totalRecords]="total"
-			paginatorPosition="top"
+			paginatorPosition="bottom"
 			[expandableRows]="true"
 			selectionMode="multiple"
 			[value]="results.applicants"
