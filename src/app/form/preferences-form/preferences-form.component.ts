@@ -239,7 +239,7 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 			this.dataService.user_note_get(this.user_id).subscribe(
 				(response:any) => {
 					this.form.patchValue({
-					'text': decodeURIComponent(response.note),
+					'text': response.note,
 					'type':response.type,
 					});
 					if(response.note == undefined) {
@@ -277,7 +277,6 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 						'seniority':id,
 						 'jobTitle':jobTitle
 						});
-						console.log(this.recentJob);
 						this.searchTermJobTitle=jobTitle;
 						this.sendModelExperience.id=this.recentJob.id;
 						this.sendModelExperience.company = this.recentJob.company;

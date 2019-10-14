@@ -28,7 +28,7 @@ export class ApplicantSearchResultComponent implements OnInit {
 	public prefrences:boolean=false;
 	public jobs:boolean=false;
 	public edu_data:boolean=false;
-	public text:string='';
+	public text:any='';
 	rowSections = 1;
 
 	public reportOpened = false;
@@ -150,7 +150,9 @@ export class ApplicantSearchResultComponent implements OnInit {
 	private getUserNote(): void {
 		this.dataService.user_note_get(this.userId).subscribe(
 			(response:any) => {
-				this.text = decodeURIComponent(response.note);
+				console.log('text',response.note);
+				this.text = response.note;
+				
 				if((this.text.length == 1 && (/\s/).test(this.text)) || this.text == 'undefined') {
 					this.text = '';
 				}
