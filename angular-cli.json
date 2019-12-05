@@ -44,7 +44,8 @@
         "../node_modules/ardethian-custom-scrollbar-plugin/jquery.mCustomScrollbar.js",
         "../node_modules/izitoast/dist/js/iziToast.min.js",
         "assets/scripts/jquery.popupoverlay.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.min.js"
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "../node_modules/jszip/dist/jszip.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

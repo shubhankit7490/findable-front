@@ -1363,7 +1363,44 @@ export class DefaultApi {
 
     return this.http.request(path, requestOptions).map(this.handleResponse);
   }
+   /**
+   * Get an applicant&#39;s note
+   * Accessible to the recruiter / manager / admin roles only and unique per business
+   * @param userId The user identifier number
+   */
+  public getInvitationCode(
+    inviteCode: string,
+    extraHttpRequestParams?: any
+  ): Observable<any> {
+    const path = this.basePath + `/users/${inviteCode}/invitationEmail`;
 
+    let queryParameters = new URLSearchParams();
+    let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+    // verify required parameter 'userId' is not null or undefined
+    if (inviteCode === null || inviteCode === undefined) {
+      throw new Error(
+        "Required parameter inviteCode was null or undefined when calling invitationEmail."
+      );
+    }
+
+    // authentication (X-API-KEY) required
+    if (this.configuration.apiKey) {
+      headers.set("X-API-KEY", this.configuration.apiKey);
+    }
+
+    let requestOptions: RequestOptionsArgs = new RequestOptions({
+      method: RequestMethod.Get,
+      headers: headers,
+      search: queryParameters
+    });
+
+    // https://github.com/swagger-api/swagger-codegen/issues/4037
+    if (extraHttpRequestParams) {
+      requestOptions = this.extendObj(requestOptions, extraHttpRequestParams);
+    }
+
+    return this.http.request(path, requestOptions).map(this.handleResponse);
+  }
   /**
    * Update an applicant&#39;s note
    * Accessible to the recruiter / manager / admin roles only and unique per business

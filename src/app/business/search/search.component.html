@@ -308,7 +308,19 @@
 						></app-account-id>
 					</div>
 				</div>
+				<div class="search-side-component inner">
+					<h5>Applicant name</h5><!-- ACCOUNT ID -->
 
+					<div class="component-wrap">
+						<img class="input-icon" src="../../../../assets/images/account-users-icon-selected.png">
+						<app-account-id
+							ngDefaultControl
+							[accountId]="searchModel.user_name"
+							[(ngModel)]="searchModel.user_name"
+							[ngModelOptions]="{standalone: true}"
+						></app-account-id>
+					</div>
+				</div>
 			</app-drawer>
 
 		</div>
@@ -546,15 +558,22 @@
 							userId="{{ applicant.id }}"
 							selectedItem="{{ applicant.status }}"
 							placeholderText="Change Status"
+							(onStatusChanged)="update_status($event)"
 						></app-status-selector>
 					</div>
 				</template>
 			</p-column>
 
 			<template let-applicant pTemplate="rowexpansion">
-				<app-applicant-search-result userId="{{ applicant.id }}" creatorid="{{applicant.creator_id}}"></app-applicant-search-result>
+				<app-applicant-search-result userId="{{ applicant.id }}" creatorid="{{applicant.creator_id}}" display_edit="{{applicant.display_edit}}"></app-applicant-search-result>
 			</template>
 
+			<p-column [style]="{'width':'18px'}" header="ShortList">
+				<template let-applicant="rowData" pTemplate="body">
+					<span *ngIf="applicant.status=='short'"><img src="assets/images/star.png" alt="image" style="margin-left: 15px;"></span>
+				</template>
+			</p-column>
+			
 			<p-column [style]="{'width':'18px'}" header="Note">
 				<template let-applicant="rowData" pTemplate="body">
 					<div class="table-user-status">
@@ -563,9 +582,10 @@
 				</template>
 			</p-column>
 			<p-column header="Edit" [style]="{'width': '25px'}" >
+				
 				<template let-applicant="rowData" pTemplate="body">
-					<span *ngIf="authService.currentUser.user_id==applicant.creator_id" class="glyphicon glyphicon-edit" (click)="openprefrencesmodel(applicant.id)" style="padding: 40%;"></span>
-					<span *ngIf="authService.currentUser.user_id!=applicant.creator_id"  style="padding: 25%;">N/A</span>
+					<span *ngIf="authService.currentUser.user_id==applicant.creator_id || applicant.display_edit" class="glyphicon glyphicon-edit" (click)="openprefrencesmodel(applicant.id,applicant.status)" style="padding: 40%;"></span>
+					<span *ngIf="authService.currentUser.user_id!=applicant.creator_id && ! applicant.display_edit"  style="padding: 25%;">N/A</span>
 				</template>
 			</p-column>
 			<p-footerColumnGroup>
@@ -621,6 +641,7 @@
 			#preferencesModalForm
 			[(preferences)]="preferences$"
 			[user_id]="user_id"
+			[user_status]="user_status"
 			[prefrence]="prefrence"
 			(onSuccessfulUpdate)="closeStatusModal($event)"
 		></app-preferences-form>

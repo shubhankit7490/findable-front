@@ -23,6 +23,7 @@ export class ApplicantSearchResultComponent implements OnInit {
 	@ViewChild('websitePop') websitePop;
 	@Input() userId: any;
 	@Input() creatorid: any;
+	@Input() display_edit:any=0;
 	public profiledetaile: PersonalDetails;
 	public showprofile:boolean=false;
 	public prefrences:boolean=false;
@@ -66,6 +67,7 @@ export class ApplicantSearchResultComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		console.log(this.display_edit);
 		this.charts.experience.disabled = this.chartDataService.getData('experience', this.userId).disabled;
 		this.charts.education.disabled = this.chartDataService.getData('education', this.userId).disabled;
 		this.charts.responsibilities.disabled = this.chartDataService.getData('responsibilities', this.userId).disabled;
@@ -150,10 +152,11 @@ export class ApplicantSearchResultComponent implements OnInit {
 	private getUserNote(): void {
 		this.dataService.user_note_get(this.userId).subscribe(
 			(response:any) => {
-				console.log('text',response.note);
 				this.text = response.note;
-				
-				if((this.text.length == 1 && (/\s/).test(this.text)) || this.text == 'undefined') {
+				if((this.text.length == 1 && (/\s/).test(this.text)) || this.text == undefined) {
+					this.text = '';
+				}
+				if(this.text == 'undefined'){
 					this.text = '';
 				}
 			},

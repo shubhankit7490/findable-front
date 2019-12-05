@@ -86,7 +86,25 @@ export class SignUpComponent implements OnInit {
 					});
 			}
 		}
-		this.analyticsService.emitPageview('Signup');
+		if(this.inviteCode){
+			this.user_type=[{id:'recruiter',value:'Recruiter'}];
+			this.dataService.getInvitationCode(this.inviteCode).subscribe(
+				(response:any)=> {
+					if (response) {
+						if(response.email!=undefined){
+							this.signUpFields.patchValue({
+							'email':response.email,
+							});
+						}
+					}
+				},
+				error => {
+					this.showLoader = false;
+					this.handleErrors(error);
+				}
+			);
+
+		}
 	}
 
 	handleErrors(error) {

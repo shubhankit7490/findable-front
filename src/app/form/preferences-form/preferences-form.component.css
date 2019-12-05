@@ -39,6 +39,10 @@ div.fnd-form-column {
 .m-l-10{
   margin-left: 18px;
 }
+.market-checkbox{
+    font-size: 20px;
+    padding: 20px;
+}
 #fnd-pref-salary-container {
     display: flex;
 }

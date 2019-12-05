@@ -78,4 +78,6 @@ export interface ApplicantsSearchProfileParsed {
     uploaded_date?: number;
 
     user_type?: string;
+
+    user_name?: null|string;
 }

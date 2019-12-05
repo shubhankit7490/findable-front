@@ -24,6 +24,7 @@ export class SearchProfileComponent implements OnInit {
 	@Input() userId: number;
 	@Input() displayright: number;
 	@Input() creator_id:any;
+	@Input() display_edit:any=0;
 	@Output() onLoaded = new EventEmitter<any>();
 	@Output() setprofilevalue= new EventEmitter<any>();
 	@ViewChild('contactApplicant') contactModal: Modal;
@@ -80,8 +81,15 @@ export class SearchProfileComponent implements OnInit {
 	}
 
 	profileGetRequest() {
-		console.log('@search-profile > profileGetRequest');
-		this.profile = this.dataService.profile_get(this.userId);
+		if(this.display_edit=='true'){
+
+			var showprofile=1;
+		}else{
+			var showprofile=0;
+		}
+		console.log(showprofile);
+		console.log(this.display_edit);
+		this.profile = this.dataService.profile_get(this.userId,showprofile);
 		this.profile.subscribe((data:any) => {
 			this.profileSubscribe = data;
 			if (!!data.about) {

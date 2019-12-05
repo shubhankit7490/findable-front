@@ -168,7 +168,14 @@ export class DataService {
 		}
 		return this.authApi.usersUserIdNotesGet(userId).share();
 	}
-
+	getInvitationCode(inviteCode: string) {
+		let config = new Configuration();
+		config.apiKey = this.apiKey;
+		if (!this.authApi) {
+			this.authApi = new DefaultApi(this.http, null, config);
+		}
+		return this.authApi.getInvitationCode(inviteCode).share();
+	}
 	public user_note_put(userId: number, note: string,type:string): Observable<Response> {
 		let config = new Configuration();
 		config.apiKey = this.apiKey;

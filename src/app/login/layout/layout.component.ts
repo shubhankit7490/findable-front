@@ -14,13 +14,21 @@ export class SignupLayoutComponent implements OnInit {
 	router;
 	redirectLink = '';
 	userType = 'user';
-
-	constructor(private _router: Router, public authService: AuthService) {
+	invite:string=null;
+	constructor(private _router: Router, public authService: AuthService,public activatedRoute: ActivatedRoute,) {
 		this.router = _router;
 		this.authService = authService;
 	}
 
 	ngOnInit() {
+		this.activatedRoute.queryParams.subscribe(
+			params => {
+				this.invite = params['invite'] || null;
+			},
+			error => {
+				console.log(error);
+			}
+		);
 		this.checkTitleText(this.router.url);
 	}
 
@@ -53,7 +61,12 @@ export class SignupLayoutComponent implements OnInit {
 			this.userType = 'recruiter';
 		}
 		if (url.indexOf('/signup') >= 0) {
-			this.title = 'Sign Up';
+			if(this.invite){
+				this.title = 'Please fill out your information to create an account';
+			}else{
+				this.title = 'Sign Up';
+			}
+			
 			this.description = 'Sign up with your email and password:';
 		}
 		if (url.indexOf('/user/signup/thank') >= 0) {

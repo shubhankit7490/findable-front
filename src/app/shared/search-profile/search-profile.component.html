@@ -20,15 +20,15 @@
 				<div *ngIf="( profile | async )?.image?.url !== null" class="profile-image-edit"></div>
 			</div>
 
-			<button *ngIf="creator_id!=login_user_id"
+			<button *ngIf="creator_id!=login_user_id && display_edit=='false'"
 				class="contact-button no-print pointer"
 				(click)="onContactClick($event)"
 				>
 				Contact Recruiter
 			</button>
-			<a class="contact-button no-print pointer" *ngIf="creator_id==login_user_id" [href]="( profile | async )?.resume.url" target="_blank">Resume</a>
+			<a class="contact-button no-print pointer" *ngIf="creator_id==login_user_id || display_edit!='false'" [href]="( profile | async )?.resume.url" target="_blank">Resume</a>
 
-			<a class="contact-button no-print pointer" *ngIf="creator_id==login_user_id" (click)="sendemail()" target="_blank">Send Email</a>
+			<a class="contact-button no-print pointer" *ngIf="creator_id==login_user_id || display_edit!='false'" (click)="sendemail()" target="_blank">Send Email</a>
 		</div>
 		<div class="profile-name-container">
 			<div class="profile-name-container-top">

@@ -23,11 +23,15 @@ import { RatingSliderComponent, RatedItem } from '../../shared/rating-slider/rat
 import { NoteComponent } from '../../shared/note/note.component';
 import { PreferencesFormComponent } from '../../form/preferences-form/preferences-form.component';
 import { TourService } from '../../services/tour.service';
+import * as JSZip from 'jszip';
+import { saveAs } from 'file-saver';
+declare let JSZipUtils: any;
 @Component({
 	selector: 'app-search',
 	templateUrl: './search.component.html',
 	styleUrls: ['./search.component.css']
 })
+
 export class SearchComponent implements OnInit,AfterViewInit {
 	@ViewChild('table') table: DataTable;
 	@ViewChild('actionSelector') actionSelector: ArraySelectorComponent;
@@ -50,6 +54,7 @@ export class SearchComponent implements OnInit,AfterViewInit {
 	public results: models.ApplicantsSearchResultProfiles = {};
 	public total: number;
 	public user_id: number;
+	public user_status: string;
 	public currentResultsCount = 0;
 	public firstVisit = false;
 	public selectedid='all';
@@ -57,6 +62,7 @@ export class SearchComponent implements OnInit,AfterViewInit {
 	public purchaseVisible = false;
 	public applicantsToPurchase: number[] = [];
 	public applicant_chnage_status: number[] = [];
+	public applicant_resume_url: string[] = [];
 
 	// Job title
 	public selectedJobTitles: models.JobTitle[] = [];
@@ -133,11 +139,13 @@ export class SearchComponent implements OnInit,AfterViewInit {
 	];
 
 	public actions_uploded_candidate = [
-		{ id: 'fulldetails', name: 'Contact Applicant' },
+		{ id: 'fulldetails', name: 'Email Candidate' },
 		{ id: 'open', name: 'Open / Close selected' },
 		{ id: 'addtomarket', name: 'Add to market' },
 		{ id: 'removefrommarket', name: 'Remove from market'},
-		{ id: 'deleteandremove', name: 'Delete & Remove'}
+		{ id: 'deleteandremove', name: 'Delete & Remove'},
+		/*{ id: 'print', name: 'print'},*/
+		{ id: 'download_resume', name: 'Download Resume'},
 	];
 
 	public searchModel: models.ApplicantsSearchProfileParsed | models.ApplicantsSearchProfile = {
@@ -183,6 +191,7 @@ export class SearchComponent implements OnInit,AfterViewInit {
 		uploaded_date: null,
 		user_type: null,
 		account_id: null,
+		user_name: null,
 	}
 
     // Summary variables
@@ -825,6 +834,41 @@ export class SearchComponent implements OnInit,AfterViewInit {
 		this.order = type;
 		this.performSearch();
 	}
+	// upload multiple resume
+	public downloadresume(){
+		var zip = new JSZip();
+		var count = 0;
+		var totalresume=this.table.selection.length;
+		var zipFilename = "Resumes.zip";
+		this.table.selection.forEach(function(value){
+			var filedata = value.resume_url.split('/').pop();
+		    var filextention = filedata.split('.').pop();
+		    var filename = value.firstname+value.id+'.'+filextention;
+		  if(value.resume_url){
+			  
+			  JSZipUtils.getBinaryContent(value.resume_url, function (err, data) {
+			    if(data){
+			     	zip.file(filename, data, {binary:true});
+			    }
+				count++;
+			     if (count == totalresume) {
+			     	 zip.generateAsync({type:'blob'}).then(function(content) {
+					      saveAs(content, zipFilename);
+					  });
+			     }
+			  });
+			}
+		});	
+	}
+	// print resume 
+	public  printResume() {
+		
+		this.table.selection.forEach(function(value){
+			window.open('https://drive.google.com/viewerng/viewer?url='+value.resume_url+'',"_blank");
+		});
+
+		 // window.open('https://drive.google.com/viewerng/viewer?url=',"_blank");
+	}
 	public updateuserstatus(status: string){
 		this.applicant_chnage_status = this.table.selection
 		.filter(value => {
@@ -883,6 +927,12 @@ export class SearchComponent implements OnInit,AfterViewInit {
 				if(confirm("Are you sure want to delete and remove from market place")) {
 				    this.updateuserstatus('deleteandremove');
 				  }
+			break;
+			case 'print':
+				this.printResume();
+			break;
+			case 'download_resume':
+				this.downloadresume();
 			break;
 		}
 	}
@@ -1335,9 +1385,13 @@ export class SearchComponent implements OnInit,AfterViewInit {
 		this.preferencesModal.close();
 		this.performSearch(true);
 	}
-	openprefrencesmodel(userid){
+	update_status(e) {
+		this.performSearch(true);
+	}
+	openprefrencesmodel(userid,status){
 		this.prefrence='edit';
 		this.user_id=userid;
+		this.user_status=status;
 		this.preferences$ = this.dataService.preferences_get(userid);
 		this.preferences$.subscribe(
 			(response: UserPreferencesExt) => {

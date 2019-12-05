@@ -37,6 +37,7 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 
 	@Input() preferences: Observable<extModels.UserPreferencesExt>;
 	@Input() user_id:number=0;
+	@Input() user_status:string=null;
 	@Input() prefrence:string=null;
 	@ViewChild('jobtitle') jobTitleInput: AutoComplete;
 	@ViewChild('locationOfInteresetComponent') locationOfInteresetComponent: LocationsFormComponent;
@@ -83,6 +84,7 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 	public form: FormGroup;
 	public notdes:string=''
 	public requestingJobtitle = false;
+	public previous_status: Boolean= false;;
 	public resultsJobtitle: models.DictionaryItem[];
 	private setModelJobTitle: models.JobTitle = {
 		id: null,
@@ -144,6 +146,7 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 		jobTitle: '',
 		seniority: '',
 		type:'',
+		status:'',
 		text:''
 	};
 
@@ -171,6 +174,7 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 			jobTitle: 						 [ '', Validators.required ],
 			seniority:[ '', Validators.required ],
 			type:[''],
+			status:[''],
 			text:[''],
 		});
 		// Init date picker
@@ -293,6 +297,17 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 						this.setModelSeniority=  this.recentJob.seniority;
 				}
 			);
+			if(this.user_status=='short'){
+				this.previous_status=true;
+				this.form.patchValue({
+						'status':true,
+						});
+			}else{
+				this.previous_status=false;
+				this.form.patchValue({
+						'status':false,
+				});
+			}
 		}
 	}
 	ngOnInit() {
@@ -373,7 +388,6 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 	public onSubmit(event: Event) {
 		event.preventDefault();
 		this.isSubmitting = true;
-
 		this.formErrors = {
 			employment_status: '',
 			current_status: '',
@@ -388,6 +402,7 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 			relocation: '',
 			jobTitle:'',
 			seniority: '',
+			status:'',
 			type:'',
 			text:'',
 		};
@@ -458,6 +473,9 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 				if(this.prefrence=='edit'){
 					this.updateusernote();
 					this.updateuserexp();
+					if(this.previous_status!=this.form.get('status').value){
+						this.updatestatus();
+					}
 				}
 				this.form.reset();
 			}, error => {
@@ -469,11 +487,28 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 	private updateuserexp(){
 		this.sendModelExperience.job_title = this.setModelJobTitle;
 		this.sendModelExperience.seniority = this.setModelSeniority;
-		console.log(this.sendModelExperience);
 		this.dataService.experience_put(this.user_id, this.sendModelExperience.id, this.sendModelExperience).subscribe(
 			(response: Response) => {
 			}
 		);
+	}
+	private updatestatus(){
+			if(this.form.get('status').value){
+				var current_status='short';
+			}else{
+				var current_status='null';
+			}
+			this.dataService.user_status_put(this.user_id, current_status).subscribe(
+            response => {
+               // this.onStatusChanged.emit()
+            },
+            error => {
+                //this.error = error.message;
+            },
+            () => {
+                //this.submitting = false;
+            }
+        )
 	}
 	private updateusernote(){
 		var data=CKEDITOR.instances[this.editorinstance.name].getData();
@@ -485,6 +520,7 @@ export class PreferencesFormComponent implements OnInit,OnChanges{
 			);
 		}
 	}
+
 	private prepareModel() {
 		this.preferencesModel.employment_status = this.form.get('employment_status').value;
 		this.preferencesModel.current_status = this.form.get('current_status').value;
@@ -710,5 +746,6 @@ export interface FormErrors {
 	jobTitle:string;
 	seniority: string,
 	type:string,
+	status:string,
 	text:string,
 }

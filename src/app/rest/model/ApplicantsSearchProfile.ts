@@ -80,4 +80,6 @@ export interface ApplicantsSearchProfile {
 
     uploaded_date?: number;
 
+    user_name?: null|string;
+
 }
