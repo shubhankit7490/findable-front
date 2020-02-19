@@ -27,6 +27,10 @@ export class ArraySelectorComponent implements OnInit {
 
 	@Input() disabled: boolean;
 
+	@Input() Desableoption: boolean=false;
+
+	@Input() Desableoptionvalue: string='';
+
 	@Input() disablePlaceholder: boolean;
 
 	@Input() placeholderValue = null;
@@ -47,7 +51,9 @@ export class ArraySelectorComponent implements OnInit {
 	constructor(public dataService: DataService, public authService: AuthService) {
 	}
 
-	ngOnInit() {}
+	ngOnInit() {
+		console.log(this.Desableoption);
+	}
 
 	onSelectChange(event: Event) {
 		let selectedIndex = event.target['value'],

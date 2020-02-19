@@ -216,6 +216,18 @@ export class BusinessAccountComponent implements OnInit {
 	public updateModel(event: any): void {
 		this[event.name] = event.model;
 	}
+	
+	/** Package Purchase
+	 * @public
+	 * @param {{ Package_id: intiger}} event receives an emited event
+	 * from the component it is used in.
+	 * @returns {void} void
+	 */
+	public packagePurchase(event: any): void {
+		this.package_id =event.package_id;
+		this.setStep(3);
+	}
+
 
 	/** Set Class Business object with Emitted Business Data 
 	 * @public

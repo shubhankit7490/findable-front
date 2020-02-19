@@ -25,6 +25,7 @@ import { PreferencesFormComponent } from '../../form/preferences-form/preference
 import { TourService } from '../../services/tour.service';
 import * as JSZip from 'jszip';
 import { saveAs } from 'file-saver';
+import * as es6printJS from "print-js";
 declare let JSZipUtils: any;
 @Component({
 	selector: 'app-search',
@@ -144,7 +145,7 @@ export class SearchComponent implements OnInit,AfterViewInit {
 		{ id: 'addtomarket', name: 'Add to market' },
 		{ id: 'removefrommarket', name: 'Remove from market'},
 		{ id: 'deleteandremove', name: 'Delete & Remove'},
-		/*{ id: 'print', name: 'print'},*/
+		{ id: 'print', name: 'print'},
 		{ id: 'download_resume', name: 'Download Resume'},
 	];
 
@@ -864,7 +865,8 @@ export class SearchComponent implements OnInit,AfterViewInit {
 	public  printResume() {
 		
 		this.table.selection.forEach(function(value){
-			window.open('https://drive.google.com/viewerng/viewer?url='+value.resume_url+'',"_blank");
+			es6printJS(value.resume_url);
+			//window.open('https://drive.google.com/viewerng/viewer?url='+value.resume_url+'',"_blank");
 		});
 
 		 // window.open('https://drive.google.com/viewerng/viewer?url=',"_blank");

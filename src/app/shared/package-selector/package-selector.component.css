@@ -17,14 +17,14 @@
     color: #012350;
     margin-top: 35px;
     font-family: 'Open Sans', sans-serif;
-    border-top: 1px solid #e4e4ee;
+    /*border-top: 1px solid #e4e4ee;
     border-bottom: 1px solid #f0f1f6;
-    border-left: 1px solid #e4e4ee;
+    border-left: 1px solid #e4e4ee;*/
     min-height: 430px;
 }
 
 #price_table div:last-of-type .price_table_container {
-    border-right: 1px solid #e4e4ee;
+    /* border-right: 1px solid #e4e4ee; */
 }
 
 .price_table_heading {
@@ -59,7 +59,7 @@
     padding: 15px;
     background: #FFF;
     min-height: 48px;
-    border-bottom: 1px solid #f8f8fa;
+    /*border-bottom: 1px solid #f8f8fa;*/
 }
 
 .price_table_row.ltr {
@@ -166,7 +166,7 @@
 }
 
 .child-package {
-    border-left: 1px solid #f8f8fa;
+    /*border-left: 1px solid #f8f8fa;*/
 }
 
 div#price_table > div {
@@ -200,3 +200,20 @@ div#price_table > div.disabled .disabled-caption span {
     position: relative;
     top: 180px;
 }
+
+.pacagePrice {background-color: #38fccf; font-weight: 600; color: #133460; font-size: 22px;}
+.packageSep {padding: 0 6px !important;}
+.pacageBx {background-color: #0f2d69 !important; color: #fff; font-size: 18px; border-bottom:1px dashed #fff;}
+.pacageName {background-color: #0f2d69 !important; text-transform: uppercase; font-weight: 600; color: #fff; font-size: 18px; border-bottom:1px dashed #fff;}
+.package_slct {background-color: #38fccf;
+    width: 100%;
+    margin: 0;
+    padding: 19px;
+    height: auto !important;
+    border-radius: 0;
+    font-size: 20px;
+}
+
+.pacageBx.first {background-color: #324c7f !important;}
+.pacageName.first {background-color: #324c7f !important;}
+.tpSp {height: 65px !important;}

@@ -4,6 +4,7 @@ import { ModalModule } from 'ngx-modal';
 import { LogoComponent } from '../../main/main-common/logo/logo.component';
 import { MenuComponent } from '../../main/main-common/menu/menu.component';
 import { UserComponent } from '../../main/main-common/user/user.component';
+import { AccountNumberComponent } from '../../main/main-common/account-number/account-number.component';
 import { RouterModule }  from "@angular/router";
 import { UploadResume } from   '../../business/upload-resume/upload-resume.component';
 @NgModule({
@@ -14,6 +15,7 @@ import { UploadResume } from   '../../business/upload-resume/upload-resume.compo
     ],
     declarations: [
         LogoComponent,
+        AccountNumberComponent,
         MenuComponent,
         UserComponent,
         UploadResume,
@@ -21,6 +23,7 @@ import { UploadResume } from   '../../business/upload-resume/upload-resume.compo
     exports: [
         LogoComponent,
         MenuComponent,
+        AccountNumberComponent,
         UserComponent,
         UploadResume
     ]

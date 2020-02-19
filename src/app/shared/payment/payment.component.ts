@@ -647,7 +647,10 @@ export class PaymentComponent implements OnInit {
 	private getPurchasesHistory(): void {
 		this.historyGet$ = this.dataService.purchase_history_get(this.authService.currentUser.business_id, 1).subscribe(
 			(response: models.BusinessPurchase[]) => {
-				this.package_id = response[0].package.id;
+				if(response.length>0){
+					this.package_id = response[0].package.id;
+				}
+			
 			},
 			error => {
 				GrowlService.message(JSON.parse(error._body).message, 'error')

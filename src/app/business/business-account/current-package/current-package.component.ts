@@ -55,6 +55,7 @@ export class CurrentPackageComponent implements OnInit {
 	};
 	@Input() packages: models.ModelPackage[] = [];
 	@Output() onModelChange: EventEmitter<{ name: string; model: models.ModelPackage[] | models.Credits }> = new EventEmitter();
+	@Output() onpackagePurchase: EventEmitter<{ package_id: number;}> = new EventEmitter();
 	@ViewChild('PurchaseConfirmDialog') dialog: ConfirmDialogComponent;
 
 	paymentSettingsFormGroup: FormGroup;
@@ -188,7 +189,6 @@ export class CurrentPackageComponent implements OnInit {
 
 	purchasePackage(event) {
 		this.package_id = event;
-
 		this.package = this.packages.filter((_package: models.ModelPackage) => _package.id === event)[0];
 
 		if (this.package) {
@@ -231,17 +231,18 @@ export class CurrentPackageComponent implements OnInit {
 				let body = JSON.parse(error._body);
 				if (typeof body.message === 'object') {
 					if (body.message[0].field === 'stripe_token') {
-						GrowlService.message('You have not supplied a credit card.', 'error');
+						//GrowlService.message('You have not supplied a credit card.', 'error');
 						setTimeout(() => {
 							if(this.submitting) { // in case user presses cancel button at this stage
 								GrowlService.message('Navigating to Payment...');
 								setTimeout(() => {
 									if(this.submitting) { // in case user presses cancel button at this stage
-									this.router.navigateByUrl('/business/account/payment');
+									//this.router.navigateByUrl('/business/account/payment');
+									this.onpackagePurchase.emit({ package_id:this.package_id});
 									} else {
 										GrowlService.message('Navigation Aborted');
 									}
-								}, 3000);
+								}, 1000);
 							} else {
 								GrowlService.message('Please fill in your Cradit Card Info at your Payment section for future purchases.');
 							}

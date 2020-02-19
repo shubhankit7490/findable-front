@@ -20,7 +20,7 @@ import { AutoUnsubscribe } from '../../utils/autoUnsubscribe';
 export class PackageSelectorComponent implements OnInit {
 	@Output() onSelect = new EventEmitter<number>();
 
-	public packages: ModelPackage[] = [];
+	public packages:any = [];
 	private package$: Subscription;
 
 	constructor(
@@ -38,6 +38,7 @@ export class PackageSelectorComponent implements OnInit {
 		this.package$ = this.dataService.packages_get().subscribe(
 			(response: ModelPackage[]) => {
 				this.packages = response;
+				console.log(this.packages);
 			},
 			error => {
 				console.log('error');
@@ -47,7 +48,7 @@ export class PackageSelectorComponent implements OnInit {
 
 	public selectPackage(packageId?: number): void {
 		// Temporary, should be removed when other packages are enabled as per Aryeh's request
-		if (packageId != 1) { return; }
+		//if (packageId != 1) { return; }
 		this.analyticsService.emitEvent('Packages', 'Select', 'Desktop', this.authService.currentUser.user_id);
 		this.onSelect.emit(packageId);
 	}

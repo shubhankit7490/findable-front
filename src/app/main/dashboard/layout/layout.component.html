@@ -8,10 +8,17 @@
         <div class="col-md-2">
             <app-logo-main size="medium"></app-logo-main>
         </div>
-        <div class="col-md-10 n-p-r n-p-l">
+        <div class="col-md-7 n-p-r n-p-l">
             <app-menu-main role="{{ role }}"></app-menu-main>
             <app-share-section (openUploadResume)="openUploadResume()" (onShareResume)="openConfirmDialog($event)" id="appShareSection" *ngIf="role=='applicant'"></app-share-section>
-            <app-user-main></app-user-main>
+        </div>
+        <div class="col-md-3">
+            <div class="col-md-5">
+                <account-number></account-number>
+            </div>
+            <div class="col-md-7">
+                <app-user-main></app-user-main>
+            </div>  
         </div>
     </div>
 </header>

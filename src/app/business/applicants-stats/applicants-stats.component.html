@@ -1,7 +1,20 @@
-<header>
-    <app-logo-main size="medium"></app-logo-main>
-    <app-menu-main role="{{authService.currentUser.role}}"></app-menu-main>
-    <app-user-main></app-user-main>
+<header class="container-fluid n-p-r n-p-l">
+    <div class="row full-width n-m">
+        <div class="col-md-3">
+            <app-logo-main size="medium"></app-logo-main>
+        </div>
+        <div class="col-md-6 n-p-r n-p-l">
+            <app-menu-main role="{{authService.currentUser.role}}"></app-menu-main>
+        </div>
+        <div class="col-md-3">
+            <div class="col-md-6">
+                <account-number></account-number>
+            </div>
+            <div class="col-md-6">
+                <app-user-main></app-user-main>
+            </div>  
+        </div>
+    </div>
 </header>
 
 <div class="applicants-stats-container">

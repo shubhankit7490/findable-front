@@ -1,16 +1,20 @@
-<h3 class="package-selector-title">Choose the best package <br>for your company</h3>
 
 <div class="container">
     <div class="row" id="price_table">
+         <h1 class="package-selector-title">Subscription packages</h1>
         <!-- table labels -->
         <div class="col-md-2 col-sm-6 col-xs-12 float-shadow">
             <div class="price_table_container">
                 <div class="price_table_heading_white">&nbsp;</div>
                 <div class="price_table_body">
-                    <div class="price_table_row cost warning-text">&nbsp;</div>
-                    <div class="price_table_row ltr">Applicant Screening</div>
-                    <div class="price_table_row ltr">Free sign up credits</div>
-                    <div class="price_table_row ltr">Contact other candidates</div>
+                    <div class="price_table_row cost warning-text tpSp">&nbsp;</div>
+                    <div class="price_table_row cost warning-text tpSp">&nbsp;</div>
+                    <div class="price_table_row ltr">Search Marketplace</div>
+                    <div class="price_table_row ltr">Upload Resumes</div>
+                    <div class="price_table_row ltr">Manage Candidates</div>
+                    <div class="price_table_row ltr">Contact Candidates</div>
+                    <div class="price_table_row ltr">Access Curated Candidates</div>
+                    <div class="price_table_row ltr">Users</div>
                     <div class="price_table_row ltr">&nbsp;</div>
                 </div>
                 <div class="price_button_replacement">&nbsp;</div>
@@ -18,20 +22,23 @@
         </div>
 
         <!-- table column -->
-        <div class="col-md-2 col-sm-6 col-xs-12 float-shadow" *ngFor="let package of packages" [class.disabled]="package.id > 1">
+        <div class="col-md-2 col-sm-6 col-xs-12 float-shadow packageSep" *ngFor="let package of packages.message ">
             <!-- <div class="recommended round" *ngIf="package.id == 3"><strong>Best Deal</strong></div> -->
-            <div class="disabled-caption" *ngIf="package.id > 1">
+           <!--  <div class="disabled-caption">
                 <span>Coming soon</span>
-            </div>
+            </div> -->
 
             <div class="price_table_container child-package">
-                <div class="price_table_heading"><img src="/assets/images/{{package.name | firstWord}}.png"></div>
+                <div class="price_table_heading"></div>
                 <div class="price_table_body">
-                    <div class="price_table_row cost warning-text"><strong>{{package.name}}</strong></div>
-                    <div class="price_table_row">{{package.applicant_screening}}</div>
-                    <div class="price_table_row">{{package.initial_credits}}</div>
-                    <div class="price_table_row">{{package.credits}}</div>
-                    <div class="price_table_row">{{(package.price * 1) > 0 ? '$' + (package.price * 1) : 'Free'}}</div>
+                    <div class="price_table_row pacagePrice">{{(package.price * 1) > 0 ? '$' + (package.price * 1) : 'Free'}}</div>
+                    <div class="price_table_row cost warning-text pacageName" [ngClass]="package.id == 1 ? 'first': ''"><strong>{{package.name}}</strong></div>
+                    <div class="price_table_row pacageBx" [ngClass]="package.id == 1 ? 'first': ''">{{package.applicant_screening}}</div>
+                    <div class="price_table_row pacageBx" [ngClass]="package.id == 1 ? 'first': ''">{{package.cashback_percent}}</div>
+                    <div class="price_table_row pacageBx" [ngClass]="package.id == 1 ? 'first': ''">{{package.manage_Candidates}}</div>
+                    <div class="price_table_row pacageBx" [ngClass]="package.id == 1 ? 'first': ''">{{package.initial_credits}}</div>
+                    <div class="price_table_row pacageBx" [ngClass]="package.id == 1 ? 'first': ''">{{package.credits}}</div>
+                    <div class="price_table_row pacageBx" [ngClass]="package.id == 1 ? 'first': ''">{{package.users}}</div>
                 </div>
                 <button class="btn btn-success package_slct" type="button" (click)="selectPackage(package.id)">Select</button>
             </div>

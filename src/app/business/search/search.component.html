@@ -3,9 +3,16 @@
 		<div class="col-md-2">
 			<app-logo-main size="medium"></app-logo-main>
 		</div>
-		<div class="col-md-10 n-p-r n-p-l">
+		<div class="col-md-7 n-p-r n-p-l">
 			<app-menu-main [role]="role"></app-menu-main>
-			<app-user-main></app-user-main>
+		</div>
+		<div class="col-md-3">
+			<div class="col-md-5">
+				<account-number></account-number>
+			</div>
+			<div class="col-md-7">
+				<app-user-main></app-user-main>
+			</div>	
 		</div>
 	</div>
 </header>
@@ -354,6 +361,8 @@
 			#actionSelector
 			[arrayItems]="actions_uploded_candidate"
 			[disabled]="!table.selection || !table.selection.length"
+			[Desableoption]="table.selection.length > 1"
+			Desableoptionvalue='print'
 			[resetOnSelection]="true"
 			(onSelect)="onActionSelected($event)"
 			key_id="id"
@@ -390,9 +399,9 @@
 		    <option *ngFor="let item of uploadedCandidate; let i = index" value="{{ item.id || i }}">{{item.uploaded_date}} {{item.uploaded_user}}/{{item.total_user}}:{{item.name}}</option>
 		</select>
 	</div>
-	<div class="sort-wrap col-md-2 " *ngIf="role=='recruiter'" style="float:right;padding-top: 11px;">Account No:
+	<!-- <div class="sort-wrap col-md-2 " *ngIf="role=='recruiter'" style="float:right;padding-top: 11px;">Account No:
 		{{authService.currentUser.user_id}}
-	</div>
+	</div> -->
 
 	<div class="search-table-wrap">
 		<app-spinning-loader [showLoader]="loadingResults"></app-spinning-loader>
