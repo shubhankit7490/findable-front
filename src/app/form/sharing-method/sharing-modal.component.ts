@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild,Output,EventEmitter,Input,OnChanges,SimpleChanges} from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 // service:
 import { DataService } from '../../rest/service/data.service';
 import { AuthService } from '../../rest/service/auth.service';
 import { AnalyticsService } from '../../services/analytics.service';
-
 // models:
 import { Log } from '../../rest/model/Log';
 
@@ -22,6 +21,8 @@ export class SharingModalComponent implements OnInit {
 		subject: { error: '', name: 'Subject' },
 		to:      { error: '', name: 'Email' }
 	};
+	@Output() openpaymentModel = new EventEmitter();
+	@Input() blockingInfoMode :string;
 	public sharingFields: FormGroup;
 	public globalError = '';
 	public userId = null;
@@ -29,6 +30,7 @@ export class SharingModalComponent implements OnInit {
 	public repoUrl:any = '';
 	private shareUrl = '';
 	private shareParams: ShareParams;
+	public subscription: boolean=false;
 	showLoader = false;
 	log: Log = {
 		category: 'profile_share',
@@ -57,8 +59,20 @@ export class SharingModalComponent implements OnInit {
 		);*/
 	}
 
-	ngOnInit() {	}
-
+	ngOnInit() {	
+		//this.getBlockInfoSubscriptionData();
+		console.log('value changed', this.blockingInfoMode);
+	}
+	ngOnChanges(changes: SimpleChanges): void {
+    	console.log('value changed', this.blockingInfoMode);
+    	if(this.blockingInfoMode == 'create'){
+			this.subscription=true;
+		}else if(this.blockingInfoMode == 'update'){
+			this.subscription=true;
+		}else{
+			this.subscription=false;
+		}
+  	}
 	validate(fieldName?: string, error?: string): void {
 		if (fieldName && error) {
 			this.formErrors[fieldName].error = error;
@@ -100,117 +114,141 @@ export class SharingModalComponent implements OnInit {
 	}
 
 	send(e: Event, sharingFields) {
-		e.preventDefault();
-		this.valid = true;
-		this.showLoader = true;
-		this.formErrors = {
-			message:  { error: '', name: 'Message' },
-			subject:    { error: '', name: 'Subject' },
-			to:     { error: '', name: 'Email' }
-		};
-		this.validate('');
+		if(this.subscription){
+			this.openpaymentModel.emit();
+		}else{
+			e.preventDefault();
+			this.valid = true;
+			this.showLoader = true;
+			this.formErrors = {
+				message:  { error: '', name: 'Message' },
+				subject:    { error: '', name: 'Subject' },
+				to:     { error: '', name: 'Email' }
+			};
+			this.validate('');
 
-		if (this.valid) {
-			this.dataService.email(sharingFields.value.to, sharingFields.value.subject, sharingFields.value.message).subscribe(
-				response => {
-					this.analyticsService.emitEvent('Sharing Method', 'Email', 'Desktop', this.authService.currentUser.user_id);
-					this.showLoader = false;
-					this.sharingFields.reset();
-					this.log.action = 'email';
-					this.dataService.log(this.log).subscribe();
-					this.globalError = 'Your profile link was sent successfully';
-					setTimeout(function () {
-						this.globalError = '';
-					}.bind(this), 3000);
-				},
-				error => {
-					this.showLoader = false;
-					let _error = JSON.parse(error._body);
-					for (let i in _error.message) {
-						if (_error.message.hasOwnProperty(i)) {
-							this.validate(_error.message[i].field, _error.message[i].error);
+			if (this.valid) {
+				this.dataService.email(sharingFields.value.to, sharingFields.value.subject, sharingFields.value.message).subscribe(
+					response => {
+						this.analyticsService.emitEvent('Sharing Method', 'Email', 'Desktop', this.authService.currentUser.user_id);
+						this.showLoader = false;
+						this.sharingFields.reset();
+						this.log.action = 'email';
+						this.dataService.log(this.log).subscribe();
+						this.globalError = 'Your profile link was sent successfully';
+						setTimeout(function () {
+							this.globalError = '';
+						}.bind(this), 3000);
+					},
+					error => {
+						this.showLoader = false;
+						let _error = JSON.parse(error._body);
+						for (let i in _error.message) {
+							if (_error.message.hasOwnProperty(i)) {
+								this.validate(_error.message[i].field, _error.message[i].error);
+							}
+						}
+
+						if (error.status === 403 || error.status === 404 || error.status === 400) {
+							this.globalError = _error.message;
 						}
 					}
-
-					if (error.status === 403 || error.status === 404 || error.status === 400) {
-						this.globalError = _error.message;
-					}
-				}
-			);
+				);
+			}
 		}
 	};
 
 	share_facebook() {
-		this.shareUrl = 'https://www.facebook.com/sharer/sharer.php';
-		this.shareParams = {
-			u: this.repoUrl
-		};
-		// Log the share action
-		this.log.action = 'facebook';
-		this.dataService.log(this.log).subscribe();
+		/*if (this.blockingInfoStatus === undefined) { return; };
+		
+		let _blockingInfoStatus = Number();*/
+		if(this.subscription){
+			this.openpaymentModel.emit();
+		}else{
+			this.shareUrl = 'https://www.facebook.com/sharer/sharer.php';
+			this.shareParams = {
+				u: this.repoUrl
+			};
+			// Log the share action
+			this.log.action = 'facebook';
+			this.dataService.log(this.log).subscribe();
 
-		this.analyticsService.emitEvent('Sharing Method', 'Facebook', 'Desktop', this.authService.currentUser.user_id);
+			this.analyticsService.emitEvent('Sharing Method', 'Facebook', 'Desktop', this.authService.currentUser.user_id);
 
-		this.urlSharer({
-			params: this.shareParams,
-			shareUrl: this.shareUrl
-		});
+			this.urlSharer({
+				params: this.shareParams,
+				shareUrl: this.shareUrl
+			});
+		}
+		
 	};
 
 	share_twitter(title: string) {
-		this.shareUrl = 'https://twitter.com/intent/tweet/';
-		this.shareParams = {
-			url: this.repoUrl,
-			text: title
-		};
+		if(this.subscription){
+			this.openpaymentModel.emit();
+		}else{
+			this.shareUrl = 'https://twitter.com/intent/tweet/';
+			this.shareParams = {
+				url: this.repoUrl,
+				text: title
+			};
 
-		// Log the share action
-		this.log.action = 'twitter';
-		this.dataService.log(this.log).subscribe();
+			// Log the share action
+			this.log.action = 'twitter';
+			this.dataService.log(this.log).subscribe();
 
-		this.analyticsService.emitEvent('Sharing Method', 'Twitter', 'Desktop', this.authService.currentUser.user_id);
+			this.analyticsService.emitEvent('Sharing Method', 'Twitter', 'Desktop', this.authService.currentUser.user_id);
 
-		this.urlSharer({
-			params: this.shareParams,
-			shareUrl: this.shareUrl
-		});
+			this.urlSharer({
+				params: this.shareParams,
+				shareUrl: this.shareUrl
+			});
+		}
 	};
 
 	share_linkedin() {
-		this.shareUrl = 'https://www.linkedin.com/shareArticle';
-		this.shareParams = {
-			url: this.repoUrl,
-			mini: true
-		};
+		if(this.subscription){
+			this.openpaymentModel.emit();
+		}else{
+			this.shareUrl = 'https://www.linkedin.com/shareArticle';
+			this.shareParams = {
+				url: this.repoUrl,
+				mini: true
+			};
 
-		// Log the share action
-		this.log.action = 'linkedin';
-		this.dataService.log(this.log).subscribe();
+			// Log the share action
+			this.log.action = 'linkedin';
+			this.dataService.log(this.log).subscribe();
 
-		this.analyticsService.emitEvent('Sharing Method', 'LinedIn', 'Desktop', this.authService.currentUser.user_id);
+			this.analyticsService.emitEvent('Sharing Method', 'LinedIn', 'Desktop', this.authService.currentUser.user_id);
 
-		this.urlSharer({
-			params: this.shareParams,
-			shareUrl: this.shareUrl
-		});
+			this.urlSharer({
+				params: this.shareParams,
+				shareUrl: this.shareUrl
+			});
+		}
 	}
 
 	share_gplus() {
-		this.shareUrl = 'https://plus.google.com/share';
-		this.shareParams = {
-			url: this.repoUrl
-		};
+		if(this.subscription){
+			this.openpaymentModel.emit();
+		}else{
+			this.shareUrl = 'https://plus.google.com/share';
+			this.shareParams = {
+				url: this.repoUrl
+			};
 
-		// Log the share action
-		this.log.action = 'googleplus';
-		this.dataService.log(this.log).subscribe();
+			// Log the share action
+			this.log.action = 'googleplus';
+			this.dataService.log(this.log).subscribe();
 
-		this.analyticsService.emitEvent('Sharing Method', 'Google+', 'Desktop', this.authService.currentUser.user_id);
+			this.analyticsService.emitEvent('Sharing Method', 'Google+', 'Desktop', this.authService.currentUser.user_id);
 
-		this.urlSharer({
-			params: this.shareParams,
-			shareUrl: this.shareUrl
-		});
+			this.urlSharer({
+				params: this.shareParams,
+				shareUrl: this.shareUrl
+			});
+		}
 	}
 
 	private urlSharer(sharer: any) {

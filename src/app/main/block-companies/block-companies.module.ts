@@ -10,7 +10,7 @@ import { UiSwitchModule } from 'angular2-ui-switch/src';
 // interjet components:
 import { AutoCompleteModule } from 'interjet-primeng/components/autocomplete/autocomplete';
 
-import { SubscriptionComponent } from '../../shared/subscription/subscription.component';
+
 
 import { BlockCompaniesComponent } from './block-companies/block-companies.component';
 import { FaqLayoutComponent } from './layout/layout.component';
@@ -45,7 +45,6 @@ const routes: Routes = [
 		BlockCompaniesFormComponent,
 		FaqLayoutComponent,
 		BlockCompaniesComponent,
-		SubscriptionComponent,
 	],
 })
 export class BlockCompaniesModule {}

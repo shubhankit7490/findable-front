@@ -24,11 +24,11 @@ export class MenuComponent implements OnInit {
 				url: '/faq',
 				id: 'menu-applicant-faq'
 			},
-			{
+			/*{
 				text: 'Block Companies',
 				url: '/user/block',
 				id: 'menu-applicant-block-companies'
-			},
+			},*/
 			{
 				text: 'Job Board',
 				url: 'https://findable.jobboard.io',

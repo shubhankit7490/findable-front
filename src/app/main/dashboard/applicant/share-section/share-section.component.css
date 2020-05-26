@@ -85,3 +85,33 @@
     border-left: 1px solid #fff;
     min-width: 43px;
 }
+
+#purchaseModalheader .purchase-sub{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+#purchaseModalheader .modal-content{
+    background-color: #fff;
+}
+#purchaseModalheader .modal-body{
+    background-color: #fff;
+}
+#purchaseModalheader .modal-header{
+    padding: 10px !important; 
+}
+
+#purchaseModalheader .modal-header .modal-title{
+    color: #000000;
+    font-size: 24px;
+}
+#purchaseModalheader .modal-body{
+    padding: 10px !important;
+}
+
+#purchaseModalheader .blocking-info-sub-ends-at{
+    font-size: 12px;
+    color: red;
+}

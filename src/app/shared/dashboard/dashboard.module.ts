@@ -19,7 +19,7 @@ import { IonRangeSliderModule } from 'ng2-ion-range-slider';
 import { CookieModule } from 'ngx-cookie';
 import { ConfirmModule } from 'angular2-bootstrap-confirm';
 import { FileUploadModule } from 'interjet-primeng/components/fileupload/fileupload';
-
+import { SubscriptionComponent } from '../../shared/subscription/subscription.component';
 // Components
 import { SortGridPipe } from '../../form/select-list/sort.pipe';
 import { StatsSectionComponent } from '../../main/dashboard/applicant/stats-section/stats-section.component';
@@ -101,6 +101,7 @@ import { CKEditorModule } from 'ng2-ckeditor';
 		SortGridPipe,
 		ContactApplicantComponent,
 		ConfirmEmailComponent,
+		SubscriptionComponent,
 	],
 	exports: [
 		CommonModule,
@@ -129,7 +130,8 @@ import { CKEditorModule } from 'ng2-ckeditor';
 		FocusAndExpertiseComponent,
 		SortGridPipe,
 		ConfirmEmailComponent,
-		ContactApplicantComponent
+		ContactApplicantComponent,
+		SubscriptionComponent
 	],
 	providers: [
 		MessageService

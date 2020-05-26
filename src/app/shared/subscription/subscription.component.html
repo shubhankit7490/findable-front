@@ -1,28 +1,27 @@
 <div class="subscription-container">
     <h3 *ngIf="modeStatus === 'create'">Fill in your credit card Information</h3>
     <h4>We Accept: <img src="/assets/images/credit-cards-logos.png"></h4>
-
     <form [formGroup]="subscriptionForm" novalidate autocomplete="false">
         <div class="col-md-12">
             <h5>Credit Card</h5>
             <div class="spacer">&nbsp;</div>
 
             <div class="form-group col-md-12 payment-section">
-                <label for="card-element" class="fnd-req">Current Credit Card Number</label>
-                <div id="card-element" class="form-control-container"></div>
-                <p class="error" id="card-errors" role="alert">{{ controls.messages.number }}</p>
+                <label for="card-element{{modeltype}}" class="fnd-req">Current Credit Card Number</label>
+                <div id="card-element{{modeltype}}" class="form-control-container"></div>
+                <p class="error" id="card-errors{{modeltype}}" role="alert">{{ controls.messages.number }}</p>
             </div>
 
             <div class="form-set">
                 <div class="form-group col-md-6">
-                    <label for="cardExpiry-element" class="fnd-req">Exp Date</label>
-                    <div id="cardExpiry-element" class="form-control-container"></div>
-                    <p class="error" id="cardExpiry-errors" role="alert">{{ controls.messages.exp_datex }}</p>
+                    <label for="cardExpiry-element{{modeltype}}" class="fnd-req">Exp Date</label>
+                    <div id="cardExpiry-element{{modeltype}}" class="form-control-container"></div>
+                    <p class="error" id="cardExpiry-errors{{modeltype}}" role="alert">{{ controls.messages.exp_datex }}</p>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="cardCvc-element" class="fnd-req">CVC Code</label>
-                    <div id="cardCvc-element" class="form-control-container"></div>
-                    <p class="error" id="cardCvc-errors" role="alert">{{ controls.messages.cvv }}</p>
+                    <label for="cardCvc-element{{modeltype}}" class="fnd-req">CVC Code</label>
+                    <div id="cardCvc-element{{modeltype}}" class="form-control-container"></div>
+                    <p class="error" id="cardCvc-errors{{modeltype}}" role="alert">{{ controls.messages.cvv }}</p>
 
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import {
   Component,
   OnInit,
+  AfterViewInit,
   Input,
   Output,
   EventEmitter,
@@ -35,6 +36,7 @@ declare let google: any;
 export class SubscriptionComponent implements OnInit {
   @ViewChild("userLocation") userLocation: ElementRef;
   @Input("modeStatus") modeStatus = "create";
+  @Input("modeltype") modeltype = 1;
   @Output() subscribed = new EventEmitter<boolean>();
 
   public payment: models.PaymentObject = {
@@ -169,7 +171,7 @@ export class SubscriptionComponent implements OnInit {
 		}
 		//this.loadGmaps();
 
-    this.createElements();
+    
     this.observeForm();
 
     this.analyticsService.emitPageview("Subscription");
@@ -181,6 +183,9 @@ export class SubscriptionComponent implements OnInit {
     }
     
     console.log("Subscription init");
+  }
+  ngAfterViewInit() {
+    this.createElements();
   }
 
 
@@ -200,7 +205,7 @@ export class SubscriptionComponent implements OnInit {
         this.valid = false;
       }
     });
-    this.card.mount("#card-element");
+    this.card.mount("#card-element"+this.modeltype);
 
     this.cardExpiry = this.elements.create("cardExpiry", this.definitions);
     this.cardExpiry.on(
@@ -220,7 +225,7 @@ export class SubscriptionComponent implements OnInit {
         }
       }
     );
-    this.cardExpiry.mount("#cardExpiry-element");
+    this.cardExpiry.mount("#cardExpiry-element"+this.modeltype);
 
     this.cardCvc = this.elements.create("cardCvc", this.definitions);
     this.cardCvc.on(
@@ -240,7 +245,7 @@ export class SubscriptionComponent implements OnInit {
         }
       }
     );
-    this.cardCvc.mount("#cardCvc-element");
+    this.cardCvc.mount("#cardCvc-element"+this.modeltype);
   }
 
 
