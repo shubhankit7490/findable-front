@@ -7,7 +7,7 @@
 
 <header>
 	<app-logo-main size="medium"></app-logo-main>
-
+    <app-share-section  id="appShareSection"></app-share-section>
     <div class="signup-links" *ngIf="!authService.currentUser">
         <a routerLink="/business/signup">Business Signup</a> |
         <a routerLink="/user/signup">Applicant Signup</a>

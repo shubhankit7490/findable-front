@@ -132,7 +132,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
 	profileGetRequest() {
 		console.log('@profile > profileGetRequest');
-		this.profile = this.dataService.profile_get(this.userId);
+		this.profile = this.dataService.profile_get(this.userId,1);
 		this.profile.subscribe((user: models.PersonalDetails) => {
 			user.location = TransformerService.transformLocation(user.location);
 			this.profileSubscribe = user;

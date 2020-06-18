@@ -48,7 +48,7 @@ export class SharingModalComponent implements OnInit {
 		this.dataService = dataService;
 		this.analyticsService = analyticsService;
 		this.userId = this.authService.getUserId();
-		this.repoUrl = environment.baseUrl + '/user/' + btoa(this.userId);
+		this.repoUrl = environment.baseUrl + '/user/' +this.userId;
 		// create tiny  url to share by user (tiny url currently not used as per requirment)
 		 /*this.dataService.ConvertTinyurl(this.userId).subscribe(
 			(response:any) => {

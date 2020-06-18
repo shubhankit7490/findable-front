@@ -33,18 +33,18 @@ export class DashboardLayoutComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		var base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+		var base64regex =  /^(?:[A-Z0-9+\/]{4})*(?:[A-Z0-9+\/]{2}==|[A-Z0-9+\/]{3}=|[A-Z0-9+\/]{4})$/i;
 		if(base64regex.test(this.route.snapshot.params['id'])){
 			this.viewedUser = Number(atob(this.route.snapshot.params['id']));
 		}else{
 			this.viewedUser =Number(this.route.snapshot.params['id']);
 		}
+		this.viewedUser =Number(this.route.snapshot.params['id']);
 		this.userId = (this.authService.currentUser)
 			? (this.userId === this.authService.getUserId())
 				? this.authService.getUserId()
 				: +this.viewedUser
 			: +this.viewedUser;
-
 		this.applicantsToPurchase = [this.userId];
 
 		let viewerId = Number(this.authService.getUserId());

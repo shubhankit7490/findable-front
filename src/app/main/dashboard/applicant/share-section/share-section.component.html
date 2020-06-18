@@ -4,7 +4,8 @@
         
             <!-- <input type="button" ngControl="print" class="print_btn pull-right" value="" (click)="print_profile($event)"> -->
             <div class="sharing_method_div">
-            <input type="button" ngControl="share" class="sharing_method_btn" value="Share Resume" (click)="shareResumeAction($event)">
+            <input type="button" ngControl="share" class="sharing_method_btn" value="Share Resume" (click)="shareResumeAction($event)" *ngIf="userid>0">
+            <input type="button" ngControl="share" class="sharing_method_btn" value="Share Resume" (click)="copyLink()" *ngIf="userid==0">
             </div>
             <div class="sharing_method_div">
             <input type="button" ngControl="pdf" class="pdf_btn" value="" (click)="pdf_profile($event)">

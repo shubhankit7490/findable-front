@@ -1,12 +1,14 @@
 import { Component, OnInit, ViewChild, HostBinding, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ModalModule, Modal } from 'ngx-modal';
+import { Router, ActivatedRoute } from '@angular/router';
 
 // services:
 import { AnalyticsService } from '../../../../services/analytics.service';
 import { DataService } from '../../../../rest/service/data.service';
 import { AuthService } from '../../../../rest/service/auth.service';
 import { SubscriptionComponent } from '../../../../shared/subscription/subscription.component';
+import { GrowlService } from "../../../../rest/service/growl.service";
 // models:
 import * as models from '../../../../rest/model/models';
 declare var $ :any;
@@ -28,6 +30,7 @@ export class ShareSectionComponent implements OnInit {
 	public printButton: FormGroup;
 	public showShareDialog = false;
 	public blob: Blob;
+	public userid:number=0;
 	public subscription: any;
 	public blockingInfoStatus: boolean;
 	public blockingInfoCanBuy: boolean;
@@ -40,6 +43,7 @@ export class ShareSectionComponent implements OnInit {
 		public dataService: DataService,
 		modal: ModalModule,
 		public analyticsService: AnalyticsService,
+		private route: ActivatedRoute,
 	) {
 
 		this.shareButton = new FormGroup({
@@ -56,16 +60,48 @@ export class ShareSectionComponent implements OnInit {
 	}
 
 	ngOnInit() {
-
+		if(this.authService.getUserId()){
+			this.userid=this.authService.getUserId();
+		}else{
+			this.userid=0;
+		}
+		
 		this.getBlockInfoSubscriptionData();
 	}
-
+	copyLink(){
+	let textarea = null;
+    textarea = document.createElement("textarea");
+    textarea.style.height = "0px";
+    textarea.style.left = "-100px";
+    textarea.style.opacity = "0";
+    textarea.style.position = "fixed";
+    textarea.style.top = "-100px";
+    textarea.style.width = "0px";
+    document.body.appendChild(textarea);
+    // Set and select the value (creating an active Selection range).
+    textarea.value = window.location.href;
+    textarea.select();
+    // Ask the browser to copy the current selection to the clipboard.
+    let successful = document.execCommand("copy");
+    if (successful) {
+     GrowlService.message('Url coppied successfully Please share it', 'success');
+    } else {
+      // handle the error
+    }
+    if (textarea && textarea.parentNode) {
+      textarea.parentNode.removeChild(textarea);
+    }
+	}
 	pdf_profile(e: Event): void {
 		if (this.blockingInfoStatus === undefined) { return; };
-			
+		if(this.authService.getUserId()){
+			var userid=this.authService.getUserId();
+		}else{
+			var userid=this.route.snapshot.params['id'];
+		}
 		let _blockingInfoStatus = Number(e);
 			this.modal.open();
-			this.dataService.pdf(this.authService.getUserId()).subscribe(
+			this.dataService.pdf(userid).subscribe(
 				response => {
 					this.analyticsService.emitEvent('Download', 'PDF', 'Desktop', this.authService.currentUser.user_id);
 					if (response.token) {
@@ -104,7 +140,12 @@ export class ShareSectionComponent implements OnInit {
 		this.analyticsService.emitEvent('Sharing Method', 'Close', 'Desktop', this.authService.currentUser.user_id);
 	}
 	getBlockInfoSubscriptionData(){
-		this.dataService.subscription_get(this.authService.getUserId()).subscribe(
+		if(this.authService.getUserId()){
+			var userid=this.authService.getUserId();
+		}else{
+			var userid=this.route.snapshot.params['id'];
+		}
+		this.dataService.subscription_get(userid).subscribe(
 			(res:any) => {
 				if(!res.data){
 					this.blockingInfoStatus = false;

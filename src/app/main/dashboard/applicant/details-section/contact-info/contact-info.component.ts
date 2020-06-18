@@ -21,7 +21,7 @@ export class ContactInfoComponent implements OnInit {
 
 	ngOnInit() {
 		console.log('@contact-info > oninit');
-		this.profile = this.dataService.profile_get(this.userId);
+		this.profile = this.dataService.profile_get(this.userId,1);
 
 		// Check the sections status and collect the data for the tour service
 		this.profile.subscribe(
