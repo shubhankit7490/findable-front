@@ -18,7 +18,13 @@
                         {{item.text}}
                         <span class="sr-only">(current)</span>
                     </a>
+                     <button type="button" *ngIf="item.iscomponent==true" class="auto-reload-submit btn fnd-btn-primary uploadresumecomponent" (click)="goto('/business/partners')">
+					     Partners
+					 </button>
                     <business-upload-resume class="uploadresumecomponent" *ngIf="item.iscomponent==true"></business-upload-resume>
+                    <button type="button" *ngIf="item.iscomponent==true" class="auto-reload-submit btn fnd-btn-primary uploadresumecomponent" (click)="goto('/business/projects')">
+					     Projects
+					 </button>
 				</li>
 			</ul>
 

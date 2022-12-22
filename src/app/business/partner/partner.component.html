@@ -1,0 +1,277 @@
+<header class="container-fluid n-p-r n-p-l">
+    <div class="row full-width n-m">
+        <div class="col-md-2">
+            <app-logo-main size="medium"></app-logo-main>
+        </div>
+        <div class="col-md-7 n-p-r n-p-l">
+            <app-menu-main [role]="role"></app-menu-main>
+        </div>
+        <div class="col-md-3">
+            <div class="col-md-5">
+                <account-number></account-number>
+            </div>
+            <div class="col-md-7">
+                <app-user-main></app-user-main>
+            </div>  
+        </div>
+    </div>
+</header>
+
+
+
+    <div class="search-table-wrap">
+        <app-spinning-loader [showLoader]="loadingResults"></app-spinning-loader>
+        <p-dataTable
+            #table
+            [rows]="50"
+            [lazy]="true"
+            [pageLinks]="5"
+            [autoload]="false"
+            [rowHover]="false"
+            [totalRecords]="total"
+            paginatorPosition="bottom"
+            [expandableRows]="true"
+            selectionMode="multiple"
+            [value]="results.applicants"
+            [rowStyleClass]="getRowClass"
+            tableStyleClass="search-table"
+            (onLazyLoad)="loadData($event)"
+            (onRowClick)="onRowClick($event)"
+            [(selection)]="selectedApplicants"
+            [paginator]="!!results.hasOwnProperty('applicants') && !!results.applicants.length"
+            >
+            <p-column header="Market Place"  *ngIf="selectedid=='uploaded candidates'">
+                <template let-applicant="rowData" pTemplate="body">
+                    <div style="width:13px;height:13px;background-color:#39FBD0;border: 1px solid black; " *ngIf="applicant.market_place==1"></div>
+                    <div style="width:13px;height:13px;background-color:#fff;border: 1px solid black;" *ngIf="applicant.market_place==0"></div>
+                </template>
+            </p-column>
+            <p-column [style]="{'width': '25px'}" selectionMode="multiple"></p-column>
+            <p-column header="Account">
+                <template let-applicant="rowData" pTemplate="body">
+                    {{
+                        (applicant.firstname || applicant.lastname)
+                            ? (applicant.firstname || '') + ' ' + (applicant.lastname || '') + ' (#' + applicant.id + ')'
+                            : '#' + applicant.id
+                    }}
+                </template>
+            </p-column>
+            <p-column field="location.city_name" header="Location">
+                <template let-applicant="rowData" pTemplate="header">
+                    <span class="ui-column-title pointer"
+                        [class.active]="orderby == 'location'"
+                        (click)="onSortTypeSelected('location')">
+                        Location
+                    </span>
+                    <div class="column-header-arrows" [hidden]="orderby !== 'location'">
+                        <div class="column-header-arrow column-header-arrow-up"
+                            (click)="onOrderTypeSelected('asc')"
+                            [class.active]="(order == 'asc' && orderby == 'location')"
+                            >
+                            <i class="glyphicon glyphicon-triangle-top"></i>
+                        </div>
+                        <div class="column-header-arrow column-header-arrow-down"
+                            (click)="onOrderTypeSelected('desc')"
+                            [class.active]="(order == 'desc' && orderby == 'location')"
+                            >
+                            <i class="glyphicon glyphicon-triangle-bottom"></i>
+                        </div>
+                    </div>
+                </template>
+            </p-column>
+            <p-column field="jobtitle.name" header="Job Title">
+                <template let-applicant="rowData" pTemplate="header">
+                    <span class="ui-column-title pointer"
+                        [class.active]="orderby == 'jobtitle'"
+                        (click)="onSortTypeSelected('jobtitle')">
+                        Title
+                    </span>
+                    <div class="column-header-arrows" [hidden]="orderby !== 'jobtitle'">
+                        <div class="column-header-arrow column-header-arrow-up"
+                            [class.active]="(order == 'asc' && orderby == 'jobtitle')"
+                            (click)="onOrderTypeSelected('asc')"
+                            >
+                            <i class="glyphicon glyphicon-triangle-top"></i>
+                        </div>
+                        <div class="column-header-arrow column-header-arrow-down"
+                            [class.active]="(order == 'desc' && orderby == 'jobtitle')"
+                            (click)="onOrderTypeSelected('desc')"
+                            >
+                            <i class="glyphicon glyphicon-triangle-bottom"></i>
+                        </div>
+                    </div>
+                </template>
+            </p-column>
+            <p-column field="experience" header="Experience">
+                <template let-applicant="rowData" pTemplate="header">
+                    <span class="ui-column-title pointer" [class.active]="orderby == 'experience'" (click)="onSortTypeSelected('experience')">Experience</span>
+                    <div class="column-header-arrows" [hidden]="orderby !== 'experience'">
+                        <div class="column-header-arrow column-header-arrow-up"
+                            [class.active]="(order == 'asc' && orderby == 'experience')"
+                            (click)="onOrderTypeSelected('asc')"
+                            >
+                            <i class="glyphicon glyphicon-triangle-top"></i>
+                        </div>
+                        <div class="column-header-arrow column-header-arrow-down"
+                            [class.active]="(order == 'desc' && orderby == 'experience')"
+                            (click)="onOrderTypeSelected('desc')"
+                            >
+                            <i class="glyphicon glyphicon-triangle-bottom"></i>
+                        </div>
+                    </div>
+                </template>
+            </p-column>
+            <p-column field="seniority.name" header="Seniority">
+                <template let-applicant="rowData" pTemplate="header">
+                    <span class="ui-column-title pointer"
+                        [class.active]="orderby == 'seniority'"
+                        (click)="onSortTypeSelected('seniority')">
+                        Seniority
+                    </span>
+                    <div class="column-header-arrows" [hidden]="orderby !== 'seniority'">
+                        <div class="column-header-arrow column-header-arrow-up"
+                            [class.active]="(order == 'asc' && orderby == 'seniority')"
+                            (click)="onOrderTypeSelected('asc')"
+                            >
+                            <i class="glyphicon glyphicon-triangle-top"></i>
+                        </div>
+                        <div class="column-header-arrow column-header-arrow-down"
+                            [class.active]="(order == 'desc' && orderby == 'seniority')"
+                            (click)="onOrderTypeSelected('desc')"
+                            >
+                            <i class="glyphicon glyphicon-triangle-bottom"></i>
+                        </div>
+                    </div>
+                </template>
+            </p-column>
+            <p-column field="salary.salary" header="Salary">
+                <template let-applicant="rowData" pTemplate="header">
+                    <span class="ui-column-title pointer" [class.active]="orderby == 'salary'" (click)="onSortTypeSelected('salary')">Salary</span>
+                    <div class="column-header-arrows" [hidden]="orderby !== 'salary'">
+                        <div class="column-header-arrow column-header-arrow-up"
+                            [class.active]="(order == 'asc' && orderby == 'salary')"
+                            (click)="onOrderTypeSelected('asc')"
+                            >
+                            <i class="glyphicon glyphicon-triangle-top"></i>
+                        </div>
+                        <div class="column-header-arrow column-header-arrow-down"
+                            [class.active]="(order == 'desc' && orderby == 'salary')"
+                            (click)="onOrderTypeSelected('desc')"
+                            >
+                            <i class="glyphicon glyphicon-triangle-bottom"></i>
+                        </div>
+                    </div>
+
+                    <!-- <select class="salary-filter" (change)="onSalaryPeriodSelected($event.target.value, true)">
+                        <option>Period</option>
+                        <option *ngFor="let type of salaryTypes; let i = index;" [selected]="type.id === searchModel.salary_from.salary_period" [value]="type.id">{{ type.name }}</option>
+                    </select> -->
+                </template>
+                <template let-applicant="rowData" pTemplate="body">
+                    <!--{{ (applicant.salary.salary) ? '$' : '' }} {{ formatNumber(applicant.salary.salary) }} {{ applicant.salary.salary_period | salary }}-->
+                    {{
+                        (applicant.salary.salary && applicant.salary?.salary != 0)
+                            ? '$'
+                            : ''
+                    }} {{ getApplicantSalary(applicant.salary.salary, applicant.salary.salary_period) }}
+                </template>
+            </p-column>
+            <p-column [style]="{'width':'145px'}" field="status" header="Status">
+                <template let-applicant="rowData" pTemplate="body">
+                    <div class="table-user-status">
+                        <app-status-selector
+                            userId="{{ applicant.id }}"
+                            selectedItem="{{ applicant.status }}"
+                            placeholderText="Change Status"
+                            (onStatusChanged)="update_status($event)"
+                        ></app-status-selector>
+                    </div>
+                </template>
+            </p-column>
+
+            <template let-applicant pTemplate="rowexpansion">
+                <app-applicant-search-result userId="{{ applicant.id }}" creatorid="{{applicant.creator_id}}" display_edit="{{applicant.display_edit}}"></app-applicant-search-result>
+            </template>
+
+            <p-column [style]="{'width':'18px'}" header="ShortList">
+                <template let-applicant="rowData" pTemplate="body">
+                    <span *ngIf="applicant.status=='short'"><img src="assets/images/star.png" alt="image" style="margin-left: 15px;"></span>
+                </template>
+            </p-column>
+            
+            <p-column [style]="{'width':'18px'}" header="Note">
+                <template let-applicant="rowData" pTemplate="body">
+                    <div class="table-user-status">
+                        <app-note #userNote (onBeforeOpen)="onNoteClick()" userId="{{ applicant.id }}" role="{{role}}" selectedid="{{selectedid}}" creatorid="{{applicant.creator_id}}" login_user_id="{{authService.currentUser.user_id}}"></app-note>
+                    </div>
+                </template>
+            </p-column>
+            <p-column header="Edit" [style]="{'width': '25px'}" >
+                
+                <template let-applicant="rowData" pTemplate="body">
+                    <span *ngIf="authService.currentUser.user_id==applicant.creator_id || applicant.display_edit" class="glyphicon glyphicon-edit" (click)="openprefrencesmodel(applicant.id,applicant.status)" style="padding: 40%;"></span>
+                    <span *ngIf="authService.currentUser.user_id!=applicant.creator_id && ! applicant.display_edit"  style="padding: 25%;">N/A</span>
+                </template>
+            </p-column>
+            <p-footerColumnGroup>
+                <p-row>
+                    <p-column styleClass="footer-text-column" colspan="9">
+                        <template pTemplate="footer">
+                            <div class="table-user-status">
+                                Showing:
+                                <span class="bold">{{currentResultsCount}} candidates</span> | Avg Exp:
+                                <span class="bold">{{avgExperience}} Years</span> | Avg Monthly Salary:
+                                <span class="bold">${{avgSalaryMonthly}}</span> | Avg Annual Salary:
+                                <span class="bold">${{avgSalary}}</span> | Total Salary:
+                                <span class="bold">${{totalSalary}}</span>
+                            </div>
+                        </template>
+                    </p-column>
+                </p-row>
+            </p-footerColumnGroup>
+        </p-dataTable>
+    </div>
+
+    <div class="search-welcome" *ngIf="firstVisit" #welcome>
+        <div class="inner-wrap">
+            Welcome to
+            <br>
+            <img src="../../../assets/images/logo.png">
+            <br>
+
+            <button class="form-control" (click)="closeWelcomeScreen()">
+                <i class="glyphicon glyphicon-arrow-right"></i>
+                Start Contacting Applicants
+            </button>
+        </div>
+    </div>
+
+</div>
+<modal #preferencesModal
+    title="Status and Preferences"
+    cancelButtonLabel="cancel"
+    submitButtonLabel="submit"
+    modalClass="modal-lg modal-sm fnd-pref-modal modalCustomize"
+    [hideCloseButton]="false"
+    [closeOnEscape]="true"
+    [closeOnOutsideClick]="true"
+    (onOpen)="actionOnOpen()"
+    (onClose)="actionOnClose()"
+    (onSubmit)="actionOnSubmit()">
+
+    <modal-header></modal-header>
+
+    <modal-content>
+        <app-preferences-form
+            #preferencesModalForm
+            [(preferences)]="preferences$"
+            [user_id]="user_id"
+            [user_status]="user_status"
+            [prefrence]="prefrence"
+            (onSuccessfulUpdate)="closeStatusModal($event)"
+        ></app-preferences-form>
+    </modal-content>
+
+    <modal-footer></modal-footer>
+
+</modal>

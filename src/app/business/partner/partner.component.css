@@ -1,0 +1,554 @@
+.search-wrap {
+    margin: 0 0 30px 0;
+}
+
+header {
+    background: #13345F;
+    color: white;
+    height: 74px;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin: 0 0 30px 0;
+}
+
+span.side-component-separator {
+    border-bottom: 1px solid #e4e4ee;
+    display: block;
+    margin: 20px 0;
+}
+.close{
+    display:none;
+}
+.component-wrap {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    z-index: 10;
+    top: 17px;
+    left: 10px;
+}
+
+.search-side-component h5 {
+    font-weight: bold;
+    color: #13345f;
+}
+
+.search-side-component, app-drawer {
+    border-bottom: 1px solid #e4e4ee;
+    display: block;
+}
+
+.search-side-component {
+    padding: 0 0 20px 0;
+    margin: 0 0 20px 0;
+}
+
+.search-side-component:last-child, app-drawer:last-child {
+    border: 0;
+}
+
+:host >>> input.ui-autocomplete-input, :host >>> .search-side-component.inner input {
+    padding: 0 0 0 36px;
+    width: 100%;
+}
+
+.tags-wrap app-input-loader {
+    position: absolute;
+    top: 52px;
+    right: 0;
+}
+
+.search-side-component.inner {
+    border-bottom: 0;
+    margin: 0;
+}
+
+.search-btn.col-md-2 {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background: #13345f;
+    padding: 10px 20px;
+    z-index: 10;
+}
+
+.search-btn button {
+    background: #3afbcf;
+    color: #13345f;
+    font-size: 15px;
+    font-weight: bold;
+    display: block;
+    width: 100%;
+    padding: 17px 0;
+    border-radius: 5px;
+    height: auto;
+    border: none;
+}
+
+.search-btn button i {
+    font-size: 18px;
+    position: relative;
+    top: 4px;
+}
+select {
+    text-transform: capitalize;
+    font-size: 1em;
+}
+/**
+ * Table
+ */
+
+:host >>> .search-table .ui-datatable-thead {background: #e4e4ee;}
+
+:host >>> tr.ui-state-default.ui-unselectable-text.ui-sortable-column.ui-state-active {
+    color: #fff;
+    background: #17345e;
+}
+
+ :host >>> .search-table .ui-datatable-data tr.ui-datatable-odd { background: #f0f1f6; } 
+
+:host >>> .search-table .ui-datatable-data tr.ui-datatable-even { background: #fff !important;}
+
+:host >>> .search-table .ui-datatable-data tr.applicant-row-purchased {
+    background: #e6fffb !important;
+}
+
+:host >>> .search-table .ui-datatable-data tr.applicant-row-remove-from-market {
+    background: #DF0101 !important;
+}
+
+:host >>> .search-table th.ui-state-active, :host >>> .search-table th.ui-state-highlight {
+    background: transparent !important;
+}
+
+:host >>> .search-table th.ui-state-default {
+    color: #13345f;
+}
+
+:host >>> .search-table tr.ui-state-active, :host >>> .search-table .ui-datatable-data  tr.ui-state-highlight {
+    background: #13345f !important;
+}
+
+:host >>> .search-table tr.ui-datatable-odd.ui-state-highlight { color: #fff; }
+
+:host >>> .search-table tr.ui-datatable-even.ui-state-highlight { color: #fff; }
+
+:host >>> .search-table p-dtcheckbox input {
+    display: none;
+}
+
+:host >>> .search-table p-dtcheckbox .ui-chkbox > div {
+    width: 15px;
+    height: 15px;
+    display: block;
+    margin: -8px 0 0 0;
+}
+
+:host >>> .search-table {width: 100%;}
+
+:host >>> .search-table .ui-chkbox .ui-chkbox-box.ui-state-active {
+    background: #13345f !important;
+    border: 2px solid #fff;
+}
+
+:host >>> .search-table th .ui-chkbox .ui-chkbox-box.ui-state-active {
+    border-color: #13345f !important;
+    background: #fff !important;
+}
+
+:host >>> .search-table tr.ui-state-highlight {
+    border: 1px solid #1e4a83 !important;
+}
+
+:host >>> tr.ui-state-highlight .note-wrap label {
+    color: #fff;
+}
+
+:host >>> .ui-datatable .ui-datatable-data > tr:not(.ui-widget-content) > td {
+    padding: 0 !important;
+}
+
+.order-wrap {
+    display: block;
+}
+
+:host >>> p-paginator {
+    width: auto;
+    display: inline-block;
+    text-align: center;
+    float: right;
+    margin-top:25px;
+    margin-bottom:10px;
+}
+
+:host >>> .ui-paginator-page {
+    background: #fff;
+    display: inline-block;
+    color: #13345f !important;
+    padding: 12px 18.4px !important;
+    border-left: 1px solid #13345f;
+}
+
+:host >>> a.ui-paginator-page.ui-state-active, :host >>> a.ui-paginator-page:hover {
+    background: #13345f !important;
+    color: #3afbcf !important;
+    text-decoration: none;
+}
+
+:host >>> .ui-paginator {
+    border: 1px solid #13345f !important;
+    border-radius: 3px;
+}
+
+:host >>> .top-select select {
+    border: 1px solid #003164;
+    max-height: 44px;
+}
+
+:host >>> .fa {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+:host >>> .ui-chkbox-icon{
+    display:none!important;
+} 
+
+:host >>> .fa-backward:before {
+    content: "\E251";
+}
+
+:host >>> .fa-forward:before {
+    content: "\E250";
+}
+
+:host >>> .fa-step-forward:before {
+    content: "\E075";
+}
+
+:host >>> .fa-step-backward:before {
+    content: "\E071";
+}
+
+:host >>> .ui-paginator .ui-paginator-pages {
+    display: inline-block;
+}
+
+
+:host >>> .ui-paginator-element.ui-corner-all {
+    display: inline-block;
+    padding: 11px 0;
+    height: 44px;
+    color: #003164;
+}
+
+:host >>> .ui-paginator-element span {
+    position: relative;
+    top: 3px !important;
+}
+
+:host >>> .ui-paginator-page:last-child {
+    border-right: 1px solid #13345f;
+}
+
+.search-welcome {
+    background: rgba(19, 52, 95, 0.9);
+    text-align: center;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+}
+
+.search-welcome .inner-wrap {
+    width: 300px;
+    height: 300px;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    font-size: 22px;
+}
+
+.search-welcome .inner-wrap img {
+    margin: 0px 0 30px 0;
+}
+
+.search-welcome .inner-wrap button {
+    background: #3afbcf;
+    color: #012353;
+    font-weight: bold;
+    border: 0;
+    padding: 0px 0 0 0;
+    height: 50px;
+    width: 86%;
+    margin: 0 auto;
+}
+
+.total {
+    display: inline;
+    float: left;
+    width: 16%;
+    text-align: center;
+    color: #13345f;
+    font-weight: bold;
+}
+
+:host >>> .search-btn .load-page {
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.45);
+}
+
+:host >>> .search-btn .load-page i {
+    color: #13345f;
+    font-size: 19px;
+    top: 28.8px;
+    left: -27px;
+}
+
+:host >>> .search-table-wrap .load-page i {
+    font-size: 340%;
+    top: 50%;
+    left: 0%;
+}
+
+:host >>> .search-btn.col-md-2 {
+    height: 78px;
+}
+
+:host >>> .search-btn button {
+    height: 58px !important;
+}
+
+:host >>> .search-table .ui-state-highlight {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+:host >>> .column-header-arrows {
+    float: right;
+    position: relative;
+    top: -5px;
+    height: 0;
+}
+
+:host >>> .column-header-arrow {
+    display: block;
+    opacity: 0.5;
+    height: 12px;
+}
+
+:host >>> .column-header-arrow.active {
+    opacity: 1;
+    pointer-events: none;
+}
+
+:host >>> span.ui-column-title.pointer {
+    cursor: pointer;
+}
+
+:host >>> .column-header-arrows > div {
+    cursor: pointer;
+}
+
+:host >>> span.ui-column-title.active {
+    font-style: italic;
+    pointer-events: none;
+}
+
+.no-bottom-margin {
+    margin-bottom: 0;
+}
+
+:host >>> table.search-table tr {
+    height: 75px;
+    color: #13345f;
+    font-size: 14px;
+}
+
+:host >>> .search-table app-status-selector select {
+    padding: 8px 0 !important;
+}
+
+:host >>> .search-table tr.ui-datatable-odd.ui-state-highlight select {
+    background: #13345f;
+    color: #fff;
+}
+
+:host >>> .search-table tr.ui-state-highlight app-status-selector select {
+    background: #13345f !important;
+    color: #fff !important;
+}
+
+:host >>> .search-table th {
+    background: #e4e4ee !important;
+    border-right: 1px solid #cbcedd;
+    font-size: 14px;
+}
+
+:host >>> .search-table th:last-child {
+    border: 0;
+}
+
+:host >>> .search-table th:first-child {
+    border: 0;
+}
+
+:host >>> table.search-table thead > tr:first-child {
+    height: 60px;
+}
+
+:host >>> .search-table, :host >>> .search-table tr, :host >>> .search-table td, :host >>> .search-table tbody {
+    border: 0 !important;
+}
+
+:host >>> .search-table {
+    position: relative;
+    top: 20px !important;
+}
+
+:host >>> a.ui-paginator-first, :host >>> a.ui-paginator-last {
+    display: none !important;
+}
+
+:host >>> select.salary-filter {
+    position: absolute;
+    font-size: 12px !important;
+    left: 6px;
+    top: 40px;
+    background: transparent;
+    border: 0;
+    font-weight: normal;
+}
+
+:host >>> .search-table th {
+    position: relative;
+}
+
+:host >>> tr.applicant-row-purchased.fnd-search-row.ui-state-highlight td {
+    background: #e6fffb;
+    color: #13345f;
+}
+:host >>> tr.applicant-row-remove-from-market.fnd-search-row.ui-state-highlight td {
+    background: #DF0101;
+    color: #13345f;
+}
+:host >>> tr.applicant-row-purchased.fnd-search-row.ui-state-highlight td app-status-selector select {
+    background: #fff !important;
+    color: #13345f !important;
+}
+:host >>> tr.applicant-row-remove-from-market.fnd-search-row.ui-state-highlight td app-status-selector select {
+    background: #fff !important;
+    color: #13345f !important;
+}
+
+:host >>> tr.applicant-row-purchased.fnd-search-row.ui-state-highlight {
+    border: 0 !important;
+}
+:host >>> tr.applicant-row-remove-from-market.fnd-search-row.ui-state-highlight {
+    border: 0 !important;
+}
+
+:host >>> tr.applicant-row-purchased.fnd-search-selected.ui-state-highlight td {
+    background: #13345f;
+    color: #e6fffb;
+}
+:host >>> tr.applicant-row-remove-from-market.fnd-search-selected.ui-state-highlight td {
+    background: #13345f;
+    color: #e6fffb;
+}
+
+:host >>> tr.applicant-row-purchased.fnd-search-selected.ui-state-highlight td app-status-selector select {
+    background: #13345f !important;
+    color: #fff !important;
+}
+:host >>> tr.applicant-row-remove-from-market.fnd-search-selected.ui-state-highlight td app-status-selector select {
+    background: #13345f !important;
+    color: #fff !important;
+}
+
+:host >>> .ui-datatable-tfoot tr {
+    height: 60px !important;
+}
+
+:host >>> .footer-text-column {
+    height: 60px;
+    text-align: center;
+    font-size: 18px !important;
+    color: #13345f !important;
+    font-weight: 400;
+}
+
+:host >>> .bold {
+    font-weight: 700 !important;
+}
+
+button.refresh {
+    position: relative;
+    background: #556982;
+    font-size: 16px;
+    padding: 5px 0;
+    text-align: center;
+    margin-top: -30px;
+    z-index: 110;
+    float: right;
+}
+
+.refresh i {
+    color: #39fbcf;
+}
+
+.refresh span {
+    color: #fff;
+}
+
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0); transform: rotate(0); }
+    to { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    from { -webkit-transform: rotate(0); transform: rotate(0); }
+    to { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+button.refresh:disabled {
+    opacity: 0.5;
+}
+
+button.refresh:disabled i {
+    -webkit-animation: spin 0.6s infinite linear;
+            animation: spin 0.6s infinite linear;
+    display: inline-block;
+    width: 18px;
+    height: 14px;
+}
+:host >>> .fnd-pref-modal {
+    width: 1000px;
+}

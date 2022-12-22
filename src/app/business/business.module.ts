@@ -75,7 +75,7 @@ import { GeneralEmbeddingComponent } from './business-account/general-embedding/
 import { AccountUsersComponent } from 		'./business-account/account-users/account-users.component';
 import { ApplicantsStatsComponent } from 	'./applicants-stats/applicants-stats.component';
 import { SearchComponent } from 			'./search/search.component';
-
+import { Partner } from 			'./partner/partner.component';
 
 // utilities:
 import { AutoUnsubscribe } from '../utils/autoUnsubscribe';
@@ -86,7 +86,7 @@ import { FirstWordPipe } from '../pipes/firstWord.pipe';
 const routes: Routes = [
 	{ path: 'setup', component: BusinessSetupComponent },
 	{ path: 'search', component: SearchComponent },
-	{ path: 'search/', component: SearchComponent },
+	{ path: 'partners', component: Partner },
 	{ path: 'account', component: BusinessAccountComponent },
 	{ path: 'account/:id', component: BusinessAccountComponent },
 	{ path: 'stats', component: ApplicantsStatsComponent },
@@ -129,6 +129,7 @@ const routes: Routes = [
 		GeneralEmbeddingComponent,
 		AccountUsersComponent,
 		SearchComponent,
+		Partner,
 		SaveSearchComponent,
 		YearsExperienceComponent,
 		TagsInputComponent,

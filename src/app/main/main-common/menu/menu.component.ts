@@ -110,6 +110,7 @@ export class MenuComponent implements OnInit {
 	}
 
 	goto(link: string) {
+	
 		this.router.navigate(['/'], { skipLocationChange: true })
 			.then(() => { this.router.navigate([link]); });
 	}
