@@ -4,14 +4,14 @@
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
 export const environment = {
-	production: false,
-	envName: 'dev',
-	// baseApiPath: 'http://localhost:8081',
+  production: false,
+  envName: "dev",
+  // baseApiPath: 'http://localhost:8081',
 
-	// production: false,
-	// envName: 'stag',
-	//baseApiPath: 'https://staging-dot-findable-api.appspot.com',
-	baseApiPath: 'http://localhost/findabletask/findableapi',
-	baseUrl: 'https://staging.findable.co',
-	stripeKey: 'pk_test_7JXJfK3INsGQVTnDZfvNKDnS'
+  // production: false,
+  // envName: 'stag',
+  //baseApiPath: 'https://staging-dot-findable-api.appspot.com',
+  baseApiPath: "http://104.154.44.66",
+  baseUrl: "http://104.154.44.66",
+  stripeKey: "pk_test_7JXJfK3INsGQVTnDZfvNKDnS",
 };

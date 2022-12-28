@@ -31,16 +31,15 @@ import { TransformerService } from './rest/service/transformer.service';
 
 // components:
 import { LandingComponent } from './landing/landing.component';
-import { LocationFormComponent } from './form/location-form/locations-form.component';
 import { LoginComponent } from './login/login.component';
 import { ApplyComponent } from './shared/apply/apply.component';
 import { LoginOnBehalfComponent } from './login-on-behalf/login-on-behalf.component';
+import { IndustryFormComponent } from './form/industry-form/industry-form.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		LandingComponent,
-		LocationFormComponent,
 		LoginComponent,
 		ApplyComponent,
 		LoginOnBehalfComponent

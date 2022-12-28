@@ -1,0 +1,57 @@
+<div class="search-result-inside">
+  <div *ngIf="rowLoading" class="search-result-inside-loading">
+    <app-spinning-loader [showLoader]="rowLoading"></app-spinning-loader>
+  </div>
+
+  <div class="search-result-inside-wrap">
+    <div class="row">
+      <div class="col-md-12">
+        <label>
+          <span class="text-bold">Industry:</span>
+          {{ partnerDetail.industry ? "NA" : partnerDetail.industry }}</label
+        >
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <label>
+          <span class="text-bold">Tags:</span> {{ partnerDetail.tags }}</label
+        >
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <label>
+          <span class="text-bold">Comment:</span>
+          {{ partnerDetail.comment }}</label
+        >
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <label>
+          <span class="text-bold">Contacts uploaded:</span>
+          {{ partnerDetail.id }}</label
+        >
+      </div>
+      <div class="col-md-3">
+        <label>
+          <span class="text-bold">Projects working on:</span>
+          {{ partnerDetail.id }}</label
+        >
+      </div>
+      <div class="col-md-3">
+        <label>
+          <span class="text-bold">Contacts working on:</span>
+          {{ partnerDetail.id }}</label
+        >
+      </div>
+      <div class="col-md-3">
+        <label>
+          <span class="text-bold">Contacts not suitable:</span>
+          {{ partnerDetail.id }}</label
+        >
+      </div>
+    </div>
+  </div>
+</div>

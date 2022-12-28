@@ -9,6 +9,7 @@ import { SignupLayoutComponent } from './login/layout/layout.component';
 import { LogoutComponent } from './login/logout/logout.component';
 import { ApplyComponent } from './shared/apply/apply.component';
 import { LandingComponent } from './landing/landing.component';
+import { PartnerComponent } from './business/partner/partner.component';
 
 export const LOGIN_ROUTE_PATH = 'user/login';
 export const ROOT_ROUTE_PATH = '/';

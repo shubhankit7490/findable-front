@@ -1,0 +1,382 @@
+<app-spinning-loader [showLoader]="isSubmitting"></app-spinning-loader>
+<form
+  [formGroup]="partnerForm"
+  (ngSubmit)="onPartnerSubmit($event)"
+  autocomplete="off"
+  novalidate
+>
+  <div class="fnd-form-controls-container">
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <div class="fnd-form-column">
+          <div class="form-group flex-column">
+            <label for="fnd-name" class="fnd-req">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="name"
+              placeholder="Name"
+            />
+
+            <div
+              *ngIf="
+                partnerForm.get('name').invalid &&
+                partnerForm.get('name').errors &&
+                (partnerForm.get('name').dirty ||
+                  partnerForm.get('name').touched ||
+                  isSubmitted)
+              "
+            >
+              <span
+                *ngIf="partnerForm.get('name').hasError('required')"
+                class="error"
+                ><i class="glyphicon glyphicon-remove border-radius"></i>Name is
+                required</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <div class="fnd-form-column">
+          <div class="form-group flex-column">
+            <label for="fnd-name" class="fnd-req">Number</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="number"
+              placeholder="Number"
+            />
+            <div
+              *ngIf="
+                partnerForm.get('number').invalid &&
+                partnerForm.get('number').errors &&
+                (partnerForm.get('number').dirty ||
+                  partnerForm.get('number').touched ||
+                  isSubmitted)
+              "
+            >
+              <span
+                *ngIf="partnerForm.get('number').hasError('required')"
+                class="error"
+                ><i class="glyphicon glyphicon-remove border-radius"></i>Number
+                is required</span
+              >
+              <!-- <span
+                *ngIf="partnerForm.get('number').hasError('pattern')"
+                class="error"
+                ><i class="glyphicon glyphicon-remove border-radius"></i>Number
+                is invalid</span
+              > -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <div class="fnd-form-column">
+          <div class="form-group flex-column">
+            <label for="fnd-name" class="fnd-req">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              formControlName="email"
+              placeholder="Email"
+              [disabled]="isEdit"
+              [readonly]="isEdit"
+            />
+            <div
+              *ngIf="
+                partnerForm.get('email').invalid &&
+                partnerForm.get('email').errors &&
+                (partnerForm.get('email').dirty ||
+                  partnerForm.get('email').touched ||
+                  isSubmitted)
+              "
+            >
+              <span
+                *ngIf="partnerForm.get('email').hasError('required')"
+                class="error"
+                ><i class="glyphicon glyphicon-remove border-radius"></i>Email
+                is required</span
+              >
+              <span
+                class="error"
+                *ngIf="partnerForm.get('email').hasError('pattern')"
+              >
+                Email is invalid.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-sm-12">
+        <div class="fnd-form-column">
+          <div class="form-group flex-column">
+            <label class="fnd-req">Location</label>
+            <!-- <app-location-form
+              [location]="location"
+              (onSelected)="onLocationSelected($event)"
+              (onBlur)="onLocationChange($event)"
+            >
+            </app-location-form> -->
+
+            <input
+              id="city"
+              type="text"
+              autocomplete="false"
+              class="form-control"
+              formControlName="location"
+              placeholder="Enter location"
+              (blur)="onLocationChange($event)"
+            />
+
+            <!-- <div
+              *ngIf="
+                partnerForm.get('location').invalid &&
+                partnerForm.get('location').errors &&
+                (partnerForm.get('location').dirty ||
+                  partnerForm.get('location').touched ||
+                  isSubmitted)
+              "
+            >
+              <span
+                *ngIf="partnerForm.get('location').hasError('required')"
+                class="error"
+                ><i class="glyphicon glyphicon-remove border-radius"></i
+                >Location is required</span
+              >
+            </div> -->
+
+            <div *ngIf="formErrors.location">
+              <span class="error"
+                ><i class="glyphicon glyphicon-remove border-radius"></i
+                >{{ formErrors.location }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <div class="fnd-form-column">
+          <div class="form-group flex-column">
+            <label class="fnd-req">Current Job Title</label>
+            <div>
+              <p-autoComplete
+                #jobTitle
+                field="name"
+                [delay]="500"
+                dataKey="id"
+                [minLength]="1"
+                maxlength="240"
+                [suggestions]="resultsJobTitle"
+                [(ngModel)]="searchTermJobTitle"
+                (onBlur)="validateJobTitle($event)"
+                (completeMethod)="searchJobTitle($event)"
+                (onSelect)="onSelectJobTitleAutoComplete($event)"
+                (updateModel)="UpdateJobTitleState($event)"
+                formControlName="jobTitle"
+                placeholder="Job Title"
+              ></p-autoComplete>
+              <app-input-loader
+                [loading]="requestingJobTitle"
+              ></app-input-loader>
+            </div>
+
+            <div
+              *ngIf="
+                partnerForm.get('jobTitle').invalid &&
+                partnerForm.get('jobTitle').errors &&
+                (partnerForm.get('jobTitle').dirty ||
+                  partnerForm.get('jobTitle').touched ||
+                  isSubmitted)
+              "
+            >
+              <span
+                *ngIf="partnerForm.get('jobTitle').hasError('required')"
+                class="error"
+                ><i class="glyphicon glyphicon-remove border-radius"></i>Job
+                Title is required</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-sm-12">
+        <div class="fnd-form-column">
+          <div class="form-group flex-column">
+            <label class="fnd-req">Company</label>
+            <app-company-form
+              [company]="company"
+              (onSelected)="onCompanyNameSelected($event)"
+              (onBlur)="onCompanyNameChange($event)"
+            ></app-company-form>
+
+            <!-- <div
+              *ngIf="
+                partnerForm.get('company').invalid &&
+                partnerForm.get('company').errors &&
+                (partnerForm.get('company').dirty ||
+                  partnerForm.get('company').touched ||
+                  isSubmitted)
+              "
+            >
+              <span
+                *ngIf="partnerForm.get('company').hasError('required')"
+                class="error"
+                ><i class="glyphicon glyphicon-remove border-radius"></i>Comment
+                is required</span
+              >
+            </div> -->
+
+            <div *ngIf="formErrors.company">
+              <span class="error"
+                ><i class="glyphicon glyphicon-remove border-radius"></i
+                >{{ formErrors.company }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <div class="fnd-form-column">
+          <div class="form-group flex-column" *ngIf="isEdit === true">
+            <label>Industry</label>
+            <!--  <input
+              type="text"
+              class="form-control"
+              formControlName="industry"
+              placeholder="Industry"
+            /> -->
+            <app-industry-form
+              [industry]="industry"
+              (onSelected)="onIndustrySelected($event)"
+              (onBlur)="onIndustryChange($event)"
+            >
+            </app-industry-form>
+            <!-- <div *ngIf="formErrors.industry">
+              <span class="error"
+                ><i class="glyphicon glyphicon-remove border-radius"></i
+                >{{ formErrors.industry }}</span
+              >
+            </div> -->
+
+            <!-- <div
+        *ngIf="
+          partnerForm.get('industry').invalid &&
+          partnerForm.get('industry').errors &&
+          (partnerForm.get('industry').dirty ||
+            partnerForm.get('industry').touched ||
+            isSubmitted)
+        "
+      >
+        <span
+          *ngIf="partnerForm.get('industry').hasError('required')"
+          class="error"
+          ><i class="glyphicon glyphicon-remove border-radius"></i>Industry is
+          required</span
+        >
+      </div> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-sm-12">
+        <div class="fnd-form-column">
+          <div class="form-group flex-column" *ngIf="isEdit === true">
+            <label>Comment</label>
+            <textarea
+              class="form-control"
+              formControlName="comment"
+              placeholder="Comment"
+            ></textarea>
+            <!-- <div
+        *ngIf="
+          partnerForm.get('comment').invalid &&
+          partnerForm.get('comment').errors &&
+          (partnerForm.get('comment').dirty ||
+            partnerForm.get('comment').touched ||
+            isSubmitted)
+        "
+      >
+        <span
+          *ngIf="partnerForm.get('comment').hasError('required')"
+          class="error"
+          ><i class="glyphicon glyphicon-remove border-radius"></i>Comment is
+          required</span
+        >
+      </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <div class="fnd-form-column">
+          <div class="form-group flex-column">
+            <label>Tags</label>
+            <div>
+              <input type="text" formControlName="tags" style="display: none" />
+              <input
+                type="text"
+                class="form-control"
+                id="tagCreator"
+                title="Enter Tag and hit Enter button"
+                placeholder="Enter Tag and hit Enter button"
+                (keydown.enter)="onTagKeydown($event)"
+              />
+              <ul class="list-group" *ngIf="tags.length > 0">
+                <li
+                  class="list-group-item"
+                  *ngFor="let tag of tags; let i = index"
+                >
+                  {{ tag }}
+                  <span
+                    class="badge badge-danger badge-pill"
+                    (click)="removeTag(i)"
+                    >X</span
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <!-- 
+            <div class="col-md-8">
+              <div
+                *ngFor="let tag of tags; let i = index"
+                class="rounded-corner"
+              >
+                {{ tag }}
+                <i
+                  class="fa fa-times-circle"
+                  style="font-size: 24px; color: red"
+                  (click)="dropTag(i)"
+                ></i>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="fnd-pref-submit-container-id" class="fnd-form-submit-container">
+    <button
+      type="submit"
+      id="status-experience-dialog-done"
+      class="btn btn-success"
+    >
+      Done
+    </button>
+  </div>
+</form>

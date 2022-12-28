@@ -20,7 +20,8 @@ export class LandingComponent implements OnInit {
 			setTimeout(() => {
 				userObject = this.authService.getItem('currentUser');
 				if (!userObject) {
-					window.location.href = 'https://welcome.findable.co';
+					//window.location.href = 'https://welcome.findable.co';
+					window.location.href = window.location.origin + "/business/login";
 					return;
 				} else {
 					this.authService.currentUser = userObject;

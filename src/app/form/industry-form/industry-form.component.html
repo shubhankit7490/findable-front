@@ -1,0 +1,18 @@
+<div class="industry-input">
+  <p-autoComplete
+    #autoCompleteIndustry
+    [(ngModel)]="searchTerm"
+    (completeMethod)="searchIndustry($event)"
+    (updateModel)="setState($event)"
+    (onSelect)="onSelectIndustry($event)"
+    (onBlur)="onFocusOut($event)"
+    [suggestions]="industries"
+    [maxlength]="150"
+    placeholder="Industry"
+    [minLength]="1"
+    [delay]="500"
+    field="name"
+  ></p-autoComplete>
+  <app-input-loader [loading]="requestingIndustry"> </app-input-loader>
+  <p class="error">{{ error }}</p>
+</div>

@@ -1,277 +1,310 @@
 <header class="container-fluid n-p-r n-p-l">
-    <div class="row full-width n-m">
-        <div class="col-md-2">
-            <app-logo-main size="medium"></app-logo-main>
-        </div>
-        <div class="col-md-7 n-p-r n-p-l">
-            <app-menu-main [role]="role"></app-menu-main>
-        </div>
-        <div class="col-md-3">
-            <div class="col-md-5">
-                <account-number></account-number>
-            </div>
-            <div class="col-md-7">
-                <app-user-main></app-user-main>
-            </div>  
-        </div>
+  <div class="row full-width n-m">
+    <div class="col-md-2">
+      <app-logo-main size="medium"></app-logo-main>
     </div>
+    <div class="col-md-7 n-p-r n-p-l">
+      <app-menu-main [role]="role"></app-menu-main>
+    </div>
+    <div class="col-md-3">
+      <div class="col-md-5">
+        <account-number></account-number>
+      </div>
+      <div class="col-md-7">
+        <app-user-main></app-user-main>
+      </div>
+    </div>
+  </div>
 </header>
 
+<!-- Start Left side search -->
+<div
+  id="div-gpt-ad-1546199654905-0"
+  style="width: 100%; margin-bottom: 30px; text-align: center"
+></div>
 
+<div class="col-md-2 search-wrap no-print">
+  <div class="search-side-component col-md-12">
+    <button
+      type="button"
+      class="refresh border-radius-5 col-md-12"
+      (click)="handleResetButton()"
+      [disabled]="loadingResults"
+    >
+      <i *ngIf="resettingSearch" class="glyphicon glyphicon-refresh"></i>
+      <span *ngIf="!resettingSearch">Reset Filters</span>
+    </button>
+  </div>
 
-    <div class="search-table-wrap">
-        <app-spinning-loader [showLoader]="loadingResults"></app-spinning-loader>
-        <p-dataTable
-            #table
-            [rows]="50"
-            [lazy]="true"
-            [pageLinks]="5"
-            [autoload]="false"
-            [rowHover]="false"
-            [totalRecords]="total"
-            paginatorPosition="bottom"
-            [expandableRows]="true"
-            selectionMode="multiple"
-            [value]="results.applicants"
-            [rowStyleClass]="getRowClass"
-            tableStyleClass="search-table"
-            (onLazyLoad)="loadData($event)"
-            (onRowClick)="onRowClick($event)"
-            [(selection)]="selectedApplicants"
-            [paginator]="!!results.hasOwnProperty('applicants') && !!results.applicants.length"
-            >
-            <p-column header="Market Place"  *ngIf="selectedid=='uploaded candidates'">
-                <template let-applicant="rowData" pTemplate="body">
-                    <div style="width:13px;height:13px;background-color:#39FBD0;border: 1px solid black; " *ngIf="applicant.market_place==1"></div>
-                    <div style="width:13px;height:13px;background-color:#fff;border: 1px solid black;" *ngIf="applicant.market_place==0"></div>
-                </template>
-            </p-column>
-            <p-column [style]="{'width': '25px'}" selectionMode="multiple"></p-column>
-            <p-column header="Account">
-                <template let-applicant="rowData" pTemplate="body">
-                    {{
-                        (applicant.firstname || applicant.lastname)
-                            ? (applicant.firstname || '') + ' ' + (applicant.lastname || '') + ' (#' + applicant.id + ')'
-                            : '#' + applicant.id
-                    }}
-                </template>
-            </p-column>
-            <p-column field="location.city_name" header="Location">
-                <template let-applicant="rowData" pTemplate="header">
-                    <span class="ui-column-title pointer"
-                        [class.active]="orderby == 'location'"
-                        (click)="onSortTypeSelected('location')">
-                        Location
-                    </span>
-                    <div class="column-header-arrows" [hidden]="orderby !== 'location'">
-                        <div class="column-header-arrow column-header-arrow-up"
-                            (click)="onOrderTypeSelected('asc')"
-                            [class.active]="(order == 'asc' && orderby == 'location')"
-                            >
-                            <i class="glyphicon glyphicon-triangle-top"></i>
-                        </div>
-                        <div class="column-header-arrow column-header-arrow-down"
-                            (click)="onOrderTypeSelected('desc')"
-                            [class.active]="(order == 'desc' && orderby == 'location')"
-                            >
-                            <i class="glyphicon glyphicon-triangle-bottom"></i>
-                        </div>
-                    </div>
-                </template>
-            </p-column>
-            <p-column field="jobtitle.name" header="Job Title">
-                <template let-applicant="rowData" pTemplate="header">
-                    <span class="ui-column-title pointer"
-                        [class.active]="orderby == 'jobtitle'"
-                        (click)="onSortTypeSelected('jobtitle')">
-                        Title
-                    </span>
-                    <div class="column-header-arrows" [hidden]="orderby !== 'jobtitle'">
-                        <div class="column-header-arrow column-header-arrow-up"
-                            [class.active]="(order == 'asc' && orderby == 'jobtitle')"
-                            (click)="onOrderTypeSelected('asc')"
-                            >
-                            <i class="glyphicon glyphicon-triangle-top"></i>
-                        </div>
-                        <div class="column-header-arrow column-header-arrow-down"
-                            [class.active]="(order == 'desc' && orderby == 'jobtitle')"
-                            (click)="onOrderTypeSelected('desc')"
-                            >
-                            <i class="glyphicon glyphicon-triangle-bottom"></i>
-                        </div>
-                    </div>
-                </template>
-            </p-column>
-            <p-column field="experience" header="Experience">
-                <template let-applicant="rowData" pTemplate="header">
-                    <span class="ui-column-title pointer" [class.active]="orderby == 'experience'" (click)="onSortTypeSelected('experience')">Experience</span>
-                    <div class="column-header-arrows" [hidden]="orderby !== 'experience'">
-                        <div class="column-header-arrow column-header-arrow-up"
-                            [class.active]="(order == 'asc' && orderby == 'experience')"
-                            (click)="onOrderTypeSelected('asc')"
-                            >
-                            <i class="glyphicon glyphicon-triangle-top"></i>
-                        </div>
-                        <div class="column-header-arrow column-header-arrow-down"
-                            [class.active]="(order == 'desc' && orderby == 'experience')"
-                            (click)="onOrderTypeSelected('desc')"
-                            >
-                            <i class="glyphicon glyphicon-triangle-bottom"></i>
-                        </div>
-                    </div>
-                </template>
-            </p-column>
-            <p-column field="seniority.name" header="Seniority">
-                <template let-applicant="rowData" pTemplate="header">
-                    <span class="ui-column-title pointer"
-                        [class.active]="orderby == 'seniority'"
-                        (click)="onSortTypeSelected('seniority')">
-                        Seniority
-                    </span>
-                    <div class="column-header-arrows" [hidden]="orderby !== 'seniority'">
-                        <div class="column-header-arrow column-header-arrow-up"
-                            [class.active]="(order == 'asc' && orderby == 'seniority')"
-                            (click)="onOrderTypeSelected('asc')"
-                            >
-                            <i class="glyphicon glyphicon-triangle-top"></i>
-                        </div>
-                        <div class="column-header-arrow column-header-arrow-down"
-                            [class.active]="(order == 'desc' && orderby == 'seniority')"
-                            (click)="onOrderTypeSelected('desc')"
-                            >
-                            <i class="glyphicon glyphicon-triangle-bottom"></i>
-                        </div>
-                    </div>
-                </template>
-            </p-column>
-            <p-column field="salary.salary" header="Salary">
-                <template let-applicant="rowData" pTemplate="header">
-                    <span class="ui-column-title pointer" [class.active]="orderby == 'salary'" (click)="onSortTypeSelected('salary')">Salary</span>
-                    <div class="column-header-arrows" [hidden]="orderby !== 'salary'">
-                        <div class="column-header-arrow column-header-arrow-up"
-                            [class.active]="(order == 'asc' && orderby == 'salary')"
-                            (click)="onOrderTypeSelected('asc')"
-                            >
-                            <i class="glyphicon glyphicon-triangle-top"></i>
-                        </div>
-                        <div class="column-header-arrow column-header-arrow-down"
-                            [class.active]="(order == 'desc' && orderby == 'salary')"
-                            (click)="onOrderTypeSelected('desc')"
-                            >
-                            <i class="glyphicon glyphicon-triangle-bottom"></i>
-                        </div>
-                    </div>
+  <form
+    autocomplete="off"
+    spellcheck="false"
+    (submit)="onSubmit($event)"
+    novalidate
+  >
+    <div class="search-side-component">
+      <h5>Job Title</h5>
 
-                    <!-- <select class="salary-filter" (change)="onSalaryPeriodSelected($event.target.value, true)">
-                        <option>Period</option>
-                        <option *ngFor="let type of salaryTypes; let i = index;" [selected]="type.id === searchModel.salary_from.salary_period" [value]="type.id">{{ type.name }}</option>
-                    </select> -->
-                </template>
-                <template let-applicant="rowData" pTemplate="body">
-                    <!--{{ (applicant.salary.salary) ? '$' : '' }} {{ formatNumber(applicant.salary.salary) }} {{ applicant.salary.salary_period | salary }}-->
-                    {{
-                        (applicant.salary.salary && applicant.salary?.salary != 0)
-                            ? '$'
-                            : ''
-                    }} {{ getApplicantSalary(applicant.salary.salary, applicant.salary.salary_period) }}
-                </template>
-            </p-column>
-            <p-column [style]="{'width':'145px'}" field="status" header="Status">
-                <template let-applicant="rowData" pTemplate="body">
-                    <div class="table-user-status">
-                        <app-status-selector
-                            userId="{{ applicant.id }}"
-                            selectedItem="{{ applicant.status }}"
-                            placeholderText="Change Status"
-                            (onStatusChanged)="update_status($event)"
-                        ></app-status-selector>
-                    </div>
-                </template>
-            </p-column>
-
-            <template let-applicant pTemplate="rowexpansion">
-                <app-applicant-search-result userId="{{ applicant.id }}" creatorid="{{applicant.creator_id}}" display_edit="{{applicant.display_edit}}"></app-applicant-search-result>
-            </template>
-
-            <p-column [style]="{'width':'18px'}" header="ShortList">
-                <template let-applicant="rowData" pTemplate="body">
-                    <span *ngIf="applicant.status=='short'"><img src="assets/images/star.png" alt="image" style="margin-left: 15px;"></span>
-                </template>
-            </p-column>
-            
-            <p-column [style]="{'width':'18px'}" header="Note">
-                <template let-applicant="rowData" pTemplate="body">
-                    <div class="table-user-status">
-                        <app-note #userNote (onBeforeOpen)="onNoteClick()" userId="{{ applicant.id }}" role="{{role}}" selectedid="{{selectedid}}" creatorid="{{applicant.creator_id}}" login_user_id="{{authService.currentUser.user_id}}"></app-note>
-                    </div>
-                </template>
-            </p-column>
-            <p-column header="Edit" [style]="{'width': '25px'}" >
-                
-                <template let-applicant="rowData" pTemplate="body">
-                    <span *ngIf="authService.currentUser.user_id==applicant.creator_id || applicant.display_edit" class="glyphicon glyphicon-edit" (click)="openprefrencesmodel(applicant.id,applicant.status)" style="padding: 40%;"></span>
-                    <span *ngIf="authService.currentUser.user_id!=applicant.creator_id && ! applicant.display_edit"  style="padding: 25%;">N/A</span>
-                </template>
-            </p-column>
-            <p-footerColumnGroup>
-                <p-row>
-                    <p-column styleClass="footer-text-column" colspan="9">
-                        <template pTemplate="footer">
-                            <div class="table-user-status">
-                                Showing:
-                                <span class="bold">{{currentResultsCount}} candidates</span> | Avg Exp:
-                                <span class="bold">{{avgExperience}} Years</span> | Avg Monthly Salary:
-                                <span class="bold">${{avgSalaryMonthly}}</span> | Avg Annual Salary:
-                                <span class="bold">${{avgSalary}}</span> | Total Salary:
-                                <span class="bold">${{totalSalary}}</span>
-                            </div>
-                        </template>
-                    </p-column>
-                </p-row>
-            </p-footerColumnGroup>
-        </p-dataTable>
+      <div class="tags-wrap component-wrap">
+        <img
+          class="input-icon case-icon"
+          src="../../../../assets/images/case.png"
+        />
+        <app-job-title
+          #jobTitleComponent
+          [tags]="selectedJobTitles"
+          [query]="jobTitleQuery"
+          (onSelected)="onJobTitleChange($event)"
+          (onRemove)="onJobTitleRemove($event)"
+          (onBlur)="onJobTitleUpdate($event)"
+        ></app-job-title>
+      </div>
     </div>
 
-    <div class="search-welcome" *ngIf="firstVisit" #welcome>
-        <div class="inner-wrap">
-            Welcome to
-            <br>
-            <img src="../../../assets/images/logo.png">
-            <br>
+    <div class="search-side-component no-bottom-margin">
+      <h5>Location</h5>
+      <!-- LOCATION -->
 
-            <button class="form-control" (click)="closeWelcomeScreen()">
-                <i class="glyphicon glyphicon-arrow-right"></i>
-                Start Contacting Applicants
-            </button>
-        </div>
+      <div class="location-wrap component-wrap">
+        <img
+          class="input-icon location-icon"
+          src="../../../../assets/images/search-location-icon.png"
+        />
+        <app-location
+          [location]="searchModel.location"
+          (onSelected)="onLocationSelected($event)"
+        ></app-location>
+      </div>
     </div>
 
+    <div class="search-side-component no-bottom-margin">
+      <h5>Company Name</h5>
+      <!-- COMPANY NAME -->
+
+      <div class="company-name-wrap component-wrap">
+        <img
+          class="input-icon location-icon"
+          src="../../../../assets/images/search-company-icon.jpg"
+        />
+        <app-company-name
+          [company]="company"
+          (onSelected)="onCompanyNameSelected($event)"
+          (onBlur)="onCompanyNameChange($event)"
+        ></app-company-name>
+      </div>
+    </div>
+
+    <div class="search-btn col-md-2">
+      <button
+        (click)="performSearch(true)"
+        class="form-control"
+        [disabled]="loadingResults"
+      >
+        <i
+          class="glyphicon glyphicon-search"
+          [ngStyle]="{ opacity: loadingResults ? 0 : 1 }"
+        ></i>
+        <app-spinning-loader
+          [showLoader]="loadingResults"
+        ></app-spinning-loader>
+        Search
+      </button>
+    </div>
+  </form>
 </div>
-<modal #preferencesModal
-    title="Status and Preferences"
-    cancelButtonLabel="cancel"
-    submitButtonLabel="submit"
-    modalClass="modal-lg modal-sm fnd-pref-modal modalCustomize"
-    [hideCloseButton]="false"
-    [closeOnEscape]="true"
-    [closeOnOutsideClick]="true"
-    (onOpen)="actionOnOpen()"
-    (onClose)="actionOnClose()"
-    (onSubmit)="actionOnSubmit()">
+<!-- Start Left side search -->
 
-    <modal-header></modal-header>
+<div class="col-md-10">
+  <button
+    type="button"
+    class="btn btn-default add-partner"
+    (click)="openPartnerModel(false)"
+  >
+    Add Partner
+  </button>
 
-    <modal-content>
-        <app-preferences-form
-            #preferencesModalForm
-            [(preferences)]="preferences$"
-            [user_id]="user_id"
-            [user_status]="user_status"
-            [prefrence]="prefrence"
-            (onSuccessfulUpdate)="closeStatusModal($event)"
-        ></app-preferences-form>
-    </modal-content>
+  <span class="total" *ngIf="total">
+    Found {{ total }} partner | Showing results {{ offset + 1 }}-{{
+      offset + currentResultsCount
+    }}
+  </span>
 
-    <modal-footer></modal-footer>
+  <div class="partner-table-wrap">
+    <app-spinning-loader [showLoader]="loadingResults"></app-spinning-loader>
+    <p-dataTable
+      #table
+      [rows]="50"
+      [lazy]="true"
+      [pageLinks]="5"
+      [autoload]="false"
+      [rowHover]="false"
+      [totalRecords]="total"
+      paginatorPosition="bottom"
+      [expandableRows]="true"
+      selectionMode="multiple"
+      [value]="results.result"
+      [rowStyleClass]="getRowClass"
+      tableStyleClass="partner-table"
+      (onLazyLoad)="loadData($event)"
+      (onRowClick)="onRowClick($event)"
+      [(selection)]="selectedPartners"
+      [paginator]="
+        !!results.hasOwnProperty('result') && !!results.total
+      "
+    >
+      <!-- <p-column [style]="{ width: '25px' }" selectionMode="multiple"></p-column> -->
+      <p-column header="Name">
+        <template let-partner="rowData" pTemplate="body">
+          {{ partner.name }}
+        </template>
+      </p-column>
 
+      <p-column header="Number">
+        <template let-partner="rowData" pTemplate="body">
+          {{ partner.mobile_numbar }}
+        </template>
+      </p-column>
+
+      <p-column header="Email">
+        <template let-partner="rowData" pTemplate="body">
+          {{ partner.email }}
+        </template>
+      </p-column>
+
+      <p-column field="city_name" header="Location">
+        <template let-partner="rowData" pTemplate="header">
+          <span
+            class="ui-column-title pointer"
+            [class.active]="orderby == 'city_name'"
+            (click)="onSortTypeSelected('city_name')"
+          >
+            Location
+          </span>
+          <div class="column-header-arrows" [hidden]="orderby !== 'city_name'">
+            <div
+              class="column-header-arrow column-header-arrow-up"
+              (click)="onOrderTypeSelected('asc')"
+              [class.active]="order == 'asc' && orderby == 'city_name'"
+            >
+              <i class="glyphicon glyphicon-triangle-top"></i>
+            </div>
+            <div
+              class="column-header-arrow column-header-arrow-down"
+              (click)="onOrderTypeSelected('desc')"
+              [class.active]="order == 'desc' && orderby == 'city_name'"
+            >
+              <i class="glyphicon glyphicon-triangle-bottom"></i>
+            </div>
+          </div>
+        </template>
+      </p-column>
+
+      <p-column header="Company">
+        <template let-partner="rowData" pTemplate="body">
+          {{ partner.company }}
+        </template>
+      </p-column>
+
+      <p-column field="job_title" header="Job Title">
+        <template let-partner="rowData" pTemplate="header">
+          <span
+            class="ui-column-title pointer"
+            [class.active]="orderby == 'job_title'"
+            (click)="onSortTypeSelected('job_title')"
+          >
+            Title
+          </span>
+          <div class="column-header-arrows" [hidden]="orderby !== 'job_title'">
+            <div
+              class="column-header-arrow column-header-arrow-up"
+              [class.active]="order == 'asc' && orderby == 'job_title'"
+              (click)="onOrderTypeSelected('asc')"
+            >
+              <i class="glyphicon glyphicon-triangle-top"></i>
+            </div>
+            <div
+              class="column-header-arrow column-header-arrow-down"
+              [class.active]="order == 'desc' && orderby == 'job_title'"
+              (click)="onOrderTypeSelected('desc')"
+            >
+              <i class="glyphicon glyphicon-triangle-bottom"></i>
+            </div>
+          </div>
+        </template>
+      </p-column>
+
+      <p-column header="Tags">
+        <template let-partner="rowData" pTemplate="body">
+          {{ partner.tags }}
+        </template>
+      </p-column>
+
+      <template let-partner pTemplate="rowexpansion">
+        <app-partner-search-result
+        [partnerDetail]="partner"
+        ></app-partner-search-result>
+      </template>
+
+      <p-column header="Edit" [style]="{ width: '25px' }">
+        <template let-partner="rowData" pTemplate="body">
+          <span
+            class="glyphicon glyphicon-edit"
+            (click)="openPartnerModel(true,partner)"
+            style="padding: 40%"
+          ></span>
+        </template>
+      </p-column>
+      <p-footerColumnGroup>
+        <p-row>
+          <p-column styleClass="footer-text-column" colspan="9">
+            <template pTemplate="footer">
+              <div class="table-user-status">
+                Showing:
+                <span class="bold">{{ currentResultsCount }} partners</span> |
+              </div>
+            </template>
+          </p-column>
+        </p-row>
+      </p-footerColumnGroup>
+    </p-dataTable>
+  </div>
+
+  <!-- <div class="search-welcome" *ngIf="firstVisit" #welcome>
+    <div class="inner-wrap">
+      Welcome to
+      <br />
+      <img src="../../../assets/images/logo.png" />
+      <br />
+
+      <button class="form-control" (click)="closeWelcomeScreen()">
+        <i class="glyphicon glyphicon-arrow-right"></i>
+        Start Contacting partners
+      </button>
+    </div>
+  </div> -->
+</div>
+<modal
+  #partnerModal
+  title="Add / Edit Partner"
+  cancelButtonLabel="cancel"
+  submitButtonLabel="submit"
+  modalClass="modal-lg modal-sm fnd-pref-modal modalCustomize"
+  [hideCloseButton]="false"
+  [closeOnEscape]="true"
+  [closeOnOutsideClick]="true"
+  (onOpen)="actionOnOpen()"
+  (onClose)="actionOnClose()"
+  (onSubmit)="actionOnSubmit()"
+>
+  <modal-header></modal-header>
+
+  <modal-content>
+    <app-partner-form
+      #partnerModalForm
+      [isEdit]="isEdit"
+      (onSuccessfulUpdate)="closeStatusModal($event)"
+    ></app-partner-form>
+  </modal-content>
+
+  <modal-footer></modal-footer>
 </modal>

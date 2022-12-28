@@ -1,0 +1,86 @@
+:host ul {
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+:host li {
+    display: flex;
+    position: relative;
+    background-color: #EBEBF6;
+    height: 40px;
+    margin: 2px 0;
+    border-radius: 20px;
+    align-items: center;
+}
+
+:host li i {
+    margin-left: auto;
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+:host li span {
+    margin-right: 8px;
+}
+
+:host div.fld-vertical-divider {
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    background-color: #F8F8FC;
+    right: 38px;
+    top: 0px;
+}
+
+:host typeahead-container.dropdown {
+    width: 280px;
+}
+
+:host typeahead-container.dropdown ul {
+    width: 100%;
+}
+
+div.tip-text {
+    font-size: 13px;
+    margin: 7px 0;
+    margin-top: 0px;
+}
+
+div.color-oval {
+    display: inline-block;
+    height: 17px;
+    width: 24px;
+    border-radius: 8px; /* half of the height */
+    margin: 0 15px;
+}
+
+/* Auto complete component style */
+:host >>> .ui-autocomplete {
+    width: 100%;
+}
+:host >>> .ui-autocomplete-input {
+    border: 1px solid #c5c8d3 !important;
+    width: 100%;
+    font-size: 15px !important;
+    padding-right: 20px;
+}
+:host >>> .ui-autocomplete-list-item {
+    font-size: 14px;
+}
+:host >>> .auto-complete-spinner {
+    position: relative;
+    z-index: 999;
+    top: -32px;
+    margin-right: 10px;
+    left: 100%;
+    margin-left: -25px;
+    width: 14px;
+    height: 14px;
+    float: left;
+}
+
+:host >>> .form-group {
+    display: block;
+    padding: 0px;
+    min-height: 105px;
+}

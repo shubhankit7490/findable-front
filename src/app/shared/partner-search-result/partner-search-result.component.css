@@ -1,0 +1,128 @@
+:host >>> .search-result-inside {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-around;
+}
+
+:host >>> span.item-label {
+  display: block;
+  color: #a1a6be;
+}
+
+:host >>> .search-result-inside h3 {
+  color: #13345f;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+:host >>> .search-result-inside {
+  position: relative;
+}
+
+:host >>> .load-page {
+  opacity: 0.9 !important;
+}
+
+:host >>> .search-result-bottom-bar {
+  background: #13345f;
+  display: flex;
+}
+
+:host >>> .search-result-bottom-bar .bar-item {
+  background: transparent;
+  color: #fff;
+  border: 0;
+  border-right: 1px solid #3e4d60;
+  position: relative;
+}
+
+:host >>> .search-result-bottom-bar .report {
+  border: 0;
+}
+
+:host >>> .search-result-bottom-bar .bar-text {
+  display: flex;
+  width: 40%;
+}
+
+:host >>> .search-result-bottom-bar .bar-text {
+  position: relative;
+  height: auto;
+  border-radius: 0;
+}
+
+:host >>> .search-result-bottom-bar .bar-text i {
+  position: absolute;
+  right: 10px;
+  top: 14px;
+}
+
+.arrow-down:focus {
+  outline: 0 !important;
+}
+
+.bar-item:focus {
+  outline: 0;
+}
+
+span.btn-wrap {
+  position: relative;
+}
+
+:host >>> .bar-item .load-page {
+  position: relative;
+  background: transparent;
+}
+
+:host >>> .bar-item .load-page i {
+  font-size: 12px;
+  position: relative !important;
+  right: auto !important;
+  top: 2px !important;
+  left: 10px;
+}
+
+:host >>> .bar-item app-spinning-loader {
+  position: relative;
+}
+
+.chart-wrap h3 {
+  background: #13345f;
+  color: #fff;
+  font-weight: normal;
+  font-size: 22px;
+  padding: 10px 0 10px 10px;
+  margin: 1px 0 0 0;
+}
+
+button.bar-item.active {
+  color: #3afbcf !important;
+  background: #102c50 !important;
+}
+
+.bar-item:disabled {
+  color: #aeaeae !important;
+  background: #2b3d54 !important;
+  height: auto;
+  border-radius: 0;
+  border: 0;
+}
+
+:host .pointer {
+  cursor: pointer;
+}
+
+/* search-result-inside-wrap     */
+
+.search-result-inside-wrap {
+  width: 100%;
+  padding: 15px;
+  position: relative;
+  box-sizing: border-box;
+}
+.text-bold{
+  font-weight: bold;
+}

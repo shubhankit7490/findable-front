@@ -1,33 +1,79 @@
 <nav class="navbar fnd-navbar-default">
-	<div class="container-fluid">
-
-		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul *ngFor="let item of _conf; let i = index" class="nav navbar-nav forline" [attr.data-index]="i">
-				<li [class.active]="item.url == _route">
-					<span *ngIf="i<'3'" class="linespan"></span>
-					<a *ngIf="item.reloaded !== true && item.outsideurl!=true && item.iscomponent!=true" routerLink="{{item.url}}" id="{{item.id}}" (click)="initTourSection($event)" class="findable-main-menu-item">
-						{{item.text}}
-						<span class="sr-only">(current)</span>
-					</a>
-                    <a *ngIf="item.reloaded === true && item.outsideurl!=true && item.iscomponent!=true" (click)="goto(item.url)" id="{{item.id}}" class="findable-main-menu-item">
-                        {{item.text}}
-                        <span class="sr-only">(current)</span>
-                    </a>
-                    <a *ngIf="item.reloaded !=true  && item.outsideurl==true && item.iscomponent!=true" href="{{item.url}}" id="{{item.id}}" target="_blank" class="findable-main-menu-item">
-                        {{item.text}}
-                        <span class="sr-only">(current)</span>
-                    </a>
-                     <button type="button" *ngIf="item.iscomponent==true" class="auto-reload-submit btn fnd-btn-primary uploadresumecomponent" (click)="goto('/business/partners')">
-					     Partners
-					 </button>
-                    <business-upload-resume class="uploadresumecomponent" *ngIf="item.iscomponent==true"></business-upload-resume>
-                    <button type="button" *ngIf="item.iscomponent==true" class="auto-reload-submit btn fnd-btn-primary uploadresumecomponent" (click)="goto('/business/projects')">
-					     Projects
-					 </button>
-				</li>
-			</ul>
-
-		</div><!-- /.navbar-collapse -->
-	</div><!-- /.container-fluid -->
+  <div class="container-fluid">
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul
+        *ngFor="let item of _conf; let i = index"
+        class="nav navbar-nav forline"
+        [attr.data-index]="i"
+      >
+        <li [class.active]="item.url == _route">
+          <span *ngIf="i < '3'" class="linespan"></span>
+          <a
+            *ngIf="
+              item.reloaded !== true &&
+              item.outsideurl != true &&
+              item.iscomponent != true
+            "
+            routerLink="{{ item.url }}"
+            id="{{ item.id }}"
+            (click)="initTourSection($event)"
+            class="findable-main-menu-item"
+          >
+            {{ item.text }}
+            <span class="sr-only">(current)</span>
+          </a>
+          <a
+            *ngIf="
+              item.reloaded === true &&
+              item.outsideurl != true &&
+              item.iscomponent != true
+            "
+            (click)="goto(item.url)"
+            id="{{ item.id }}"
+            class="findable-main-menu-item"
+          >
+            {{ item.text }}
+            <span class="sr-only">(current)</span>
+          </a>
+          <a
+            *ngIf="
+              item.reloaded != true &&
+              item.outsideurl == true &&
+              item.iscomponent != true
+            "
+            href="{{ item.url }}"
+            id="{{ item.id }}"
+            target="_blank"
+            class="findable-main-menu-item"
+          >
+            {{ item.text }}
+            <span class="sr-only">(current)</span>
+          </a>
+          <button
+            type="button"
+            *ngIf="item.iscomponent == true"
+            class="auto-reload-submit btn fnd-btn-primary uploadresumecomponent"
+            (click)="goto('/business/partners')"
+          >
+            Partners
+          </button>
+          <business-upload-resume
+            class="uploadresumecomponent"
+            *ngIf="item.iscomponent == true"
+          ></business-upload-resume>
+          <button
+            type="button"
+            *ngIf="item.iscomponent == true"
+            class="auto-reload-submit btn fnd-btn-primary uploadresumecomponent"
+            (click)="goto('/business/projects')"
+          >
+            Projects
+          </button>
+        </li>
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container-fluid -->
 </nav>

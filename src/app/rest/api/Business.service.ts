@@ -27,7 +27,7 @@ import { Http, Headers, URLSearchParams } from "@angular/http";
 import {
   RequestMethod,
   RequestOptions,
-  RequestOptionsArgs
+  RequestOptionsArgs,
 } from "@angular/http";
 import { Response, ResponseContentType } from "@angular/http";
 
@@ -37,6 +37,7 @@ import "rxjs/add/operator/map";
 import * as models from "../model/models";
 import { environment } from "environments/environment";
 import { Configuration } from "../configuration";
+import { BusinessPartnerSearchResponse } from "../model/models";
 
 /* tslint:disable:no-unused-variable member-ordering */
 
@@ -280,9 +281,9 @@ export class BusinessApi {
     fullname: string,
     company: string,
     message: string,
-    recruitingfor:string,
+    recruitingfor: string,
     businessId: number,
-    exclusive_contact:any,
+    exclusive_contact: any,
     applicants?: models.ApplicantsIds,
     extraHttpRequestParams?: any
   ): Observable<models.PurchasedSuccess> {
@@ -298,7 +299,6 @@ export class BusinessApi {
     ).map(this.handleResponse);
   }
 
-
   /**
    * Send email to applicant
    * Accessible to the recruiter / manager / admin roles only
@@ -307,14 +307,14 @@ export class BusinessApi {
    */
   public businessBusinessSendEmail(
     message: string,
-    businessId:number
+    businessId: number
   ): Observable<models.PurchasedSuccess> {
     return this.businessBusinessSendEmailPostWithHttpInfo(
       message,
       businessId
     ).map(this.handleResponse);
   }
-   /**
+  /**
    * Set auth token
    * Accessible to the recruiter / manager / admin roles only
    * @param businessId The business identifier number
@@ -323,20 +323,19 @@ export class BusinessApi {
   public businessBusinessSetAuthToken(
     code: string,
     scope: string
-  ): Observable<{ code: string;}> {
-    return this.businessBusinessSetAuthTokenPostWithHttpInfo(
-      code,
-      scope
-    ).map(this.handleResponse);
+  ): Observable<{ code: string }> {
+    return this.businessBusinessSetAuthTokenPostWithHttpInfo(code, scope).map(
+      this.handleResponse
+    );
   }
-   /**
+  /**
    * chnage uploded business candidate status
    * Accessible to the recruiter / manager / admin roles only
    * @param businessId The business identifier number
    * @param applicants
    */
   public businessBusinessChnageApplicantstatus(
-    status:string,
+    status: string,
     businessId: number,
     applicants?: models.ApplicantsIds,
     extraHttpRequestParams?: any
@@ -592,7 +591,7 @@ export class BusinessApi {
       method: RequestMethod.Post,
       headers: headers,
       body: search == null ? "" : JSON.stringify(search), // https://github.com/angular/angular/issues/10612
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -631,7 +630,7 @@ export class BusinessApi {
     let requestOptions: RequestOptionsArgs = new RequestOptions({
       method: RequestMethod.Post,
       headers: headers,
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -670,7 +669,7 @@ export class BusinessApi {
     let requestOptions: RequestOptionsArgs = new RequestOptions({
       method: RequestMethod.Get,
       headers: headers,
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -736,7 +735,7 @@ export class BusinessApi {
       method: RequestMethod.Post,
       headers: headers,
       body: formParams.toString(),
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -780,7 +779,7 @@ export class BusinessApi {
       method: RequestMethod.Put,
       headers: headers,
       body: settings == null ? "" : JSON.stringify(settings), // https://github.com/angular/angular/issues/10612
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -819,7 +818,7 @@ export class BusinessApi {
     let requestOptions: RequestOptionsArgs = new RequestOptions({
       method: RequestMethod.Get,
       headers: headers,
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -866,7 +865,7 @@ export class BusinessApi {
     let requestOptions: RequestOptionsArgs = new RequestOptions({
       method: RequestMethod.Get,
       headers: headers,
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -905,7 +904,7 @@ export class BusinessApi {
     let requestOptions: RequestOptionsArgs = new RequestOptions({
       method: RequestMethod.Get,
       headers: headers,
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -957,7 +956,7 @@ export class BusinessApi {
       method: RequestMethod.Put,
       headers: headers,
       body: token == null ? "" : JSON.stringify(token), // https://github.com/angular/angular/issues/10612
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -1007,7 +1006,7 @@ export class BusinessApi {
     let requestOptions: RequestOptionsArgs = new RequestOptions({
       method: RequestMethod.Get,
       headers: headers,
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -1024,7 +1023,7 @@ export class BusinessApi {
     const path = this.basePath + `/business/oauth2callback`;
 
     let queryParameters = new URLSearchParams();
-    let  formParams = new URLSearchParams();
+    let formParams = new URLSearchParams();
     let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
     // verify required parameter 'businessId' is not null or undefined
     if (code === null || code === undefined) {
@@ -1047,18 +1046,17 @@ export class BusinessApi {
     //headers.set("Content-Type", "application/json");
 
     let requestOptions: RequestOptionsArgs = new RequestOptions({
-       method: RequestMethod.Get,
+      method: RequestMethod.Get,
       headers: headers,
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
-    
 
     return this.http.request(path, requestOptions);
   }
   /**
-   * Send email to applicant 
+   * Send email to applicant
    * Accessible to the recruiter / manager / admin roles only
    * @param businessId The business identifier number
    * @param email
@@ -1070,7 +1068,7 @@ export class BusinessApi {
     const path = this.basePath + `/business/${businessId}/sendemail`;
 
     let queryParameters = new URLSearchParams();
-    let  formParams = new URLSearchParams();
+    let formParams = new URLSearchParams();
     let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
     // verify required parameter 'businessId' is not null or undefined
     if (message === null || message === undefined) {
@@ -1080,7 +1078,7 @@ export class BusinessApi {
     }
     headers.set("Content-Type", "application/x-www-form-urlencoded");
     if (message !== undefined) {
-      formParams.set("message",<any>message);
+      formParams.set("message", <any>message);
     }
     // authentication (X-API-KEY) required
     if (this.configuration.apiKey) {
@@ -1092,11 +1090,10 @@ export class BusinessApi {
       method: RequestMethod.Post,
       headers: headers,
       body: formParams.toString(), // https://github.com/angular/angular/issues/10612
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
-    
 
     return this.http.request(path, requestOptions);
   }
@@ -1110,16 +1107,16 @@ export class BusinessApi {
     fullname: string,
     company: string,
     message: string,
-    recruitingfor:string,
+    recruitingfor: string,
     businessId: number,
-    exclusive_contact:boolean,
+    exclusive_contact: boolean,
     applicants?: models.ApplicantsIds,
     extraHttpRequestParams?: any
   ): Observable<Response> {
     const path = this.basePath + `/business/${businessId}/purchases`;
 
     let queryParameters = new URLSearchParams();
-    let  formParams = new URLSearchParams();
+    let formParams = new URLSearchParams();
     let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
     // verify required parameter 'businessId' is not null or undefined
     if (businessId === null || businessId === undefined) {
@@ -1129,22 +1126,22 @@ export class BusinessApi {
     }
     headers.set("Content-Type", "application/x-www-form-urlencoded");
     if (fullname !== undefined) {
-      formParams.set("fullname",<any>fullname);
+      formParams.set("fullname", <any>fullname);
     }
     if (company !== undefined) {
-       formParams.set("company",<any>company);
+      formParams.set("company", <any>company);
     }
     if (message !== undefined) {
-       formParams.set("message",<any>message);
+      formParams.set("message", <any>message);
     }
     if (recruitingfor !== undefined) {
-       formParams.set("recruitingfor",<any>recruitingfor);
+      formParams.set("recruitingfor", <any>recruitingfor);
     }
     if (exclusive_contact !== undefined) {
-       formParams.set("exclusive_contact",<any>exclusive_contact);
+      formParams.set("exclusive_contact", <any>exclusive_contact);
     }
     if (applicants !== undefined) {
-       formParams.set("applicants",<any>JSON.stringify(applicants));
+      formParams.set("applicants", <any>JSON.stringify(applicants));
     }
     // authentication (X-API-KEY) required
     if (this.configuration.apiKey) {
@@ -1156,7 +1153,7 @@ export class BusinessApi {
       method: RequestMethod.Post,
       headers: headers,
       body: formParams.toString(), // https://github.com/angular/angular/issues/10612
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -1166,22 +1163,23 @@ export class BusinessApi {
 
     return this.http.request(path, requestOptions);
   }
-   /**
+  /**
    * Chnage applicant status
    * Accessible to the recruiter / manager / admin roles only
    * @param businessId The business identifier number
    * @param applicants
    */
   public businessBusinessChnageApplicantstatusPostWithHttpInfo(
-    status:string,
+    status: string,
     businessId: number,
     applicants?: models.ApplicantsIds,
     extraHttpRequestParams?: any
   ): Observable<Response> {
-    const path = this.basePath + `/business/${businessId}/updateapplicantstatus`;
+    const path =
+      this.basePath + `/business/${businessId}/updateapplicantstatus`;
 
     let queryParameters = new URLSearchParams();
-    let  formParams = new URLSearchParams();
+    let formParams = new URLSearchParams();
     let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
     // verify required parameter 'businessId' is not null or undefined
     if (businessId === null || businessId === undefined) {
@@ -1191,10 +1189,10 @@ export class BusinessApi {
     }
     headers.set("Content-Type", "application/x-www-form-urlencoded");
     if (applicants !== undefined) {
-       formParams.set("applicants",<any>JSON.stringify(applicants));
+      formParams.set("applicants", <any>JSON.stringify(applicants));
     }
     if (status !== undefined) {
-       formParams.set("status",<any>status);
+      formParams.set("status", <any>status);
     }
     // authentication (X-API-KEY) required
     if (this.configuration.apiKey) {
@@ -1206,7 +1204,7 @@ export class BusinessApi {
       method: RequestMethod.Post,
       headers: headers,
       body: formParams.toString(), // https://github.com/angular/angular/issues/10612
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -1249,7 +1247,7 @@ export class BusinessApi {
       method: RequestMethod.Put,
       headers: headers,
       body: business == null ? "" : JSON.stringify(business), // https://github.com/angular/angular/issues/10612
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -1288,7 +1286,7 @@ export class BusinessApi {
     let requestOptions: RequestOptionsArgs = new RequestOptions({
       method: RequestMethod.Get,
       headers: headers,
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -1335,7 +1333,7 @@ export class BusinessApi {
     let requestOptions: RequestOptionsArgs = new RequestOptions({
       method: RequestMethod.Delete,
       headers: headers,
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -1388,7 +1386,7 @@ export class BusinessApi {
       headers: headers,
       body:
         purchasePermission == null ? "" : JSON.stringify(purchasePermission), // https://github.com/angular/angular/issues/10612
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -1432,7 +1430,7 @@ export class BusinessApi {
       method: RequestMethod.Post,
       headers: headers,
       body: recruiter == null ? "" : JSON.stringify(recruiter), // https://github.com/angular/angular/issues/10612
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -1479,7 +1477,7 @@ export class BusinessApi {
     let requestOptions: RequestOptionsArgs = new RequestOptions({
       method: RequestMethod.Get,
       headers: headers,
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -1528,7 +1526,7 @@ export class BusinessApi {
     let requestOptions: RequestOptionsArgs = new RequestOptions({
       method: RequestMethod.Get,
       headers: headers,
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -1580,7 +1578,7 @@ export class BusinessApi {
       method: RequestMethod.Put,
       headers: headers,
       body: status == null ? "" : JSON.stringify(status), // https://github.com/angular/angular/issues/10612
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -1619,7 +1617,7 @@ export class BusinessApi {
     let requestOptions: RequestOptionsArgs = new RequestOptions({
       method: RequestMethod.Get,
       headers: headers,
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -1660,7 +1658,7 @@ export class BusinessApi {
       method: RequestMethod.Post,
       headers: headers,
       body: formParams.toString(),
-      search: queryParameters
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037
@@ -1696,7 +1694,133 @@ export class BusinessApi {
       method: RequestMethod.Post,
       headers: headers,
       body: business == null ? "" : JSON.stringify(business), // https://github.com/angular/angular/issues/10612
-      search: queryParameters
+      search: queryParameters,
+    });
+
+    // https://github.com/swagger-api/swagger-codegen/issues/4037
+    if (extraHttpRequestParams) {
+      requestOptions = this.extendObj(requestOptions, extraHttpRequestParams);
+    }
+
+    return this.http.request(path, requestOptions);
+  }
+
+  /**
+   * Get the Partners created in business
+   * @param userId The ID of the logged in user
+   * @returns List of partners
+   */
+  getPartners(
+    userId: number,
+    offset: number,
+    orderby?: string,
+    order?: string,
+    search?: models.BusinessPartner
+  ): Observable<BusinessPartnerSearchResponse> {
+    const path = this.basePath + `/business/` + userId + `/partner`;
+
+    let queryParameters = new URLSearchParams();
+    let headers = new Headers(this.defaultHeaders.toJSON());
+
+    if (offset) {
+      queryParameters.set("offset", <any>offset);
+    }
+    if (orderby) {
+      queryParameters.set("orderby", <any>orderby);
+    }
+    if (order) {
+      queryParameters.set("order", <any>order);
+    }
+    if (search.company_id) {
+      queryParameters.set("company", <any>search.company_id.name);
+    }
+    if (search.location && search.location.city_id) {
+      queryParameters.set("city_id", <any>search.location.city_id);
+    }
+    if (search.jobTitles && search.jobTitles.length > 0) {
+      let jobTitles = "";
+      search.jobTitles.forEach((x) => (jobTitles = jobTitles + "," + x.name));
+      jobTitles = jobTitles.substring(1);
+      queryParameters.set("job_title", <any>jobTitles);
+    }
+
+    // authentication (X-API-KEY) required
+    if (this.configuration.apiKey) {
+      headers.set("X-API-KEY", this.configuration.apiKey);
+    }
+
+    let requestOptions: RequestOptionsArgs = new RequestOptions({
+      method: RequestMethod.Get,
+      headers: headers,
+      body: search == null ? "" : JSON.stringify(search),
+      search: queryParameters,
+    });
+
+    return this.http.request(path, requestOptions).map(this.handleResponse);
+  }
+
+  /**
+   * Create a new business partner
+   * @param business The business details
+   */
+  public businessPartnerPostWithHttpInfo(
+    userId: number,
+    businessPartner?: models.BusinessPartnerRequest,
+    extraHttpRequestParams?: any
+  ): Observable<Response> {
+    const path = this.basePath + `/business/` + userId + `/partner`;
+
+    let queryParameters = new URLSearchParams();
+    let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+
+    // authentication (X-API-KEY) required
+    if (this.configuration.apiKey) {
+      headers.set("X-API-KEY", this.configuration.apiKey);
+    }
+
+    headers.set("Content-Type", "application/json");
+
+    let requestOptions: RequestOptionsArgs = new RequestOptions({
+      method: RequestMethod.Post,
+      headers: headers,
+      body: businessPartner == null ? "" : JSON.stringify(businessPartner), // https://github.com/angular/angular/issues/10612
+      search: queryParameters,
+    });
+
+    // https://github.com/swagger-api/swagger-codegen/issues/4037
+    if (extraHttpRequestParams) {
+      requestOptions = this.extendObj(requestOptions, extraHttpRequestParams);
+    }
+
+    return this.http.request(path, requestOptions);
+  }
+
+  /**
+   * Update a existing business partner
+   * @param business The business details
+   */
+  public businessPartnerPutWithHttpInfo(
+    partnerId: number,
+    businessPartner?: models.BusinessPartnerUpdateRequest,
+    extraHttpRequestParams?: any
+  ): Observable<Response> {
+    const path = this.basePath + `/business/` + partnerId + `/partner`;
+
+    let queryParameters = new URLSearchParams();
+    let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+
+    // authentication (X-API-KEY) required
+    if (this.configuration.apiKey) {
+      headers.set("X-API-KEY", this.configuration.apiKey);
+    }
+
+    headers.set("Content-Type", "application/json");
+
+    let requestOptions: RequestOptionsArgs = new RequestOptions({
+      method: RequestMethod.Put,
+      headers: headers,
+      body: businessPartner == null ? "" : JSON.stringify(businessPartner), // https://github.com/angular/angular/issues/10612
+      search: queryParameters,
     });
 
     // https://github.com/swagger-api/swagger-codegen/issues/4037

@@ -49,6 +49,12 @@ import { ExperienceModalComponent } from '../../form/experience-modal/experience
 import { FocusAndExpertiseComponent } from '../../form/experience-modal/focus-and-expertise/focus-and-expertise.component';
 import { MessageService } from '../../services/message.service';
 import { CKEditorModule } from 'ng2-ckeditor';
+import { PartnerFormComponent } from 'app/form/partner-form/partner-form.component';
+import { LocationComponent } from '../location/location.component';
+import { CompanyFormComponent } from 'app/form/company-form/company-form.component';
+import { LocationFormComponent } from 'app/form/location-form/location-form.component';
+import { IndustryFormComponent } from 'app/form/industry-form/industry-form.component';
+
 @NgModule({
 	imports: [
 		RouterModule,
@@ -102,6 +108,9 @@ import { CKEditorModule } from 'ng2-ckeditor';
 		ContactApplicantComponent,
 		ConfirmEmailComponent,
 		SubscriptionComponent,
+		CompanyFormComponent,
+		LocationFormComponent,
+		IndustryFormComponent
 	],
 	exports: [
 		CommonModule,
@@ -131,7 +140,10 @@ import { CKEditorModule } from 'ng2-ckeditor';
 		SortGridPipe,
 		ConfirmEmailComponent,
 		ContactApplicantComponent,
-		SubscriptionComponent
+		SubscriptionComponent,
+		CompanyFormComponent,
+		LocationFormComponent,
+		IndustryFormComponent
 	],
 	providers: [
 		MessageService
